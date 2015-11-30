@@ -1,0 +1,29 @@
+Git e GitHub
+
+Clique com o boão direito no Projeto para ver a opção Team
+Na opção Team você verá tudo o que é necessário para trabalhar com Git:
+
+
+Quando você criar um arquivo novo no projeto, vai aparecer o símbolo "?" ao lado dele.
+Você deve adicionar no repositório, na opção Team, clique em "Add" 
+
+Commit
+
+Depois que você fizer qualquer alteração no projeto,
+vai aparecer o símbolo ">" no arquivo ou pastinha que você modificou.
+
+Na opção Team, clique em "Commit" para incluir as alterações no repositório;
+Abrirá uma janela para selecionar os arquivos que você deseja fazer o commit;
+Antes de confirmar o commit é necessário colocar o comentário sobre o commit que está realizando
+Depois de fazer o comentário e selecionar os arquivos, clique em Commit 
+
+
+
+Push
+Stashes
+
+
+Referências:
+http://eclipsesource.com/blogs/tutorials/egit-tutorial/
+https://wiki.eclipse.org/EGit/User_Guide
+
