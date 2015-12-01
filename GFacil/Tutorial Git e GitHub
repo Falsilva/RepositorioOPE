@@ -1,26 +1,62 @@
 Git e GitHub
 
-Clique com o boão direito no Projeto para ver a opção Team
-Na opção Team você verá tudo o que é necessário para trabalhar com Git:
+Importando um projeto remoto:
 
+Primeiro deverá fazer um "clone" do repositório.
+No Eclipse, vá em File > Import > Git > Projects from Git e clique em Next.
+Selecione "Clone URI" e clique em Next.
+Informe a URI do repositório remoto, que ele completa os dados de Host e Local Path automaticamente
+Complete as outras informações necessárias tipo User e Password
+Selecione a branche e clique em Clone
+Selecione um diretório local para salvar o repositório
 
-Quando você criar um arquivo novo no projeto, vai aparecer o símbolo "?" ao lado dele.
-Você deve adicionar no repositório, na opção Team, clique em "Add" 
+---------------------------------------------------------------------------------------------------
+
+Símbolos que aparecem em um projeto do eclipse conectado ao Git:
+
+Símbolo "?" - quando cria um novo arquivo no projeto, significando que não foi adicionado no repositório
+Símbolo "+" - quando é dado um Add para arquivos com "?", significando que adicionou no repositório, mas não fez o commit
+Símbolo "*" - os diretórios, ficam com esse símbolo, depois que é dado um Add nos arquivos com "?",
+			  significando que estão em "staged", prontos para o commit
+Símbolo ">" - quando faz alguma alteração no projeto e não fez o commit
+Símbolo "repositório" - é o ícone do repositório, significando que não há nenhuma alteração
+
+---------------------------------------------------------------------------------------------------
+
+Trabalhando com o Git no Eclipse:
+
+Clique com o botão direito no Projeto e vá na opção Team,
+você verá tudo o que é necessário para trabalhar com o Git:
 
 Commit
-
-Depois que você fizer qualquer alteração no projeto,
-vai aparecer o símbolo ">" no arquivo ou pastinha que você modificou.
 
 Na opção Team, clique em "Commit" para incluir as alterações no repositório;
 Abrirá uma janela para selecionar os arquivos que você deseja fazer o commit;
 Antes de confirmar o commit é necessário colocar o comentário sobre o commit que está realizando
-Depois de fazer o comentário e selecionar os arquivos, clique em Commit 
+Depois de fazer o comentário e selecionar os arquivos, clique em Commit.
+
+Merge (Pesquisar o que faz)
+Resolvendo conflitos (Pesquisar o que faz)
+Fetch and Pull (Pesquisar o que faz)
+Push (Pesquisar o que faz)
+Synchronize (Pesquisar o que faz)
 
 
+Ícones:
 
-Push
-Stashes
+ignored
+untracked "?"
+tracked "repositório"
+added "+"
+removed "x"
+dirty ">"
+staged "*"
+partially-staged "* >"
+conflicted "<->"
+assume-valid "ckecked"
+
+
+Index (Pesquisar o que faz)
 
 
 Referências:

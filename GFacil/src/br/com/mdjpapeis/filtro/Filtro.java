@@ -41,15 +41,15 @@ public class Filtro implements Filter {
 		RequestDispatcher dispatcher = null;
 		
 		// Caso a REQUISIÇÃO (gerada pelas páginas com o "link" para a página de estilos) seja DIFERENTE da página de estilos
-		if(!req.getRequestURI().equals("/GFacil/resources/css/estilos.css")){			
+		if(!req.getRequestURI().equals("/GFacil/resources/css/estilos.css") & !req.getRequestURI().equals("/GFacil/resources/pure-release-0.6.0/pure-min.css")){			
 		
 			// Caso exista USUÁRIO LOGADO
 			if (usuario != null) {
 				
-				System.out.println("Filtro, USUARIO NOME........: " + usuario.getNome());
-				System.out.println("Filtro, USUARIO PERFIL......: " + usuario.getPerfil().getPerfil());
-				System.out.println("Filtro, ACTION..............: " + req.getParameter("action"));
-				System.out.println("Filtro, TAREFA..............: " + req.getParameter("tarefa"));
+				System.out.println("Filtro, USUARIO NOME.............: " + usuario.getNome());
+				System.out.println("Filtro, USUARIO PERFIL...........: " + usuario.getPerfil().getPerfil());
+				System.out.println("Filtro, ACTION...................: " + req.getParameter("action"));
+				System.out.println("Filtro, TAREFA...................: " + req.getParameter("tarefa"));
 				
 				// Caso a requisição de algum usuário LOGADO seja para a tela de login (index.jsp), então a requisição redirecionada para outra tela
 				if(req.getRequestURI().equals("/GFacil/") || req.getRequestURI().equals("/GFacil/index.jsp") || (req.getRequestURI().equals("/GFacil/controller") & (req.getParameter("action").equals("index") || req.getParameter("action").equals("login")))){
@@ -62,8 +62,8 @@ public class Filtro implements Filter {
 							// Recebe o destino do redirecionamento da requisição
 							dispatcher = req.getRequestDispatcher("controller?action=administracao");
 							
-							System.out.println("Filtro REDIRECIONAMENTO, URI: " + req.getRequestURI());
-							System.out.println("Filtro, ACTION..............: " + req.getParameter("action"));
+							System.out.println("Filtro REDIRECIONAMENTO, URI.....: " + req.getRequestURI());
+							System.out.println("Filtro, ACTION...................: " + req.getParameter("action"));
 							
 							// Reencaminha a requisição
 							dispatcher.forward(req, resp);
@@ -75,8 +75,8 @@ public class Filtro implements Filter {
 							// Recebe o destino do redirecionamento da requisição
 							dispatcher = req.getRequestDispatcher("controller?action=listarFornecedores");
 							
-							System.out.println("Filtro REDIRECIONAMENTO, URI: " + req.getRequestURI());
-							System.out.println("Filtro, ACTION..............: " + req.getParameter("action"));
+							System.out.println("Filtro REDIRECIONAMENTO, URI.....: " + req.getRequestURI());
+							System.out.println("Filtro, ACTION...................: " + req.getParameter("action"));
 							
 							// Reencaminha a requisição
 							dispatcher.forward(req, resp);
@@ -88,8 +88,8 @@ public class Filtro implements Filter {
 							// Recebe o destino do redirecionamento da requisição
 							dispatcher = req.getRequestDispatcher("controller?action=listarClientes");
 							
-							System.out.println("Filtro REDIRECIONAMENTO, URI: " + req.getRequestURI());
-							System.out.println("Filtro, ACTION..............: " + req.getParameter("action"));
+							System.out.println("Filtro REDIRECIONAMENTO, URI.....: " + req.getRequestURI());
+							System.out.println("Filtro, ACTION...................: " + req.getParameter("action"));
 							
 							// Reencaminha a requisição
 							dispatcher.forward(req, resp);
@@ -116,8 +116,8 @@ public class Filtro implements Filter {
 						// Recebe o destino do redirecionamento da requisição
 						dispatcher = req.getRequestDispatcher("index.jsp");
 						
-						System.out.println("Filtro REDIRECIONAMENTO, URI: " + req.getRequestURI());
-						System.out.println("Filtro, ACTION..............: " + req.getParameter("action"));
+						System.out.println("Filtro REDIRECIONAMENTO, URI.....: " + req.getRequestURI());
+						System.out.println("Filtro, ACTION...................: " + req.getParameter("action"));
 						
 						// Reencaminha a requisição
 						dispatcher.forward(req, resp);
