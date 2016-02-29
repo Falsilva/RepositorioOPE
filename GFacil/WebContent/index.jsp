@@ -74,8 +74,7 @@
 				</fieldset>
 								
 				<input class="pure-button pure-button-primary" type="submit" value="Entrar" />
-			</form>
-			
+			</form>			
 			
 			<div class="pure-u-6-24"></div>
 		

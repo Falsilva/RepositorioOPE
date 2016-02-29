@@ -41,8 +41,8 @@ public class Filtro implements Filter {
 		RequestDispatcher dispatcher = null;
 		
 		// Caso a REQUISIÇÃO (gerada pelas páginas com o "link" para a página de estilos) seja DIFERENTE da página de estilos
-		if(!req.getRequestURI().equals("/GFacil/resources/css/estilos.css") & !req.getRequestURI().equals("/GFacil/resources/pure-release-0.6.0/pure-min.css")){			
-		
+		//if(!req.getRequestURI().equals("/GFacil/resources/css/estilos.css") & !req.getRequestURI().equals("/GFacil/resources/pure-release-0.6.0/pure-min.css") & !req.getRequestURI().equals("/GFacil/resources/js/buscaCEP.js") & !req.getRequestURI().equals("/GFacil/resources/js/jquery.js") & !req.getRequestURI().equals("http://apps.widenet.com.br/busca-cep/api/cep.json")){			
+		if(!req.getRequestURI().equals("/GFacil/resources/pure-release-0.6.0/pure-min.css") & !req.getRequestURI().equals("/GFacil/resources/js/buscaCEP.js") & !req.getRequestURI().equals("/GFacil/resources/js/jquery.js") & !req.getRequestURI().equals("http://apps.widenet.com.br/busca-cep/api/cep.json")){
 			// Caso exista USUÁRIO LOGADO
 			if (usuario != null) {
 				
@@ -116,8 +116,7 @@ public class Filtro implements Filter {
 						// Recebe o destino do redirecionamento da requisição
 						dispatcher = req.getRequestDispatcher("index.jsp");
 						
-						System.out.println("Filtro REDIRECIONAMENTO, URI.....: " + req.getRequestURI());
-						System.out.println("Filtro, ACTION...................: " + req.getParameter("action"));
+						System.out.println("Filtro REDIRECIONAMENTO, URI.....: " + req.getRequestURI());						
 						
 						// Reencaminha a requisição
 						dispatcher.forward(req, resp);

@@ -22,6 +22,9 @@ public class Controller extends HttpServlet{
 		String action = (String) req.getParameter("action");
 		RequestDispatcher dispatcher = null;
 				
+		System.out.println("Controller, INICIO, URI: " + req.getRequestURI());
+		System.out.println("Controller, INICIO, ACTION: " + action);		
+		
 		switch(action){
 			case "index":
 				dispatcher = req.getRequestDispatcher("index.jsp");
@@ -97,11 +100,14 @@ public class Controller extends HttpServlet{
 				break;
 			case "excluirUsuario":
 				dispatcher = req.getRequestDispatcher("excluirUsuario");
-				break;
+				break;			
 			default:
 				dispatcher = req.getRequestDispatcher("WEB-INF/paginas/error.jsp");
 				break;
 		}
+		
+		System.out.println("Controller, FIM, URI: " + req.getRequestURI());
+		System.out.println("Controller, FIM, ACTION: " + action);
 		
 		dispatcher.forward(req, resp);
 	}
