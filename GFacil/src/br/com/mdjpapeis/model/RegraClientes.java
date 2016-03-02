@@ -1,7 +1,6 @@
 package br.com.mdjpapeis.model;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.PersistenceException;
@@ -31,16 +30,8 @@ public class RegraClientes extends HttpServlet {
 		String contato = null;	// Campo obrigatório, não pode ser nulo no banco de dados
 		String telefone = null;
 		String email = null;
-		String cep = null;
-		String logradouro = null;
-		String numero = null;
-		String complemento = null;
-		String bairro = null;
-		String cidade = null;
-		String estado = null;		
 		String endereco = null;
 		String cnpj = null;
-		String inscEstadual = null;
 		
 		Cliente cliente = new Cliente();
 		Cliente cli = null;
@@ -172,31 +163,9 @@ public class RegraClientes extends HttpServlet {
 				empresa = req.getParameter("empresa");
 				contato = req.getParameter("contato");				
 				telefone = req.getParameter("telefone");
-				email = req.getParameter("email");				
+				email = req.getParameter("email");
+				endereco = req.getParameter("endereco");
 				cnpj = req.getParameter("cnpj");
-				inscEstadual = req.getParameter("inscEstadual");
-				
-				String[] parametrosEndereco = {						
-						req.getParameter("logradouro"),
-						req.getParameter("numero"),
-						req.getParameter("complemento"),
-						req.getParameter("bairro"),
-						req.getParameter("cidade"),
-						req.getParameter("estado"),
-						req.getParameter("cep")
-				};				
-				
-				String parametroEndereco = null;
-				for(int i = 0; i < parametrosEndereco.length; i++){
-					if(parametrosEndereco[i] == null){
-						endereco += "nulo";
-					}else{
-						if(i == parametrosEndereco.length - 1){
-							endereco += parametrosEndereco[i];
-						}
-						endereco += parametrosEndereco[i] + "+++espaco+++";
-					}
-				}
 				
 				parametros = new String[][]{{"empresa", empresa},{"contato", contato}, {"telefone", telefone}, {"email", email}, {"endereco", endereco}, {"cnpj", cnpj}};
 				
@@ -228,9 +197,6 @@ public class RegraClientes extends HttpServlet {
 							cli.setEndereco(parametros[i][1]);
 							break;
 						case "cnpj":
-							cli.setCnpj(parametros[i][1]);
-							break;
-						case "inscEstadual":
 							cli.setCnpj(parametros[i][1]);
 							break;
 					}

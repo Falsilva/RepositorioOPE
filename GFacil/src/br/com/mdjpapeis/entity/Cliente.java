@@ -36,9 +36,6 @@ public class Cliente {
 	@Column(name = "CNPJ", unique = true, nullable = true)
 	private String cnpj;
 	
-	@Column(name = "INSC_ESTADUAL", unique = true, nullable = true)
-	private String inscEstadual;
-	
 	public Cliente(){
 		
 	}
@@ -103,13 +100,5 @@ public class Cliente {
 
 	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
-	}
-	
-	public String getInscEstadual(){
-		return inscEstadual;
-	}
-	
-	public void setInscEstadual(String inscEstadual){
-		this.inscEstadual = inscEstadual;
 	}
 }

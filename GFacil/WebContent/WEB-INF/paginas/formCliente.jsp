@@ -89,7 +89,7 @@
 											</div>
 											
 											<div class="pure-control-group">
-											<label for="endereco">Logradouro:</label>
+											<label for="endereco">Endereço:</label>
 											<input type="text" name="endereco" id="endereco" placeholder="Rua/Avenida" />
 											</div>
 											
@@ -121,11 +121,6 @@
 											<div class="pure-control-group">
 											<label for="cnpj">CNPJ:</label>
 											<input type="text" name="cnpj" id="cnpj" placeholder="00.000.000/0001-00" />
-											</div>
-											
-											<div class="pure-control-group">
-											<label for="inscEstadual">Insc. Estadual:</label>
-											<input type="text" name="inscEstadual" id="inscEstadual" placeholder="Insc. Estadual" />
 											</div>
 											
 											<div class="pure-controls">
@@ -166,9 +161,6 @@
 											
 											<label for="cnpj">CNPJ:</label>
 											<input type="text" name="cnpj" id="cnpj" value="${cli.cnpj}" />
-											
-											<label for="inscEstadual">Insc. Estadual:</label>
-											<input type="text" name="inscEstadual" id="inscEstadual" value="${cli.inscEstadual}" />
 											
 											<input class="btnRight" type="submit" value="Cadastrar" />
 										</fieldset>									
@@ -236,9 +228,6 @@
 											
 											<label for="cnpj">CNPJ:</label>
 											<input type="text" name="cnpj" id="cnpj" value="${cli.cnpj}" />
-											
-											<label for="inscEstadual">Insc. Estadual:</label>
-											<input type="text" name="inscEstadual" id="inscEstadual" value="${cli.inscEstadual}" />
 											
 											<input class="btnRight" type="submit" value="Atualizar" />
 										</fieldset>															
@@ -309,9 +298,6 @@
 											
 											<label for="cnpj">CNPJ:</label>
 											<input type="text" name="cnpj" id="cnpj" value="${cli.cnpj}" disabled />
-											
-											<label for="inscEstadual">Insc. Estadual:</label>
-											<input type="text" name="inscEstadual" id="inscEstadual" value="${cli.inscEstadual}" />
 											
 										</fieldset>
 										
