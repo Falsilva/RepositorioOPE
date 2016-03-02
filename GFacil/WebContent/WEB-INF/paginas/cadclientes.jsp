@@ -63,6 +63,7 @@
 					<div class="col-1-title">EMAIL</div>
 					<div class="col-2-title">ENDEREÇO</div>
 					<div class="col-1-title">CNPJ</div>
+					<div class="col-1-title">INSC. ESTADUAL</div>
 				</div>
 
 				<c:forEach var="cliente" items="${clientes}">
@@ -74,6 +75,7 @@
 						<div class="col-1">${cliente.email}</div>
 						<div class="col-2">${cliente.endereco}</div>
 						<div class="col-1">${cliente.cnpj}</div>
+						<div class="col-1">${cliente.inscEstadual}</div>
 					</div>
 				</c:forEach>
 			</c:when>
