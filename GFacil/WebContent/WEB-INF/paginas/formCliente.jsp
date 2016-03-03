@@ -341,25 +341,25 @@
 											<input type="text" name="email" id="email" value="${cli.email}" disabled />
 											
 											<label for="cep">CEP:</label>
-											<input type="text" name="cep" id="cep" value="${cli.cep}" disabled />
+											<input type="text" name="cep" id="cep" value="${cliEndereco[6]}" disabled />
 											
 											<label for="endereco">Endereço:</label>
-											<input type="text" name="endereco" id="endereco" value="${cli.endereco}" disabled />
+											<input type="text" name="endereco" id="endereco" value="${cliEndereco[0]}" disabled />
 											
 											<label for="numero">Número:</label>
-											<input type="text" name="numero" id="numero" value="${cli.numero}" disabled />
+											<input type="text" name="numero" id="numero" value="${cliEndereco[1]}" disabled />
 											
 											<label for="complemento">Complemento:</label>
-											<input type="text" name="complemento" id="complemento" value="${cli.complemento}" disabled />
+											<input type="text" name="complemento" id="complemento" value="${cliEndereco[2]}" disabled />
 											
 											<label for="bairro">Bairro:</label>
-											<input type="text" name="bairro" id="bairro" value="${cli.bairro}" disabled />
+											<input type="text" name="bairro" id="bairro" value="${cliEndereco[3]}" disabled />
 											
 											<label for="cidade">Cidade:</label>
-											<input type="text" name="cidade" id="cidade" value="${cli.cidade}" disabled />
+											<input type="text" name="cidade" id="cidade" value="${cliEndereco[4]}" disabled />
 											
 											<label for="estado">Estado:</label>
-											<input type="text" name="estado" id="estado" value="${cli.estado}" disabled />
+											<input type="text" name="estado" id="estado" value="${cliEndereco[5]}" disabled />
 											
 											<label for="cnpj">CNPJ:</label>
 											<input type="text" name="cnpj" id="cnpj" value="${cli.cnpj}" disabled />

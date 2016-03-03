@@ -149,10 +149,7 @@ public class RegraClientes extends HttpServlet {
 						
 						if(cli != null){
 							
-							endereco = cli.getEndereco();
-							endereco.replace("+nulo+", " ");
-							endereco.replace("+espaco+", " ");
-							cli.setEndereco(endereco);
+							formataEnderecoParaFormulario(cli, req);
 							
 							req.setAttribute("cli", cli);							
 						}else{
