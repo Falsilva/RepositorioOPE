@@ -60,16 +60,7 @@ public class RegraClientes extends HttpServlet {
 				
 				if(clientes != null){
 					
-					for(Cliente cliEndereco : clientes){
-						int i = clientes.indexOf(cliEndereco);
-						cliEndereco = clientes.get(i);						
-						endereco = cliEndereco.getEndereco();						
-						String endPalavraNulo = endereco.replace("+nulo+", " ");
-						String enderecoPalavraEspaco = endPalavraNulo.replace("+espaco+", ", ");
-						String enderecoFinal = enderecoPalavraEspaco.replace(", , ", ", ");
-						cliEndereco.setEndereco(enderecoFinal);
-						clientes.set(i, cliEndereco);
-					}
+					formataEnderecoParaExibicao(clientes);
 					
 					req.setAttribute("clientes", clientes);
 				}else{
@@ -136,10 +127,7 @@ public class RegraClientes extends HttpServlet {
 						
 						if(cli != null){
 							
-							endereco = cli.getEndereco();
-							endereco.replace("+nulo+", " ");
-							endereco.replace("+espaco+", " ");
-							cli.setEndereco(endereco);
+							formataEnderecoParaFormulario(cli, req);
 							
 							req.setAttribute("cli", cli);							
 						}else{
@@ -178,16 +166,7 @@ public class RegraClientes extends HttpServlet {
 						
 						if(clientes != null){
 							
-							for(Cliente cliEndereco : clientes){
-								int i = clientes.indexOf(cliEndereco);
-								cliEndereco = clientes.get(i);						
-								endereco = cliEndereco.getEndereco();						
-								String endPalavraNulo = endereco.replace("+nulo+", " ");
-								String enderecoPalavraEspaco = endPalavraNulo.replace("+espaco+", ", ");
-								String enderecoFinal = enderecoPalavraEspaco.replace(", , ", ", ");
-								cliEndereco.setEndereco(enderecoFinal);
-								clientes.set(i, cliEndereco);
-							}
+							formataEnderecoParaExibicao(clientes);
 							
 							req.setAttribute("clientes", clientes);													
 						}else{
@@ -220,27 +199,8 @@ public class RegraClientes extends HttpServlet {
 				estado = req.getParameter("estado");
 				cep = req.getParameter("cep");
 				
-				paramEndereco[0] = logradouro;
-				paramEndereco[1] = numero;
-				paramEndereco[2] = complemento;
-				paramEndereco[3] = bairro;
-				paramEndereco[4] = cidade;
-				paramEndereco[5] = estado;
-				paramEndereco[6] = cep;
-				
-				
-				for(int i = 0; i < paramEndereco.length; i++){
-					if(paramEndereco[i] == null){
-						endereco += "+nulo+";
-					}else{
-						if(i != (paramEndereco.length - 1)){							
-							endereco += paramEndereco[i] + "+espaco+";					
-						}else{
-							endereco += paramEndereco[i];
-						}
-					}
-					System.out.println("Parâmetros do Endereço: " + paramEndereco[i]);
-				}
+				endereco = formataEnderecoParaBancoDeDados(endereco, cep, logradouro, numero, complemento, bairro, cidade,
+					estado, paramEndereco);
 				
 				cnpj = req.getParameter("cnpj");
 				inscEstadual = req.getParameter("inscEstadual");
@@ -329,10 +289,22 @@ public class RegraClientes extends HttpServlet {
 				contato = req.getParameter("contato");
 				telefone = req.getParameter("telefone");
 				email = req.getParameter("email");
-				endereco = req.getParameter("endereco");
-				cnpj = req.getParameter("cnpj");
 				
-				parametros = new String[][]{{"empresa", empresa},{"contato", contato}, {"telefone", telefone}, {"email", email}, {"endereco", endereco}, {"cnpj", cnpj}};
+				logradouro = req.getParameter("endereco");
+				numero = req.getParameter("numero");
+				complemento = req.getParameter("complemento");
+				bairro = req.getParameter("bairro");
+				cidade = req.getParameter("cidade");
+				estado = req.getParameter("estado");
+				cep = req.getParameter("cep");
+				
+				endereco = formataEnderecoParaBancoDeDados(endereco, cep, logradouro, numero, complemento, bairro, cidade,
+					estado, paramEndereco);
+				
+				cnpj = req.getParameter("cnpj");
+				inscEstadual = req.getParameter("inscEstadual");
+				
+				parametros = new String[][]{{"empresa", empresa},{"contato", contato}, {"telefone", telefone}, {"email", email}, {"endereco", endereco}, {"cnpj", cnpj}, {"inscEstadual", inscEstadual}};
 								
 				cli = new Cliente();
 				cli.setCodigo(codigo);
@@ -364,6 +336,9 @@ public class RegraClientes extends HttpServlet {
 							break;
 						case "cnpj":
 							cli.setCnpj(parametros[i][1]);
+							break;
+						case "inscEstadual":
+							cli.setInscEstadual(parametros[i][1]);
 							break;
 					}
 				}				
@@ -459,6 +434,74 @@ public class RegraClientes extends HttpServlet {
 		// Reencaminha a requisição
 		dispatcher.forward(req, resp);
 		
+	}
+
+	// Método que formata o endereço recebido para ser armazenado no banco de dados
+	private String formataEnderecoParaBancoDeDados(String endereco, String cep, String logradouro, String numero,
+			String complemento, String bairro, String cidade, String estado, String[] paramEndereco) {
+		paramEndereco[0] = logradouro;
+		paramEndereco[1] = numero;
+		paramEndereco[2] = complemento;
+		paramEndereco[3] = bairro;
+		paramEndereco[4] = cidade;
+		paramEndereco[5] = estado;
+		paramEndereco[6] = cep;
+		
+		// Montando o endereço para ser armazenado no Banco de Dados
+		// Percorre os parâmetros do endereço e verifica se foi preenchido
+		for(int i = 0; i < paramEndereco.length; i++){
+			
+			// Caso o parâmetro não foi preenchido, inclui a palavra "nulo;"
+			if(paramEndereco[i] == null){
+				endereco += "nulo;";		
+				
+			// Caso preenchido
+			}else{
+				// Se não for o último parâmetro, inclui um ";" para separar os dados e facilitar na recuperação dos dados do banco, quando solicitado
+				if(i != (paramEndereco.length - 1)){							
+					endereco += paramEndereco[i] + ";";					
+				}else{
+					endereco += paramEndereco[i];
+				}
+			}					
+		}
+		return endereco;
+	}
+
+	// Método para formatar o endereço da lista de clientes para exibição
+	private void formataEnderecoParaExibicao(List<Cliente> clientes) {
+		String endereco;
+		for(Cliente cliEndereco : clientes){
+			int i = clientes.indexOf(cliEndereco);
+			cliEndereco = clientes.get(i);						
+			endereco = cliEndereco.getEndereco();						
+			String endPalavraNulo = endereco.replace("nulo;", "; ");
+			String enderecoPalavraEspaco = endPalavraNulo.replace(";", ", ");
+			String enderecoFinal = enderecoPalavraEspaco.replace(", , ", ", ");
+			cliEndereco.setEndereco(enderecoFinal);
+			clientes.set(i, cliEndereco);
+		}
+	}	
+	
+	// Método que formata o endereço do cliente cadastrado no banco de dados para exibição no formulário de ATUALIZAR o cliente
+	private void formataEnderecoParaFormulario(Cliente cliente, HttpServletRequest req) {
+		String endereco;
+		
+		endereco = cliente.getEndereco();
+		String[] cliEndereco = new String[7];
+		
+		// Em cada posição do vetor, armazena os dados do endereço
+		// O método split, faz com que corte a string onde encontrar o ";" e
+		// armazenando o dado e pulando para a posição seguinte do vetor
+		cliEndereco = endereco.split(";");
+		
+		// Percorre o vetor e onde encontrar a palavra "nulo", substitui por um espaço vazio
+		for(int i = 0; i < cliEndereco.length; i++){
+			if(cliEndereco[i].equals("nulo")) cliEndereco[i] = " ";
+		}
+		
+		// Atribui na requisição o vetor de endereços para ser recuperado no formulário para ser editado os dados do cliente
+		req.setAttribute("cliEndereco", cliEndereco);
 	}
 
 }

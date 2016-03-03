@@ -58,7 +58,7 @@
 							<c:choose>
 								<c:when test="${empty cli}">
 								
-									<!-- FORMULÁRIO CADASTRAR CLIENTE -->						
+									<!-- FORMULÁRIO CADASTRAR CLIENTE - SE OBJETO CLIENTE VAZIO -->						
 									<form class="pure-form pure-form-aligned pure-u-16-24" id="formCadastrarCliente" action="controller?action=cadastrarCliente&tarefa=cadastrar" method="POST">
 										<fieldset>
 											<legend>Preencha o formulário</legend>
@@ -144,7 +144,7 @@
 								</c:when>
 								
 								<c:otherwise>
-									<!-- FORMULÁRIO CADASTRAR CLIENTE -->						
+									<!-- FORMULÁRIO CADASTRAR CLIENTE - SE OBJETO CLIENTE CHEIO -->						
 									<form id="formCadastrarCliente" action="controller?action=cadastrarCliente&tarefa=cadastrar" method="POST">
 										<fieldset>
 											<legend>Preencha o formulário</legend>
@@ -211,7 +211,7 @@
 							<c:choose>
 								<c:when test="${empty cli}">
 									
-									<!-- FORMULÁRIO PESQUISAR PARA ATUALIZAR CLIENTE -->
+									<!-- FORMULÁRIO PESQUISAR PARA ATUALIZAR CLIENTE - SE OBJETO CLIENTE VAZIO -->
 									<form id="formPesquisar" action="controller?action=pesquisarCliente&tarefa=atualizar" method="POST">
 										<fieldset>
 											<legend>Informe o código do cliente</legend>
@@ -228,7 +228,7 @@
 								
 								<c:when test="${not empty cli}">
 									
-									<!-- FORMULÁRIO ATUALIZAR CLIENTE -->
+									<!-- FORMULÁRIO ATUALIZAR CLIENTE - SE OBJETO CLIENTE CHEIO -->
 									<form id="formAtualizarCliente" action="controller?action=atualizarCliente&tarefa=atualizar" method="POST">
 										<fieldset>
 											<legend>Edite os campos</legend>
@@ -250,25 +250,25 @@
 											<input type="text" name="email" id="email" value="${cli.email}" />
 											
 											<label for="cep">CEP:</label>
-											<input type="text" name="cep" id="cep" value="${cli.cep}" />
+											<input type="text" name="cep" id="cep" value="${cliEndereco[6]}" />
 											
 											<label for="endereco">Endereço:</label>
-											<input type="text" name="endereco" id="endereco" value="${cli.endereco}" />
+											<input type="text" name="endereco" id="endereco" value="${cliEndereco[0]}" />
 											
 											<label for="numero">Número:</label>
-											<input type="text" name="numero" id="numero" value="${cli.numero}" />
+											<input type="text" name="numero" id="numero" value="${cliEndereco[1]}" />
 											
 											<label for="complemento">Complemento:</label>
-											<input type="text" name="complemento" id="complemento" value="${cli.complemento}" />
+											<input type="text" name="complemento" id="complemento" value="${cliEndereco[2]}" />
 											
 											<label for="bairro">Bairro:</label>
-											<input type="text" name="bairro" id="bairro" value="${cli.bairro}" />
+											<input type="text" name="bairro" id="bairro" value="${cliEndereco[3]}" />
 											
 											<label for="cidade">Cidade:</label>
-											<input type="text" name="cidade" id="cidade" value="${cli.cidade}" />
+											<input type="text" name="cidade" id="cidade" value="${cliEndereco[4]}" />
 											
 											<label for="estado">Estado:</label>
-											<input type="text" name="estado" id="estado" value="${cli.estado}" />
+											<input type="text" name="estado" id="estado" value="${cliEndereco[5]}" />
 											
 											<label for="cnpj">CNPJ:</label>
 											<input type="text" name="cnpj" id="cnpj" value="${cli.cnpj}" />
@@ -301,7 +301,7 @@
 							
 								<c:when test="${empty cli}">
 								
-									<!-- FORMULÁRIO PESQUISAR PARA EXCLUIR CLIENTE -->
+									<!-- FORMULÁRIO PESQUISAR PARA EXCLUIR CLIENTE - SE OBJETO CLIENTE VAZIO -->
 									<form id="formPesquisar" action="controller?action=pesquisarCliente&tarefa=excluir" method="POST">
 										<fieldset>
 											<legend>Informe o código do cliente</legend>
@@ -319,7 +319,7 @@
 								
 								<c:when test="${not empty cli}">
 								
-									<!-- FORMULÁRIO EXCLUIR CLIENTE -->
+									<!-- FORMULÁRIO EXCLUIR CLIENTE - SE OBJETO CLIENTE CHEIO -->
 									<form id="formAtualizarCliente" action="controller?action=excluirCliente&tarefa=excluir" method="POST">
 										<fieldset>
 											<legend>Cliente a ser excluído</legend>
