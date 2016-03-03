@@ -123,6 +123,11 @@
 											<input type="text" name="cnpj" id="cnpj" placeholder="00.000.000/0001-00" />
 											</div>
 											
+											<div class="pure-control-group">
+											<label for="inscEstadual">Insc. Estadual:</label>
+											<input type="text" name="inscEstadual" id="inscEstadual" placeholder="Insc. Estadual" />
+											</div>
+											
 											<div class="pure-controls">
 											<!-- <input class="btnRight" type="submit" value="Cadastrar" /> -->
 											
@@ -156,11 +161,32 @@
 											<label for="email">Email:</label>			
 											<input type="text" name="email" id="email" value="${cli.email}" />
 											
-											<label for="endereco">Endereço:</label>			
-											<input class="inputEndereco" type="text" name="endereco" id="endereco" value="${cli.endereco}" />
+											<label for="cep">CEP:</label>
+											<input type="text" name="cep" id="cep" value="${cli.cep}" />
+											
+											<label for="endereco">Endereço:</label>
+											<input type="text" name="endereco" id="endereco" value="${cli.endereco}" />
+											
+											<label for="numero">Número:</label>
+											<input type="text" name="numero" id="numero" value="${cli.numero}" />
+											
+											<label for="complemento">Complemento:</label>
+											<input type="text" name="complemento" id="complemento" value="${cli.complemento}" />
+											
+											<label for="bairro">Bairro:</label>
+											<input type="text" name="bairro" id="bairro" value="${cli.bairro}" />
+											
+											<label for="cidade">Cidade:</label>
+											<input type="text" name="cidade" id="cidade" value="${cli.cidade}" />
+											
+											<label for="estado">Estado:</label>
+											<input type="text" name="estado" id="estado" value="${cli.estado}" />
 											
 											<label for="cnpj">CNPJ:</label>
 											<input type="text" name="cnpj" id="cnpj" value="${cli.cnpj}" />
+											
+											<label for="inscEstadual">Insc. Estadual:</label>
+											<input type="text" name="inscEstadual" id="inscEstadual" value="${cli.inscEstadual}" />
 											
 											<input class="btnRight" type="submit" value="Cadastrar" />
 										</fieldset>									
@@ -223,11 +249,32 @@
 											<label for="email">Email:</label>			
 											<input type="text" name="email" id="email" value="${cli.email}" />
 											
-											<label for="endereco">Endereço:</label>			
-											<input class="inputEndereco" type="text" name="endereco" id="endereco" value="${cli.endereco}" />
+											<label for="cep">CEP:</label>
+											<input type="text" name="cep" id="cep" value="${cli.cep}" />
+											
+											<label for="endereco">Endereço:</label>
+											<input type="text" name="endereco" id="endereco" value="${cli.endereco}" />
+											
+											<label for="numero">Número:</label>
+											<input type="text" name="numero" id="numero" value="${cli.numero}" />
+											
+											<label for="complemento">Complemento:</label>
+											<input type="text" name="complemento" id="complemento" value="${cli.complemento}" />
+											
+											<label for="bairro">Bairro:</label>
+											<input type="text" name="bairro" id="bairro" value="${cli.bairro}" />
+											
+											<label for="cidade">Cidade:</label>
+											<input type="text" name="cidade" id="cidade" value="${cli.cidade}" />
+											
+											<label for="estado">Estado:</label>
+											<input type="text" name="estado" id="estado" value="${cli.estado}" />
 											
 											<label for="cnpj">CNPJ:</label>
 											<input type="text" name="cnpj" id="cnpj" value="${cli.cnpj}" />
+											
+											<label for="inscEstadual">Insc. Estadual:</label>
+											<input type="text" name="inscEstadual" id="inscEstadual" value="${cli.inscEstadual}" />
 											
 											<input class="btnRight" type="submit" value="Atualizar" />
 										</fieldset>															
@@ -293,11 +340,32 @@
 											<label for="email">Email:</label>			
 											<input type="text" name="email" id="email" value="${cli.email}" disabled />
 											
-											<label for="endereco">Endereço:</label>			
-											<input class="inputEndereco" type="text" name="endereco" id="endereco" value="${cli.endereco}" disabled />
+											<label for="cep">CEP:</label>
+											<input type="text" name="cep" id="cep" value="${cli.cep}" disabled />
+											
+											<label for="endereco">Endereço:</label>
+											<input type="text" name="endereco" id="endereco" value="${cli.endereco}" disabled />
+											
+											<label for="numero">Número:</label>
+											<input type="text" name="numero" id="numero" value="${cli.numero}" disabled />
+											
+											<label for="complemento">Complemento:</label>
+											<input type="text" name="complemento" id="complemento" value="${cli.complemento}" disabled />
+											
+											<label for="bairro">Bairro:</label>
+											<input type="text" name="bairro" id="bairro" value="${cli.bairro}" disabled />
+											
+											<label for="cidade">Cidade:</label>
+											<input type="text" name="cidade" id="cidade" value="${cli.cidade}" disabled />
+											
+											<label for="estado">Estado:</label>
+											<input type="text" name="estado" id="estado" value="${cli.estado}" disabled />
 											
 											<label for="cnpj">CNPJ:</label>
 											<input type="text" name="cnpj" id="cnpj" value="${cli.cnpj}" disabled />
+											
+											<label for="inscEstadual">Insc. Estadual:</label>
+											<input type="text" name="inscEstadual" id="inscEstadual" value="${cli.inscEstadual}" disabled />
 											
 										</fieldset>
 										

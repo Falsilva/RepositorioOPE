@@ -30,8 +30,18 @@ public class RegraClientes extends HttpServlet {
 		String contato = null;	// Campo obrigatório, não pode ser nulo no banco de dados
 		String telefone = null;
 		String email = null;
-		String endereco = null;
+		String endereco = "";
 		String cnpj = null;
+		String inscEstadual = null;
+		
+		String cep = null;
+		String logradouro = null;
+		String numero = null;
+		String complemento = null;
+		String bairro = null;
+		String cidade = null;
+		String estado = null;
+		String[] paramEndereco = new String[7];
 		
 		Cliente cliente = new Cliente();
 		Cliente cli = null;
@@ -49,6 +59,18 @@ public class RegraClientes extends HttpServlet {
 				clientes = new ClienteDAO().listar();
 				
 				if(clientes != null){
+					
+					for(Cliente cliEndereco : clientes){
+						int i = clientes.indexOf(cliEndereco);
+						cliEndereco = clientes.get(i);						
+						endereco = cliEndereco.getEndereco();						
+						String endPalavraNulo = endereco.replace("+nulo+", " ");
+						String enderecoPalavraEspaco = endPalavraNulo.replace("+espaco+", ", ");
+						String enderecoFinal = enderecoPalavraEspaco.replace(", , ", ", ");
+						cliEndereco.setEndereco(enderecoFinal);
+						clientes.set(i, cliEndereco);
+					}
+					
 					req.setAttribute("clientes", clientes);
 				}else{
 					req.setAttribute("mensagem", "Não há clientes cadastrados");
@@ -74,6 +96,7 @@ public class RegraClientes extends HttpServlet {
 					cnpj = req.getParameter("cnpj");
 					cliente.setCnpj(cnpj);
 					cli = new ClienteDAO().buscaClientePorCNPJ(cliente);
+										
 					pesquisa = "cnpj";				
 				}else{
 					if(req.getParameter("codigo") != null){
@@ -112,6 +135,12 @@ public class RegraClientes extends HttpServlet {
 					case "codigo":
 						
 						if(cli != null){
+							
+							endereco = cli.getEndereco();
+							endereco.replace("+nulo+", " ");
+							endereco.replace("+espaco+", " ");
+							cli.setEndereco(endereco);
+							
 							req.setAttribute("cli", cli);							
 						}else{
 							if(req.getParameter("codigo").isEmpty()){
@@ -131,6 +160,12 @@ public class RegraClientes extends HttpServlet {
 					case "cnpj":
 						
 						if(cli != null){
+							
+							endereco = cli.getEndereco();
+							endereco.replace("+nulo+", " ");
+							endereco.replace("+espaco+", " ");
+							cli.setEndereco(endereco);
+							
 							req.setAttribute("cli", cli);							
 						}else{
 							req.setAttribute("mensagem", "Cliente não encontrado");
@@ -141,7 +176,19 @@ public class RegraClientes extends HttpServlet {
 						
 					default:
 						
-						if(clientes != null){							
+						if(clientes != null){
+							
+							for(Cliente cliEndereco : clientes){
+								int i = clientes.indexOf(cliEndereco);
+								cliEndereco = clientes.get(i);						
+								endereco = cliEndereco.getEndereco();						
+								String endPalavraNulo = endereco.replace("+nulo+", " ");
+								String enderecoPalavraEspaco = endPalavraNulo.replace("+espaco+", ", ");
+								String enderecoFinal = enderecoPalavraEspaco.replace(", , ", ", ");
+								cliEndereco.setEndereco(enderecoFinal);
+								clientes.set(i, cliEndereco);
+							}
+							
 							req.setAttribute("clientes", clientes);													
 						}else{
 							if(empresa.isEmpty()){
@@ -164,10 +211,41 @@ public class RegraClientes extends HttpServlet {
 				contato = req.getParameter("contato");				
 				telefone = req.getParameter("telefone");
 				email = req.getParameter("email");
-				endereco = req.getParameter("endereco");
-				cnpj = req.getParameter("cnpj");
 				
-				parametros = new String[][]{{"empresa", empresa},{"contato", contato}, {"telefone", telefone}, {"email", email}, {"endereco", endereco}, {"cnpj", cnpj}};
+				logradouro = req.getParameter("endereco");
+				numero = req.getParameter("numero");
+				complemento = req.getParameter("complemento");
+				bairro = req.getParameter("bairro");
+				cidade = req.getParameter("cidade");
+				estado = req.getParameter("estado");
+				cep = req.getParameter("cep");
+				
+				paramEndereco[0] = logradouro;
+				paramEndereco[1] = numero;
+				paramEndereco[2] = complemento;
+				paramEndereco[3] = bairro;
+				paramEndereco[4] = cidade;
+				paramEndereco[5] = estado;
+				paramEndereco[6] = cep;
+				
+				
+				for(int i = 0; i < paramEndereco.length; i++){
+					if(paramEndereco[i] == null){
+						endereco += "+nulo+";
+					}else{
+						if(i != (paramEndereco.length - 1)){							
+							endereco += paramEndereco[i] + "+espaco+";					
+						}else{
+							endereco += paramEndereco[i];
+						}
+					}
+					System.out.println("Parâmetros do Endereço: " + paramEndereco[i]);
+				}
+				
+				cnpj = req.getParameter("cnpj");
+				inscEstadual = req.getParameter("inscEstadual");
+				
+				parametros = new String[][]{{"empresa", empresa},{"contato", contato}, {"telefone", telefone}, {"email", email}, {"endereco", endereco}, {"cnpj", cnpj}, {"inscEstadual", inscEstadual}};
 				
 				cli = new Cliente();
 				
@@ -198,6 +276,9 @@ public class RegraClientes extends HttpServlet {
 							break;
 						case "cnpj":
 							cli.setCnpj(parametros[i][1]);
+							break;
+						case "inscEstadual":
+							cli.setInscEstadual(parametros[i][1]);
 							break;
 					}
 				}				
@@ -232,7 +313,7 @@ public class RegraClientes extends HttpServlet {
 						req.setAttribute("mensagem", "Falha ao cadastrar o cliente");
 						
 					// Reencaminha a requisição
-					}finally{
+					}finally{	
 						
 						// Recebe o destino do redirecionamento da requisição
 						dispatcher = req.getRequestDispatcher("controller?action=formCliente&tarefa="+tarefa);						

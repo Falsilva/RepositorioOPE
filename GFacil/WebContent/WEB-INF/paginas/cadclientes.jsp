@@ -57,23 +57,25 @@
 											
 				<div class="box-1-8">
 					<div class="col-05-title">CÓD.</div>
-					<div class="col-2-title">EMPRESA</div>
+					<div class="col-1-title">EMPRESA</div>
 					<div class="col-0-title">CONTATO</div>
 					<div class="col-0-title">TELEFONE</div>
-					<div class="col-1-title">EMAIL</div>
+					<div class="col-0-title">EMAIL</div>
 					<div class="col-2-title">ENDEREÇO</div>
 					<div class="col-1-title">CNPJ</div>
+					<div class="col-1-title">INSC. ESTADUAL</div>
 				</div>
 
 				<c:forEach var="cliente" items="${clientes}">
 					<div class="box-1-8">
 						<div class="col-05">${cliente.codigo}</div>
-						<div class="col-2">${cliente.empresa}</div>
+						<div class="col-1">${cliente.empresa}</div>
 						<div class="col-0">${cliente.contato}</div>
 						<div class="col-0">${cliente.telefone}</div>
-						<div class="col-1">${cliente.email}</div>
+						<div class="col-0">${cliente.email}</div>
 						<div class="col-2">${cliente.endereco}</div>
 						<div class="col-1">${cliente.cnpj}</div>
+						<div class="col-1">${cliente.inscEstadual}</div>
 					</div>
 				</c:forEach>
 			</c:when>
