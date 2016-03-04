@@ -44,8 +44,8 @@
 									<fieldset>
 										<legend>Preencha o formulário</legend>
 										
-										<label>Tipo:</label>
-										<div class="box-radio">
+										<label for="tipoFornecedores">Tipo:</label>
+										<div class="box-radio" id="tipoFornecedores">
 											<input type="radio" name="tipoFornecedor" id="tipoFornecedor1" value="Empresa" checked /><label for="tipoFornecedor1" class="lblRadio">Empresa</label>
 											<input type="radio" name="tipoFornecedor" id="tipoFornecedor2" value="Catador" /><label for="tipoFornecedor2" class="lblRadio">Catador</label>
 										</div>
@@ -90,7 +90,7 @@
 										<label for="inscEstadual">Insc. Estadual:</label>
 										<input type="text" name="inscEstadual" id="inscEstadual" placeholder="Insc. Estadual" />
 																					
-										<input class="btnRight" type="submit" value="Cadastrar" />
+										<input class="btnRight" id="botao" type="submit" value="Cadastrar" />
 									</fieldset>
 								</form>
 								
@@ -202,7 +202,7 @@
 										<input type="hidden" name="codigo" id="codigo" value="${forn.codigo}" />
 										
 										<label>Tipo:</label>
-										<div class="box-radio">
+										<div class="box-radio" id="tipoFornecedores">
 											<input type="radio" name="tipoFornecedor" id="tipoFornecedor1" value="Empresa" <c:if test="${forn.tipo.tipo eq 'Empresa'}">checked</c:if>><label for="tipoFornecedor1" class="lblRadio">Empresa</label>
 											<input type="radio" name="tipoFornecedor" id="tipoFornecedor2" value="Catador" <c:if test="${forn.tipo.tipo eq 'Catador'}">checked</c:if>><label for="tipoFornecedor2" class="lblRadio">Catador</label>
 										</div>
@@ -402,6 +402,7 @@
 	
 	<script type="text/javascript" src="resources/js/jquery.js"></script>
 	<script type="text/javascript" src="resources/js/buscaCEP.js"></script>
+	<script type="text/javascript" src="resources/js/selecionaFornecedor.js"></script>
 
 </body>
 </html>

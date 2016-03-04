@@ -37,10 +37,10 @@ public class Fornecedor {
 	@Column(name = "ENDERECO", nullable = true)
 	private String endereco;
 	
-	@Column(name = "CNPJ", unique = true, nullable = true)
+	@Column(name = "CNPJ", nullable = true)
 	private String cnpj;
 	
-	@Column(name = "INSC_ESTADUAL", unique = true, nullable = true)
+	@Column(name = "INSC_ESTADUAL", nullable = true)
 	private String inscEstadual;
 	
 	//@ManyToOne(cascade = CascadeType.ALL, optional = false)
