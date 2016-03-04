@@ -62,12 +62,34 @@
 										<label for="email">Email:</label>			
 										<input type="text" name="email" id="email" placeholder="Email" />
 										
-										<label for="endereco">Endereço:</label>
-										<input type="text" name="endereco" id="endereco" placeholder="Rua/Avenida - Cidade/Estado" />
 										
+										<label for="cep">CEP:</label>
+										<input type="text" name="cep" id="cep" placeholder="00000-000" />
+											
+										<label for="endereco">Logradouro:</label>
+										<input type="text" name="endereco" id="endereco" placeholder="Rua/Avenida" />
+											
+										<label for="numero">Número:</label>
+										<input type="text" name="numero" id="numero" placeholder="Número" />
+											
+										<label for="complemento">Complemento:</label>
+										<input type="text" name="complemento" id="complemento" placeholder="Complemento" />
+											
+										<label for="bairro">Bairro:</label>
+										<input type="text" name="bairro" id="bairro" placeholder="Bairro" />
+											
+										<label for="cidade">Cidade:</label>
+										<input type="text" name="cidade" id="cidade" placeholder="Cidade" />
+											
+										<label for="estado">Estado:</label>
+										<input type="text" name="estado" id="estado" placeholder="Estado" />
+											
 										<label for="cnpj">CNPJ:</label>
 										<input type="text" name="cnpj" id="cnpj" placeholder="00.000.000/0001-00" />
-										
+																						
+										<label for="inscEstadual">Insc. Estadual:</label>
+										<input type="text" name="inscEstadual" id="inscEstadual" placeholder="Insc. Estadual" />
+																					
 										<input class="btnRight" type="submit" value="Cadastrar" />
 									</fieldset>
 								</form>
@@ -103,11 +125,32 @@
 										<label for="email">Email:</label>			
 										<input type="text" name="email" id="email" value="${forn.email}" />
 										
-										<label for="endereco">Endereço:</label>			
-										<input class="inputEndereco" type="text" name="endereco" id="endereco" value="${forn.endereco}" />
+										<label for="cep">CEP:</label>
+										<input type="text" name="cep" id="cep" value="${forn.cep}" />
+											
+										<label for="endereco">Logradouro:</label>
+										<input type="text" name="endereco" id="endereco" value="${forn.endereco}" />
+											
+										<label for="numero">Número:</label>
+										<input type="text" name="numero" id="numero" value="${forn.numero}" />
+											
+										<label for="complemento">Complemento:</label>
+										<input type="text" name="complemento" id="complemento" value="${forn.complemento}" />
+											
+										<label for="bairro">Bairro:</label>
+										<input type="text" name="bairro" id="bairro" value="${forn.bairro}" />
+											
+										<label for="cidade">Cidade:</label>
+										<input type="text" name="cidade" id="cidade" value="${forn.cidade}" />
 										
+										<label for="estado">Estado:</label>
+										<input type="text" name="estado" id="estado" value="${forn.estado}" />
+											
 										<label for="cnpj">CNPJ:</label>
 										<input type="text" name="cnpj" id="cnpj" value="${forn.cnpj}" />
+											
+										<label for="inscEstadual">Insc. Estadual:</label>
+										<input type="text" name="inscEstadual" id="inscEstadual" value="${forn.inscEstadual}" />
 										
 										<input class="btnRight" type="submit" value="Cadastrar" />
 									</fieldset>									
@@ -176,11 +219,32 @@
 										<label for="email">Email:</label>			
 										<input type="text" name="email" id="email" value="${forn.email}" />
 										
-										<label for="endereco">Endereço:</label>			
-										<input class="inputEndereco" type="text" name="endereco" id="endereco" value="${forn.endereco}" />
-										
+										<label for="cep">CEP:</label>
+										<input type="text" name="cep" id="cep" value="${fornEndereco[6]}" />
+											
+										<label for="endereco">Logradouro:</label>
+										<input type="text" name="endereco" id="endereco" value="${fornEndereco[0]}" />
+											
+										<label for="numero">Número:</label>
+										<input type="text" name="numero" id="numero" value="${fornEndereco[1]}" />
+											
+										<label for="complemento">Complemento:</label>
+										<input type="text" name="complemento" id="complemento" value="${fornEndereco[2]}" />
+											
+										<label for="bairro">Bairro:</label>
+										<input type="text" name="bairro" id="bairro" value="${fornEndereco[3]}" />
+											
+										<label for="cidade">Cidade:</label>
+										<input type="text" name="cidade" id="cidade" value="${fornEndereco[4]}" />
+											
+										<label for="estado">Estado:</label>
+										<input type="text" name="estado" id="estado" value="${fornEndereco[5]}" />
+											
 										<label for="cnpj">CNPJ:</label>
 										<input type="text" name="cnpj" id="cnpj" value="${forn.cnpj}" />
+										
+										<label for="inscEstadual">Insc. Estadual:</label>
+										<input type="text" name="inscEstadual" id="inscEstadual" value="${forn.inscEstadual}" />
 										
 										<input class="btnRight" type="submit" value="Atualizar" />
 									</fieldset>															
@@ -249,11 +313,32 @@
 										<label for="email">Email:</label>			
 										<input type="text" name="email" id="email" value="${forn.email}" disabled />
 										
-										<label for="endereco">Endereço:</label>			
-										<input class="inputEndereco" type="text" name="endereco" id="endereco" value="${forn.endereco}" disabled />
-										
+										<label for="cep">CEP:</label>
+										<input type="text" name="cep" id="cep" value="${fornEndereco[6]}" disabled />
+											
+										<label for="endereco">Logradouro:</label>
+										<input type="text" name="endereco" id="endereco" value="${fornEndereco[0]}" disabled />
+											
+										<label for="numero">Número:</label>
+										<input type="text" name="numero" id="numero" value="${fornEndereco[1]}" disabled />
+											
+										<label for="complemento">Complemento:</label>
+										<input type="text" name="complemento" id="complemento" value="${fornEndereco[2]}" disabled />
+											
+										<label for="bairro">Bairro:</label>
+										<input type="text" name="bairro" id="bairro" value="${fornEndereco[3]}" disabled />
+											
+										<label for="cidade">Cidade:</label>
+										<input type="text" name="cidade" id="cidade" value="${fornEndereco[4]}" disabled />
+											
+										<label for="estado">Estado:</label>
+										<input type="text" name="estado" id="estado" value="${fornEndereco[5]}" disabled />
+											
 										<label for="cnpj">CNPJ:</label>
 										<input type="text" name="cnpj" id="cnpj" value="${forn.cnpj}" disabled />
+										
+										<label for="inscEstadual">Insc. Estadual:</label>
+										<input type="text" name="inscEstadual" id="inscEstadual" value="${forn.inscEstadual}" disabled />
 										
 									</fieldset>
 									
@@ -315,6 +400,8 @@
 		</c:choose>
 	</div>
 	
+	<script type="text/javascript" src="resources/js/jquery.js"></script>
+	<script type="text/javascript" src="resources/js/buscaCEP.js"></script>
 
 </body>
 </html>

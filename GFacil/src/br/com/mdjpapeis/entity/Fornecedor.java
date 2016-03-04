@@ -40,6 +40,9 @@ public class Fornecedor {
 	@Column(name = "CNPJ", unique = true, nullable = true)
 	private String cnpj;
 	
+	@Column(name = "INSC_ESTADUAL", unique = true, nullable = true)
+	private String inscEstadual;
+	
 	//@ManyToOne(cascade = CascadeType.ALL, optional = false)
 	//@JoinColumn(name = "TIPO_FORNECEDOR_ID")
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -110,6 +113,14 @@ public class Fornecedor {
 
 	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
+	}
+	
+	public String getInscEstadual() {
+		return inscEstadual;
+	}
+
+	public void setInscEstadual(String inscEstadual) {
+		this.inscEstadual = inscEstadual;
 	}
 
 	public TipoFornecedor getTipo() {

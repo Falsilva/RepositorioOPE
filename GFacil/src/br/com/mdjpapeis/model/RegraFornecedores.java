@@ -36,6 +36,16 @@ public class RegraFornecedores extends HttpServlet{
 		String email = null;
 		String endereco = null;
 		String cnpj = null;
+		String inscEstadual = null;
+		
+		String cep = null;
+		String logradouro = null;
+		String numero = null;
+		String complemento = null;
+		String bairro = null;
+		String cidade = null;
+		String estado = null;
+		String[] paramEndereco = new String[7];
 		
 		Fornecedor fornecedor = new Fornecedor();
 		Fornecedor forn = null;
@@ -53,6 +63,9 @@ public class RegraFornecedores extends HttpServlet{
 				fornecedores = new FornecedorDAO().listar();
 				
 				if(fornecedores != null){
+					
+					formataEnderecoParaExibicao(fornecedores);
+					
 					req.setAttribute("fornecedores", fornecedores);
 				}else{
 					req.setAttribute("mensagem", "Não há fornecedores cadastrados");
@@ -116,6 +129,7 @@ public class RegraFornecedores extends HttpServlet{
 					case "codigo":
 						
 						if(forn != null){
+							formataEnderecoParaFormulario(forn, req);
 							req.setAttribute("forn", forn);							
 						}else{
 							if(req.getParameter("codigo").isEmpty()){
@@ -135,6 +149,7 @@ public class RegraFornecedores extends HttpServlet{
 					case "cnpj":
 						
 						if(forn != null){
+							formataEnderecoParaFormulario(forn, req);
 							req.setAttribute("forn", forn);							
 						}else{
 							req.setAttribute("mensagem", "Fornecedor não encontrado");
@@ -145,7 +160,8 @@ public class RegraFornecedores extends HttpServlet{
 						
 					default:
 						
-						if(fornecedores != null){							
+						if(fornecedores != null){	
+							formataEnderecoParaExibicao(fornecedores);
 							req.setAttribute("fornecedores", fornecedores);													
 						}else{
 							if(empresa.isEmpty()){
@@ -169,10 +185,22 @@ public class RegraFornecedores extends HttpServlet{
 				contato = req.getParameter("contato");				
 				telefone = req.getParameter("telefone");
 				email = req.getParameter("email");
-				endereco = req.getParameter("endereco");
-				cnpj = req.getParameter("cnpj");
 				
-				parametros = new String[][]{{"tipo", tipo}, {"empresa", empresa}, {"contato", contato}, {"telefone", telefone}, {"email", email}, {"endereco", endereco}, {"cnpj", cnpj}};
+				logradouro = req.getParameter("endereco");
+				numero = req.getParameter("numero");
+				complemento = req.getParameter("complemento");
+				bairro = req.getParameter("bairro");
+				cidade = req.getParameter("cidade");
+				estado = req.getParameter("estado");
+				cep = req.getParameter("cep");
+				
+				endereco = formataEnderecoParaBancoDeDados(endereco, cep, logradouro, numero, complemento, bairro, cidade,
+					estado, paramEndereco);
+				
+				cnpj = req.getParameter("cnpj");
+				inscEstadual = req.getParameter("inscEstadual");
+				
+				parametros = new String[][]{{"tipo", tipo}, {"empresa", empresa}, {"contato", contato}, {"telefone", telefone}, {"email", email}, {"endereco", endereco}, {"cnpj", cnpj}, {"inscEstadual", inscEstadual}};
 				
 				forn = new Fornecedor();
 				
@@ -206,6 +234,9 @@ public class RegraFornecedores extends HttpServlet{
 							break;
 						case "cnpj":
 							forn.setCnpj(parametros[i][1]);
+							break;
+						case "inscEstadual":
+							forn.setInscEstadual(parametros[i][1]);
 							break;
 					}
 				}				
@@ -257,10 +288,21 @@ public class RegraFornecedores extends HttpServlet{
 				contato = req.getParameter("contato");
 				telefone = req.getParameter("telefone");
 				email = req.getParameter("email");
-				endereco = req.getParameter("endereco");
-				cnpj = req.getParameter("cnpj");
+				logradouro = req.getParameter("endereco");
+				numero = req.getParameter("numero");
+				complemento = req.getParameter("complemento");
+				bairro = req.getParameter("bairro");
+				cidade = req.getParameter("cidade");
+				estado = req.getParameter("estado");
+				cep = req.getParameter("cep");
 				
-				parametros = new String[][]{{"tipo", tipo}, {"empresa", empresa}, {"contato", contato}, {"telefone", telefone}, {"email", email}, {"endereco", endereco}, {"cnpj", cnpj}};
+				endereco = formataEnderecoParaBancoDeDados(endereco, cep, logradouro, numero, complemento, bairro, cidade,
+					estado, paramEndereco);
+				
+				cnpj = req.getParameter("cnpj");
+				inscEstadual = req.getParameter("inscEstadual");
+				
+				parametros = new String[][]{{"tipo", tipo}, {"empresa", empresa},{"contato", contato}, {"telefone", telefone}, {"email", email}, {"endereco", endereco}, {"cnpj", cnpj}, {"inscEstadual", inscEstadual}};
 								
 				forn = new Fornecedor();
 				forn.setCodigo(codigo);
@@ -295,6 +337,9 @@ public class RegraFornecedores extends HttpServlet{
 							break;
 						case "cnpj":
 							forn.setCnpj(parametros[i][1]);
+							break;
+						case "inscEstadual":
+							forn.setInscEstadual(parametros[i][1]);
 							break;
 					}
 				}
@@ -390,4 +435,72 @@ public class RegraFornecedores extends HttpServlet{
 		// Reencaminha a requisição
 		dispatcher.forward(req, resp);
 	}
+	
+	// Método que formata o endereço recebido para ser armazenado no banco de dados
+	private String formataEnderecoParaBancoDeDados(String endereco, String cep, String logradouro, String numero,
+			String complemento, String bairro, String cidade, String estado, String[] paramEndereco) {
+		paramEndereco[0] = logradouro;
+		paramEndereco[1] = numero;
+		paramEndereco[2] = complemento;
+		paramEndereco[3] = bairro;
+		paramEndereco[4] = cidade;
+		paramEndereco[5] = estado;
+		paramEndereco[6] = cep;
+			
+		// Montando o endereço para ser armazenado no Banco de Dados
+		// Percorre os parâmetros do endereço e verifica se foi preenchido
+		for(int i = 0; i < paramEndereco.length; i++){
+				
+			// Caso o parâmetro não foi preenchido, inclui a palavra "nulo;"
+			if(paramEndereco[i] == null){
+				endereco += "nulo;";		
+					
+			// Caso preenchido
+			}else{
+				// Se não for o último parâmetro, inclui um ";" para separar os dados e facilitar na recuperação dos dados do banco, quando solicitado
+				if(i != (paramEndereco.length - 1)){							
+					endereco += paramEndereco[i] + ";";					
+				}else{
+					endereco += paramEndereco[i];
+				}
+			}					
+		}
+		return endereco;
+	}
+
+	// Método para formatar o endereço da lista de clientes para exibição
+	private void formataEnderecoParaExibicao(List<Fornecedor> fornecedores) {
+		String endereco;
+		for(Fornecedor fornEndereco : fornecedores){
+			int i = fornecedores.indexOf(fornEndereco);
+			fornEndereco = fornecedores.get(i);						
+			endereco = fornEndereco.getEndereco();						
+			String endPalavraNulo = endereco.replace("nulo;", "; ");
+			String enderecoPalavraEspaco = endPalavraNulo.replace(";", ", ");
+			String enderecoFinal = enderecoPalavraEspaco.replace(", , ", ", ");
+			fornEndereco.setEndereco(enderecoFinal);
+			fornecedores.set(i, fornEndereco);
+		}
+	}	
+		
+	// Método que formata o endereço do cliente cadastrado no banco de dados para exibição no formulário de ATUALIZAR o cliente
+	private void formataEnderecoParaFormulario(Fornecedor fornecedor, HttpServletRequest req) {
+		String endereco;
+			
+		endereco = fornecedor.getEndereco();
+		String[] fornEndereco = new String[7];
+			
+		// Em cada posição do vetor, armazena os dados do endereço
+		// O método split, faz com que corte a string onde encontrar o ";" e
+		// armazenando o dado e pulando para a posição seguinte do vetor
+		fornEndereco = endereco.split(";");
+			
+		// Percorre o vetor e onde encontrar a palavra "nulo", substitui por um espaço vazio
+		for(int i = 0; i < fornEndereco.length; i++){
+			if(fornEndereco[i].equals("nulo")) fornEndereco[i] = " ";
+		}
+			
+		// Atribui na requisição o vetor de endereços para ser recuperado no formulário para ser editado os dados do cliente
+		req.setAttribute("fornEndereco", fornEndereco);
+	}	
 }

@@ -89,7 +89,7 @@
 											</div>
 											
 											<div class="pure-control-group">
-											<label for="endereco">Endereço:</label>
+											<label for="endereco">Logradouro:</label>
 											<input type="text" name="endereco" id="endereco" placeholder="Rua/Avenida" />
 											</div>
 											
@@ -164,7 +164,7 @@
 											<label for="cep">CEP:</label>
 											<input type="text" name="cep" id="cep" value="${cli.cep}" />
 											
-											<label for="endereco">Endereço:</label>
+											<label for="endereco">Logradouro:</label>
 											<input type="text" name="endereco" id="endereco" value="${cli.endereco}" />
 											
 											<label for="numero">Número:</label>
@@ -252,7 +252,7 @@
 											<label for="cep">CEP:</label>
 											<input type="text" name="cep" id="cep" value="${cliEndereco[6]}" />
 											
-											<label for="endereco">Endereço:</label>
+											<label for="endereco">Logradouro:</label>
 											<input type="text" name="endereco" id="endereco" value="${cliEndereco[0]}" />
 											
 											<label for="numero">Número:</label>
