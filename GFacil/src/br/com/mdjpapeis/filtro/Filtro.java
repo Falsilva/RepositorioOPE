@@ -41,7 +41,7 @@ public class Filtro implements Filter {
 		RequestDispatcher dispatcher = null;
 		
 		// Caso a REQUISIÇÃO (gerada pelas páginas com o "link" para a página de estilos) seja DIFERENTE da página de estilos			
-		if(!req.getRequestURI().equals("/GFacil/resources/css/estilos.css") & !req.getRequestURI().equals("/GFacil/resources/pure-release-0.6.0/pure-min.css") & !req.getRequestURI().equals("/GFacil/resources/js/buscaCEP.js") & !req.getRequestURI().equals("/GFacil/resources/js/jquery.js") & !req.getRequestURI().equals("http://apps.widenet.com.br/busca-cep/api/cep.json") & !req.getRequestURI().equals("/GFacil/resources/js/selecionaFornecedor.js")){
+		if(!req.getRequestURI().equals("/GFacil/resources/css/estilos.css") & !req.getRequestURI().equals("/GFacil/resources/css/styles.css") & !req.getRequestURI().equals("/GFacil/resources/pure-release-0.6.0/pure-min.css") & !req.getRequestURI().equals("/GFacil/resources/css/bootstrap.min.css") & !req.getRequestURI().equals("/GFacil/resources/js/buscaCEP.js") & !req.getRequestURI().equals("/GFacil/resources/js/jquery.js") & !req.getRequestURI().equals("/GFacil/resources/js/bootstrap.min.js") & !req.getRequestURI().equals("/GFacil/resources/js/selecionaFornecedor.js") & !req.getRequestURI().equals("http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js") & !req.getRequestURI().equals("http://apps.widenet.com.br/busca-cep/api/cep.json") & !req.getRequestURI().equals("/GFacil/resources/images/fundo.png") & !req.getRequestURI().equals("/GFacil/resources/images/logo.png")){
 			// Caso exista USUÁRIO LOGADO
 			if (usuario != null) {
 				

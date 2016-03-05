@@ -2,12 +2,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html lang="pt-br">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<!-- <link rel="stylesheet" type="text/css" href="resources/css/estilos.css" />  -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="resources/pure-release-0.6.0/pure-min.css" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="Bootply" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<!-- <link rel="stylesheet" type="text/css" href="resources/pure-release-0.6.0/pure-min.css" /> -->
+	<link rel="stylesheet" type="text/css" href="resources/css/styles.css" />
+	<link rel="stylesheet" type="text/css" href="resources/css/bootstrap.min.css" />
 <title>MDJ Papeis - Home</title>
 </head>
 <body>
@@ -48,22 +50,22 @@
 	<!--------------- 1a. DIV LINHA --------------->
 	
 	<!-- DIV LINHA PARA EXIBIÇÃO DO CONTEÚDO (MENSAGEM DE APRESENTAÇÃO E FORMULÁRIO) -->
-	<div class="pure-g">
+	<!--<div class="pure-g">
 		
-		<!-- DIV BORDA ESQUERDA DO BODY -->
+		<!-- DIV BORDA ESQUERDA DO BODY 
 		<div class="pure-u-4-24"></div>
 		
-		<!-- DIV COLUNA CENTRAL -->
+		<!-- DIV COLUNA CENTRAL 
 		<div class="pure-u-16-24">
 			
-			<!-- MENSAGEM DE APRESENTAÇÃO -->
+			<!-- MENSAGEM DE APRESENTAÇÃO 
 			<h1>Bem-Vindo ao Sistema Gerencia Fácil - GFacil</h1>
 			<p>Faça o login para começar</p>
 			
-			<!-- DIV QUE ALINHA O FORMULÁRIO DE LOGIN PARA O CENTRO DA TELA -->
+			<!-- DIV QUE ALINHA O FORMULÁRIO DE LOGIN PARA O CENTRO DA TELA 
 			<div class="pure-u-6-24"></div>
 			
-			<!-- FORMULÁRIO DE LOGIN -->
+			<!-- FORMULÁRIO DE LOGIN 
 			<form class="pure-form pure-form-stacked pure-u-6-24" action="controller?action=login" method="POST">
 				<fieldset>
 					<legend>Login</legend>
@@ -78,11 +80,11 @@
 			
 			<div class="pure-u-6-24"></div>
 		
-		</div>	<!-- FIM DA DIV COLUNA CENTRAL -->
+		</div>	<!-- FIM DA DIV COLUNA CENTRAL 
 		
 		
-		<!-- DIV BORDA DIREITA DO BODY -->
-		<div class="pure-u-4-24"></div>
+		<!-- DIV BORDA DIREITA DO BODY 
+		<div class="pure-u-4-24"></div> -->
 		
 	</div>	<!-- FIM DA DIV LINHA PARA EXIBIÇÃO DO CONTEÚDO (MENSAGEM DE APRESENTAÇÃO E FORMULÁRIO) -->
 	
@@ -90,19 +92,19 @@
 
 	<!--------------- 2a. DIV LINHA --------------->
 	
-	<!-- DIV LINHA PARA EXIBIÇÃO DE MENSAGEM -->
+	<!-- DIV LINHA PARA EXIBIÇÃO DE MENSAGEM 
 	<div class="pure-g">
 		
-		<!-- DIV BORDA ESQUERDA DO BODY -->
+		<!-- DIV BORDA ESQUERDA DO BODY 
 		<div class="pure-u-4-24"></div>			
 		
-		<!-- DIV COLUNA CENTRAL -->
+		<!-- DIV COLUNA CENTRAL 
 		<div class="pure-u-16-24">
 		
-			<!-- DIV QUE ALINHA A MENSAGEM A PARTIR DO FORMULÁRIO DE LOGIN -->
+			<!-- DIV QUE ALINHA A MENSAGEM A PARTIR DO FORMULÁRIO DE LOGIN 
 			<div class="pure-u-6-24"></div>
 			
-			<!-- DIV MENSAGEM -->
+			<!-- DIV MENSAGEM 
 			<div class="pure-u-10-24">
 				<c:if test="${not empty mensagem}">
 					<h3 class="msg">${mensagem}</h3>			
@@ -111,12 +113,53 @@
 			
 			<div class="pure-u-2-24"></div>
 		
-		</div>	<!-- FIM DA DIV COLUNA CENTRAL -->
+		</div>	<!-- FIM DA DIV COLUNA CENTRAL 
 	
-		<!-- DIV BORDA DIREITA DO BODY -->
+		<!-- DIV BORDA DIREITA DO BODY 
 		<div class="pure-u-4-24"></div>
 	
-	</div>	<!-- FIM DA DIV LINHA PARA EXIBIÇÃO DE MENSAGEM -->
+	</div>-->	<!-- FIM DA DIV LINHA PARA EXIBIÇÃO DE MENSAGEM -->
+	
+	
+	
+	
+	
+	
+	<!--login modal-->
+	<div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true">
+		<img class="center-block" src="resources/images/logo.png" />
+	
+	  	<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+			    	<h1 class="text-center">Seja bem vindo</h1>
+			    </div>
+			    <div class="modal-body">
+			    	<form class="form col-md-12 center-block" action="controller?action=login" method="POST">
+			            <div class="form-group">
+			            	<input type="text" class="form-control input-lg" name="nomeusuario" id="nome" placeholder="Usuário">
+			            </div>
+            			<div class="form-group">
+              				<input type="password" class="form-control input-lg" name="senha" id="pass" placeholder="Senha">
+            			</div>
+            			<div class="form-group">
+              				<button class="btn btn-primary btn-lg btn-block">Entrar</button>
+            			</div>
+          			</form>
+          			<c:if test="${not empty mensagem}">
+						<h3 class="text-center">${mensagem}</h3>			
+					</c:if>
+      			</div>
+      			
+      			<div class="modal-footer">          	
+      			</div>      			
+  			</div>
+  		</div>
+	</div>
+	
+	<script type="text/javascript" src="resources/js/jquery.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+	<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
 	
 </body>
 </html>
