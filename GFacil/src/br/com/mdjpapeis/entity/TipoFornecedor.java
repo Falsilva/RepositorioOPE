@@ -14,23 +14,23 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
+/*
 @Entity
 @Table(name = "TIPO_FORNECEDOR", schema = "MDJPAPEIS")
-@SequenceGenerator(name = "GERADOR_DE_SEQUENCIA", sequenceName = "GERADOR_DE_SEQUENCIA", allocationSize=1)
+@SequenceGenerator(name = "GERADOR_DE_SEQUENCIA", sequenceName = "GERADOR_DE_SEQUENCIA", allocationSize=1)*/
 public class TipoFornecedor implements Serializable{
-
+	/*
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GERADOR_DE_SEQUENCIA")
-	@Column(name = "ID", nullable = false)
+	@Column(name = "ID", nullable = false)*/
 	private int id;
 	
-	@Column(name = "TIPO", nullable = false)
+	//@Column(name = "TIPO", nullable = false)
 	private String tipo;
 	
 	//@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	//@JoinColumn(name = "CODIGO_FORNECEDOR")
-	@OneToMany(mappedBy = "tipo")
+	//@OneToMany(mappedBy = "tipo")
 	private List<Fornecedor> fornecedores;
 
 	public TipoFornecedor(){

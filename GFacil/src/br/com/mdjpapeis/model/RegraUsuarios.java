@@ -147,7 +147,13 @@ public class RegraUsuarios extends HttpServlet{
 				senha = req.getParameter("senha");
 				perfil = req.getParameter("perfil");
 				
-				parametros = new String[][]{{"nome",nome},{"nomeusuario", nomeusuario}, {"email", email}, {"senha", senha}, {"perfil", perfil}};
+				parametros = new String[][]{
+					{"nome",nome},
+					{"nomeusuario", nomeusuario}, 
+					{"email", email}, 
+					{"senha", senha}, 
+					{"perfil", perfil}
+					};
 				
 				user = new Usuario();
 				
@@ -174,9 +180,13 @@ public class RegraUsuarios extends HttpServlet{
 							user.setSenha(parametros[i][1]);
 							break;
 						case "perfil":
-							PerfilUsuario pu = new PerfilUsuario();
-							pu.setPerfil(parametros[i][1]);
-							user.setPerfil(pu);
+							//PerfilUsuario pu = new PerfilUsuario();
+							//pu.setPerfil(parametros[i][1]);
+							for(Usuario.Perfil pf : Usuario.Perfil.values()){
+								if(parametros[i][1].toUpperCase().equals(pf.toString())){									
+									user.setPerfil(pf);
+								}
+							}							
 							break;
 					}
 				}				
@@ -282,9 +292,11 @@ public class RegraUsuarios extends HttpServlet{
 							user.setSenha(parametros[i][1]);
 							break;
 						case "perfil":
-							PerfilUsuario pu = new PerfilUsuario();
-							pu.setPerfil(parametros[i][1]);
-							user.setPerfil(pu);
+							for(Usuario.Perfil pf : Usuario.Perfil.values()){
+								if(parametros[i][1].toUpperCase().equals(pf.toString())){
+									user.setPerfil(pf);
+								}
+							}
 							break;
 					}
 				}				

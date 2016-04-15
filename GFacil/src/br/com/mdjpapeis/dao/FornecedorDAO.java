@@ -48,7 +48,11 @@ public class FornecedorDAO implements GenericoDAO<Fornecedor>{
 		
 		try{
 			EntityManager entityManager = conexao.createEntityManager();		
-			entityManager.getTransaction().begin();		
+			entityManager.getTransaction().begin();
+			
+			// Tornando o fornecedor managed (gerenciável) pelo entityManager, necessário para usar o método remove a seguir
+			fornecedor = entityManager.getReference(Fornecedor.class, fornecedor.getCodigo());
+			
 			entityManager.remove(fornecedor);		
 			entityManager.getTransaction().commit();		
 			entityManager.close();		

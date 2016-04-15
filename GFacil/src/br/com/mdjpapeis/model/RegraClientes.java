@@ -456,7 +456,7 @@ public class RegraClientes extends HttpServlet {
 			}else{
 				// Se não for o último parâmetro, inclui um ";" para separar os dados e facilitar na recuperação dos dados do banco, quando solicitado
 				if(i != (paramEndereco.length - 1)){							
-					endereco += paramEndereco[i] + ";";					
+					endereco += paramEndereco[i] + ";";
 				}else{
 					endereco += paramEndereco[i];
 				}
@@ -472,10 +472,12 @@ public class RegraClientes extends HttpServlet {
 			int i = clientes.indexOf(cliEndereco);
 			cliEndereco = clientes.get(i);						
 			endereco = cliEndereco.getEndereco();						
-			String endPalavraNulo = endereco.replace("nulo;", "; ");
-			String enderecoPalavraEspaco = endPalavraNulo.replace(";", ", ");
-			String enderecoFinal = enderecoPalavraEspaco.replace(", , ", ", ");
-			cliEndereco.setEndereco(enderecoFinal);
+			endereco = endereco.replace("nulo;", "; ");
+			endereco = endereco.replace(";", ", ");
+			endereco = endereco.replace(";;", ", ");
+			endereco = endereco.replace(", , ", ", ");
+			endereco = endereco.replace(", , ,", "");
+			cliEndereco.setEndereco(endereco);
 			clientes.set(i, cliEndereco);
 		}
 	}	

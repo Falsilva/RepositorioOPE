@@ -12,19 +12,31 @@
 		<class>br.com.mdjpapeis.entity.Usuario</class>
 		<class>br.com.mdjpapeis.entity.Cliente</class>
 		<class>br.com.mdjpapeis.entity.Fornecedor</class>
-		<class>br.com.mdjpapeis.entity.PerfilUsuario</class>
-		<class>br.com.mdjpapeis.entity.TipoFornecedor</class>
 		
+		
+		
+		<!-- Exclui todas as Entidades não mapeadas -->
+		<exclude-unlisted-classes />
+		
+		<!-- Parâmetros utilizados pela implementação -->
 		<properties>
 		
-			<!-- Dados da conexao com o banco de dados -->
+			<!-- Dados da conexão com o banco de dados -->
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.url"	value="jdbc:mysql://localhost:3306/mdjpapeis" />
 			<property name="javax.persistence.jdbc.user" value="mdj" />
 			<property name="javax.persistence.jdbc.password" value="papeis" />
 			
-			<!--  Gera as tabelas se for preciso -->
-			<property name="javax.persistence.schema-generation.database.action" value = "create" />
+			<!-- Cria ou atualiza as tabelas sem apagar os dados -->
+			<property name="eclipselink.ddl-generation" value="create-or-extend-tables"></property>
+			
+			<!-- Geração de Log SQL e integração com o Log do Servidor -->
+			<property name="eclipselink.logging.level.sql" value="FINEST"></property>
+			<property name="eclipselink.logging.parameters" value="true"></property>
+			<property name="eclipselink.logging.logger" value="ServerLogger"></property>
+			
+			<!--  Gera as tabelas se for preciso, só comentado após a inclusão das properties do eclipselink acima -->
+			<!-- <property name="javax.persistence.schema-generation.database.action" value = "create" /> -->
 			
 		</properties>
 		

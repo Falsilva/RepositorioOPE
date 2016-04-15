@@ -32,7 +32,7 @@
 			<li><a href="controller?action=formFornecedor&tarefa=excluir">Excluir</a></li>
 		</ul>
 		
-		<c:if test="${usuarioLogado.perfil.perfil != 'Comprador'}">
+		<c:if test="${usuarioLogado.perfil != 'COMPRADOR'}">
 			<a href="index.jsp">Voltar</a>
 		</c:if>
 		

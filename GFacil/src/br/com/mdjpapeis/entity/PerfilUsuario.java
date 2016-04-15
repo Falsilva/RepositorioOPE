@@ -15,22 +15,20 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-@Entity
+/*@Entity
 @Table(name = "PERFIL_USUARIO", schema = "MDJPAPEIS")
-@SequenceGenerator(name = "GERADOR_DE_SEQUENCIA", sequenceName = "GERADOR_DE_SEQUENCIA", allocationSize=1)
+@SequenceGenerator(name = "GERADOR_DE_SEQUENCIA", sequenceName = "GERADOR_DE_SEQUENCIA", allocationSize=1)*/
 public class PerfilUsuario implements Serializable{
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GERADOR_DE_SEQUENCIA")
-	@Column(name = "ID", nullable = false)
+	/*@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GERADOR_DE_SEQUENCIA")	
+	@Column(name = "ID", nullable = false)*/
 	private int id;
 	
-	@Column(name = "PERFIL")
+	//@Column(name = "PERFIL")
 	private String perfil;
 	
-	//@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
-	//@JoinColumn(name = "LOGIN_USUARIO")	// @JoinColumn indica qual será a coluna utilizada para identificação
-	@OneToMany(mappedBy = "perfil")	
+	//@OneToMany(mappedBy = "perfil")		
 	private List<Usuario> usuarios;
 	
 	public PerfilUsuario(){
@@ -64,6 +62,4 @@ public class PerfilUsuario implements Serializable{
 	public void setUsuario(List<Usuario> usuario) {
 		this.usuarios = usuario;
 	}
-
-	
 }

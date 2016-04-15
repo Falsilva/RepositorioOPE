@@ -46,7 +46,7 @@ public class Filtro implements Filter {
 			if (usuario != null) {
 				
 				System.out.println("Filtro, USUARIO NOME.............: " + usuario.getNome());
-				System.out.println("Filtro, USUARIO PERFIL...........: " + usuario.getPerfil().getPerfil());
+				System.out.println("Filtro, USUARIO PERFIL...........: " + usuario.getPerfil().toString());
 				System.out.println("Filtro, ACTION...................: " + req.getParameter("action"));
 				System.out.println("Filtro, TAREFA...................: " + req.getParameter("tarefa"));
 				
@@ -54,9 +54,9 @@ public class Filtro implements Filter {
 				if(req.getRequestURI().equals("/GFacil/") || req.getRequestURI().equals("/GFacil/index.jsp") || (req.getRequestURI().equals("/GFacil/controller") & (req.getParameter("action").equals("index") || req.getParameter("action").equals("login")))){
 							
 					// Redireciona para a tela principal dependendo do PERFIL do usuário
-					switch (usuario.getPerfil().getPerfil()){
+					switch (usuario.getPerfil().toString()){
 					
-						case "Administrador":
+						case "ADMINISTRADOR":
 							
 							// Recebe o destino do redirecionamento da requisição
 							dispatcher = req.getRequestDispatcher("controller?action=administracao");
@@ -69,7 +69,7 @@ public class Filtro implements Filter {
 							
 							break;
 							
-						case "Comprador":
+						case "COMPRADOR":
 							
 							// Recebe o destino do redirecionamento da requisição
 							dispatcher = req.getRequestDispatcher("controller?action=listarFornecedores");
@@ -82,7 +82,7 @@ public class Filtro implements Filter {
 							
 							break;
 							
-						case "Vendedor":
+						case "VENDEDOR":
 							
 							// Recebe o destino do redirecionamento da requisição
 							dispatcher = req.getRequestDispatcher("controller?action=listarClientes");

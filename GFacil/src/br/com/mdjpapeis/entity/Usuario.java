@@ -2,37 +2,41 @@ package br.com.mdjpapeis.entity;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "USUARIO", schema = "MDJPAPEIS")
 public class Usuario implements Serializable {
 	
-	@Id
-	@Column(name = "LOGIN", nullable = false)
+	@Id	
+	@Column(name = "LOGIN", length = 100, nullable = false)
 	private String login;
 	
-	@Column(name = "SENHA", nullable = false)
+	@Column(name = "SENHA", length = 100, nullable = false)
 	private String senha;
 	
-	@Column(name = "NOME", nullable = false)
-	private String nome;
+	@Column(name = "NOME", length = 100, nullable = false)
+	private String nome;	
 	
-	@Column(name = "EMAIL", unique = true, nullable = false)
+	@Column(name = "EMAIL", length = 100, unique = true, nullable = false)
 	private String email;
-		
-	//@ManyToOne(cascade=CascadeType.ALL, optional = false)	// O nome da coluna gerado no banco de dados é PERFIL_ID e LOGIN_USUARIO
-	//@JoinColumn(name = "PERFIL_ID")
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "PERFIL_ID")
-	private PerfilUsuario perfil;
+	
+	/*@ManyToOne(cascade=CascadeType.PERSIST, optional = false)	// O nome da coluna gerado no banco de dados é PERFIL_ID e LOGIN_USUARIO
+	@JoinColumn(name = "FK_ID_PERFIL_USUARIO", nullable = false)*/
+	
+	@Enumerated(EnumType.STRING)
+	private Perfil perfil;
+	
+	public enum Perfil{
+		ADMINISTRADOR,
+		COMPRADOR,
+		VENDEDOR
+	}
 	
 	public Usuario(){
 		
@@ -43,7 +47,7 @@ public class Usuario implements Serializable {
 		this.senha = senha;
 	}
 
-	public Usuario(String login, String senha, String nome, String email, PerfilUsuario perfil){
+	public Usuario(String login, String senha, String nome, String email, Perfil perfil){
 		this.login = login;
 		this.senha = senha;
 		this.nome = nome;
@@ -83,12 +87,11 @@ public class Usuario implements Serializable {
 		this.email = email;
 	}
 
-	public PerfilUsuario getPerfil() {
+	public Perfil getPerfil() {
 		return perfil;
 	}
 
-	public void setPerfil(PerfilUsuario perfil) {
+	public void setPerfil(Perfil perfil) {
 		this.perfil = perfil;
 	}
-
 }

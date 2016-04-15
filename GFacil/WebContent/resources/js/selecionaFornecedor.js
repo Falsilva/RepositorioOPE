@@ -1,5 +1,5 @@
 var alternaFormulario = function(event){
-	
+	event.preventDefault();
 	var tipoFornecedor = $("input:radio");	
 	var empresa = $("#tipoFornecedor1");
 	var catador = $("#tipoFornecedor2");
@@ -41,6 +41,9 @@ var montaFormCatador = function(labels, inputs){
 				$(this).text("Nome:");
 				$(this).show();
 				break;
+			case "telefone":				
+				$(this).show();
+				break;
 			default:
 				$(this).hide();
 				break;						
@@ -66,6 +69,10 @@ var montaFormCatador = function(labels, inputs){
 				break;
 			case "contato":
 				$(this).attr("placeholder", "Nome do catador");
+				$(this).show();
+				break;
+			case "telefone":
+				$(this).attr("placeholder", "(99)9.9999-9999");
 				$(this).show();
 				break;
 			case "botao":
@@ -105,14 +112,18 @@ var montaFormEmpresa = function(labels, inputs){
 		var atributo = $(this).attr("id");
 		
 		switch(atributo){
-			case "contato":
+			case "empresa":
+				$(this).val(null);
+				$(this).attr("placeholder", "Empresa");				
+				break;
+			case "contato":				
 				$(this).attr("placeholder", "Nome do contato");
 				break;
 			case "botao":
 				$(this).show();
 				break;
 			default:
-				break;						
+				break;			
 		}											
 	});	
 }

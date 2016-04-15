@@ -64,7 +64,7 @@
 					<div class="box-1-3">
 						<div class="col-1">${user.nome}</div>
 						<div class="col-1">${user.email}</div>
-						<div class="col-1">${user.perfil.perfil}</div>
+						<div class="col-1">${user.perfil}</div>
 					</div>
 				</c:forEach>
 			</c:when>

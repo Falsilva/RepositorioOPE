@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="br.com.mdjpapeis.entity.Usuario" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -57,10 +58,10 @@
 										<input type="password" name="senha" id="senha" placeholder="****" maxlength="4" />
 										
 										<label for="perfil">Perfil:</label>
-										<select name="perfil" id="perfil">
-											<option value="Administrador">Administrador</option>
-											<option value="Comprador">Comprador</option>
-											<option value="Vendedor">Vendedor</option>
+										<select name="perfil" id="perfil">											
+											<c:forEach var="perfil" items="<%= Usuario.Perfil.values() %>">
+												<option value="${perfil}">${perfil}</option>
+											</c:forEach>
 										</select>
 										
 										<input class="btnRight" type="submit" value="Cadastrar" />
@@ -92,9 +93,13 @@
 										
 										<label for="perfil">Perfil:</label>
 										<select name="perfil" id="perfil">
-											<option value="Administrador" <c:if test="${user.perfil.perfil eq 'Administrador'}">selected</c:if>>Administrador</option>
-											<option value="Comprador" <c:if test="${user.perfil.perfil eq 'Comprador'}">selected</c:if>>Comprador</option>
-											<option value="Vendedor" <c:if test="${user.perfil.perfil eq 'Vendedor'}">selected</c:if>>Vendedor</option>
+											<c:forEach var="perfil" items="<%= Usuario.Perfil.values() %>">
+												<option value="${perfil}" <c:if test="${user.perfil eq perfil}">selected</c:if>>${perfil}</option>
+											</c:forEach>
+											<!-- 
+											<option value="Administrador" <c:if test="${user.perfil eq 'ADMINISTRADOR'}">selected</c:if>>Administrador</option>
+											<option value="Comprador" <c:if test="${user.perfil eq 'COMPRADOR'}">selected</c:if>>Comprador</option>
+											<option value="Vendedor" <c:if test="${user.perfil eq 'VENDEDOR'}">selected</c:if>>Vendedor</option> -->
 										</select>
 										
 										<input class="btnRight" type="submit" value="Cadastrar" />
@@ -154,16 +159,24 @@
 										<input type="text" name="senha" id="senha" value="${user.senha}" maxlength="4" />
 										
 										<label for="perfil">Perfil:</label>
-										<select name="perfil" id="perfil">																			
-											<option value="Administrador" <c:if test="${user.perfil.perfil eq 'Administrador'}">selected</c:if>>Administrador</option>
-											<option value="Comprador" <c:if test="${user.perfil.perfil eq 'Comprador'}">selected</c:if>>Comprador</option>
-											<option value="Vendedor" <c:if test="${user.perfil.perfil eq 'Vendedor'}">selected</c:if>>Vendedor</option>
+										<select name="perfil" id="perfil">
+											<c:forEach var="perfil" items="<%= Usuario.Perfil.values() %>">
+												<option value="${perfil}" <c:if test="${user.perfil eq perfil}">selected</c:if>>${perfil}</option>
+											</c:forEach>
+											<!-- 																	
+											<option value="Administrador" <c:if test="${user.perfil eq 'ADMINISTRADOR'}">selected</c:if>>Administrador</option>
+											<option value="Comprador" <c:if test="${user.perfil eq 'COMPRADOR'}">selected</c:if>>Comprador</option>
+											<option value="Vendedor" <c:if test="${user.perfil eq 'VENDEDOR'}">selected</c:if>>Vendedor</option> -->
 										</select>
 										
 										<label class="lblRight">
-											<c:if test="${user.perfil.perfil eq 'Administrador'}">${user.perfil.perfil} (atual)</c:if>
-											<c:if test="${user.perfil.perfil eq 'Comprador'}">${user.perfil.perfil} (atual)</c:if>
-											<c:if test="${user.perfil.perfil eq 'Vendedor'}">${user.perfil.perfil} (atual)</c:if>	
+											<c:forEach var="perfil" items="<%= Usuario.Perfil.values() %>">
+												<c:if test="${user.perfil eq perfil}">${perfil} (atual)</c:if>
+											</c:forEach>
+											<!-- 
+											<c:if test="${user.perfil eq 'ADMINISTRADOR'}">${user.perfil} (atual)</c:if>
+											<c:if test="${user.perfil eq 'COMPRADOR'}">${user.perfil} (atual)</c:if>
+											<c:if test="${user.perfil eq 'VENDEDOR'}">${user.perfil} (atual)</c:if> -->	
 										</label>
 										
 										<input class="btnRight" type="submit" value="Atualizar" />
@@ -221,7 +234,7 @@
 										<input type="text" name="email" id="email" value="${user.email}" disabled />
 										
 										<label for="perfil">Perfil:</label>
-										<input type="text" name="perfil" id="perfil" value="${user.perfil.perfil}" disabled />
+										<input type="text" name="perfil" id="perfil" value="${user.perfil}" disabled />
 																							
 										<input type="hidden" name="userLogin" value="${user.login}" />
 										<input type="hidden" name="userEmail" value="${user.email}" />
@@ -262,7 +275,7 @@
 						<div class="box-1-3">
 							<div class="col-1">${user.nome}</div>
 							<div class="col-1">${user.email}</div>
-							<div class="col-1">${user.perfil.perfil}</div>
+							<div class="col-1">${user.perfil}</div>
 						</div>				
 						
 					</c:when>

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import br.com.mdjpapeis.dao.UsuarioDAO;
 import br.com.mdjpapeis.entity.PerfilUsuario;
 import br.com.mdjpapeis.entity.Usuario;
+import br.com.mdjpapeis.entity.Usuario.Perfil;
 
 @WebServlet(urlPatterns = "/login")
 public class Login extends HttpServlet{
@@ -39,7 +40,7 @@ public class Login extends HttpServlet{
 			dispatcher = req.getRequestDispatcher("controller?action=index");
 			
 			// Atribuindo uma mensagem na requisição
-			req.setAttribute("mensagem", "Usuário não encontrado");
+			req.setAttribute("mensagem", "Usuário ou senha inválidos");
 		
 		// Caso o usuário seja encontrado no banco de dados
 		}else{
@@ -51,7 +52,7 @@ public class Login extends HttpServlet{
 				dispatcher = req.getRequestDispatcher("controller?action=index");
 				
 				// Atribuindo uma mensagem na requisição
-				req.setAttribute("mensagem", "Senha inválida");
+				req.setAttribute("mensagem", "Usuário ou senha inválidos");
 			
 			// Caso a senha seja válida
 			}else{
@@ -62,14 +63,14 @@ public class Login extends HttpServlet{
 				// Atribuindo um cookie de usuário para marcar a sessão
 				session.setAttribute("usuarioLogado", usuario);
 				
-				switch(usuario.getPerfil().getPerfil()){
-					case "Administrador":
+				switch(usuario.getPerfil().toString().toUpperCase()){
+					case "ADMINISTRADOR":
 						dispatcher = req.getRequestDispatcher("controller?action=administracao");
 						break;
-					case "Comprador":
+					case "COMPRADOR":
 						dispatcher = req.getRequestDispatcher("controller?action=listarFornecedores");
 						break;
-					case "Vendedor":
+					case "VENDEDOR":
 						dispatcher = req.getRequestDispatcher("controller?action=listarClientes");
 						break;
 					default:

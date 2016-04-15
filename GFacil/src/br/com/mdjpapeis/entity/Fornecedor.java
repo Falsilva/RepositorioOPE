@@ -3,6 +3,8 @@ package br.com.mdjpapeis.entity;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -44,10 +46,16 @@ public class Fornecedor {
 	private String inscEstadual;
 	
 	//@ManyToOne(cascade = CascadeType.ALL, optional = false)
-	//@JoinColumn(name = "TIPO_FORNECEDOR_ID")
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "TIPO_FORNECEDOR_ID")
-	private TipoFornecedor tipo;
+	//@JoinColumn(name = "FK_TIPO_FORNECEDOR_ID")
+	//private TipoFornecedor tipo;
+	
+	@Enumerated(EnumType.STRING)
+	private Tipo tipo;
+	
+	public enum Tipo{
+		EMPRESA,
+		CATADOR
+	}
 	
 	public Fornecedor(){
 		
@@ -123,11 +131,11 @@ public class Fornecedor {
 		this.inscEstadual = inscEstadual;
 	}
 
-	public TipoFornecedor getTipo() {
+	public Tipo getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(TipoFornecedor tipo) {
+	public void setTipo(Tipo tipo) {
 		this.tipo = tipo;
 	}
 }

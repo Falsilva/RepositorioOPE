@@ -16,6 +16,7 @@ import br.com.mdjpapeis.dao.FornecedorDAO;
 import br.com.mdjpapeis.entity.Cliente;
 import br.com.mdjpapeis.entity.Fornecedor;
 import br.com.mdjpapeis.entity.TipoFornecedor;
+import br.com.mdjpapeis.entity.Usuario;
 
 @WebServlet(urlPatterns = {"/listarFornecedores", "/pesquisarFornecedor", "/cadastrarFornecedor", "/atualizarFornecedor", "/excluirFornecedor"})
 public class RegraFornecedores extends HttpServlet{
@@ -34,7 +35,7 @@ public class RegraFornecedores extends HttpServlet{
 		String contato = null;	// Campo obrigatório, não pode ser nulo no banco de dados
 		String telefone = null;
 		String email = null;
-		String endereco = null;
+		String endereco = "";
 		String cnpj = null;
 		String inscEstadual = null;
 		
@@ -100,6 +101,7 @@ public class RegraFornecedores extends HttpServlet{
 								codigo = Long.parseLong(req.getParameter("codigo"));				
 								fornecedor.setCodigo(codigo);
 								forn = new FornecedorDAO().buscaFornecedorPorCodigo(fornecedor);
+								
 							}catch(NumberFormatException ex){
 								codigoInvalido = true;
 								ex.printStackTrace();
@@ -214,8 +216,12 @@ public class RegraFornecedores extends HttpServlet{
 					}
 					
 					switch(parametros[i][0]){
-						case "tipo":							
-							forn.setTipo(new TipoFornecedor(parametros[i][1]));
+						case "tipo":
+							for(Fornecedor.Tipo tp : Fornecedor.Tipo.values()){
+								if(parametros[i][1].toUpperCase().equals(tp.toString())){									
+									forn.setTipo(tp);
+								}
+							}							
 							break;
 						case "empresa":
 							forn.setEmpresa(parametros[i][1]);
@@ -318,7 +324,11 @@ public class RegraFornecedores extends HttpServlet{
 					
 					switch(parametros[i][0]){
 						case "tipo":							
-							forn.setTipo(new TipoFornecedor(parametros[i][1]));
+							for(Fornecedor.Tipo tp : Fornecedor.Tipo.values()){
+								if(parametros[i][1].toUpperCase().equals(tp.toString())){									
+									forn.setTipo(tp);
+								}
+							}
 							break;
 						case "empresa":
 							forn.setEmpresa(parametros[i][1]);
@@ -452,14 +462,14 @@ public class RegraFornecedores extends HttpServlet{
 		for(int i = 0; i < paramEndereco.length; i++){
 				
 			// Caso o parâmetro não foi preenchido, inclui a palavra "nulo;"
-			if(paramEndereco[i] == null){
+			if(paramEndereco[i] == null || paramEndereco[i] == ""){				
 				endereco += "nulo;";		
 					
 			// Caso preenchido
 			}else{
 				// Se não for o último parâmetro, inclui um ";" para separar os dados e facilitar na recuperação dos dados do banco, quando solicitado
 				if(i != (paramEndereco.length - 1)){							
-					endereco += paramEndereco[i] + ";";					
+					endereco += paramEndereco[i] + ";";
 				}else{
 					endereco += paramEndereco[i];
 				}
@@ -475,10 +485,12 @@ public class RegraFornecedores extends HttpServlet{
 			int i = fornecedores.indexOf(fornEndereco);
 			fornEndereco = fornecedores.get(i);						
 			endereco = fornEndereco.getEndereco();						
-			String endPalavraNulo = endereco.replace("nulo;", "; ");
-			String enderecoPalavraEspaco = endPalavraNulo.replace(";", ", ");
-			String enderecoFinal = enderecoPalavraEspaco.replace(", , ", ", ");
-			fornEndereco.setEndereco(enderecoFinal);
+			endereco = endereco.replace("nulo;", "; ");
+			endereco = endereco.replace(";", ", ");
+			endereco = endereco.replace(";;", ", ");
+			endereco = endereco.replace(", , ", ", ");
+			endereco = endereco.replace(", , ,", "");			
+			fornEndereco.setEndereco(endereco);
 			fornecedores.set(i, fornEndereco);
 		}
 	}	
@@ -497,9 +509,9 @@ public class RegraFornecedores extends HttpServlet{
 			
 		// Percorre o vetor e onde encontrar a palavra "nulo", substitui por um espaço vazio
 		for(int i = 0; i < fornEndereco.length; i++){
-			if(fornEndereco[i].equals("nulo")) fornEndereco[i] = " ";
+			if(fornEndereco[i].equals("nulo") || fornEndereco[i].equals(null)) fornEndereco[i] = " ";
 		}
-			
+		
 		// Atribui na requisição o vetor de endereços para ser recuperado no formulário para ser editado os dados do cliente
 		req.setAttribute("fornEndereco", fornEndereco);
 	}	

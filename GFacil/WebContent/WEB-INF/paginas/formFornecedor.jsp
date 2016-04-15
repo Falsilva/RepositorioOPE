@@ -1,13 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ page import="br.com.mdjpapeis.entity.Fornecedor" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" type="text/css" href="resources/css/estilos.css" />
-<title>MDJ Papeis - Fornecedores</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="generator" content="Bootply" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!-- <link rel="stylesheet" type="text/css" href="resources/css/estilos.css" /> -->
+	<link rel="stylesheet" type="text/css" href="resources/css/bootstrap.min.css" />
+	<title>MDJ Papeis - Fornecedores</title>
 </head>
+
 <body>
 	
 	<div class="nav">
@@ -40,57 +44,122 @@
 							<c:when test="${empty forn}">
 							
 								<!-- FORMULÁRIO CADASTRAR FORNECEDOR -->						
-								<form id="formCadastrarFornecedor" action="controller?action=cadastrarFornecedor&tarefa=cadastrar" method="POST">
+								<form class="form-horizontal" id="formCadastrarFornecedor" action="controller?action=cadastrarFornecedor&tarefa=cadastrar" method="POST">
 									<fieldset>
 										<legend>Preencha o formulário</legend>
 										
-										<label for="tipoFornecedores">Tipo:</label>
-										<div class="box-radio" id="tipoFornecedores">
-											<input type="radio" name="tipoFornecedor" id="tipoFornecedor1" value="Empresa" checked /><label for="tipoFornecedor1" class="lblRadio">Empresa</label>
-											<input type="radio" name="tipoFornecedor" id="tipoFornecedor2" value="Catador" /><label for="tipoFornecedor2" class="lblRadio">Catador</label>
+										<div class="form-group">
+											<label for="tipoFornecedores" class="col-sm-2 control-label">Tipo:</label>
+    										<div class="col-sm-10">    											
+												<div class="radio">										
+													<label for="tipoFornecedor1" class="lblRadio">
+														<input type="radio" name="tipoFornecedor" id="tipoFornecedor1" value="EMPRESA" checked />Empresa
+													</label>
+												</div>
+												<div class="radio">
+													<label for="tipoFornecedor2" class="lblRadio">
+														<input type="radio" name="tipoFornecedor" id="tipoFornecedor2" value="CATADOR" />Catador
+													</label>
+												</div>
+											</div>
 										</div>
 										
-										<label for="empresa">Empresa:</label>			
-										<input type="text" name="empresa" id="empresa" placeholder="Empresa" />
+										<div class="form-group">
+											<label for="empresa" class="col-sm-2 control-label">Empresa:</label>
+											<div class="col-sm-10">			
+												<input type="text" name="empresa" id="empresa" placeholder="Empresa" />
+											</div>
+										</div>
 										
-										<label for="contato">Contato:</label>			
-										<input type="text" name="contato" id="contato" placeholder="Nome do contato" /> <span>*</span>
+										<div class="form-group">
+											<label for="contato" class="col-sm-2 control-label">Contato:</label>
+											<div class="col-sm-10">			
+												<input type="text" name="contato" id="contato" placeholder="Nome do contato" /> <span>*</span>
+											</div>
+										</div>
 										
-										<label for="telefone">Telefone:</label>			
-										<input type="text" name="telefone" id="telefone" placeholder="(99)9.9999-9999" />
+										<div class="form-group">
+											<label for="telefone" class="col-sm-2 control-label">Telefone:</label>
+											<div class="col-sm-10">			
+												<input type="text" name="telefone" id="telefone" placeholder="(99)9.9999-9999" />
+											</div>
+										</div>
 										
-										<label for="email">Email:</label>			
-										<input type="text" name="email" id="email" placeholder="Email" />
+										<div class="form-group">
+											<label for="email" class="col-sm-2 control-label">Email:</label>
+											<div class="col-sm-10">			
+												<input type="text" name="email" id="email" placeholder="Email" />
+											</div>
+										</div>
 										
+										<div class="form-group">										
+											<label for="cep" class="col-sm-2 control-label">CEP:</label>
+											<div class="col-sm-10">
+												<input type="text" name="cep" id="cep" placeholder="00000-000" />
+											</div>
+										</div>
 										
-										<label for="cep">CEP:</label>
-										<input type="text" name="cep" id="cep" placeholder="00000-000" />
-											
-										<label for="endereco">Logradouro:</label>
-										<input type="text" name="endereco" id="endereco" placeholder="Rua/Avenida" />
-											
-										<label for="numero">Número:</label>
-										<input type="text" name="numero" id="numero" placeholder="Número" />
-											
-										<label for="complemento">Complemento:</label>
-										<input type="text" name="complemento" id="complemento" placeholder="Complemento" />
-											
-										<label for="bairro">Bairro:</label>
-										<input type="text" name="bairro" id="bairro" placeholder="Bairro" />
-											
-										<label for="cidade">Cidade:</label>
-										<input type="text" name="cidade" id="cidade" placeholder="Cidade" />
-											
-										<label for="estado">Estado:</label>
-										<input type="text" name="estado" id="estado" placeholder="Estado" />
-											
-										<label for="cnpj">CNPJ:</label>
-										<input type="text" name="cnpj" id="cnpj" placeholder="00.000.000/0001-00" />
-																						
-										<label for="inscEstadual">Insc. Estadual:</label>
-										<input type="text" name="inscEstadual" id="inscEstadual" placeholder="Insc. Estadual" />
-																					
-										<input class="btnRight" id="botao" type="submit" value="Cadastrar" />
+										<div class="form-group">
+											<label for="endereco" class="col-sm-2 control-label">Logradouro:</label>
+											<div class="col-sm-10">
+												<input type="text" name="endereco" id="endereco" placeholder="Rua/Avenida" />
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label for="numero" class="col-sm-2 control-label">Número:</label>
+											<div class="col-sm-10">
+												<input type="text" name="numero" id="numero" placeholder="Número" />
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label for="complemento" class="col-sm-2 control-label">Complemento:</label>
+											<div class="col-sm-10">
+												<input type="text" name="complemento" id="complemento" placeholder="Complemento" />
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label for="bairro" class="col-sm-2 control-label">Bairro:</label>
+											<div class="col-sm-10">
+												<input type="text" name="bairro" id="bairro" placeholder="Bairro" />
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label for="cidade" class="col-sm-2 control-label">Cidade:</label>
+											<div class="col-sm-10">
+												<input type="text" name="cidade" id="cidade" placeholder="Cidade" />
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label for="estado" class="col-sm-2 control-label">Estado:</label>
+											<div class="col-sm-10">
+												<input type="text" name="estado" id="estado" placeholder="Estado" />
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label for="cnpj" class="col-sm-2 control-label">CNPJ:</label>
+											<div class="col-sm-10">
+												<input type="text" name="cnpj" id="cnpj" placeholder="00.000.000/0001-00" />
+											</div>
+										</div>
+										
+										<div class="form-group">											
+											<label for="inscEstadual" class="col-sm-2 control-label">Insc. Estadual:</label>
+											<div class="col-sm-10">
+												<input type="text" name="inscEstadual" id="inscEstadual" placeholder="Insc. Estadual" />
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<div class="col-sm-offset-2 col-sm-10">										
+												<input class="btn btn-success" id="botao" type="submit" value="Cadastrar" />
+											</div>
+										</div>
 									</fieldset>
 								</form>
 								
@@ -103,56 +172,123 @@
 							
 							<c:otherwise>
 								<!-- FORMULÁRIO CADASTRAR FORNECEDOR -->						
-								<form id="formCadastrarFornecedor" action="controller?action=cadastrarFornecedor&tarefa=cadastrar" method="POST">
+								<form class="form-horizontal" id="formCadastrarFornecedor" action="controller?action=cadastrarFornecedor&tarefa=cadastrar" method="POST">
 									<fieldset>
 										<legend>Preencha o formulário</legend>
 										
-										<label>Tipo:</label>
-										<div class="box-radio">
-											<input type="radio" name="tipoFornecedor1" id="tipoFornecedor1" value="Empresa" <c:if test="${forn.tipo.tipo eq 'Empresa'}">checked</c:if>><label for="tipoFornecedor1" class="lblRadio">Empresa</label>
-											<input type="radio" name="tipoFornecedor2" id="tipoFornecedor2" value="Catador" <c:if test="${forn.tipo.tipo eq 'Catador'}">checked</c:if>><label for="tipoFornecedor2" class="lblRadio">Catador</label>
+										<div class="form-group">
+											<label for="tipoFornecedores" class="col-sm-2 control-label">Tipo:</label>
+    										<div class="col-sm-10">
+												<div class="radio">										
+													<label for="tipoFornecedor1" class="lblRadio">
+														<input type="radio" name="tipoFornecedor" id="tipoFornecedor1" value="EMPRESA" <c:if test="${forn.tipo eq 'EMPRESA'}">checked</c:if> />Empresa
+													</label>
+												</div>
+												<div class="radio">
+													<label for="tipoFornecedor2" class="lblRadio">
+														<input type="radio" name="tipoFornecedor" id="tipoFornecedor2" value="CATADOR" <c:if test="${forn.tipo eq 'CATADOR'}">checked</c:if> />Catador
+													</label>
+												</div>
+											</div>
 										</div>
-																			
-										<label for="empresa">Empresa:</label>			
-										<input type="text" name="empresa" id="empresa" value="${forn.empresa}" />
 										
-										<label for="contato">Contato:</label>			
-										<input type="text" name="contato" id="contato" value="${forn.contato}" /> <span>*</span>
 										
-										<label for="telefone">Telefone:</label>			
-										<input type="text" name="telefone" id="telefone" value="${forn.telefone}" />
+										<div class="form-group">											
+											<label for="empresa" class="col-sm-2 control-label">Empresa:</label>
+											<div class="col-sm-10">			
+												<input type="text" name="empresa" id="empresa" value="${forn.empresa}" />
+											</div>
+										</div>
 										
-										<label for="email">Email:</label>			
-										<input type="text" name="email" id="email" value="${forn.email}" />
+										<div class="form-group">											
+											<label for="contato" class="col-sm-2 control-label">Contato:</label>
+											<div class="col-sm-10">			
+												<input type="text" name="contato" id="contato" value="${forn.contato}" /> <span>*</span>
+											</div>
+										</div>
 										
-										<label for="cep">CEP:</label>
-										<input type="text" name="cep" id="cep" value="${forn.cep}" />
-											
-										<label for="endereco">Logradouro:</label>
-										<input type="text" name="endereco" id="endereco" value="${forn.endereco}" />
-											
-										<label for="numero">Número:</label>
-										<input type="text" name="numero" id="numero" value="${forn.numero}" />
-											
-										<label for="complemento">Complemento:</label>
-										<input type="text" name="complemento" id="complemento" value="${forn.complemento}" />
-											
-										<label for="bairro">Bairro:</label>
-										<input type="text" name="bairro" id="bairro" value="${forn.bairro}" />
-											
-										<label for="cidade">Cidade:</label>
-										<input type="text" name="cidade" id="cidade" value="${forn.cidade}" />
+										<div class="form-group">											
+											<label for="telefone" class="col-sm-2 control-label">Telefone:</label>
+											<div class="col-sm-10">			
+												<input type="text" name="telefone" id="telefone" value="${forn.telefone}" />
+											</div>
+										</div>
 										
-										<label for="estado">Estado:</label>
-										<input type="text" name="estado" id="estado" value="${forn.estado}" />
-											
-										<label for="cnpj">CNPJ:</label>
-										<input type="text" name="cnpj" id="cnpj" value="${forn.cnpj}" />
-											
-										<label for="inscEstadual">Insc. Estadual:</label>
-										<input type="text" name="inscEstadual" id="inscEstadual" value="${forn.inscEstadual}" />
+										<div class="form-group">											
+											<label for="email" class="col-sm-2 control-label">Email:</label>
+											<div class="col-sm-10">		
+												<input type="text" name="email" id="email" value="${forn.email}" />
+											</div>
+										</div>
 										
-										<input class="btnRight" type="submit" value="Cadastrar" />
+										<div class="form-group">											
+											<label for="cep" class="col-sm-2 control-label">CEP:</label>
+											<div class="col-sm-10">
+												<input type="text" name="cep" id="cep" value="${forn.cep}" />
+											</div>
+										</div>
+										
+										<div class="form-group">											
+											<label for="endereco" class="col-sm-2 control-label">Logradouro:</label>
+											<div class="col-sm-10">
+												<input type="text" name="endereco" id="endereco" value="${forn.endereco}" />
+											</div>
+										</div>
+										
+										<div class="form-group">											
+											<label for="numero" class="col-sm-2 control-label">Número:</label>
+											<div class="col-sm-10">
+												<input type="text" name="numero" id="numero" value="${forn.numero}" />
+											</div>
+										</div>
+										
+										<div class="form-group">											
+											<label for="complemento" class="col-sm-2 control-label">Complemento:</label>
+											<div class="col-sm-10">
+												<input type="text" name="complemento" id="complemento" value="${forn.complemento}" />
+											</div>
+										</div>
+										
+										<div class="form-group">											
+											<label for="bairro" class="col-sm-2 control-label">Bairro:</label>
+											<div class="col-sm-10">
+												<input type="text" name="bairro" id="bairro" value="${forn.bairro}" />
+											</div>
+										</div>
+										
+										<div class="form-group">											
+											<label for="cidade" class="col-sm-2 control-label">Cidade:</label>
+											<div class="col-sm-10">
+												<input type="text" name="cidade" id="cidade" value="${forn.cidade}" />
+											</div>
+										</div>
+										
+										<div class="form-group">											
+											<label for="estado" class="col-sm-2 control-label">Estado:</label>
+											<div class="col-sm-10">
+												<input type="text" name="estado" id="estado" value="${forn.estado}" />
+											</div>
+										</div>
+										
+										<div class="form-group">											
+											<label for="cnpj" class="col-sm-2 control-label">CNPJ:</label>
+											<div class="col-sm-10">
+												<input type="text" name="cnpj" id="cnpj" value="${forn.cnpj}" />
+											</div>
+										</div>
+										
+										<div class="form-group">											
+											<label for="inscEstadual" class="col-sm-2 control-label">Insc. Estadual:</label>
+											<div class="col-sm-10">
+												<input type="text" name="inscEstadual" id="inscEstadual" value="${forn.inscEstadual}" />
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<div class="col-sm-offset-2 col-sm-10">										
+												<input class="btn btn-success" id="botao" type="submit" value="Cadastrar" />
+											</div>
+										</div>
 									</fieldset>									
 								</form>								
 								
@@ -193,60 +329,130 @@
 							<c:when test="${not empty forn}">
 								
 								<!-- FORMULÁRIO ATUALIZAR FORNECEDOR -->
-								<form id="formAtualizarFornecedor" action="controller?action=atualizarFornecedor&tarefa=atualizar" method="POST">
+								<form class="form-horizontal" id="formAtualizarFornecedor" action="controller?action=atualizarFornecedor&tarefa=atualizar" method="POST">
 									<fieldset>
 										<legend>Edite os campos</legend>
 										
-										<label for="codigo">Código:</label>			
-										<input type="text" id="codigo" value="${forn.codigo}" disabled />
-										<input type="hidden" name="codigo" id="codigo" value="${forn.codigo}" />
-										
-										<label>Tipo:</label>
-										<div class="box-radio" id="tipoFornecedores">
-											<input type="radio" name="tipoFornecedor" id="tipoFornecedor1" value="Empresa" <c:if test="${forn.tipo.tipo eq 'Empresa'}">checked</c:if>><label for="tipoFornecedor1" class="lblRadio">Empresa</label>
-											<input type="radio" name="tipoFornecedor" id="tipoFornecedor2" value="Catador" <c:if test="${forn.tipo.tipo eq 'Catador'}">checked</c:if>><label for="tipoFornecedor2" class="lblRadio">Catador</label>
+										<div class="form-group">
+											<label for="codigo" class="col-sm-2 control-label">Código:</label>
+											<div class="col-sm-10">
+												<input type="text" id="codigo" value="${forn.codigo}" disabled />
+												<input type="hidden" name="codigo" id="codigo" value="${forn.codigo}" />
+											</div>												
 										</div>
 										
-										<label for="empresa">Empresa:</label>			
-										<input type="text" name="empresa" id="empresa" value="${forn.empresa}" />
+										<div class="form-group">
+											<label for="tipoFornecedores" class="col-sm-2 control-label">Tipo:</label>
+    										<div class="col-sm-10">    										
+												<div class="radio">										
+													<label for="tipoFornecedor1" class="lblRadio">
+														<input type="radio" name="tipoFornecedor" id="tipoFornecedor1" value="Empresa" <c:if test="${forn.tipo eq 'EMPRESA'}">checked</c:if> />Empresa
+													</label>
+												</div>
+												<div class="radio">
+													<label for="tipoFornecedor2" class="lblRadio">
+														<input type="radio" name="tipoFornecedor" id="tipoFornecedor2" value="Catador" <c:if test="${forn.tipo eq 'CATADOR'}">checked</c:if> />Catador
+													</label>
+												</div>
+											</div>
+										</div>										
 										
-										<label for="contato">Contato:</label>			
-										<input type="text" name="contato" id="contato" value="${forn.contato}" /> <span>*</span>
+										<div class="form-group">											
+											<label for="empresa" class="col-sm-2 control-label">Empresa:</label>
+											<div class="col-sm-10">			
+												<input type="text" name="empresa" id="empresa" value="${forn.empresa}" />
+											</div>
+										</div>
 										
-										<label for="telefone">Telefone:</label>			
-										<input type="text" name="telefone" id="telefone" value="${forn.telefone}" />
+										<div class="form-group">											
+											<label for="contato" class="col-sm-2 control-label">Contato:</label>
+											<div class="col-sm-10">			
+												<input type="text" name="contato" id="contato" value="${forn.contato}" /> <span>*</span>
+											</div>
+										</div>
 										
-										<label for="email">Email:</label>			
-										<input type="text" name="email" id="email" value="${forn.email}" />
+										<div class="form-group">											
+											<label for="telefone" class="col-sm-2 control-label">Telefone:</label>
+											<div class="col-sm-10">			
+												<input type="text" name="telefone" id="telefone" value="${forn.telefone}" />
+											</div>
+										</div>
 										
-										<label for="cep">CEP:</label>
-										<input type="text" name="cep" id="cep" value="${fornEndereco[6]}" />
-											
-										<label for="endereco">Logradouro:</label>
-										<input type="text" name="endereco" id="endereco" value="${fornEndereco[0]}" />
-											
-										<label for="numero">Número:</label>
-										<input type="text" name="numero" id="numero" value="${fornEndereco[1]}" />
-											
-										<label for="complemento">Complemento:</label>
-										<input type="text" name="complemento" id="complemento" value="${fornEndereco[2]}" />
-											
-										<label for="bairro">Bairro:</label>
-										<input type="text" name="bairro" id="bairro" value="${fornEndereco[3]}" />
-											
-										<label for="cidade">Cidade:</label>
-										<input type="text" name="cidade" id="cidade" value="${fornEndereco[4]}" />
-											
-										<label for="estado">Estado:</label>
-										<input type="text" name="estado" id="estado" value="${fornEndereco[5]}" />
-											
-										<label for="cnpj">CNPJ:</label>
-										<input type="text" name="cnpj" id="cnpj" value="${forn.cnpj}" />
+										<div class="form-group">											
+											<label for="email" class="col-sm-2 control-label">Email:</label>
+											<div class="col-sm-10">		
+												<input type="text" name="email" id="email" value="${forn.email}" />
+											</div>
+										</div>
 										
-										<label for="inscEstadual">Insc. Estadual:</label>
-										<input type="text" name="inscEstadual" id="inscEstadual" value="${forn.inscEstadual}" />
+										<div class="form-group">											
+											<label for="cep" class="col-sm-2 control-label">CEP:</label>
+											<div class="col-sm-10">
+												<input type="text" name="cep" id="cep" value="${fornEndereco[6]}" />
+											</div>
+										</div>
 										
-										<input class="btnRight" type="submit" value="Atualizar" />
+										<div class="form-group">											
+											<label for="endereco" class="col-sm-2 control-label">Logradouro:</label>
+											<div class="col-sm-10">
+												<input type="text" name="endereco" id="endereco" value="${fornEndereco[0]}" />
+											</div>
+										</div>
+										
+										<div class="form-group">											
+											<label for="numero" class="col-sm-2 control-label">Número:</label>
+											<div class="col-sm-10">
+												<input type="text" name="numero" id="numero" value="${fornEndereco[1]}" />
+											</div>
+										</div>
+										
+										<div class="form-group">											
+											<label for="complemento" class="col-sm-2 control-label">Complemento:</label>
+											<div class="col-sm-10">
+												<input type="text" name="complemento" id="complemento" value="${fornEndereco[2]}" />
+											</div>
+										</div>
+										
+										<div class="form-group">											
+											<label for="bairro" class="col-sm-2 control-label">Bairro:</label>
+											<div class="col-sm-10">
+												<input type="text" name="bairro" id="bairro" value="${fornEndereco[3]}" />
+											</div>
+										</div>
+										
+										<div class="form-group">											
+											<label for="cidade" class="col-sm-2 control-label">Cidade:</label>
+											<div class="col-sm-10">
+												<input type="text" name="cidade" id="cidade" value="${fornEndereco[4]}" />
+											</div>
+										</div>
+										
+										<div class="form-group">											
+											<label for="estado" class="col-sm-2 control-label">Estado:</label>
+											<div class="col-sm-10">
+												<input type="text" name="estado" id="estado" value="${fornEndereco[5]}" />
+											</div>
+										</div>
+										
+										<div class="form-group">											
+											<label for="cnpj" class="col-sm-2 control-label">CNPJ:</label>
+											<div class="col-sm-10">
+												<input type="text" name="cnpj" id="cnpj" value="${forn.cnpj}" />
+											</div>
+										</div>
+										
+										<div class="form-group">											
+											<label for="inscEstadual" class="col-sm-2 control-label">Insc. Estadual:</label>
+											<div class="col-sm-10">
+												<input type="text" name="inscEstadual" id="inscEstadual" value="${forn.inscEstadual}" />
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<div class="col-sm-offset-2 col-sm-10">										
+												<input class="btn btn-success" id="botao" type="submit" value="Atualizar" />
+											</div>
+										</div>
 									</fieldset>															
 								</form>
 								
@@ -269,7 +475,7 @@
 					
 						<c:choose>
 						
-							<c:when test="${empty cli}">
+							<c:when test="${empty forn}">
 							
 								<!-- FORMULÁRIO PESQUISAR PARA EXCLUIR FORNECEDOR -->
 								<form id="formPesquisar" action="controller?action=pesquisarFornecedor&tarefa=excluir" method="POST">
@@ -294,63 +500,136 @@
 									<fieldset>
 										<legend>Fornecedor a ser excluído</legend>
 										
-										<label for="codigo">Código:</label>			
-										<input type="text" id="codigo" value="${forn.codigo}" disabled />
-										<input type="hidden" name="codigo" id="codigo" value="${forn.codigo}" />
+										<div class="form-group">
+											<label for="codigo" class="col-sm-2 control-label">Código:</label>
+											<div class="col-sm-10">
+												<input type="text" id="codigo" value="${forn.codigo}" disabled />
+												<input type="hidden" name="codigo" id="codigo" value="${forn.codigo}" />
+											</div>												
+										</div>
 										
-										<label for="tipoFornecedor">Tipo:</label>
-										<input type="text" name="tipoFornecedor" value="${forn.tipo.tipo}" disabled />
-																				
-										<label for="empresa">Empresa:</label>			
-										<input type="text" name="empresa" id="empresa" value="${forn.empresa}" disabled />
+										<div class="form-group">
+											<label for="tipoFornecedores" class="col-sm-2 control-label">Tipo:</label>
+    										<div class="col-sm-10">
+    											
+												<div class="radio">										
+													<label for="tipoFornecedor1" class="lblRadio">
+														<input type="radio" name="tipoFornecedor" id="tipoFornecedor1" value="Empresa" <c:if test="${forn.tipo eq 'EMPRESA'}">checked</c:if> disabled />Empresa
+													</label>
+												</div>
+												<div class="radio">
+													<label for="tipoFornecedor2" class="lblRadio">
+														<input type="radio" name="tipoFornecedor" id="tipoFornecedor2" value="Catador" <c:if test="${forn.tipo eq 'CATADOR'}">checked</c:if> disabled />Catador
+													</label>
+												</div>
+											</div>
+										</div>										
 										
-										<label for="contato">Contato:</label>			
-										<input type="text" name="contato" id="contato" value="${forn.contato}" disabled />
+										<div class="form-group">											
+											<label for="empresa" class="col-sm-2 control-label">Empresa:</label>
+											<div class="col-sm-10">			
+												<input type="text" name="empresa" id="empresa" value="${forn.empresa}" disabled />
+											</div>
+										</div>
 										
-										<label for="telefone">Telefone:</label>			
-										<input type="text" name="telefone" id="telefone" value="${forn.telefone}" disabled />
+										<div class="form-group">											
+											<label for="contato" class="col-sm-2 control-label">Contato:</label>
+											<div class="col-sm-10">			
+												<input type="text" name="contato" id="contato" value="${forn.contato}" disabled /> <span>*</span>
+											</div>
+										</div>
 										
-										<label for="email">Email:</label>			
-										<input type="text" name="email" id="email" value="${forn.email}" disabled />
+										<div class="form-group">											
+											<label for="telefone" class="col-sm-2 control-label">Telefone:</label>
+											<div class="col-sm-10">			
+												<input type="text" name="telefone" id="telefone" value="${forn.telefone}" disabled />
+											</div>
+										</div>
 										
-										<label for="cep">CEP:</label>
-										<input type="text" name="cep" id="cep" value="${fornEndereco[6]}" disabled />
-											
-										<label for="endereco">Logradouro:</label>
-										<input type="text" name="endereco" id="endereco" value="${fornEndereco[0]}" disabled />
-											
-										<label for="numero">Número:</label>
-										<input type="text" name="numero" id="numero" value="${fornEndereco[1]}" disabled />
-											
-										<label for="complemento">Complemento:</label>
-										<input type="text" name="complemento" id="complemento" value="${fornEndereco[2]}" disabled />
-											
-										<label for="bairro">Bairro:</label>
-										<input type="text" name="bairro" id="bairro" value="${fornEndereco[3]}" disabled />
-											
-										<label for="cidade">Cidade:</label>
-										<input type="text" name="cidade" id="cidade" value="${fornEndereco[4]}" disabled />
-											
-										<label for="estado">Estado:</label>
-										<input type="text" name="estado" id="estado" value="${fornEndereco[5]}" disabled />
-											
-										<label for="cnpj">CNPJ:</label>
-										<input type="text" name="cnpj" id="cnpj" value="${forn.cnpj}" disabled />
+										<div class="form-group">											
+											<label for="email" class="col-sm-2 control-label">Email:</label>
+											<div class="col-sm-10">		
+												<input type="text" name="email" id="email" value="${forn.email}" disabled/>
+											</div>
+										</div>
 										
-										<label for="inscEstadual">Insc. Estadual:</label>
-										<input type="text" name="inscEstadual" id="inscEstadual" value="${forn.inscEstadual}" disabled />
+										<div class="form-group">											
+											<label for="cep" class="col-sm-2 control-label">CEP:</label>
+											<div class="col-sm-10">
+												<input type="text" name="cep" id="cep" value="${fornEndereco[6]}" disabled />
+											</div>
+										</div>
+										
+										<div class="form-group">											
+											<label for="endereco" class="col-sm-2 control-label">Logradouro:</label>
+											<div class="col-sm-10">
+												<input type="text" name="endereco" id="endereco" value="${fornEndereco[0]}" disabled />
+											</div>
+										</div>
+										
+										<div class="form-group">											
+											<label for="numero" class="col-sm-2 control-label">Número:</label>
+											<div class="col-sm-10">
+												<input type="text" name="numero" id="numero" value="${fornEndereco[1]}" disabled />
+											</div>
+										</div>
+										
+										<div class="form-group">											
+											<label for="complemento" class="col-sm-2 control-label">Complemento:</label>
+											<div class="col-sm-10">
+												<input type="text" name="complemento" id="complemento" value="${fornEndereco[2]}" disabled />
+											</div>
+										</div>
+										
+										<div class="form-group">											
+											<label for="bairro" class="col-sm-2 control-label">Bairro:</label>
+											<div class="col-sm-10">
+												<input type="text" name="bairro" id="bairro" value="${fornEndereco[3]}" disabled />
+											</div>
+										</div>
+										
+										<div class="form-group">											
+											<label for="cidade" class="col-sm-2 control-label">Cidade:</label>
+											<div class="col-sm-10">
+												<input type="text" name="cidade" id="cidade" value="${fornEndereco[4]}" disabled />
+											</div>
+										</div>
+										
+										<div class="form-group">											
+											<label for="estado" class="col-sm-2 control-label">Estado:</label>
+											<div class="col-sm-10">
+												<input type="text" name="estado" id="estado" value="${fornEndereco[5]}" disabled />
+											</div>
+										</div>
+										
+										<div class="form-group">											
+											<label for="cnpj" class="col-sm-2 control-label">CNPJ:</label>
+											<div class="col-sm-10">
+												<input type="text" name="cnpj" id="cnpj" value="${forn.cnpj}" disabled />
+											</div>
+										</div>
+										
+										<div class="form-group">											
+											<label for="inscEstadual" class="col-sm-2 control-label">Insc. Estadual:</label>
+											<div class="col-sm-10">
+												<input type="text" name="inscEstadual" id="inscEstadual" value="${forn.inscEstadual}" disabled />
+											</div>
+										</div>
 										
 									</fieldset>
 									
-									<label class="lblLinha">Confirma a exclusão?</label>	
-									
-									<div class="divSimNao">
-										<input type="submit" value="Sim" />&nbsp;
-										<input type="submit" formaction="controller?action=formFornecedor&tarefa=excluir" value="Não" />
-									</div>
-														
-								</form>
-								
+									<label class="lblLinha"></label>	
+									<fieldset>
+										<legend>Confirma a exclusão?</legend>
+										<div class="form-group">
+											<div class="col-sm-offset-1 col-sm-11">										
+												<input class="btn btn-success" id="botaoSim" type="submit" value="Sim" />
+												<input class="btn btn-danger" id="botaoNao" type="submit" formaction="controller?action=formFornecedor&tarefa=excluir" value="Não" />
+											</div>
+										</div>
+									</fieldset>
+										
+								</form>								
 							</c:when>
 						</c:choose>
 						
@@ -394,7 +673,7 @@
 							<h3 class="box-1-3">${mensagem}</h3>
 						</c:if>
 					</c:otherwise>					
-				</c:choose>	
+				</c:choose>
 				
 			</c:otherwise>
 		</c:choose>
@@ -403,6 +682,9 @@
 	<script type="text/javascript" src="resources/js/jquery.js"></script>
 	<script type="text/javascript" src="resources/js/buscaCEP.js"></script>
 	<script type="text/javascript" src="resources/js/selecionaFornecedor.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+	<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>	
+	
 
 </body>
 </html>
