@@ -9,6 +9,7 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
+import br.com.mdjpapeis.entity.PerfilUsuario;
 import br.com.mdjpapeis.entity.Usuario;
 
 public class UsuarioDAO implements GenericoDAO<Usuario> {
@@ -49,7 +50,7 @@ public class UsuarioDAO implements GenericoDAO<Usuario> {
 			EntityManager entityManager = conexao.createEntityManager();		
 			entityManager.getTransaction().begin();
 			
-			// Tornando o usuário gerenciável pelo entityManager, necessário para usar o método remove a seguir
+			// Tornando o usuário managed (gerenciável) pelo entityManager, necessário para usar o método remove a seguir
 			usuario = entityManager.find(Usuario.class, usuario.getLogin());
 			
 			entityManager.remove(usuario);		
