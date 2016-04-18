@@ -15,7 +15,25 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.mdjpapeis.entity.Usuario;
 
-@WebFilter(urlPatterns = "/*")
+@WebFilter(urlPatterns = {
+		"/index.jsp",
+		"/controller",
+		"/listarClientes", 
+		"/pesquisarCliente", 
+		"/cadastrarCliente", 
+		"/atualizarCliente", 
+		"/excluirCliente",
+		"/listarFornecedores", 
+		"/pesquisarFornecedor", 
+		"/cadastrarFornecedor", 
+		"/atualizarFornecedor", 
+		"/excluirFornecedor",
+		"/listarUsuarios", 
+		"/pesquisarUsuario", 
+		"/cadastrarUsuario", 
+		"/atualizarUsuario", 
+		"/excluirUsuario"
+		})
 public class Filtro implements Filter {
 
 	@Override
@@ -38,90 +56,86 @@ public class Filtro implements Filter {
 		
 		System.out.println("Filtro INICIO, URI...............: " + req.getRequestURI());	
 		
-		RequestDispatcher dispatcher = null;
+		RequestDispatcher dispatcher = null;		
 		
-		// Caso a REQUISIÇÃO (gerada pelas páginas com o "link" para a página de estilos) seja DIFERENTE da página de estilos			
-		if(!req.getRequestURI().equals("/GFacil/resources/css/*") & !req.getRequestURI().equals("/GFacil/resources/js/*") & !req.getRequestURI().equals("http://fonts.googleapis.com/css?family=Open+Sans") & !req.getRequestURI().equals("http://apps.widenet.com.br/busca-cep/api/cep.json") & !req.getRequestURI().equals("/GFacil/resources/img/*")){
-			// Caso exista USUÁRIO LOGADO
-			if (usuario != null) {
+		// USUÁRIO LOGADO
+		if (usuario != null) {				
+			System.out.println("Filtro, USUARIO NOME.............: " + usuario.getNome());
+			System.out.println("Filtro, USUARIO PERFIL...........: " + usuario.getPerfil().toString());
+			System.out.println("Filtro, ACTION...................: " + req.getParameter("action"));
+			System.out.println("Filtro, TAREFA...................: " + req.getParameter("tarefa"));
 				
-				System.out.println("Filtro, USUARIO NOME.............: " + usuario.getNome());
-				System.out.println("Filtro, USUARIO PERFIL...........: " + usuario.getPerfil().toString());
-				System.out.println("Filtro, ACTION...................: " + req.getParameter("action"));
-				System.out.println("Filtro, TAREFA...................: " + req.getParameter("tarefa"));
-				
-				// Caso a requisição de algum usuário LOGADO seja para a tela de login (index.jsp), então a requisição redirecionada para outra tela
-				if(req.getRequestURI().equals("/GFacil/") || req.getRequestURI().equals("/GFacil/index.jsp") || (req.getRequestURI().equals("/GFacil/controller") & (req.getParameter("action").equals("index") || req.getParameter("action").equals("login")))){
+			// Caso a requisição de algum usuário LOGADO seja para a tela de login (index.jsp), então a requisição redirecionada para outra tela
+			if(req.getRequestURI().equals("/GFacil/") || req.getRequestURI().equals("/GFacil/index.jsp") || (req.getRequestURI().equals("/GFacil/controller") & (req.getParameter("action").equals("index") || req.getParameter("action").equals("login")))){
 							
-					// Redireciona para a tela principal dependendo do PERFIL do usuário
-					switch (usuario.getPerfil().toString()){
+				// Redireciona para a tela principal dependendo do PERFIL do usuário
+				switch (usuario.getPerfil().toString()){
 					
-						case "ADMINISTRADOR":
+					case "ADMINISTRADOR":
 							
-							// Recebe o destino do redirecionamento da requisição
-							dispatcher = req.getRequestDispatcher("controller?action=administracao");
-							
-							System.out.println("Filtro REDIRECIONAMENTO, URI.....: " + req.getRequestURI());
-							System.out.println("Filtro, ACTION...................: " + req.getParameter("action"));
-							
-							// Reencaminha a requisição
-							dispatcher.forward(req, resp);
-							
-							break;
-							
-						case "COMPRADOR":
-							
-							// Recebe o destino do redirecionamento da requisição
-							dispatcher = req.getRequestDispatcher("controller?action=listarFornecedores");
-							
-							System.out.println("Filtro REDIRECIONAMENTO, URI.....: " + req.getRequestURI());
-							System.out.println("Filtro, ACTION...................: " + req.getParameter("action"));
-							
-							// Reencaminha a requisição
-							dispatcher.forward(req, resp);
-							
-							break;
-							
-						case "VENDEDOR":
-							
-							// Recebe o destino do redirecionamento da requisição
-							dispatcher = req.getRequestDispatcher("controller?action=listarClientes");
-							
-							System.out.println("Filtro REDIRECIONAMENTO, URI.....: " + req.getRequestURI());
-							System.out.println("Filtro, ACTION...................: " + req.getParameter("action"));
-							
-							// Reencaminha a requisição
-							dispatcher.forward(req, resp);
-							
-							break;
-							
-						default:
-							break;
-					}
-				}
-				
-			// Caso contrário, o USUÁRIO ESTÁ DESLOGADO
-			}else{
-			
-				System.out.println("Filtro, USUARIO DESLOGADO, ACTION: " + req.getParameter("action"));
-				
-				// Caso a requisição de algum usuário DESLOGADO seja DIFERENTE da tela de login (index.jsp), então a requisição redirecionada para tela de login
-				if(!req.getRequestURI().equals("/GFacil/") & !req.getRequestURI().equals("/GFacil/index.jsp")){
-						
-					String action = req.getParameter("action");
-						
-					if(action == null || (!action.equals("login") & !action.equals("index"))){
-						
 						// Recebe o destino do redirecionamento da requisição
-						dispatcher = req.getRequestDispatcher("index.jsp");
-						
-						System.out.println("Filtro REDIRECIONAMENTO, URI.....: " + req.getRequestURI());						
-						
+						dispatcher = req.getRequestDispatcher("controller?action=administracao");
+							
+						System.out.println("Filtro REDIRECIONAMENTO, URI.....: " + req.getRequestURI());
+						System.out.println("Filtro, ACTION...................: " + req.getParameter("action"));
+							
 						// Reencaminha a requisição
 						dispatcher.forward(req, resp);
-					}
-				}				
+							
+						break;
+							
+					case "COMPRADOR":
+							
+						// Recebe o destino do redirecionamento da requisição
+						dispatcher = req.getRequestDispatcher("controller?action=listarFornecedores");
+							
+						System.out.println("Filtro REDIRECIONAMENTO, URI.....: " + req.getRequestURI());
+						System.out.println("Filtro, ACTION...................: " + req.getParameter("action"));
+							
+						// Reencaminha a requisição
+						dispatcher.forward(req, resp);
+							
+						break;
+							
+					case "VENDEDOR":
+							
+						// Recebe o destino do redirecionamento da requisição
+						dispatcher = req.getRequestDispatcher("controller?action=listarClientes");
+							
+						System.out.println("Filtro REDIRECIONAMENTO, URI.....: " + req.getRequestURI());
+						System.out.println("Filtro, ACTION...................: " + req.getParameter("action"));
+							
+						// Reencaminha a requisição
+						dispatcher.forward(req, resp);
+							
+						break;
+							
+					default:
+						break;
+				}
 			}
+				
+		// USUÁRIO NÃO LOGADO
+		}else{
+			
+			System.out.println("Filtro, USUARIO DESLOGADO, ACTION: " + req.getParameter("action"));
+				
+			// Caso a requisição de algum usuário DESLOGADO seja DIFERENTE da tela de login (index.jsp), então a requisição redirecionada para tela de login
+			if(!req.getRequestURI().equals("/GFacil/") & !req.getRequestURI().equals("/GFacil/index.jsp")){
+						
+				String action = req.getParameter("action");
+						
+				if(action == null || (!action.equals("login") & !action.equals("index"))){
+						
+					// Recebe o destino do redirecionamento da requisição
+					dispatcher = req.getRequestDispatcher("index.jsp");
+						
+					System.out.println("Filtro REDIRECIONAMENTO, URI.....: " + req.getRequestURI());						
+						
+					// Reencaminha a requisição
+					dispatcher.forward(req, resp);
+				}
+			}				
 		}
 		
 		System.out.println("Filtro FIM, URI..................: " + req.getRequestURI());		
