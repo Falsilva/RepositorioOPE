@@ -11,12 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.mdjpapeis.dao.ClienteDAO;
 import br.com.mdjpapeis.dao.FornecedorDAO;
-import br.com.mdjpapeis.entity.Cliente;
 import br.com.mdjpapeis.entity.Fornecedor;
-import br.com.mdjpapeis.entity.TipoFornecedor;
-import br.com.mdjpapeis.entity.Usuario;
 
 @WebServlet(urlPatterns = {"/listarFornecedores", "/pesquisarFornecedor", "/cadastrarFornecedor", "/atualizarFornecedor", "/excluirFornecedor"})
 public class RegraFornecedores extends HttpServlet{

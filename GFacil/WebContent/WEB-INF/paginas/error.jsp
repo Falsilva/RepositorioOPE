@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page isErrorPage="true" language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -32,13 +32,21 @@
 			<div class="panel-body">
 				<div class="alert alert-info">
 					<c:choose>
-						<c:when test="${empty exception}">
-							<h4><strong>ERROR 404</strong></h4>
-							<strong>A página solicitada não existe!</strong>												
+						<c:when test="${pageContext.errorData.statusCode eq 404}">
+							<h4><strong>A página solicitada não existe!</strong></h4>
+							<p>Dados técnicos: <strong>ERROR 404</strong> - página não encontrada.</p>							
+						</c:when>	
+						<c:when test="${pageContext.errorData.statusCode eq 405}">							
+							<h4><strong>Desculpe, houve um erro!</strong></h4>							
+							<p>Dados técnicos: <strong>ERROR 405</strong> - o método GET não é suportado por esta URL.</p>
 						</c:when>
+						<c:when test="${pageContext.errorData.statusCode eq 500}">
+							<h4><strong>Deculpe, houve um erro!</strong></h4>
+							<p>Dados técnicos: <strong>ERROR 500</strong> - ocorreu um erro interno no servidor que impediu a continuidade da requisição.</p>																	
+						</c:when>				
 						<c:otherwise>
 							<h4><strong>Desculpe, houve um erro!</strong></h4>
-							<strong>${exception}</strong>
+							<p>Dados técnicos: <strong>EXCEPTION</strong> - ocorreu uma exception.</p>
 						</c:otherwise>
 					</c:choose>
 					<br />

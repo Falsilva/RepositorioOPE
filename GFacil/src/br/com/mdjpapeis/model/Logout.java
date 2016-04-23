@@ -28,7 +28,7 @@ public class Logout extends HttpServlet {
 			sessao.invalidate();
 			
 			// Atribuindo uma mensagem na requisição
-			req.setAttribute("mensagem", "Usuário deslogado com sucesso");			
+			// req.setAttribute("mensagem", "Usuário deslogado com sucesso");			
 			
 		
 		// Caso NÃO haja uma sessão aberta e por algum acesso incomum do logout

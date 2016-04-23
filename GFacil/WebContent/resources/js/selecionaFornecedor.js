@@ -1,5 +1,5 @@
-var alternaFormulario = function(event){
-	event.preventDefault();
+var alternaFormulario = function(){
+	
 	var tipoFornecedor = $("input:radio");	
 	var empresa = $("#tipoFornecedor1");
 	var catador = $("#tipoFornecedor2");
@@ -128,5 +128,4 @@ var montaFormEmpresa = function(labels, inputs){
 	});	
 }
 
-
-$(alternaFormulario);
+$(document).ready(alternaFormulario);

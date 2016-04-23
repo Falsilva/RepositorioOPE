@@ -10,7 +10,7 @@
     <link href="resources/css/bootstrap.css" rel="stylesheet" />
      <!-- FONTAWESOME STYLES -->
     <link href="resources/css/font-awesome.css" rel="stylesheet" />
-    <!-- CUSTOM STYLES -->
+    <!-- CUSTOM STYLES (NECESSÁRIO PARA BOTÃO CIRCULAR) -->
     <link href="resources/css/custom.css" rel="stylesheet" />
      <!-- GOOGLE FONTS -->
    	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
@@ -50,7 +50,7 @@
                             	<input type="password" class="form-control" name="senha" id="pass" placeholder="Sua senha" />
                             </div>
                             <div class="form-group text-right">
-              					<button class="btn btn-success"><i class="glyphicon glyphicon-log-in"></i>&nbsp;&nbsp;Entrar</button>
+              					<button class="btn btn-success"><i class="ace-icon fa fa-key"></i>&nbsp;&nbsp;Entrar</button>
             				</div>
           				</form>          				
 					</div>

@@ -10,10 +10,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import br.com.mdjpapeis.dao.UsuarioDAO;
-import br.com.mdjpapeis.entity.PerfilUsuario;
 import br.com.mdjpapeis.entity.Usuario;
 
 @WebServlet(urlPatterns = {"/listarUsuarios", "/pesquisarUsuario", "/cadastrarUsuario", "/atualizarUsuario", "/excluirUsuario"})
@@ -31,8 +29,7 @@ public class RegraUsuarios extends HttpServlet{
 		String nomeusuario = null;	// esse é o nome de login
 		String email = null;
 		String senha = null;
-		String perfil = null;
-		PerfilUsuario perfilUsuario = null;
+		String perfil = null;		
 		
 		Usuario usuario = new Usuario();
 		Usuario user = null;

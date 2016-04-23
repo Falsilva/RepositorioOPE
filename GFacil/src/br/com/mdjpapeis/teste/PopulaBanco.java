@@ -1,12 +1,6 @@
 package br.com.mdjpapeis.teste;
 
-import java.util.List;
-
-import br.com.mdjpapeis.dao.PerfilUsuarioDAO;
-import br.com.mdjpapeis.dao.TipoFornecedorDAO;
 import br.com.mdjpapeis.dao.UsuarioDAO;
-import br.com.mdjpapeis.entity.PerfilUsuario;
-import br.com.mdjpapeis.entity.TipoFornecedor;
 import br.com.mdjpapeis.entity.Usuario;
 
 public class PopulaBanco {
