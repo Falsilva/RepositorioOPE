@@ -2,15 +2,32 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="br.com.mdjpapeis.entity.Usuario" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" type="text/css" href="resources/css/estilos.css" />
-<title>MDJ Papeis - Usuários</title>
+	<meta charset="utf-8">
+	
+	<!-- OTIMIZAÇÃO PARA MOBILE -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />    
+	
+	<!-- BOOTSTRAP STYLES-->
+    <link href="resources/css/bootstrap.css" rel="stylesheet" />
+    
+     <!-- FONTAWESOME STYLES-->
+    <link href="resources/font-awesome/4.6.1/css/font-awesome.css" rel="stylesheet" />
+        
+    <!-- GOOGLE FONTS -->
+	<link rel="stylesheet" href="resources/fonts/fonts.googleapis.com.css" />
+	
+	<!-- ACE STYLES -->
+	<link rel="stylesheet" href="resources/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
+	
+	<!-- PERSONALIZAÇÃO PRÓPRIA -->
+    <link href="resources/css/estilos.css" rel="stylesheet">
+    
+	<title>MDJ Papeis - Usuários</title>
 </head>
-<body>
-
+<body>	
 	<div class="nav">
 	
 		<!-- JSTL - Exibe o nome do usuário -->
@@ -24,7 +41,10 @@
 	<div class="container">
 		
 		<h1>Usuários</h1>		
-		
+		 
+		 
+		 
+		 
 		<c:choose>
 		
 			<c:when test="${not empty param.tarefa}">
@@ -297,5 +317,62 @@
 		</c:choose>
 	</div>
 
+
+	<!-- FIM -- CONTEÚDO DA PÁGINA -- INCLUI MENU LATERAL E CONTEÚDO PRINCIPAL-->
+	
+	
+	<!--=======================================   SCRIPTS   ================================================-->
+	
+
+    <!-- JQUERY SCRIPTS -->
+    <!--[if !IE]> -->
+	<script src="resources/js/jquery.2.1.1.min.js"></script>
+	<!-- <![endif]-->
+	
+	<!--[if IE]> 
+    <script src="resources/js/jquery-1.11.1.min.js"></script>
+    <![endif]-->
+    
+    <!--[if !IE]> -->
+	<script type="text/javascript">
+		window.jQuery || document.write("<script src='resources/js/jquery.min.js'>"+"<"+"/script>");
+	</script>
+	<!-- <![endif]-->
+    
+    <!--[if IE]>
+	<script type="text/javascript">
+ 		window.jQuery || document.write("<script src='resources/js/jquery1x.min.js'>"+"<"+"/script>");
+	</script>
+	<![endif]-->
+	
+	<!-- ONTOUCH MOBILE - NÃO TESTADO -->
+	<script type="text/javascript">
+		if('ontouchstart' in document.documentElement) document.write("<script src='resources/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+	</script>
+	
+    <!-- BOOTSTRAP SCRIPTS -->
+    <script src="resources/js/bootstrap.min.js"></script>
+    
+    <!-- ACE CONFIGURAÇÕES DESTA PÁGINA -->
+	<script src="resources/js/ace-elements.min.js"></script>
+	<script src="resources/js/ace.min.js"></script>
+	
+    <!-- METISMENU SCRIPTS -->
+    <script src="resources/js/jquery.metisMenu.js"></script>
+    
+    <!-- CUSTOM SCRIPTS -->
+    <script src="resources/js/custom.js"></script>
+    
+    <!-- RELÓGIO -->
+    <script src="resources/js/relogio.js"></script>
+    
+    <!-- PLUGINS DO GRÁFICO -->
+    <script src="resources/js/jquery.flot.min.js"></script>
+	<script src="resources/js/jquery.flot.pie.min.js"></script>
+	<script src="resources/js/jquery.flot.resize.min.js"></script>
+	
+	<!-- GRÁFICO FATURAMENTO -->
+	<script src="resources/js/grafico.js"></script>
+	
 </body>
 </html>

@@ -21,9 +21,6 @@
 	<!-- ACE STYLES -->
 	<link rel="stylesheet" href="resources/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
 	
-	<!-- ACE GERENCIADOR DE CONFIGURAÇÔES 
-	<script src="resources/js/ace-extra.min.js"></script>-->
-	
 	<!-- PERSONALIZAÇÃO PRÓPRIA -->
     <link href="resources/css/estilos.css" rel="stylesheet">
 	
@@ -38,11 +35,6 @@
 	<!-- BARRA DE NAVEGAÇÃO -->
 	<div id="navbar" class="navbar navbar-default">
 	
-		<!-- NÃO SEI AINDA PRA QUE SERVE ESTE SCRIPT - ACHO QUE VERIFICA SE A BARRA DE NAVEGAÇÃO É FIXA --> 
-		<script type="text/javascript">
-			try{ace.settings.check('navbar', 'fixed')}catch(e){}
-		</script>
-		
 		<!-- CONTEÚDO DA BARRA DE NAVEGAÇÃO -- SUPERIOR -->
 		<div id="navbar-container" class="navbar-container">
 			
@@ -56,7 +48,7 @@
 			
 			<!-- ÍCONE DA BARRA DE NAVEGAÇÃO -->
 			<div class="navbar-header pull-left">
-				<a href="index.jsp" class="navbar-brand">
+				<a href="#" class="navbar-brand">
 					<small>
 						<i class="fa fa-recycle"></i> MDJ Papéis
 					</small>
@@ -326,7 +318,7 @@
 						</ul>
 					</li>
 					
-					<!-- BOTÃO AZUL CLARO COM NOME DE USUÁRIO -->
+					<!-- BOTÃO AZUL COM NOME DE USUÁRIO -->
 					<li class="azul-escuro-nosso">
 					
 						<!-- DESIGN DO BOTÃO -->
@@ -362,12 +354,6 @@
 		
 	<!-- CONTEÚDO DA PÁGINA -- INCLUI MENU LATERAL E CONTEÚDO PRINCIPAL-->
 	<div class="main-container" id="main-container">
-	
-		<!-- NÃO SEI AINDA PRA QUE SERVE ESTE SCRIPT - ACHO QUE VERIFICA SE O CONTEÚDO DA PÁGINA É FIXO -->
-		<script type="text/javascript">
-			try{ace.settings.check('main-container' , 'fixed')}catch(e){}
-		</script>
-		
 		
 		<!--===================================== BLOCO MENU LATERAL =====================================-->
 		
@@ -375,36 +361,28 @@
 		<!-- BARRA DE NAVEGAÇÃO LATERAL -- MENU LATERAL -- NO MODO TELA PEQUENA, ESSE MENU É ACESSADO PELO BOTÃO LÁ EMCIMA COM O id="menu-toggler"  -->
 		<div id="sidebar" class="sidebar responsive">
 		
-			<!-- NÃO SEI AINDA PRA QUE SERVE ESTE SCRIPT - ACHO QUE VERIFICA SE O MENU LATERAL É FIXO -->
-			<script type="text/javascript">
-				try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
-			</script>
-			
 			<!-- BARRA LATERAL DE ATALHOS -->
 			<div class="sidebar-shortcuts" id="sidebar-shortcuts">
 					
-				<!-- ÍCONES GRANDES -->
-				<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-					<button class="btn btn-success">
-						<i class="ace-icon fa fa-signal"></i>
-					</button>
-					<button class="btn btn-info">
-						<i class="ace-icon fa fa-pencil"></i>
-					</button>
-					<button class="btn btn-warning">
-						<i class="ace-icon fa fa-users"></i>
-					</button>
-					<button class="btn btn-danger">
-						<i class="ace-icon fa fa-cogs"></i>
-					</button>
+				<!-- RELÓGIO - QUANDO EXIBIÇÃO TOTAL DO MENU  -->
+				<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">																
+					<div class="widget-box-relogio transparent">
+	                	<div class="widget-header widget-header-flat">
+	                		
+							<h3 class="widget-title stronger">
+								<i class="ace-icon fa fa-clock-o"></i>
+								<span id="relogio" class=""></span>
+							</h3>
+							
+						</div>
+					</div>
 				</div>
 
-				<!-- ÍCONES PEQUENOS -- NÃO PERCEBI A DIFERENÇA DO LARGE PARA O MINI -->
+				<!-- RELÓGIO - QUANDO EXIBIÇÃO RECOLHIDA DO MENU  -->
 				<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
-					<span class="btn btn-success"></span>
-					<span class="btn btn-info"></span>
-					<span class="btn btn-warning"></span>
-					<span class="btn btn-danger"></span>
+					<span class="badge badge-primary">
+						<i class="ace-icon fa fa-clock-o"></i>
+					</span>
 				</div>					
 			</div>		
 			<!-- FIM -- BARRA LATERAL DE ATALHOS -->
@@ -599,10 +577,7 @@
 			<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
 				<i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
 			</div>
-			
-			<script type="text/javascript">
-				try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
-			</script>			
+						
 		</div>
 		<!-- FIM -- BARRA DE NAVEGAÇÃO LATERAL -- MENU LATERAL -->
 		
@@ -616,28 +591,16 @@
 			
 				<!-- BARRA DE NAVEGAÇÃO DE CATEGORIAS LISTADAS -->
 				<div class="breadcrumbs" id="breadcrumbs">
-					<script type="text/javascript">
-						try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
-					</script>
 					
 					<!-- CATEGORIAS LISTADAS -->
 					<ul class="breadcrumb">
 						<li>
 							<i class="ace-icon fa fa-home home-icon"></i>
-							<a href="#">Home</a>
+							<a href="index.jsp">Home</a>
 						</li>						
 						<li class="active">Dashboard</li>
-					</ul>
+					</ul>				
 					
-					<!-- BARRA DE PESQUISA -->
-					<div class="nav-search" id="nav-search">
-						<form class="form-search">
-							<span class="input-icon">
-								<input type="text" placeholder="Pesquisar..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
-								<i class="ace-icon fa fa-search nav-search-icon"></i>
-							</span>
-						</form>
-					</div>
 				</div>
 				<!-- FIM -- BARRA DE NAVEGAÇÃO DE CATEGORIAS LISTADAS -->
 				
@@ -906,7 +869,7 @@
 								<!-- GRÁFICO -->
 								<div class="widget-body">
 									<div class="widget-main padding-4">
-										<div id="sales-charts"></div>
+										<div id="sales-charts"></div>										
 									</div>
 								</div>
 							</div>
@@ -952,8 +915,6 @@
 	
 	<!--=======================================   SCRIPTS   ================================================-->
 	
-	
-	
 
     <!-- JQUERY SCRIPTS -->
     <!--[if !IE]> -->
@@ -986,13 +947,10 @@
     
     <!-- ACE CONFIGURAÇÕES DESTA PÁGINA -->
 	<script src="resources/js/ace-elements.min.js"></script>
-	<script src="resources/js/ace.min.js"></script>
-	
-    <!-- METISMENU SCRIPTS -->
-    <script src="resources/js/jquery.metisMenu.js"></script>
+	<script src="resources/js/ace.min.js"></script>	
     
-    <!-- CUSTOM SCRIPTS -->
-    <script src="resources/js/custom.js"></script>
+    <!-- RELÓGIO -->
+    <script src="resources/js/relogio.js"></script>
     
     <!-- PLUGINS DO GRÁFICO -->
     <script src="resources/js/jquery.flot.min.js"></script>

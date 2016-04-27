@@ -130,3 +130,18 @@
 }
 /* ---- FIM >>> CORES DO BOTÃO AZUL SAUDAÇÕES AO USUÁRIO NA BARRA DE NAVEGAÇÃO ---------------- */
 
+/* -------------------------------------- WIDGET - RELÓGIO ------------------------------------ */
+.widget-box-relogio.transparent>.widget-header {
+    background: #337AB7;    
+    border-width: 0;
+    border-bottom: 0;
+    color: #FFFFFF;
+    text-shadow: 4px 3px 10px #000000;
+    padding-left: 3px;
+}
+
+/* ------------------------------------ MODAL FORM USUÁRIO ------------------------------------ */
+.modal-dialog {
+    width: 400px;
+    margin: 30px auto;
+}
