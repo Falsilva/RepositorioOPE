@@ -630,23 +630,11 @@
 							</div>
 						</div>
 					</div>					
-					<!-- FIM -- MENSAGEM DE APRESENTAÇÃO DA VISÃO GERAL - DASHBOARD -->
-										
+					<!-- FIM -- MENSAGEM DE APRESENTAÇÃO DA VISÃO GERAL - DASHBOARD -->										
+					
 					<!-- TABELA DO CADASTRO -->
 					<div class="row">
-						<div class="col-xs-12">					
-													
-							<ul>								
-								<li><a href="controller?action=formUsuario&tarefa=atualizar">Atualizar</a></li>
-								<li><a href="controller?action=formUsuario&tarefa=excluir">Excluir</a></li>
-							</ul>
-							
-							<h4>								
-								<a href="#modal-form" role="button" data-toggle="modal">
-									Novo Usuário 
-									<i class="ace-icon fa fa-plus"></i>
-								</a>
-							</h4>
+						<div class="col-xs-12">	
 							 
 							<!-- JSTL -- CONDIÇÃO PARA EXIBIR A TABELA -->
 							<c:choose>
@@ -654,6 +642,15 @@
 								<!-- CASO HAJA USUÁRIO -->
 									
 									<!-- BARRA DE FERRAMENTAS PARA A TABELA - VIA PLUGINS DATATABLES, TOOLTABLES  -->
+									<div class="tableTools-container">
+										<div class="btn-group btn-over-lap">
+										
+											<!-- BOTÃO NOVO USUÁRIO -->
+											<a href="#" class="btn btn-app btn-success btn-xs" role="cadastrar">
+												<i class="ace-icon fa fa-user-plus bigger-160"></i>Novo
+											</a>
+										</div>
+									</div>
 									<div class="breadcrumbs">
 										<ul class="breadcrumb">
 											<li class="active">Pesquise informando as primeiras letras</li>
@@ -707,13 +704,17 @@
 															<div class="hidden-sm hidden-xs action-buttons">
 																
 																<!-- BOTÃO EDITAR -->													
-																<a class="green" href="#">
-																	<i class="ace-icon fa fa-pencil bigger-130"></i>
+																<a href="#" role="editar">
+																	<span class="green">
+																		<i class="ace-icon fa fa-pencil bigger-130"></i>
+																	</span>
 																</a>
 																
 																<!-- BOTÃO EXCLUIR -->
-																<a class="red" href="#">
-																	<i class="ace-icon fa fa-trash-o bigger-130"></i>
+																<a href="#" role="excluir">
+																	<span class="red">
+																		<i class="ace-icon fa fa-trash-o bigger-130"></i>
+																	</span>
 																</a>
 															</div>
 
@@ -730,7 +731,7 @@
 																		
 																		<!-- BOTÃO EDITAR -->
 																		<li>
-																			<a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
+																			<a href="#" class="tooltip-success" data-rel="tooltip" title="Editar" role="editar">
 																				<span class="green">
 																					<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
 																				</span>
@@ -739,7 +740,7 @@
 																		
 																		<!-- BOTÃO EXCLUIR -->
 																		<li>
-																			<a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
+																			<a href="#" class="tooltip-error" data-rel="tooltip" title="Excluir" role="excluir">
 																				<span class="red">
 																					<i class="ace-icon fa fa-trash-o bigger-120"></i>
 																				</span>
@@ -769,7 +770,7 @@
 							<!-- JSTL -- CONDIÇÃO PARA EXIBIR A TABELA -->
 							
 							<!-- MODAL FORMULÁRIO PARA CADASTRAR -->
-							<div id="modal-form" class="modal" tabindex="-1">
+							<div id="modal-form" class="modal fade" tabindex="-1" rel="modalcadastrar">
 								<div class="modal-dialog">
 									<div class="modal-content">
 										<div class="modal-header">
@@ -831,6 +832,95 @@
 							<!-- FIM -- MODAL FORMULÁRIO PARA CADASTRAR -->
 							
 							
+							
+							
+							
+							
+							<!-- MODAL FORMULÁRIO PARA EXCLUIR -->
+							<div id="modal-form" class="modal fade" tabindex="-1" rel="modalexcluir">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class='red bigger'> Excluir... Tem certeza?</h4>
+										</div>
+
+										<div class="modal-body">
+											<div class="form-group">
+												<label for="nome">Nome</label>
+												<div>
+													<input type="text" id="nomeExcluir" name="nome" placeholder="Informe o nome completo..." size="40" />
+												</div>
+											</div>
+											<div class="space-4"></div>
+											<div class="form-group">
+												<label for="email">E-mail</label>
+												<div>
+													<input type="text" id="emailExcluir" name="email" placeholder="Informe o seu e-mail..." size="40" />
+												</div>
+											</div>													
+											<div class="space-4"></div>
+											<div class="form-group">
+												<label for="nomeusuario">Usuário</label>
+												<div>
+													<input type="text" id="nomeusuarioExcluir" name="nomeusuario" placeholder="Informe o nome de usuário..." size="35" />
+												</div>
+											</div>
+											<div class="space-4"></div>											
+											<div class="form-group">
+												<label for="perfil">Perfil</label>
+												<div>															
+													<select class="chosen-select" data-placeholder="Escolha o perfil..." name="perfil" id="perfilExcluir">											
+														<c:forEach var="perfil" items="<%= Usuario.Perfil.values() %>">
+															<option value="${perfil}">${perfil}</option>
+														</c:forEach>
+													</select>
+												</div>
+											</div>												
+										</div>
+
+										<div class="modal-footer">
+											<button id="btnCancelarExcluir" class="btn btn-sm" data-dismiss="modal">
+												<i class="ace-icon fa fa-times"></i> Cancelar
+											</button>
+											<button id="btnExcluir" class="btn btn-sm btn-danger">
+												<i class="ace-icon fa fa-trash-o"></i> Excluir
+											</button>											
+										</div>										
+									</div>									
+								</div>
+							</div>
+							<!-- FIM -- MODAL FORMULÁRIO PARA EXCLUIR -->
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							<!-- 
 							<div id="modal-form-resultado" class="modal" tabindex="-1">
 								<div class="modal-dialog">
 									<div class="modal-content">
@@ -849,7 +939,7 @@
 									</div>
 								</div>
 							</div>
-							
+							 -->
 							
 							
 							
@@ -969,6 +1059,17 @@
     
     <!-- AJAX - SUBMIT FORMS - RECARREGA A PÁGINA QUANDO O MODAL É FECHADO -->
     <script src="resources/js/ajax.js"></script>
+    
+    <!-- EDITAR EXCLUIR -->
+    <script src="resources/js/manipulatabela.js"></script>
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
