@@ -4,7 +4,7 @@
 
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>	
+<head>
 	<meta charset="utf-8" />
 	
 	<!-- OTIMIZAÇÃO PARA MOBILE -->
@@ -716,6 +716,21 @@
 																		<i class="ace-icon fa fa-trash-o bigger-130"></i>
 																	</span>
 																</a>
+																
+																<!-- BOTÃO SALVAR -->													
+																<a href="#" role="salvar" class="hidden">
+																	<span class="blue">
+																		<i class="ace-icon fa fa-save bigger-130"></i>
+																	</span>
+																</a>
+																
+																<!-- BOTÃO EXCLUIR -->
+																<a href="#" role="cancelar" class="hidden">
+																	<span class="red">
+																		<i class="ace-icon fa fa-close bigger-130"></i>
+																	</span>
+																</a>																
+																
 															</div>
 
 															<!-- EXIBIÇÃO EM TELAS PEQUENAS -->
@@ -746,6 +761,24 @@
 																				</span>
 																			</a>
 																		</li>
+																		
+																		<!-- BOTÃO SALVAR -->
+																		<li>																																
+																			<a href="#" class="tooltip-error hidden" data-rel="tooltip" title="Salvar" role="salvar">
+																				<span class="blue">
+																					<i class="ace-icon fa fa-save bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+																		
+																		<!-- BOTÃO CANCELAR -->
+																		<li>
+																			<a href="#" class="tooltip-error hidden" data-rel="tooltip" title="Cancelar" role="cancelar">
+																				<span class="red">
+																					<i class="ace-icon fa fa-close bigger-130"></i>
+																				</span>
+																			</a>
+																		</li>																		
 																	</ul>																	
 																</div>
 															</div>															
@@ -815,7 +848,7 @@
 														</c:forEach>
 													</select>
 												</div>
-											</div>												
+											</div>	
 										</div>
 
 										<div class="modal-footer">
@@ -830,11 +863,6 @@
 								</div>
 							</div>
 							<!-- FIM -- MODAL FORMULÁRIO PARA CADASTRAR -->
-							
-							
-							
-							
-							
 							
 							<!-- MODAL FORMULÁRIO PARA EXCLUIR -->
 							<div id="modal-form" class="modal fade" tabindex="-1" rel="modalexcluir">

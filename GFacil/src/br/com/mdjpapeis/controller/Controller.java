@@ -100,7 +100,10 @@ public class Controller extends HttpServlet{
 				break;
 			case "excluirUsuario":
 				dispatcher = req.getRequestDispatcher("excluirUsuario");
-				break;			
+				break;
+			case "pegaPerfil":
+				dispatcher = req.getRequestDispatcher("pegaPerfil");				
+				break;
 			default:
 				dispatcher = req.getRequestDispatcher("WEB-INF/paginas/error.jsp");
 				break;

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.mdjpapeis.dao.UsuarioDAO;
 import br.com.mdjpapeis.entity.Usuario;
 
-@WebServlet(urlPatterns = {"/listarUsuarios", "/pesquisarUsuario", "/cadastrarUsuario", "/atualizarUsuario", "/excluirUsuario"})
+@WebServlet(urlPatterns = {"/listarUsuarios", "/pesquisarUsuario", "/cadastrarUsuario", "/atualizarUsuario", "/excluirUsuario", "/pegaPerfil"})
 public class RegraUsuarios extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
@@ -323,9 +323,20 @@ public class RegraUsuarios extends HttpServlet{
 				
 				for(int i = 0; i < parametros.length; i++){
 					
-					if(parametros[i][1] == null | parametros[i][1].isEmpty()){
+					if(parametros[i][1] == null || parametros[i][1].isEmpty()){
 						parametros[i][1] = "";
-						parametroVazio = true;
+						if(parametros[i][0].equals("senha")){
+							Usuario userEmail = new Usuario();
+							userEmail.setEmail(parametros[i - 1][1]);
+							String senhaUser = new UsuarioDAO().buscaUsuarioPorEmail(userEmail).getSenha();
+							if(senhaUser != null){
+								parametros[i][1] = senhaUser;
+							}else{
+								parametroVazio = true;
+							}
+						}else{
+							parametroVazio = true;
+						}
 					}
 					
 					switch(parametros[i][0]){
@@ -370,8 +381,12 @@ public class RegraUsuarios extends HttpServlet{
 						// Caso o LOGIN seja diferente do informado, significa, que o EMAIL encontrado é de outro usuário
 						if(verificaUser != null && !verificaUser.getLogin().equals(nomeusuario)){
 							
-							req.setAttribute("mensagem", "Já existe o EMAIL informado");
-							req.setAttribute("user", user);
+							//req.setAttribute("mensagem", "Já existe o EMAIL informado");
+							//req.setAttribute("user", user);
+							
+							resp.setContentType("text/plain");
+							resp.setCharacterEncoding("UTF-8");
+							resp.getWriter().write("Já existe o EMAIL informado!");
 							
 						// Caso contrário, a atualização é realizada
 						}else{
@@ -399,16 +414,22 @@ public class RegraUsuarios extends HttpServlet{
 								new UsuarioDAO().atualizar(user);
 							}
 							
-							req.setAttribute("mensagem", "Usuário atualizado com sucesso");
+							//req.setAttribute("mensagem", "Usuário atualizado com sucesso");
+							resp.setContentType("text/plain");
+							resp.setCharacterEncoding("UTF-8");
+							resp.getWriter().write("Atualizado");
 						}
 					}catch(PersistenceException e){
-						req.setAttribute("mensagem", "Falha ao atualizar dados");
+						//req.setAttribute("mensagem", "Falha ao atualizar dados");
+						resp.setContentType("text/plain");
+						resp.setCharacterEncoding("UTF-8");
+						resp.getWriter().write("Desculpe, houve uma falha ao atualizar!");
 						
 					// Reencaminha a requisição
 					}finally{
 						
 						// Recebe o destino do redirecionamento da requisição
-						dispatcher = req.getRequestDispatcher("controller?action=formUsuario&tarefa="+tarefa);
+						//dispatcher = req.getRequestDispatcher("controller?action=formUsuario&tarefa="+tarefa);
 						
 						// Reencaminha a requisição
 						//dispatcher.forward(req, resp);
@@ -484,7 +505,15 @@ public class RegraUsuarios extends HttpServlet{
 				}
 				
 				break;
+			case ("pegaPerfil"):
+				System.out.println("RegraUsuario, PEGANDO OS PERFIS...");
+				String[] ajaxPerfis = {Usuario.Perfil.ADMINISTRADOR.toString(), Usuario.Perfil.COMPRADOR.toString(), Usuario.Perfil.VENDEDOR.toString()};
+				System.out.println("RegraUsuario, PERFIS PRONTOS: " + ajaxPerfis[0] + ", " + ajaxPerfis[1] + ", " + ajaxPerfis[2]);
 				
+				resp.setContentType("text/plain");
+				resp.setCharacterEncoding("UTF-8");
+				resp.getWriter().write(ajaxPerfis[0] + "," + ajaxPerfis[1] + "," + ajaxPerfis[2]);
+				break;
 			default:
 				
 				if(tarefa == null | tarefa.isEmpty()){
@@ -498,6 +527,7 @@ public class RegraUsuarios extends HttpServlet{
 				
 				break;
 		}
+		
 		
 		//dispatcher.forward(req, resp);
 	}
