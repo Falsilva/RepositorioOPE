@@ -68,7 +68,7 @@ public class RegraClientes extends HttpServlet {
 				}
 				
 				dispatcher = req.getRequestDispatcher("controller?action=clientes");
-				
+				dispatcher.forward(req, resp);
 				break;
 			case("pesquisarCliente"):
 				
@@ -429,7 +429,7 @@ public class RegraClientes extends HttpServlet {
 		}
 		
 		// Reencaminha a requisição
-		dispatcher.forward(req, resp);
+		//dispatcher.forward(req, resp);
 		
 	}
 

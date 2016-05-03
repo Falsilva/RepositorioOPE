@@ -56,6 +56,12 @@ public class Controller extends HttpServlet{
 			case "formUsuario":				
 				dispatcher = req.getRequestDispatcher("WEB-INF/paginas/formUsuario.jsp");
 				break;
+			case "contas":
+				dispatcher = req.getRequestDispatcher("WEB-INF/paginas/contas.jsp");
+				break;
+			case "precos":
+				dispatcher = req.getRequestDispatcher("WEB-INF/paginas/precos.jsp");
+				break;
 			case "listarClientes":
 				dispatcher = req.getRequestDispatcher("listarClientes");
 				break;

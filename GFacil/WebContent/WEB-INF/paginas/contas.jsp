@@ -391,7 +391,7 @@
 			<ul class="nav nav-list">
 			
 				<!-- ITEM 1 -- DASHBOARD -->
-				<li class="active">
+				<li class="">
 					<a href="index.jsp">
 						<i class="menu-icon fa fa-tachometer"></i>
 						<span class="menu-text"> Dashboard </span>
@@ -477,9 +477,9 @@
 				</li>
 				
 				<!-- ITEM 4 -- CONTAS -->
-				<li class="">
+				<li class="active">
 					<a href="#" onclick="document.getElementById('form_contas').submit()">
-						<form id="form_contas" action="controller?action=contas" method="post"></form>					
+						<form id="form_contas" action="controller?action=contas" method="post"></form>						
 						<i class="menu-icon fa fa-credit-card"></i>
 						<span class="menu-text"> Contas </span>
 					</a>
@@ -488,7 +488,7 @@
 				
 				<!-- ITEM 5 -- CAIXA -->
 				<li class="">
-					<a href="#">
+					<a href="#" class="dropdown-toggle">
 						<i class="menu-icon fa fa-money"></i>
 						<span class="menu-text"> Caixa </span>
 					</a>
@@ -600,7 +600,7 @@
 							<i class="ace-icon fa fa-home home-icon"></i>
 							<a href="index.jsp">Home</a>
 						</li>						
-						<li class="active">Dashboard</li>
+						<li class="active">Contas</li>
 					</ul>				
 					
 				</div>
@@ -611,276 +611,186 @@
 				
 					<!-- CABEÇALHO DO CONTEÚDO -->
 					<div class="page-header">
-						<h1><strong>Dashboard</strong>
+						<h1><strong>Contas</strong>
 							<small>
-								<i class="ace-icon fa fa-angle-double-right"></i> <strong>visão geral &amp; estatísticas</strong>
-							</small>
-							
+								<i class="ace-icon fa fa-angle-double-right"></i> <strong>gestão dos custos diversos</strong>
+							</small>							
 						</h1>
 					</div>
 					<!-- FIM -- CABEÇALHO DO CONTEÚDO -->
 					
-					<!-- MENSAGEM DE APRESENTAÇÃO DA VISÃO GERAL - DASHBOARD -->
+					<!-- MENSAGEM DE APRESENTAÇÃO DA PÁGINA -->
 					<div class="row">
 						<div class="col-xs-12">						
 							<div class="alert alert-block alert-success">
 								<button type="button" class="close" data-dismiss="alert">
 									<i class="ace-icon fa fa-times"></i>
 								</button>
-								<i class="ace-icon fa fa-check green"></i> Aqui é onde tudo começa! Nesta página, você possui uma visão geral do que é mais importante para gerenciar melhor o seu negócio, como notificações importantes, tarefas pendentes, o saldo em caixa e uma visão gráfica de como anda o faturamento, além de acesso ao menu com as principais funcionalidades que sempre o acompanha durante a navegação do sistema.
+								<i class="ace-icon fa fa-check green"></i> Pois é! Todo negócio possui custos fixos ou variáveis. Todos estão centralizados nesta página, com exceção das compras de materiais. Cadastre os custos que forem surgindo ou apenas fique de olho nos "Pendentes" de pagamento.
 							</div>
 						</div>
 					</div>					
-					<!-- FIM -- MENSAGEM DE APRESENTAÇÃO DA VISÃO GERAL - DASHBOARD -->
+					<!-- FIM -- MENSAGEM DE APRESENTAÇÃO DA PÁGINA -->					
 					
-					<!-- NOTIFICAÇÕES -->
-					<div class="row">
-						<div class="col-xs-12">						
-							<div class="widget-box transparent">
-							
-								<!-- TÍTULO DOS PAINÉIS -->
-		                		<div class="widget-header widget-header-flat">									
-				                    <h3 class="widget-title lighter"><strong>Avisos</strong></h3>
-				                </div>
-				                
-				                <!-- PAINÉIS -->
-				                <div class="widget-body">
-									<div class="widget-main no-padding">
+	                <!-- CONTAS -->
+	                <div class="row">	                
+	                	<div class="col-xs-12">
+	                	
+	                		<!-- BARRA DE FERRAMENTAS PARA A TABELA - VIA PLUGINS DATATABLES, TOOLTABLES  -->
+							<div class="tableTools-container">
+								<div class="btn-group btn-over-lap">
+										
+									<!-- BOTÃO NOVA CONTA -->
+									<a href="#" class="btn btn-app btn-success btn-xs" role="cadastrar">
+										<i class="ace-icon fa fa-plus bigger-130">&nbsp;<i class="ace-icon fa fa-credit-card bigger-130"></i></i>Novo
+									</a>
+								</div>
+							</div>
+							<div class="breadcrumbs">
+								<ul class="breadcrumb">
+									<li class="active">Pesquise informando as primeiras letras</li>
+								</ul>
+								<div class="nav-search" id="nav-search">
+									<form class="form-search" id="formPesquisar" action="controller?action=pesquisarUsuario" method="POST">
+										<span class="input-icon">													
+											<input class="nav-search-input" type="text" name="nome" id="nome" placeholder="Informe o custo..." />
+											<i class="ace-icon fa fa-search nav-search-icon"></i>
+										</span>												
+									</form>
+								</div>	
+							</div>
 									
-										<!-- PAINEL DE NOTIFICAÇÕES IMPORTANTES -->		                    
-					                    <div class="col-lg-3 col-md-6">
-					                        <div class="panel-nosso panel-red-nosso">
-					                            <div class="panel-heading-nosso">
-					                                <div class="row">
-					                                    <div class="col-xs-3">
-					                                        <i class="fa fa-exclamation-triangle fa-5x"></i>
-					                                    </div>
-					                                    <div class="col-xs-9 text-right">
-					                                        <div class="huge-nosso">13</div>
-					                                        <div>Importante!</div>
-					                                    </div>
-					                                </div>
-					                            </div>
-					                            <a href="#">
-					                                <div class="panel-footer-nosso">
-					                                    <span class="pull-left-nosso">Verifique</span>
-					                                    <span class="pull-right-nosso"><i class="fa fa-arrow-circle-right"></i></span>
-					                                    <div class="clearfix"></div>
-					                                </div>
-					                            </a>
-					                        </div>
-					                    </div>
-					                    
-					                    <!-- PAINEL DE TAREFAS -->
-					                    <div class="col-lg-3 col-md-6">
-					                        <div class="panel-nosso panel-green-nosso">
-					                            <div class="panel-heading-nosso">
-					                                <div class="row">
-					                                    <div class="col-xs-3">
-					                                        <i class="fa fa-tasks fa-5x"></i>
-					                                    </div>
-					                                    <div class="col-xs-9 text-right">
-					                                        <div class="huge-nosso">12</div>
-					                                        <div>Tarefas Pendentes!</div>
-					                                    </div>
-					                                </div>
-					                            </div>
-					                            <a href="#">
-					                                <div class="panel-footer-nosso">
-					                                    <span class="pull-left-nosso">Veja com detalhes</span>
-					                                    <span class="pull-right-nosso"><i class="fa fa-arrow-circle-right"></i></span>
-					                                    <div class="clearfix"></div>
-					                                </div>
-					                            </a>
-					                        </div>
-					                    </div>
-					                    
-					                    <!-- PAINEL DE PEDIDOS PENDENTES -->
-					                    <div class="col-lg-3 col-md-6">
-					                        <div class="panel-nosso panel-yellow-nosso">
-					                            <div class="panel-heading-nosso">
-					                                <div class="row">
-					                                    <div class="col-xs-3">
-					                                        <i class="fa fa-pencil-square-o fa-5x"></i>
-					                                    </div>
-					                                    <div class="col-xs-9 text-right">
-					                                        <div class="huge-nosso">124</div>
-					                                        <div>Pedidos Pendentes!</div>
-					                                    </div>
-					                                </div>
-					                            </div>
-					                            <a href="#">
-					                                <div class="panel-footer-nosso">
-					                                    <span class="pull-left-nosso">Veja com detalhes</span>
-					                                    <span class="pull-right-nosso"><i class="fa fa-arrow-circle-right"></i></span>
-					                                    <div class="clearfix"></div>
-					                                </div>
-					                            </a>
-					                        </div>
-					                    </div>
-					                    
-					                    <!-- PAINEL DE NOVOS EMAILS -->
-					                    <!-- <div class="col-lg-3 col-md-6">
-					                        <div class="panel-nosso panel-primary-nosso">
-					                            <div class="panel-heading-nosso">
-					                                <div class="row">
-					                                    <div class="col-xs-3">
-					                                        <i class="fa fa-envelope fa-5x"></i>
-					                                    </div>
-					                                    <div class="col-xs-9 text-right">
-					                                        <div class="huge-nosso">26</div>
-					                                        <div>Novos e-mails!</div>
-					                                    </div>
-					                                </div>
-					                            </div>
-					                            <a href="#">
-					                                <div class="panel-footer-nosso">
-					                                    <span class="pull-left-nosso">Veja a caixa de entrada</span>
-					                                    <span class="pull-right-nosso"><i class="fa fa-arrow-circle-right"></i></span>
-					                                    <div class="clearfix"></div>
-					                                </div>
-					                            </a>
-					                        </div>
-					                    </div> -->		                    			
-		                    		</div>
-		                    	</div>
-		                    </div>
-		            	</div>
-	                </div>
-	                <!-- FIM -- NOTIFICAÇÕES -->
-	                
-	                <!-- SALDO -- ÚLTIMOS LANÇAMENTOS -- GRÁFICO FATURAMENTO MENSAL -->
-	                <div class="row">
-	                
-	                	<!-- SALDO -- ÚLTIMOS LANÇAMENTOS -->
-	                	<div class="col-lg-4">
-	                		
-	                		<!-- CAIXA - SALDO -->
-	                		<div class="widget-box transparent">
-	                		
-	                			<!-- TÍTULO DO SALDO -->
-		                		<div class="widget-header widget-header-flat">
+							<!-- RESULTADO DO NÚMEROS DE CONTAS -->
+							<div class="table-header">
+								<strong>Resultado:</strong>
+							</div>
+							
+		                	<div class="widget-box transparent">
+				                    
+								<!-- TÍTULO DAS CONTAS -->
+			                	<div class="widget-header widget-header-flat">
 									<h3 class="widget-title lighter">
-										<i class="ace-icon fa fa-money"></i><strong> Caixa - Saldo</strong>
+										<i class="ace-icon fa fa-credit-card"></i><strong> Contas Cadastradas</strong>
 									</h3>
 								</div>
-								
-								<!-- SALDO -->
-								<div class="widget-body">
-									<div class="widget-main no-padding">
-										<div class="text-right">
-											<h2><strong><span class="green">R$ 395,00</span></strong></h2>
-										</div>
-									</div>
-								</div>
-	                		</div>
-	                		 
-	                		<!-- CAIXA - ÚLTIMOS LANÇAMENTOS -->
-	                		<div class="widget-box transparent">
-			                    
-								<!-- TÍTULO DOS LANÇAMENTOS -->
-		                		<div class="widget-header widget-header-flat">
-									<h3 class="widget-title lighter">
-										<i class="ace-icon fa fa-money"></i><strong> Caixa - Últimos Lançamentos</strong>
-									</h3>
-								</div>
-								
-								<!-- LANÇAMENTOS -->
-		                        <div class="widget-body">
+									
+								<!-- CONTAS -->
+			                    <div class="widget-body">
 									<div class="widget-main no-padding">
 										<table class="table table-bordered table-striped">
 											<thead class="thin-border-bottom">
-			                                	<tr>
-			                                    	<th>Item</th>
-			                                        <th>Data</th>
-			                                        <th>Lançamento</th>
-			                                        <th>Valor</th>
-			                                	</tr>
-		                           			</thead>
-			                           		<tbody>
-			                           			<tr>
-			                                    	<td class="text-right">1</td>
-			                                        <td>20/02/2016</td>
-			                                        <td>Pedido de Venda no. 13</td>
-			                                        <td class="text-right"><b class="green">+321.33</b></td>
-			                                    </tr>
-			                                    <tr>
-			                                    	<td class="text-right">2</td>
-			                                        <td>21/02/2016</td>
-			                                        <td>Conta de Água</td>
-			                                        <td class="text-right"><b class="red">-94.34</b></td>
-			                                    </tr>
-			                                    <tr>
-			                                    	<td class="text-right">3</td>
-			                                        <td>22/02/2016</td>
-			                                        <td>Pedido de Venda no. 14 NF. 2143</td>
-			                                        <td class="text-right"><b class="green">+724.17</b></td>
-			                                    </tr>
-			                                    <tr>
-			                                    	<td class="text-right">4</td>
-			                                        <td>22/02/2016</td>
-			                                        <td>Pedido de Compra no. 23 NF. 5432</td>
-			                                        <td class="text-right"><b class="red">-423.71</b></td>
-			                                    </tr>
-			                                    <tr>
-			                                        <td class="text-right">5</td>
-			                                        <td>03/03/2016</td>
-			                                        <td>Frete NF. 3456</td>
-			                                        <td class="text-right"><b class="red">-1200.00</b></td>
-			                                    </tr>
-			                                    <tr>
-			                                    	<td class="text-right">6</td>
-			                                        <td>04/03/2016</td>
-			                                        <td>Conta de Luz</td>
-			                                        <td class="text-right"><b class="red">-245.12</b></td>
-			                                    </tr>
-			                                    <tr>
-			                                    	<td class="text-right">7</td>
-			                                        <td>08/03/2016</td>
-			                                        <td>Manutenção da Empilhadeira NF. 4456</td>
-			                                        <td class="text-right"><b class="red">-2663.54</b></td>
-			                                    </tr>
-			                                    <tr>
-			                                        <td class="text-right">8</td>
-			                                        <td>10/03/2016</td>
-			                                        <td>Pedido de Venda no. 15</td>
-			                                        <td class="text-right"><b class="green">+943.45</b></td>
-			                                    </tr>
-			                                </tbody>
-			                        	</table>
-			                        </div>
-		                        </div>
-		                    	<div class="text-right">
-		                        	<h5><a href="#">Ver o caixa <i class="fa fa-arrow-circle-right"></i></a></h5>
-		                    	</div>
-		                    </div>
-	                    </div>
-	                    <!-- FIM -- SALDO -- CAIXA - ÚLTIMOS LANÇAMENTOS -->
-	                    
-	                    <!-- GRÁFICO FATURAMENTO MENSAL -->	                    
-	                    <div class="col-lg-8">
-							<div class="widget-box transparent">
-							
-								<!-- TÍTULO DO GRÁFICO -->
-								<div class="widget-header widget-header-flat">
-									<h3 class="widget-title lighter">
-										<i class="ace-icon fa fa-signal"></i><strong> Faturamento</strong>
-									</h3>
-								</div>
-								
-								<!-- GRÁFICO -->
-								<div class="widget-body">
-									<div class="widget-main padding-4">
-										<div id="sales-charts"></div>										
-									</div>
-								</div>
-							</div>
-						</div>	                    
-	                    <!-- FIM GRÁFICO FATURAMENTO MENSAL -->
-	                                    
+				                               	<tr>
+				                                   	<th>Cód.</th>
+				                                    <th>Descrição do Custo</th>
+				                                    <th>Valor (R$)</th>
+				                                    <th>Vencimento</th>
+				                                    <th>Status</th>
+				                                    <th>Ações</th>
+				                              	</tr>
+			                       			</thead>
+				                       		<tbody>
+				                       			<tr>
+				                                   	<td class="text-right"><b>1</b></td>
+				                                    <td><b>Água</b></td>
+				                                    <td class="text-right"><b class="red">120,00</b></td>
+				                                    <td class="text-center"><b>29/05/2016</b></td>
+				                                    <td class="text-center"><b class="yellow">Pendente</b></td>
+				                                    
+				                                    <!-- COLUNA DE AÇÕES -->
+													<td>														
+														<!-- EXIBIÇÃO EM TELAS GRANDES -->															
+														<div class="hidden-sm hidden-xs action-buttons">
+																	
+															<!-- BOTÃO EDITAR -->													
+															<a href="#" role="editar">
+																<span class="green">
+																	<i class="ace-icon fa fa-pencil bigger-130"></i>
+																</span>
+															</a>
+																	
+															<!-- BOTÃO EXCLUIR -->
+															<a href="#" role="excluir">
+																<span class="red">
+																	<i class="ace-icon fa fa-trash-o bigger-130"></i>
+																</span>
+															</a>
+															
+															<!-- BOTÃO SALVAR -->													
+															<a href="#" role="salvar" class="hidden">
+																<span class="blue">
+																	<i class="ace-icon fa fa-save bigger-130"></i>
+																</span>
+															</a>
+															
+															<!-- BOTÃO EXCLUIR -->
+															<a href="#" role="cancelar" class="hidden">
+																<span class="red">
+																	<i class="ace-icon fa fa-close bigger-130"></i>
+																</span>
+															</a>																
+																	
+															</div>
+	
+															<!-- EXIBIÇÃO EM TELAS PEQUENAS -->
+															<div class="hidden-md hidden-lg action-buttons">
+																<div class="inline pos-rel">
+																	
+																<!-- BOTÃO DROPDOWN-TOGGLE AMARELO -->
+																<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto">
+																	<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
+																</button>																	
+																		
+																<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">																	
+																	
+																	<!-- BOTÃO EDITAR -->
+																	<li>
+																		<a href="#" class="tooltip-success" data-rel="tooltip" title="Editar" role="editar">
+																			<span class="green">
+																				<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+																			</span>
+																		</a>
+																	</li>
+																			
+																	<!-- BOTÃO EXCLUIR -->
+																	<li>
+																		<a href="#" class="tooltip-error" data-rel="tooltip" title="Excluir" role="excluir">
+																			<span class="red">
+																				<i class="ace-icon fa fa-trash-o bigger-120"></i>
+																			</span>
+																		</a>
+																	</li>
+																			
+																	<!-- BOTÃO SALVAR -->
+																	<li>																																
+																		<a href="#" class="tooltip-success hidden" data-rel="tooltip" title="Salvar" role="salvar">
+																			<span class="blue">
+																				<i class="ace-icon fa fa-save bigger-120"></i>
+																			</span>
+																		</a>
+																	</li>
+																			
+																	<!-- BOTÃO CANCELAR -->
+																	<li>
+																		<a href="#" class="tooltip-error hidden" data-rel="tooltip" title="Cancelar" role="cancelar">
+																			<span class="red">
+																				<i class="ace-icon fa fa-close bigger-120"></i>
+																			</span>
+																		</a>
+																	</li>																		
+																</ul>																	
+															</div>
+														</div>															
+													</td>
+													<!-- COLUNA DE AÇÕES -->
+				                                </tr>			                                
+				                            </tbody>
+				                       	</table>
+				                    </div>
+			                    </div>
+			                </div>
+		                </div>
 	                </div>
-	                <!-- FIM -- SALDO -- CAIXA - ÚLTIMOS LANÇAMENTOS -- GRÁFICO FATURAMENTO MENSAL -->
-	                
+	                <!-- FIM -- CONTAS -->
 				</div>
 				<!-- FIM -- CONTEÚDO DA PÁGINA -->
 			</div>
@@ -952,15 +862,7 @@
 	<script src="resources/js/ace.min.js"></script>	
     
     <!-- RELÓGIO -->
-    <script src="resources/js/relogio.js"></script>
-    
-    <!-- PLUGINS DO GRÁFICO -->
-    <script src="resources/js/jquery.flot.min.js"></script>
-	<script src="resources/js/jquery.flot.pie.min.js"></script>
-	<script src="resources/js/jquery.flot.resize.min.js"></script>
-	
-	<!-- GRÁFICO FATURAMENTO -->
-	<script src="resources/js/grafico.js"></script>
+    <script src="resources/js/relogio.js"></script>    
     
 </body>
 </html>

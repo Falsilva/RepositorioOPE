@@ -28,6 +28,7 @@ public class RegraUsuarios extends HttpServlet{
 		String nome = null;
 		String nomeusuario = null;	// esse é o nome de login
 		String email = null;
+		String emailParaBusca = null;
 		String senha = null;
 		String perfil = null;		
 		
@@ -310,24 +311,28 @@ public class RegraUsuarios extends HttpServlet{
 				System.out.println("RegraUsuarios, ATUALIZANDO USUARIO...");
 			
 				nome = req.getParameter("nome");
-				nomeusuario = req.getParameter("nomeusuario");	// esse é o nome de login
+				nomeusuario = req.getParameter("nomeusuario");	// esse é o nome de login				
 				email = req.getParameter("email");
+				emailParaBusca = req.getParameter("emailParaBusca");
 				senha = req.getParameter("senha");
 				perfil = req.getParameter("perfil");
 				
-				parametros = new String[][]{{"nome",nome},{"nomeusuario", nomeusuario}, {"email", email}, {"senha", senha}, {"perfil", perfil}};
+				parametros = new String[][]{{"nome",nome},{"nomeusuario", nomeusuario}, {"emailParaBusca", emailParaBusca}, {"email", email}, {"senha", senha}, {"perfil", perfil}};
 								
 				user = new Usuario();
 				
 				parametroVazio = false;
 				
+				System.out.println("RegraUsuarios, ATUALIZANDO USUARIO, VERIFICANDO O RECEBIMENTO DE PARÂMETROS...");
 				for(int i = 0; i < parametros.length; i++){
 					
 					if(parametros[i][1] == null || parametros[i][1].isEmpty()){
+						System.out.println("RegraUsuarios, ATUALIZANDO USUARIO, PARAMETRO NULO: " + parametros[i][0]);
 						parametros[i][1] = "";
 						if(parametros[i][0].equals("senha")){
 							Usuario userEmail = new Usuario();
-							userEmail.setEmail(parametros[i - 1][1]);
+							userEmail.setEmail(emailParaBusca);
+							System.out.println("RegraUsuarios, ATUALIZANDO USUARIO, EMAIL PARA BUSCA: " + emailParaBusca);
 							String senhaUser = new UsuarioDAO().buscaUsuarioPorEmail(userEmail).getSenha();
 							if(senhaUser != null){
 								parametros[i][1] = senhaUser;
@@ -510,6 +515,14 @@ public class RegraUsuarios extends HttpServlet{
 				String[] ajaxPerfis = {Usuario.Perfil.ADMINISTRADOR.toString(), Usuario.Perfil.COMPRADOR.toString(), Usuario.Perfil.VENDEDOR.toString()};
 				System.out.println("RegraUsuario, PERFIS PRONTOS: " + ajaxPerfis[0] + ", " + ajaxPerfis[1] + ", " + ajaxPerfis[2]);
 				
+				// USANDO JSON
+				//resp.setContentType("application/json");
+				//resp.setCharacterEncoding("UTF-8");
+				/*String str = "";
+				str = "{\"data\":[{\"nome\":\"Eloi\",\"sobrenome\":\"Fonseca\"},{\"nome\":\"Fer\",\"sobrenome\":\"Fonseca\"}]}";
+				resp.getWriter().write(str);*/
+				
+				// SEM JSON - SÓ STRING
 				resp.setContentType("text/plain");
 				resp.setCharacterEncoding("UTF-8");
 				resp.getWriter().write(ajaxPerfis[0] + "," + ajaxPerfis[1] + "," + ajaxPerfis[2]);

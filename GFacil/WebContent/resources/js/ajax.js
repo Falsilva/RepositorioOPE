@@ -17,7 +17,7 @@ $(document).ready(function(){
 			type:"post",
 			data:{
 				nome:nome,
-				email:email,
+				email:email,				
 				nomeusuario:nomeusuario,
 				senha:senha,
 				perfil:perfil,
@@ -30,8 +30,7 @@ $(document).ready(function(){
 				$("#modal-form[rel=modalcadastrar]").find(".modal-body").html("<h3>" + resultado + "</h3>");
 				var botao = $("#modal-form[rel=modalcadastrar]").find("#btnCancelar").attr("id", "btnFechar");				
 				botao.text("Fechar");				
-				$("#modal-form[rel=modalcadastrar]").find("#btnCadastrar").addClass("hidden");
-				console.log("Modal Excluir, Exibição do Resultado");
+				$("#modal-form[rel=modalcadastrar]").find("#btnCadastrar").addClass("hidden");				
 			}
 		});
 	});
@@ -59,8 +58,7 @@ $(document).ready(function(){
 				$("#modal-form[rel=modalexcluir]").find(".modal-body").html("<h3>" + resultado + "</h3>");
 				var botao = $("#modal-form[rel=modalexcluir]").find("#btnCancelarExcluir").attr("id", "btnFecharExcluir");				
 				botao.text("Fechar");
-				$("#modal-form[rel=modalexcluir]").find("#btnExcluir").addClass("hidden");
-				console.log("Modal Excluir, Exibição do Resultado");
+				$("#modal-form[rel=modalexcluir]").find("#btnExcluir").addClass("hidden");				
 			}
 		});
 	});	

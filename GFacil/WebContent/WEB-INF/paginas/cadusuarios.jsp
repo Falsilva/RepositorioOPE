@@ -479,7 +479,8 @@
 				
 				<!-- ITEM 4 -- CONTAS -->
 				<li class="">
-					<a href="#" class="dropdown-toggle">						
+					<a href="#" onclick="document.getElementById('form_contas').submit()">
+						<form id="form_contas" action="controller?action=contas" method="post"></form>						
 						<i class="menu-icon fa fa-credit-card"></i>
 						<span class="menu-text"> Contas </span>
 					</a>
@@ -497,14 +498,15 @@
 				
 				<!-- ITEM 6 -- TABELA DE PREÇOS -->
 				<li class="">
-					<a href="#" class="dropdown-toggle">
+					<a href="#" onclick="document.getElementById('form_precos').submit()">
+						<form id="form_precos" action="controller?action=precos" method="post"></form>
 						<i class="menu-icon fa fa-dollar"></i>
 						<span class="menu-text"> Tabela de Preços </span>
 					</a>
 					<b class="arrow"></b>
 				</li>
 				
-				<!-- ITEM 7 -- E-MAIL -->
+				<!-- ITEM 7 -- E-MAIL 
 				<li class="">
 					<a href="#" class="dropdown-toggle">
 						<i class="menu-icon fa fa-envelope-o"></i>
@@ -513,7 +515,7 @@
 					</a>
 					<b class="arrow"></b>
 
-					<!-- SUBMENU DO ITEM E-MAIL -->
+					<!-- SUBMENU DO ITEM E-MAIL 
 					<ul class="submenu">	
 						<li class="">
 							<a href="#">
@@ -554,7 +556,7 @@
 					</ul>
 				</li>
 				
-				<!-- ITEM 8 -- MAPA GERAL -->
+				<!-- ITEM 8 -- MAPA GERAL 
 				<li class="">
 					<a href="#">
 						<i class="menu-icon fa fa-map-o"></i>
@@ -563,14 +565,14 @@
 					<b class="arrow"></b>
 				</li>
 				
-				<!-- ITEM 9 -- CALENDÁRIO -->
+				<!-- ITEM 9 -- CALENDÁRIO 
 				<li class="">
 					<a href="#">
 						<i class="menu-icon fa fa-calendar"></i>
 						<span class="menu-text"> Calendário</span>							
 					</a>
 					<b class="arrow"></b>
-				</li>
+				</li>-->
 			</ul>
 			<!-- FIM -- LISTA DE ITENS DO MENU -->
 			
@@ -611,9 +613,9 @@
 				
 					<!-- CABEÇALHO DO CONTEÚDO -->
 					<div class="page-header">
-						<h1><strong>Cadastro de Usuários</strong>
+						<h1><strong>Usuários</strong>
 							<small>
-								<i class="ace-icon fa fa-angle-double-right"></i>
+								<i class="ace-icon fa fa-angle-double-right"></i> <strong>gestão de usuários</strong>
 							</small>							
 						</h1>
 					</div>
@@ -680,7 +682,7 @@
 													<th class="hidden"></th>
 													<th>Nome</th>
 													<th>E-mail</th>
-													<th class="hidden-480">Perfil</th>
+													<th>Perfil</th>
 													<th class="col-xs-1">Ações</th>	
 												</tr>
 											</thead>
@@ -696,7 +698,7 @@
 														<!-- COLUNAS DE REGISTROS -->
 														<td>${user.nome}</td>
 														<td>${user.email}</td>
-														<td class="hidden-480">${user.perfil}</td>
+														<td>${user.perfil}</td>
 														
 														<!-- COLUNA DE AÇÕES -->
 														<td>														
@@ -734,7 +736,7 @@
 															</div>
 
 															<!-- EXIBIÇÃO EM TELAS PEQUENAS -->
-															<div class="hidden-md hidden-lg">
+															<div class="hidden-md hidden-lg action-buttons">
 																<div class="inline pos-rel">
 																
 																	<!-- BOTÃO DROPDOWN-TOGGLE AMARELO -->
@@ -764,7 +766,7 @@
 																		
 																		<!-- BOTÃO SALVAR -->
 																		<li>																																
-																			<a href="#" class="tooltip-error hidden" data-rel="tooltip" title="Salvar" role="salvar">
+																			<a href="#" class="tooltip-success hidden" data-rel="tooltip" title="Salvar" role="salvar">
 																				<span class="blue">
 																					<i class="ace-icon fa fa-save bigger-120"></i>
 																				</span>
@@ -775,7 +777,7 @@
 																		<li>
 																			<a href="#" class="tooltip-error hidden" data-rel="tooltip" title="Cancelar" role="cancelar">
 																				<span class="red">
-																					<i class="ace-icon fa fa-close bigger-130"></i>
+																					<i class="ace-icon fa fa-close bigger-120"></i>
 																				</span>
 																			</a>
 																		</li>																		
@@ -919,89 +921,6 @@
 								</div>
 							</div>
 							<!-- FIM -- MODAL FORMULÁRIO PARA EXCLUIR -->
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							<!-- 
-							<div id="modal-form-resultado" class="modal" tabindex="-1">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal">&times;</button>
-											<h4 class="blue bigger">Resultado...</h4>
-										</div>
-
-										<div class="modal-body"></div>
-										
-										<div class="modal-footer">
-											<button class="btn btn-sm">
-												<i class="ace-icon fa fa-check"></i> Ok
-											</button>
-										</div>
-									</div>
-								</div>
-							</div>
-							 -->
-							
-							
-							
-							
-							
-							<!-- FORMULÁRIO CADASTRAR USUÁRIO						
-								<form id="formCadastrar" action="controller?action=cadastrarUsuario&tarefa=cadastrar" method="POST">
-									<fieldset>
-										<legend>Preencha todos os campos</legend>
-										
-										<label for="nome">Nome:</label>			
-										<input type="text" name="nome" id="nome" placeholder="Nome" />
-										
-										<label for="email">Email:</label>			
-										<input type="text" name="email" id="email" placeholder="Email" />
-										
-										<label for="nomeusuario">Usuário:</label>			
-										<input type="text" name="nomeusuario" id="nomeusuario" placeholder="Nome de usuário" />
-										
-										<label for="senha">Senha:</label>			
-										<input type="password" name="senha" id="senha" placeholder="****" maxlength="4" />
-										
-										<label for="perfil">Perfil:</label>
-										<select name="perfil" id="perfil">											
-											<c:forEach var="perfil" items="<%= Usuario.Perfil.values() %>">
-												<option value="${perfil}">${perfil}</option>
-											</c:forEach>
-										</select>
-										
-										<input class="btnRight" type="submit" value="Cadastrar" />
-									</fieldset>
-								</form> -->
-							
-							
 												
 						</div>
 					</div>
