@@ -60,265 +60,6 @@
 			<div class="navbar-buttons navbar-header pull-right" role="navigation">
 				<ul class="nav ace-nav">
 					
-					<!-- BOTÃO CINZA DE TAREFAS -->
-					<li class="grey">
-					
-						<!-- DESIGN DO BOTÃO -->
-						<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-						
-							<!-- ÍCONE DA TAREFA -->
-							<i class="ace-icon fa fa-tasks"></i>
-							
-							<!-- QUANTIDADE DE TAREFAS PENDENTES - BUSCA OS DADOS NO BANCO -->
-							<span class="badge badge-grey">4</span>
-						</a>
-						
-						<!-- LISTA DE OPÇÕES DO BOTÃO DE TAREFAS -->
-						<ul class="dropdown-menu dropdown-menu-right dropdown-navbar navbar-grey dropdown-caret dropdown-close">
-							
-							<!-- ITEM 1 - CABEÇALHO DOS ITENS DA LISTA -->
-							<li class="dropdown-header">
-								<i class="ace-icon fa fa-check"></i> 4 Tarefas pendentes
-							</li>
-							
-							<!-- ITEM 2 - CORPO DOS ITENS DA LISTA -->
-							<li class="dropdown-content">
-							
-								<!-- TAREFAS PENDENTES - BARRAS DE PROGRESSO -->
-								<ul class="dropdown-menu dropdown-navbar navbar-grey">																		
-									<li>
-										<a href="#">
-											<div class="clearfix">
-												<span class="pull-left">Atualização do Software</span>
-												<span class="pull-right">65%</span>
-											</div>
-											<div class="progress progress-mini">
-												<div style="width:65%" class="progress-bar"></div>
-											</div>
-										</a>
-									</li>									
-									<li>
-										<a href="#">
-											<div class="clearfix">
-												<span class="pull-left">Atualização do Hardware</span>
-												<span class="pull-right">35%</span>
-											</div>
-											<div class="progress progress-mini">
-												<div style="width:35%" class="progress-bar progress-bar-danger"></div>
-											</div>
-										</a>
-									</li>									
-									<li>
-										<a href="#">
-											<div class="clearfix">
-												<span class="pull-left">Teste Unitário</span>
-												<span class="pull-right">15%</span>
-											</div>
-											<div class="progress progress-mini">
-												<div style="width:15%" class="progress-bar progress-bar-warning"></div>
-											</div>
-										</a>
-									</li>									
-									<li>
-										<a href="#">
-											<div class="clearfix">
-												<span class="pull-left">Resoluções de Bugs</span>
-												<span class="pull-right">90%</span>
-											</div>
-											<div class="progress progress-mini progress-striped active">
-												<div style="width:90%" class="progress-bar progress-bar-success"></div>
-											</div>
-										</a>
-									</li>
-								</ul>
-							</li>
-							
-							<!-- ITEM 3 - RODAPÉ DOS ITENS DA LISTA -->
-							<li class="dropdown-footer">
-								<a href="#">
-									Veja todos os detalhes <i class="ace-icon fa fa-arrow-right"></i>
-								</a>
-							</li>
-						</ul>
-					</li>
-					
-					<!-- BOTÃO PINK DE NOTIFICAÇÕES -->
-					<li class="purple">
-					
-						<!-- DESIGN DO BOTÃO -->
-						<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-							<i class="ace-icon fa fa-bell icon-animated-bell"></i>
-							<span class="badge badge-important">8</span>
-						</a>
-						
-						<!-- LISTA DE OPÇÕES DO BOTÃO DE NOTIFICAÇÕES -->
-						<ul class="dropdown-menu dropdown-menu-right dropdown-navbar navbar-pink dropdown-caret dropdown-close">						
-							
-							<!-- ITEM 1 - CABEÇALHO DOS ITENS DA LISTA -->
-							<li class="dropdown-header">
-								<i class="ace-icon fa fa-exclamation-triangle"></i> 8 Notificações
-							</li>
-							
-							<!-- ITEM 2 - CORPO DOS ITENS DA LISTA -->
-							<li class="dropdown-content">
-							
-								<!-- NOTIFICAÇÕES -->
-								<ul class="dropdown-menu dropdown-navbar navbar-pink">
-									<li>
-										<a href="#">
-											<div class="clearfix">
-												<span class="pull-left">
-													<i class="btn btn-xs btn-pink no-hover fa fa-comment"></i> Novos Comentários
-												</span>
-												<span class="pull-right badge badge-info">+12</span>
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<i class="btn btn-xs btn-primary fa fa-user"></i> Bob cadastrou-se como Editor
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<div class="clearfix">
-												<span class="pull-left">
-													<i class="btn btn-xs btn-success no-hover fa fa-shopping-cart"></i> Novos Pedidos
-												</span>
-												<span class="pull-right badge badge-success">+8</span>
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<div class="clearfix">
-												<span class="pull-left">
-													<i class="btn btn-xs btn-info no-hover fa fa-twitter"></i> Seguidores
-												</span>
-												<span class="pull-right badge badge-info">+11</span>
-											</div>
-										</a>
-									</li>									
-								</ul>
-							</li>
-							
-							<!-- ITEM 3 - RODAPÉ DOS ITENS DA LISTA -->
-							<li class="dropdown-footer">
-								<a href="#">
-									Veja todas as notificações <i class="ace-icon fa fa-arrow-right"></i>
-								</a>
-							</li>
-						</ul>
-					</li>
-					
-					<!-- BOTÃO VERDE DE EMAILS -->
-					<li class="green">
-						
-						<!-- DESIGN DO BOTÃO -->
-						<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-							<i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
-							<span class="badge badge-success">5</span>
-						</a>
-						
-						<!-- LISTA DE OPÇÕES DO BOTÃO DE EMAILS -->
-						<ul class="dropdown-menu dropdown-menu-right dropdown-navbar navbar-green dropdown-caret dropdown-close">
-							
-							<!-- ITEM 1 - CABEÇALHO DOS ITENS DA LISTA -->
-							<li class="dropdown-header">
-								<i class="ace-icon fa fa-envelope-o"></i> 5 Mensagens
-							</li>
-							
-							<!-- ITEM 2 - CORPO DOS ITENS DA LISTA -->
-							<li class="dropdown-content">
-							
-								<!-- EMAILS -->
-								<ul class="dropdown-menu dropdown-navbar navbar-green">
-									<li>
-										<a class="clearfix" href="#">
-											<img src="resources/avatars/avatar.png" class="msg-photo" alt="Avatar do Alex" />
-											<span class="msg-body">
-												<span class="msg-title">
-													<span class="blue">Alex:</span> João de Santo Cristo mesmo autor...
-												</span>
-												<span class="msg-time">
-													<i class="ace-icon fa fa-clock-o"></i>
-													<span>&nbsp;um momento atrás</span>
-												</span>
-											</span>
-										</a>
-									</li>
-									<li>
-										<a class="clearfix" href="#">
-											<img src="resources/avatars/avatar3.png" class="msg-photo" alt="Avatar da Susana" />
-											<span class="msg-body">
-												<span class="msg-title">
-													<span class="blue">Susana:</span>
-													Desempenho do vestibular no portão de entrada...
-												</span>
-												<span class="msg-time">
-													<i class="ace-icon fa fa-clock-o"></i>
-													<span>&nbsp;20 minutos atrás</span>
-												</span>
-											</span>										
-										</a>
-									</li>
-									<li>
-										<a class="clearfix" href="#">
-											<img src="resources/avatars/avatar4.png" class="msg-photo" alt="Avatar do Bob" />
-											<span class="msg-body">
-												<span class="msg-title">
-													<span class="blue">Bob:</span>
-													A imigrição precisa ser vista com um pouco mais de suavidade...
-												</span>
-												<span class="msg-time">
-													<i class="ace-icon fa fa-clock-o"></i>
-													<span>&nbsp;3:15 pm</span>
-												</span>
-											</span>										
-										</a>
-									</li>
-									<li>
-										<a href="#" class="clearfix">
-											<img src="resources/avatars/avatar2.png" class="msg-photo" alt="Avatar da Kate" />
-											<span class="msg-body">
-												<span class="msg-title">
-													<span class="blue">Kate:</span>
-													Caros amigos, se houverem a necessidade de dar boas risadas...
-												</span>
-												<span class="msg-time">
-													<i class="ace-icon fa fa-clock-o"></i>
-													<span>&nbsp;1:33 pm</span>
-												</span>
-											</span>
-										</a>
-									</li>
-									<li>
-										<a href="#" class="clearfix">
-											<img src="resources/avatars/avatar5.png" class="msg-photo" alt="Avatar do Fred" />
-											<span class="msg-body">
-												<span class="msg-title">
-													<span class="blue">Fred:</span>
-													Desempenho no vestibular pelo autor...
-												</span>
-												<span class="msg-time">
-													<i class="ace-icon fa fa-clock-o"></i>
-													<span>&nbsp;10:09 am</span>
-												</span>
-											</span>
-										</a>
-									</li>								
-								</ul>
-							</li>
-							
-							<!-- ITEM 3 - RODAPÉ DOS ITENS DA LISTA -->
-							<li class="dropdown-footer">
-								<a href="#">
-									Veja todas as mensagens <i class="ace-icon fa fa-arrow-right"></i>
-								</a>
-							</li>
-						</ul>
-					</li>
-					
 					<!-- BOTÃO AZUL COM NOME DE USUÁRIO -->
 					<li class="azul-escuro-nosso">
 					
@@ -457,7 +198,8 @@
 					<!-- SUBMENU DO ITEM PEDIDOS -->
 					<ul class="submenu">
 						<li class="">
-							<a href="#">
+							<a href="#" onclick="document.getElementById('form_compra').submit()">
+								<form id="form_compra" action="controller?action=compra" method="post"></form>
 								<i class="menu-icon fa fa-caret-right"></i> Compra 
 								<span class="badge badge-transparent">
 									<i class="ace-icon fa fa-cart-arrow-down red bigger-130"></i>
@@ -466,7 +208,8 @@
 							<b class="arrow"></b>
 						</li>
 						<li class="">
-							<a href="#">
+							<a href="#" onclick="document.getElementById('form_venda').submit()">
+								<form id="form_venda" action="controller?action=venda" method="post"></form>
 								<i class="menu-icon fa fa-caret-right"></i>	Venda
 								<span class="badge badge-transparent">									
 									<i class="ace-icon fa fa-cart-plus green bigger-130"></i>
@@ -475,28 +218,19 @@
 							<b class="arrow"></b>
 						</li>												
 					</ul>
-				</li>
+				</li>				
 				
-				<!-- ITEM 4 -- CONTAS -->
+				<!-- ITEM 4 -- CAIXA -->
 				<li class="">
-					<a href="#" onclick="document.getElementById('form_contas').submit()">
-						<form id="form_contas" action="controller?action=contas" method="post"></form>						
-						<i class="menu-icon fa fa-credit-card"></i>
-						<span class="menu-text"> Contas </span>
-					</a>
-					<b class="arrow"></b>
-				</li>
-				
-				<!-- ITEM 5 -- CAIXA -->
-				<li class="">
-					<a href="#">
+					<a href="#" onclick="document.getElementById('form_caixa').submit()">
+						<form id="form_caixa" action="controller?action=caixa" method="post"></form>
 						<i class="menu-icon fa fa-money"></i>
 						<span class="menu-text"> Caixa </span>
 					</a>
 					<b class="arrow"></b>
 				</li>
 				
-				<!-- ITEM 6 -- TABELA DE PREÇOS -->
+				<!-- ITEM 5 -- TABELA DE PREÇOS -->
 				<li class="">
 					<a href="#" onclick="document.getElementById('form_precos').submit()">
 						<form id="form_precos" action="controller?action=precos" method="post"></form>
@@ -504,75 +238,7 @@
 						<span class="menu-text"> Tabela de Preços </span>
 					</a>
 					<b class="arrow"></b>
-				</li>
-				
-				<!-- ITEM 7 -- E-MAIL 
-				<li class="">
-					<a href="#" class="dropdown-toggle">
-						<i class="menu-icon fa fa-envelope-o"></i>
-						<span class="menu-text"> E-Mail </span>
-						<b class="arrow fa fa-angle-down"></b>
-					</a>
-					<b class="arrow"></b>
-
-					<!-- SUBMENU DO ITEM E-MAIL 
-					<ul class="submenu">	
-						<li class="">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i> Escrever
-								<span class="badge badge-transparent">									
-									<i class="ace-icon fa fa-pencil blue bigger-130"></i>
-								</span>
-							</a>
-							<b class="arrow"></b>
-						</li>					
-						<li class="">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i> Entrada
-								<span class="badge badge-transparent">									
-									<i class="ace-icon fa fa-inbox blue bigger-130"></i>
-								</span>
-							</a>
-							<b class="arrow"></b>
-						</li>
-						<li class="">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i> Enviados
-								<span class="badge badge-transparent">									
-									<i class="ace-icon fa fa-external-link blue bigger-130"></i>
-								</span>
-							</a>
-							<b class="arrow"></b>
-						</li>
-						<li class="">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i> Rascunhos
-								<span class="badge badge-transparent">									
-									<i class="ace-icon fa fa-file-text-o blue bigger-130"></i>
-								</span>
-							</a>
-							<b class="arrow"></b>
-						</li>						
-					</ul>
-				</li>
-				
-				<!-- ITEM 8 -- MAPA GERAL 
-				<li class="">
-					<a href="#">
-						<i class="menu-icon fa fa-map-o"></i>
-						<span class="menu-text"> Mapa Geral</span>							
-					</a>
-					<b class="arrow"></b>
-				</li>
-				
-				<!-- ITEM 9 -- CALENDÁRIO 
-				<li class="">
-					<a href="#">
-						<i class="menu-icon fa fa-calendar"></i>
-						<span class="menu-text"> Calendário</span>							
-					</a>
-					<b class="arrow"></b> -->
-				</li>
+				</li>				
 			</ul>
 			<!-- FIM -- LISTA DE ITENS DO MENU -->
 			
@@ -636,49 +302,45 @@
 					
 					<!-- TABELA DO CADASTRO -->
 					<div class="row">
-						<div class="col-xs-12">	
-							 
-							 <ul>
-								<li><a href="controller?action=formCliente&tarefa=cadastrar">Cadastrar</a></li>
-								<li><a href="controller?action=formCliente&tarefa=atualizar">Atualizar</a></li>
-								<li><a href="controller?action=formCliente&tarefa=excluir">Excluir</a></li>
-							</ul>
+						<div class="col-xs-12">						
 							
-							
-							<!-- IMPORTANTE LEMBRAR --- A PÁGINA INICIAL DO VENDEDOR DEVE SER ESTA E DEVE DESABILITAR ALGUMAS FUNÇÕES DO MENU -->
+							<!-- IMPORTANTE LEMBRAR --- A PÁGINA INICIAL DO VENDEDOR DEVE SER ESTA E DEVE DESABILITAR ALGUMAS FUNÇÕES DO MENU 
 							<c:if test="${usuarioLogado.perfil != 'VENDEDOR'}">
 								<a href="index.jsp">Voltar</a>
 							</c:if>
+							-->
 							
+							<!-- BARRA DE FERRAMENTAS PARA A TABELA - VIA PLUGINS DATATABLES, TOOLTABLES  -->
+							<div class="tableTools-container">
+								<div class="btn-group btn-over-lap">
+										
+									<!-- BOTÃO NOVO CLIENTE -->
+									<a href="#" class="btn btn-app btn-success btn-xs" role="cadastrar">
+										<i class="ace-icon fa fa-plus bigger-130">&nbsp;<i class="ace-icon fa fa-child bigger-130"></i><i class="ace-icon fa fa-child bigger-130"></i></i>Novo
+									</a>
+								</div>
+							</div>
+							<div class="breadcrumbs">
+								<ul class="breadcrumb">
+									<li class="active">
+										<b>Pesquise informando as primeiras letras... <i class="ace-icon fa fa-angle-double-right"></i></b>
+									</li>
+								</ul>
+								<div class="nav-search" id="nav-search">
+									<form class="form-search" id="formPesquisarCliente" action="controller?action=pesquisarCliente" method="POST">
+										<span class="input-icon">													
+											<input class="nav-search-input" type="text" name="empresa" id="empresa" placeholder="Informe a empresa..." />
+											<i class="ace-icon fa fa-search nav-search-icon"></i>
+										</span>												
+									</form>
+								</div>	
+							</div>
+									
 							<!-- JSTL -- CONDIÇÃO PARA EXIBIR A TABELA -->							
 							<c:choose>
 								<c:when test="${not empty clientes}">
 								<!-- CASO HAJA CLIENTE -->
-									
-									<!-- BARRA DE FERRAMENTAS PARA A TABELA - VIA PLUGINS DATATABLES, TOOLTABLES  -->
-									<div class="tableTools-container">
-										<div class="btn-group btn-over-lap">
-										
-											<!-- BOTÃO NOVO CLIENTE -->
-											<a href="#" class="btn btn-app btn-success btn-xs" role="cadastrar">
-												<i class="ace-icon fa fa-plus bigger-130">&nbsp;<i class="ace-icon fa fa-child bigger-130"></i><i class="ace-icon fa fa-child bigger-130"></i></i>Novo
-											</a>
-										</div>
-									</div>
-									<div class="breadcrumbs">
-										<ul class="breadcrumb">
-											<li class="active">Pesquise informando as primeiras letras</li>
-										</ul>
-										<div class="nav-search" id="nav-search">
-											<form class="form-search" id="formPesquisarCliente" action="controller?action=pesquisarCliente" method="POST">
-												<span class="input-icon">													
-													<input class="nav-search-input" type="text" name="empresa" id="empresa" placeholder="Informe a empresa..." />
-													<i class="ace-icon fa fa-search nav-search-icon"></i>
-												</span>												
-											</form>
-										</div>	
-									</div>
-										
+								
 									<!-- RESULTADO DO NÚMEROS DE USUÁRIOS -->
 									<div class="table-header">
 										<strong>Resultado: " ${clientes.size()} cliente(s) cadastrado(s) "</strong>
@@ -826,7 +488,7 @@
 							<!-- JSTL -- CONDIÇÃO PARA EXIBIR A TABELA -->							
 																
 							<!-- MODAL FORMULÁRIO PARA CADASTRAR -->
-							<div id="modal-form" class="modal fade" tabindex="-1" rel="modalcadastrar">
+							<div id="modal-form-cliente" class="modal fade" tabindex="-1" rel="modalcadastrar">
 								<div class="modal-dialog">
 									<div class="modal-content">
 										<div class="modal-header">
@@ -838,85 +500,98 @@
 											<div class="form-group">
 												<label for="empresa">Empresa</label>
 												<div>													
-													<input type="text" id="empresa" name="empresa" placeholder="Informe a Empresa..." size="40" />
+													<input type="text" id="empresa" name="empresa" placeholder="Informe a empresa..." size="81" />
+												</div>
+											</div>
+											<div class="space-4"></div>
+											<div class="form-inline">
+												<div class="form-group">
+													<label for="contato">Contato</label>
+													<div>
+														<input type="text" id="contato" name="contato" placeholder="Informe o contato..." size="25" /> <!-- <span>*</span> -->													
+													</div>
+												</div>
+												&nbsp;
+												<div class="form-group">
+													<label for="telefone">Telefone</label>
+													<div>			
+														<input type="text" id="telefone" name="telefone" placeholder="(99)9.9999-9999" size="15" />
+													</div>
+												</div>					
+												&nbsp;
+												<div class="form-group">
+													<label for="email">E-mail</label>
+													<div>
+														<input type="text" id="email" name="email" placeholder="Informe o e-mail..." size="30" />													
+													</div>
 												</div>
 											</div>
 											<div class="space-4"></div>
 											<div class="form-group">
-												<label for="contato">Contato:</label>
-												<div>
-													<input type="text" id="contato" name="contato" placeholder="Inform o nome do contato..." size="40" /> <!-- <span>*</span> -->													
-												</div>
-											</div>
-											<div class="space-4"></div>
-											<div class="form-group">
-												<label for="telefone">Telefone:</label>
-												<div>			
-													<input type="text" id="telefone" name="telefone" placeholder="(99)9.9999-9999" size="40" />
-												</div>
-											</div>					
-											<div class="space-4"></div>
-											<div class="form-group">
-												<label for="email">E-mail</label>
-												<div>
-													<input type="text" id="email" name="email" placeholder="Informe o seu e-mail..." size="40" />													
-												</div>
-											</div>
-											<div class="space-4"></div>
-											<div class="form-group">
-												<label for="cep">CEP:</label>											
+												<label for="cep">CEP</label>											
 												<div>
 													<input type="text" name="cep" id="cep" placeholder="00000-000" />
 												</div>
 											</div>
 											<div class="form-group">
-												<label for="endereco">Logradouro:</label>											
+												<label for="endereco">Logradouro</label>											
 												<div>
-													<input type="text" name="endereco" id="endereco" placeholder="Rua/Avenida" />
+													<input type="text" name="endereco" id="endereco" placeholder="Rua/Avenida" size="81" maxlength="80" />
 												</div>
 											</div>
-											<div class="form-group">
-												<label for="numero">Número:</label>											
-												<div>
-													<input type="text" name="numero" id="numero" placeholder="Número" />
+											<div class="space-4"></div>
+											<div class="form-inline">
+												<div class="form-group">
+													<label for="numero">Número</label>											
+													<div>
+														<input type="text" name="numero" id="numero" placeholder="Número" size="8" />
+													</div>
+												</div>
+												&nbsp;
+												<div class="form-group">
+													<label for="complemento">Complemento</label>												
+													<div>
+														<input type="text" name="complemento" id="complemento" placeholder="Complemento" size="32" />
+													</div>
 												</div>
 											</div>
-											<div class="form-group">
-												<label for="complemento">Complemento:</label>												
-												<div>
-													<input type="text" name="complemento" id="complemento" placeholder="Complemento" />
+											<div class="space-4"></div>
+											<div class="form-inline">
+												<div class="form-group">
+													<label for="bairro">Bairro</label>											
+													<div>
+														<input type="text" name="bairro" id="bairro" placeholder="Bairro" />
+													</div>
 												</div>
-											</div>
-											<div class="form-group">
-												<label for="bairro">Bairro:</label>											
-												<div>
-													<input type="text" name="bairro" id="bairro" placeholder="Bairro" />
+												&nbsp;
+												<div class="form-group">
+													<label for="cidade">Cidade</label>											
+													<div>
+														<input type="text" name="cidade" id="cidade" placeholder="Cidade" />
+													</div>
 												</div>
-											</div>
-											<div class="form-group">
-												<label for="cidade">Cidade:</label>											
-												<div>
-													<input type="text" name="cidade" id="cidade" placeholder="Cidade" />
-												</div>
-											</div>
-											<div class="form-group">
-												<label for="estado">Estado:</label>											
-												<div>
-													<input type="text" name="estado" id="estado" placeholder="Estado" />
+												&nbsp;
+												<div class="form-group">
+													<label for="estado">Estado</label>											
+													<div>
+														<input type="text" name="estado" id="estado" placeholder="Sigla" maxlength="2" size="4" />
+													</div>
 												</div>
 											</div>				
 											<div class="space-4"></div>
-											<div class="form-group">
-												<label for="cnpj">CNPJ:</label>
-												<div>
-													<input type="text" id="cnpj" name="cnpj" placeholder="00.000.000/0001-00" />
+											<div class="form-inline">
+												<div class="form-group">
+													<label for="cnpj">CNPJ</label>
+													<div>
+														<input type="text" id="cnpj" name="cnpj" placeholder="00.000.000/0001-00" />
+													</div>
 												</div>
-											</div>
-											<div class="space-4"></div>
-											<div class="form-group">
-												<label for="inscEstadual">Insc. Estadual:</label>
-												<div>
-													<input type="text" id="inscEstadual" name="inscEstadual" placeholder="Insc. Estadual" />
+												&nbsp;
+												<div class="form-group">
+													<label for="inscEstadual">Insc. Estadual</label>
+													<div>
+														<input type="text" id="inscEstadual" name="inscEstadual" placeholder="Insc. Estadual" />
+													</div>
 												</div>
 											</div>												
 										</div>
@@ -935,7 +610,7 @@
 							<!-- FIM -- MODAL FORMULÁRIO PARA CADASTRAR -->
 							
 							<!-- MODAL FORMULÁRIO PARA EXCLUIR -->
-							<div id="modal-form" class="modal fade" tabindex="-1" rel="modalexcluir">
+							<div id="modal-form-cliente" class="modal fade" tabindex="-1" rel="modalexcluir">
 								<div class="modal-dialog">
 									<div class="modal-content">
 										<div class="modal-header">
@@ -943,96 +618,63 @@
 											<h4 class='red bigger'> Excluir... Tem certeza?</h4>
 										</div>
 
-										<div class="modal-body">										
-											<div class="form-group">
-												<label for="codigo">Código:</label>
+										<div class="modal-body">
+											<div class="form-group hidden">
+												<label for="codigo">Cód.</label>
 												<div>													
-													<input type="text" id="codigo" name="codigo" size="40" />
+													<input type="text" id="codigo" name="codigo" size="8" />
 												</div>
 											</div>
-											<div class="space-4"></div>
 											<div class="form-group">
 												<label for="empresa">Empresa</label>
 												<div>													
-													<input type="text" id="empresa" name="empresa" size="40" />
+													<input type="text" id="empresa" name="empresa" size="81" />
 												</div>
 											</div>
 											<div class="space-4"></div>
-											<div class="form-group">
-												<label for="contato">Contato:</label>
-												<div>
-													<input type="text" id="contato" name="contato" size="40" /> <!-- <span>*</span> -->													
+											<div class="form-inline">
+												<div class="form-group">
+													<label for="contato">Contato</label>
+													<div>
+														<input type="text" id="contato" name="contato" size="25" /> <!-- <span>*</span> -->													
+													</div>
+												</div>
+												&nbsp;																		
+												<div class="form-group">
+													<label for="telefone">Telefone</label>
+													<div>			
+														<input type="text" id="telefone" name="telefone" size="15" />
+													</div>
+												</div>
+												&nbsp;
+												<div class="form-group">											
+													<label for="email">E-mail</label>
+													<div>
+														<input type="text" id="email" name="email" size="30" />													
+													</div>
 												</div>
 											</div>
+											<div class="space-4"></div>											
+											<div class="form-group">
+												<label for="endereco">Endereço</label>									
+												<div>
+													<textarea class="form-control" name="endereco" id="endereco"></textarea>
+												</div>
+											</div>														
 											<div class="space-4"></div>
-											<div class="form-group">
-												<label for="telefone">Telefone:</label>
-												<div>			
-													<input type="text" id="telefone" name="telefone" size="40" />
+											<div class="form-inline">
+												<div class="form-group">
+													<label for="cnpj">CNPJ</label>
+													<div>
+														<input type="text" id="cnpj" name="cnpj" />
+													</div>
 												</div>
-											</div>					
-											<div class="space-4"></div>
-											<div class="form-group">
-												<label for="email">E-mail</label>
-												<div>
-													<input type="text" id="email" name="email" size="40" />													
-												</div>
-											</div>
-											<div class="space-4"></div>
-											<div class="form-group">
-												<label for="cep">CEP:</label>											
-												<div>
-													<input type="text" name="cep" id="cep" />
-												</div>
-											</div>
-											<div class="form-group">
-												<label for="endereco">Logradouro:</label>											
-												<div>
-													<input type="text" name="endereco" id="endereco" />
-												</div>
-											</div>
-											<div class="form-group">
-												<label for="numero">Número:</label>											
-												<div>
-													<input type="text" name="numero" id="numero" />
-												</div>
-											</div>
-											<div class="form-group">
-												<label for="complemento">Complemento:</label>												
-												<div>
-													<input type="text" name="complemento" id="complemento" />
-												</div>
-											</div>
-											<div class="form-group">
-												<label for="bairro">Bairro:</label>											
-												<div>
-													<input type="text" name="bairro" id="bairro" />
-												</div>
-											</div>
-											<div class="form-group">
-												<label for="cidade">Cidade:</label>											
-												<div>
-													<input type="text" name="cidade" id="cidade" />
-												</div>
-											</div>
-											<div class="form-group">
-												<label for="estado">Estado:</label>											
-												<div>
-													<input type="text" name="estado" id="estado" />
-												</div>
-											</div>				
-											<div class="space-4"></div>
-											<div class="form-group">
-												<label for="cnpj">CNPJ:</label>
-												<div>
-													<input type="text" id="cnpj" name="cnpj" />
-												</div>
-											</div>
-											<div class="space-4"></div>
-											<div class="form-group">
-												<label for="inscEstadual">Insc. Estadual:</label>
-												<div>
-													<input type="text" id="inscEstadual" name="inscEstadual" />
+												&nbsp;
+												<div class="form-group">
+													<label for="inscEstadual">Insc. Estadual</label>
+													<div>
+														<input type="text" id="inscEstadual" name="inscEstadual" />
+													</div>
 												</div>
 											</div>									
 										</div>
@@ -1049,6 +691,158 @@
 								</div>
 							</div>
 							<!-- FIM -- MODAL FORMULÁRIO PARA EXCLUIR -->
+							
+							<!-- MODAL FORMULÁRIO PARA ATUALIZAR -->
+							<div id="modal-form-cliente" class="modal fade" tabindex="-1" rel="modalatualizar">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="blue bigger">Edite os campos desejados...</h4>
+										</div>
+
+										<div class="modal-body">
+											<div class="form-group hidden">
+												<label for="codigo">Cód.</label>
+												<div>													
+													<input type="text" id="codigo" name="codigo" size="8" />
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="empresa">Empresa</label>
+												<div>													
+													<input type="text" id="empresa" name="empresa" size="81" />
+												</div>
+											</div>
+											<div class="space-4"></div>
+											<div class="form-inline">
+												<div class="form-group">
+													<label for="contato">Contato:</label>
+													<div>
+														<input type="text" id="contato" name="contato" size="25" /> <!-- <span>*</span> -->													
+													</div>
+												</div>
+												&nbsp;
+												<div class="form-group">
+													<label for="telefone">Telefone:</label>
+													<div>			
+														<input type="text" id="telefone" name="telefone" size="15" />
+													</div>
+												</div>					
+												&nbsp;
+												<div class="form-group">
+													<label for="email">E-mail</label>
+													<div>
+														<input type="text" id="email" name="email" size="30" />													
+													</div>
+												</div>
+											</div>
+											<div class="space-4"></div>
+											<div class="form-group">
+												<label for="cep">CEP:</label>											
+												<div>
+													<input type="text" name="cep" id="cep" />
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="endereco">Logradouro:</label>											
+												<div>
+													<input type="text" name="endereco" id="endereco" size="81" maxlength="80" />
+												</div>
+											</div>
+											<div class="space-4"></div>
+											<div class="form-inline">
+												<div class="form-group">
+													<label for="numero">Número:</label>											
+													<div>
+														<input type="text" name="numero" id="numero" size="8" />
+													</div>
+												</div>
+												&nbsp;
+												<div class="form-group">
+													<label for="complemento">Complemento:</label>												
+													<div>
+														<input type="text" name="complemento" id="complemento" size="32" />
+													</div>
+												</div>
+											</div>
+											<div class="space-4"></div>
+											<div class="form-inline">
+												<div class="form-group">
+													<label for="bairro">Bairro:</label>											
+													<div>
+														<input type="text" name="bairro" id="bairro" />
+													</div>
+												</div>
+												&nbsp;
+												<div class="form-group">
+													<label for="cidade">Cidade:</label>											
+													<div>
+														<input type="text" name="cidade" id="cidade" />
+													</div>
+												</div>
+												&nbsp;
+												<div class="form-group">
+													<label for="estado">Estado:</label>											
+													<div>
+														<input type="text" name="estado" id="estado" maxlength="2" size="4" />
+													</div>
+												</div>
+											</div>				
+											<div class="space-4"></div>
+											<div class="form-inline">
+												<div class="form-group">
+													<label for="cnpj">CNPJ:</label>
+													<div>
+														<input type="text" id="cnpj" name="cnpj" />
+													</div>
+												</div>
+												&nbsp;
+												<div class="form-group">
+													<label for="inscEstadual">Insc. Estadual:</label>
+													<div>
+														<input type="text" id="inscEstadual" name="inscEstadual" />
+													</div>
+												</div>
+											</div>												
+										</div>
+
+										<div class="modal-footer">
+											<button id="btnCancelar" class="btn btn-sm" data-dismiss="modal">
+												<i class="ace-icon fa fa-times"></i> Cancelar
+											</button>
+											<button id="btnSalvar" class="btn btn-sm btn-primary">
+												<i class="ace-icon fa fa-check"></i> Salvar
+											</button>											
+										</div>										
+									</div>									
+								</div>
+							</div>
+							<!-- FIM -- MODAL FORMULÁRIO PARA ATUALIZAR -->
+							
+							<!-- MODAL CEP NÃO ENCONTRADO -->
+							<div id="modal-form-cliente" class="modal fade" tabindex="-1" rel="modalcep">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class='red bigger'> O CEP está correto?</h4>
+										</div>
+
+										<div class="modal-body">
+											<h3>Endereço não localizado.</h3>
+										</div>
+
+										<div class="modal-footer">
+											<button id="btnFecharModalCEP" class="btn btn-sm" data-dismiss="modal">
+												<i class="ace-icon fa fa-times"></i> Fechar
+											</button>											
+										</div>										
+									</div>									
+								</div>
+							</div>
+							<!-- FIM -- MODAL CEP NÃO ENCONTRADO -->
+							
 						</div>
 					</div>
 					<!-- FIM -- TABELA DO CADASTRO -->					      
@@ -1125,7 +919,7 @@
     <!-- RELÓGIO -->
     <script src="resources/js/relogio.js"></script>
     
-    <!-- AJAX - SUBMIT FORMS - RECARREGA A PÁGINA QUANDO O MODAL É FECHADO -->
+    <!-- AJAX - SUBMIT FORMS - RECARREGA A PÁGINA QUANDO O MODAL CADASTRAR E EXCLUIR SÃO FECHADOS -->
     <script src="resources/js/ajaxcliente.js"></script>
     
     <!-- EDITAR EXCLUIR -->

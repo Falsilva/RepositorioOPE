@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.mdjpapeis.dao.ClienteDAO;
 import br.com.mdjpapeis.entity.Cliente;
 
-@WebServlet(urlPatterns = {"/listarClientes", "/pesquisarCliente", "/cadastrarCliente", "/atualizarCliente", "/excluirCliente"})
+@WebServlet(urlPatterns = {"/listarClientes", "/pesquisarCliente", "/cadastrarCliente", "/atualizarCliente", "/excluirCliente", "/separaEnderecoCliente"})
 public class RegraClientes extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -46,24 +46,26 @@ public class RegraClientes extends HttpServlet {
 		Cliente cliente = new Cliente();
 		Cliente cli = null;
 		List<Cliente> clientes = null;
+		Cliente verificaCNPJ = null;
+		Cliente verificaInscEstadual = null;
 		
 		String[][] parametros = null;
 		String tarefa = req.getParameter("tarefa");
-		boolean parametroVazio = false;
 		boolean codigoInvalido = false;
 		RequestDispatcher dispatcher = null;
 		
 		switch(req.getParameter("action")){
 			case("listarClientes"):
-				
+				System.out.println("RegraClientes, LISTANDO CLIENTES...");
 				clientes = new ClienteDAO().listar();
 				
 				if(clientes != null){
-					
+					System.out.println("RegraClientes, CLIENTES LISTADOS, FORMATANDO O ENDERECO PARA EXIBICAO...");
 					formataEnderecoParaExibicao(clientes);
-					
+					System.out.println("RegraClientes, CLIENTES LISTADOS,  ENDERECO FORMATADO.");
 					req.setAttribute("clientes", clientes);
 				}else{
+					System.out.println("RegraClientes, NAO HA CLIENTES CADASTRADOS.");
 					req.setAttribute("mensagem", "Não há clientes cadastrados");
 				}
 				
@@ -71,7 +73,7 @@ public class RegraClientes extends HttpServlet {
 				dispatcher.forward(req, resp);
 				break;
 			case("pesquisarCliente"):
-				
+				System.out.println("RegraClientes, PESQUISANDO CLIENTE(S)...");
 				codigo = 0;
 				empresa = null;
 				contato = null;
@@ -84,14 +86,14 @@ public class RegraClientes extends HttpServlet {
 				String pesquisa = null;
 				
 				if(req.getParameter("cnpj") != null){
+					System.out.println("RegraClientes, PESQUISANDO POR CNPJ...");
 					cnpj = req.getParameter("cnpj");
 					cliente.setCnpj(cnpj);
-					cli = new ClienteDAO().buscaClientePorCNPJ(cliente);
-										
+					cli = new ClienteDAO().buscaClientePorCNPJ(cliente);										
 					pesquisa = "cnpj";				
 				}else{
 					if(req.getParameter("codigo") != null){
-						
+						System.out.println("RegraClientes, PESQUISANDO POR CODIGO...");
 						if(!req.getParameter("codigo").isEmpty()){
 							try{
 								codigo = Long.parseLong(req.getParameter("codigo"));				
@@ -102,87 +104,83 @@ public class RegraClientes extends HttpServlet {
 								ex.printStackTrace();
 							}
 						}
-						pesquisa = "codigo";
-						
+						pesquisa = "codigo";						
 					}else{
 						if(req.getParameter("empresa") != null){
-							
+							System.out.println("RegraClientes, PESQUISANDO POR EMPRESA...");
 							empresa = req.getParameter("empresa");
 							cliente.setEmpresa(empresa);
 							
-							if(empresa.isEmpty()){			
-								clientes = new ClienteDAO().listar();
+							if(empresa.isEmpty()){
+								System.out.println("RegraClientes, PESQUISANDO POR EMPRESA, EMPRESA NAO INFORMADA, LISTANDO EMPRESAS...");
+								clientes = new ClienteDAO().listar();								
 							}else{
-								clientes = new ClienteDAO().buscaClientePorEmpresa(cliente);
-							}
-							
+								System.out.println("RegraClientes, PESQUISANDO POR EMPRESA, EMPRESA INFORMADA...");
+								clientes = new ClienteDAO().buscaClientePorEmpresa(cliente);								
+							}							
 							pesquisa = "empresa";
 						}
 					}
-				}							
+				}
 				
-				switch(pesquisa){
-				
+				switch(pesquisa){				
 					case "codigo":
-						
 						if(cli != null){
-							
-							formataEnderecoParaFormulario(cli, req);
-							
+							System.out.println("RegraClientes, PESQUISADO POR CODIGO, CLIENTE ENCONTRADO, FORMATANDO ENDERECO PARA EXIBICAO...");
+							formataEnderecoParaFormulario(cli, req, resp);
+							System.out.println("RegraClientes, PESQUISADO POR CODIGO, CLIENTE ENCONTRADO, ENDERECO FORMATADO.");
 							req.setAttribute("cli", cli);							
-						}else{
+						}else{							
 							if(req.getParameter("codigo").isEmpty()){
+								System.out.println("RegraClientes, PESQUISADO POR CODIGO, CODIGO NAO INFORMADO...");
 								req.setAttribute("mensagem", "Informe o código");
 							}else{
 								if(codigoInvalido){
+									System.out.println("RegraClientes, PESQUISADO POR CODIGO, CODIGO INVALIDO...");
 									req.setAttribute("mensagem", "Código inválido");
 								}else{									
 									req.setAttribute("mensagem", "Cliente não encontrado");									
 								}
+								System.out.println("RegraClientes, PESQUISADO POR CODIGO, CLIENTE NAO ENCONTRADO.");
 							}
-						}						
-						dispatcher = req.getRequestDispatcher("controller?action=formCliente&tarefa="+tarefa);
-						
-						break;
-						
-					case "cnpj":
-						
+						}
+						dispatcher = req.getRequestDispatcher("controller?action=clientes");						
+						break;						
+					case "cnpj":				
 						if(cli != null){
-							
-							formataEnderecoParaFormulario(cli, req);
-							
+							System.out.println("RegraClientes, PESQUISADO POR CNPJ, CLIENTE ENCONTRADO, FORMATANDO ENDERECO PARA EXIBICAO...");
+							formataEnderecoParaFormulario(cli, req, resp);
+							System.out.println("RegraClientes, PESQUISADO POR CNPJ, CLIENTE ENCONTRADO, ENDERECO FORMATADO.");
 							req.setAttribute("cli", cli);							
 						}else{
+							System.out.println("RegraClientes, PESQUISADO POR CNPJ, CLIENTE NAO ENCONTRADO.");
 							req.setAttribute("mensagem", "Cliente não encontrado");
-						}						
-						dispatcher = req.getRequestDispatcher("controller?action=formCliente&tarefa="+tarefa);
-						
-						break;
-						
-					default:
-						
+						}
+						dispatcher = req.getRequestDispatcher("controller?action=clientes");
+						break;						
+					default:						
 						if(clientes != null){
-							
+							System.out.println("RegraClientes, PESQUISADO POR EMPRESA, CLIENTE(S) ENCONTRADO(S), FORMATANDO ENDERECO PARA EXIBICAO...");
 							formataEnderecoParaExibicao(clientes);
-							
+							System.out.println("RegraClientes, PESQUISADO POR EMPRESA, CLIENTE(S) ENCONTRADO(S), ENDERECO FORMATADO.");
 							req.setAttribute("clientes", clientes);													
 						}else{
 							if(empresa.isEmpty()){
+								System.out.println("RegraClientes, PESQUISADO POR EMPRESA, NAO HA CLIENTES CADASTRADOS.");
 								req.setAttribute("mensagem", "Não há clientes cadastrados");
 							}else{
+								System.out.println("RegraClientes, PESQUISADO POR EMPRESA, CLIENTE NAO ENCONTRADO.");
 								req.setAttribute("mensagem", "Cliente não encontrado");
 							}
-						}	
-						
-						dispatcher = req.getRequestDispatcher("controller?action=clientes");
-						
+						}		
+						dispatcher = req.getRequestDispatcher("controller?action=clientes");						
 						break;				
 				}
-				
+				dispatcher.forward(req, resp);
 				break;
 				
 			case("cadastrarCliente"):
-				
+				System.out.println("RegraClientes, CADASTRANDO CLIENTES...");
 				empresa = req.getParameter("empresa");
 				contato = req.getParameter("contato");				
 				telefone = req.getParameter("telefone");
@@ -206,13 +204,12 @@ public class RegraClientes extends HttpServlet {
 				
 				cli = new Cliente();
 				
-				parametroVazio = false;
-				
+				System.out.println("RegraClientes, CADASTRANDO CLIENTES, VERIFICANDO O RECEBIMENTO DOS DADOS...");
 				for(int i = 0; i < parametros.length; i++){
-					
 					if(parametros[i][1] == null | parametros[i][1].isEmpty()){
-						parametros[i][1] = "";
-						parametroVazio = true;
+						if(parametros[i][0].equals("cnpj") || parametros[i][0].equals("inscEstadual")) parametros[i][1] = null;
+						else parametros[i][1] = "";
+						System.out.println("RegraClientes, CADASTRANDO CLIENTES, CAMPO NAO PREENCHIDO: " + parametros[i][0]);
 					}
 					
 					switch(parametros[i][0]){
@@ -238,50 +235,78 @@ public class RegraClientes extends HttpServlet {
 							cli.setInscEstadual(parametros[i][1]);
 							break;
 					}
-				}				
+				}
 				
 				if(contato == null || contato.isEmpty()){
-					req.setAttribute("mensagem", "Informe o Contato");
-					req.setAttribute("cli", cli);
-					dispatcher = req.getRequestDispatcher("controller?action=formCliente&tarefa="+tarefa);
+					System.out.println("RegraClientes, CADASTRANDO CLIENTES, DADOS VERIFICADOS, CONTATO NAO PREENCHIDO...");
+					resp.setContentType("text/plain");
+					resp.setCharacterEncoding("UTF-8");
+					resp.getWriter().write("Informe o Contato");
 				}else{
-					
-					try{
-						
-						Cliente verificaCli = null;
-						
-						// Busca por clientes que possuam o CNPJ informado
-						verificaCli = new ClienteDAO().buscaClientePorCNPJ(cli);
-						
-						// Caso encontrado, significa que foi encontrado um cliente com o CNPJ informado
-						if(verificaCli != null){
-																						
-							req.setAttribute("mensagem", "Já existe o CNPJ informado");												
-							req.setAttribute("cli", cli);							
+					if((telefone == null || telefone.isEmpty()) && (email == null || email.isEmpty())){
+						System.out.println("RegraClientes, CADASTRANDO CLIENTES, DADOS VERIFICADOS, TELEFONE OU EMAIL NAO PREENCHIDOS...");
+						resp.setContentType("text/plain");
+						resp.setCharacterEncoding("UTF-8");
+						resp.getWriter().write("Além do Contato, informe um Telefone ou Email");
+					}else{
+						System.out.println("RegraClientes, CADASTRANDO CLIENTES, DADOS VERIFICADOS, CAMPOS OBRIGATORIOS PREENCHIDOS...");
+						try{
+							System.out.println("RegraClientes, CADASTRANDO CLIENTES, CONSULTANDO A EXISTENCIA DE CLIENTE PELO CNPJ E INSC. ESTADUAL...");
+														
+							// Busca por clientes que possuam o CNPJ informado
+							verificaCNPJ = new ClienteDAO().buscaClientePorCNPJ(cli);
 							
-						// Caso não for encontrado um cliente com o CNPJ informado
-						}else{
+							// Busca por clientes que possuam a Inscrição Estadual informada
+							verificaInscEstadual = new ClienteDAO().buscaClientePorInscEstadual(cli);
 							
-							new ClienteDAO().inserir(cli);							
-							req.setAttribute("mensagem", "Cliente cadastrado com sucesso");
-							
+							// Caso encontrado, significa que foi encontrado um cliente com o CNPJ ou Inscrição Estadual informados
+							if(verificaCNPJ != null || verificaInscEstadual != null){
+								if(verificaCNPJ != null && verificaInscEstadual != null){
+									System.out.println("RegraClientes, CADASTRANDO CLIENTES, CLIENTE JA CADASTRADO COM ESSE CNPJ E INSC. ESTADUAL...");
+									resp.setContentType("text/plain");
+									resp.setCharacterEncoding("UTF-8");
+									resp.getWriter().write("Já existe o CNPJ e Inscrição Estadual informados. Verifique!");
+								}else{
+									if(verificaCNPJ != null){
+										System.out.println("RegraClientes, CADASTRANDO CLIENTES, CLIENTE JA CADASTRADO COM ESSE CNPJ...");
+										resp.setContentType("text/plain");
+										resp.setCharacterEncoding("UTF-8");
+										resp.getWriter().write("Já existe o CNPJ informado. Verifique!");
+									}else{
+										System.out.println("RegraClientes, CADASTRANDO CLIENTES, CLIENTE JA CADASTRADO COM ESSA INSC. ESTADUAL...");
+										resp.setContentType("text/plain");
+										resp.setCharacterEncoding("UTF-8");
+										resp.getWriter().write("Já existe a Inscrição Estadual informada. Verifique!");
+									}
+								}
+							// Caso não for encontrado um cliente com o CNPJ informado
+							}else{
+								System.out.println("RegraClientes, CADASTRANDO CLIENTES, CLIENTE NAO ENCONTRADO, CADASTRANDO...");
+								new ClienteDAO().inserir(cli);
+								System.out.println("RegraClientes, CADASTRANDO CLIENTES, CLIENTE CADASTRADO.");
+								resp.setContentType("text/plain");
+								resp.setCharacterEncoding("UTF-8");
+								resp.getWriter().write("Cliente cadastrado com sucesso!");
+								
+							}
+						}catch(PersistenceException e){
+							System.out.println("RegraClientes, CADASTRANDO CLIENTES, FALHA AO CADASTRAR, PersistenceException.");
+							resp.setContentType("text/plain");
+							resp.setCharacterEncoding("UTF-8");
+							resp.getWriter().write("Falha ao cadastrar o cliente.");							
 						}
-					}catch(PersistenceException e){
-						req.setAttribute("mensagem", "Falha ao cadastrar o cliente");
-						
-					// Reencaminha a requisição
-					}finally{	
-						
-						// Recebe o destino do redirecionamento da requisição
-						dispatcher = req.getRequestDispatcher("controller?action=formCliente&tarefa="+tarefa);						
 					}
 				}
-
 				break;
 				
 			case("atualizarCliente"):
-				
-				codigo = Long.parseLong(req.getParameter("codigo"));
+				System.out.println("RegraClientes, ATUALIZANDO CLIENTE...");			
+				try{
+					codigo = Long.parseLong(req.getParameter("codigo"));
+				}catch(NumberFormatException e){
+					System.out.println("RegraClientes, ATUALIZANDO CLIENTE, CODIGO INVALIDO, NumberFormatException...");
+					throw new ServletException(e);					
+				}
 				empresa = req.getParameter("empresa");
 				contato = req.getParameter("contato");
 				telefone = req.getParameter("telefone");
@@ -304,15 +329,15 @@ public class RegraClientes extends HttpServlet {
 				parametros = new String[][]{{"empresa", empresa},{"contato", contato}, {"telefone", telefone}, {"email", email}, {"endereco", endereco}, {"cnpj", cnpj}, {"inscEstadual", inscEstadual}};
 								
 				cli = new Cliente();
-				cli.setCodigo(codigo);
+				cli.setCodigo(codigo);				
 				
-				parametroVazio = false;
-				
+				System.out.println("RegraClientes, ATUALIZANDO CLIENTES, VERIFICANDO O RECEBIMENTO DOS DADOS...");
 				for(int i = 0; i < parametros.length; i++){
 					
 					if(parametros[i][1] == null | parametros[i][1].isEmpty()){
-						parametros[i][1] = "";
-						parametroVazio = true;
+						if(parametros[i][0].equals("cnpj") || parametros[i][0].equals("inscEstadual")) parametros[i][1] = null;
+						else parametros[i][1] = "";
+						System.out.println("RegraClientes, CADASTRANDO CLIENTES, CAMPO NAO PREENCHIDO: " + parametros[i][0]);						
 					}					
 					
 					switch(parametros[i][0]){
@@ -341,96 +366,130 @@ public class RegraClientes extends HttpServlet {
 				}				
 				
 				if(contato == null || contato.isEmpty()){
-										
-					req.setAttribute("mensagem", "Informe o contato");						
-					req.setAttribute("cli", cli);
-					
-					dispatcher = req.getRequestDispatcher("controller?action=formCliente&tarefa="+tarefa);					
-					
+					System.out.println("RegraClientes, ATUALIZANDO CLIENTES, DADOS VERIFICADOS, CONTATO NAO PREENCHIDO...");
+					resp.setContentType("text/plain");
+					resp.setCharacterEncoding("UTF-8");
+					resp.getWriter().write("Informe o Contato");
 				}else{
-					
-					try{
-						
-						Cliente verificaCli = null;
-						
-						// Busca por clientes que possuam o CNPJ informado
-						verificaCli = new ClienteDAO().buscaClientePorCNPJ(cli);						
-						
-						// Caso encontrado, significa que foi encontrado um cliente com o CNPJ informado
-						if(verificaCli != null && verificaCli.getCodigo() != codigo){
+					if((telefone == null || telefone.isEmpty()) && (email == null || email.isEmpty())){
+						System.out.println("RegraClientes, ATUALIZANDO CLIENTES, DADOS VERIFICADOS, TELEFONE OU EMAIL NAO PREENCHIDOS...");
+						resp.setContentType("text/plain");
+						resp.setCharacterEncoding("UTF-8");
+						resp.getWriter().write("Além do Contato, informe um Telefone ou Email");
+					}else{
+						System.out.println("RegraClientes, ATUALIZANDO CLIENTES, DADOS VERIFICADOS, CAMPOS OBRIGATORIOS PREENCHIDOS...");
+						try{
+							System.out.println("RegraClientes, ATUALIZANDO CLIENTES, CONSULTANDO A EXISTENCIA DE CLIENTE PELO CNPJ E INSC. ESTADUAL...");
+														
+							// Busca por clientes que possuam o CNPJ informado
+							verificaCNPJ = new ClienteDAO().buscaClientePorCNPJ(cli);
 							
-							req.setAttribute("mensagem", "Já existe o CNPJ informado");														
-							req.setAttribute("cli", cli);							
+							// Busca por clientes que possuam a Inscrição Estadual informada
+							verificaInscEstadual = new ClienteDAO().buscaClientePorInscEstadual(cli);
 							
-						// Caso não for encontrado um cliente com o CNPJ informado
-						}else{
-							
-							new ClienteDAO().atualizar(cli);							
-							req.setAttribute("mensagem", "Cliente atualizado com sucesso");
-							
+							// Caso encontrado, significa que foi encontrado um cliente com o CNPJ ou Inscrição Estadual informados
+							if((verificaCNPJ != null && verificaCNPJ.getCodigo() != codigo) || (verificaInscEstadual != null && verificaInscEstadual.getCodigo() != codigo)){
+								if((verificaCNPJ != null && verificaCNPJ.getCodigo() != codigo) && (verificaInscEstadual != null && verificaInscEstadual.getCodigo() != codigo)){
+									System.out.println("RegraClientes, ATUALIZANDO CLIENTES, CLIENTE JA CADASTRADO COM ESSE CNPJ E INSC. ESTADUAL...");
+									resp.setContentType("text/plain");
+									resp.setCharacterEncoding("UTF-8");
+									resp.getWriter().write("Já existe o CNPJ e Inscrição Estadual informados. Verifique!");
+								}else{
+									if(verificaCNPJ != null && verificaCNPJ.getCodigo() != codigo){
+										System.out.println("RegraClientes, ATUALIZANDO CLIENTES, CLIENTE JA CADASTRADO COM ESSE CNPJ...");
+										resp.setContentType("text/plain");
+										resp.setCharacterEncoding("UTF-8");
+										resp.getWriter().write("Já existe o CNPJ informado. Verifique!");
+									}else{
+										System.out.println("RegraClientes, ATUALIZANDO CLIENTES, CLIENTE JA CADASTRADO COM ESSA INSC. ESTADUAL...");
+										resp.setContentType("text/plain");
+										resp.setCharacterEncoding("UTF-8");
+										resp.getWriter().write("Já existe a Inscrição Estadual informada. Verifique!");
+									}
+								}
+							// Caso não for encontrado um cliente com o CNPJ informado
+							}else{
+								System.out.println("RegraClientes, ATUALIZANDO CLIENTES, CLIENTE NAO ENCONTRADO, ATUALIZANDO...");
+								new ClienteDAO().atualizar(cli);
+								System.out.println("RegraClientes, ATUALIZANDO CLIENTES, CLIENTE ATUALIZADO.");
+								resp.setContentType("text/plain");
+								resp.setCharacterEncoding("UTF-8");
+								resp.getWriter().write("Cliente atualizado com sucesso!");
+								
+							}
+						}catch(PersistenceException e){
+							System.out.println("RegraClientes, ATUALIZANDO CLIENTES, FALHA AO ATUALIZAR, PersistenceException.");
+							resp.setContentType("text/plain");
+							resp.setCharacterEncoding("UTF-8");
+							resp.getWriter().write("Falha ao atualizar o cliente.");							
 						}
-					}catch(PersistenceException e){
-						req.setAttribute("mensagem", "Falha ao atualizar dados");
-						
-					// Reencaminha a requisição
-					}finally{
-						
-						// Recebe o destino do redirecionamento da requisição
-						dispatcher = req.getRequestDispatcher("controller?action=formCliente&tarefa="+tarefa);
-						
-					}
+					}					
 				}
 				break;
 				
 			case("excluirCliente"):
+				System.out.println("RegraClientes, EXCLUINDO CLIENTE...");			
+				System.out.println("RegraClientes, EXCLUINDO CLIENTE, VERIFICANDO O RECEBIMENTO DE DADOS...");
 				
-				// A EXCLUSÃO É FEITA PELA "PRIMARY KEY", OU SEJA, PELO ATRIBUTO "CODIGO"
+				// A EXCLUSÃO É FEITA PELA "PRIMARY KEY", OU SEJA, PELO ATRIBUTO "CODIGO"				
 				if(req.getParameter("codigo") != null & !req.getParameter("codigo").isEmpty()){
-					
+					System.out.println("RegraClientes, EXCLUINDO CLIENTE, DADOS RECEBIDOS.");
 					try{
+						System.out.println("RegraClientes, EXCLUINDO CLIENTE, CONVERTENDO DADOS.");
 						codigo = Long.parseLong(req.getParameter("codigo"));
+						System.out.println("RegraClientes, EXCLUINDO CLIENTE, DADOS CONVERTIDOS." + codigo);
 						
 						cli = new Cliente();
 						cli.setCodigo(codigo);
 						
 						// Realiza a exclusão
 						new ClienteDAO().excluir(cli);
+						System.out.println("RegraClientes, EXCLUINDO CLIENTE, EXCLUSAO REALIZADA.");						
+						resp.setContentType("text/plain");
+						resp.setCharacterEncoding("UTF-8");
+						resp.getWriter().write("Exclusão realizada com sucesso!");
 						
-						req.setAttribute("mensagem", "Exclusão realizada com sucesso");
-						
-					}catch(NumberFormatException ex){
-						ex.printStackTrace();
-						req.setAttribute("mensagem", "Código inválido");
+					}catch(NumberFormatException e){
+						System.out.println("RegraClientes, EXCLUINDO CLIENTE, DADOS NAO FORMATADOS, Código inválido.");
+						e.printStackTrace();
+						resp.setContentType("text/plain");
+						resp.setCharacterEncoding("UTF-8");
+						resp.getWriter().write("Código inválido.");
 					}catch(PersistenceException e){
-						req.setAttribute("mensagem", "Falha ao excluir o cliente");
+						System.out.println("RegraClientes, EXCLUINDO CLIENTE, FALHA AO EXCLUIR: PersistenceException");						
+						resp.setContentType("text/plain");
+						resp.setCharacterEncoding("UTF-8");
+						resp.getWriter().write("Falha ao excluir o cliente.");
 					}
 				}else{
-					
-					req.setAttribute("mensagem", "Informe o código");					
-					
-				}
-				
-				// Recebe o destino do redirecionamento da requisição
-				dispatcher = req.getRequestDispatcher("controller?action=formCliente&tarefa="+tarefa);
-			
+					System.out.println("RegraClientes, EXCLUINDO CLIENTE, DADOS NAO RECEBIDOS, Codigo NULO ou VAZIO.");					
+					resp.setContentType("text/plain");
+					resp.setCharacterEncoding("UTF-8");
+					resp.getWriter().write("Informe o Código.");
+				}			
 				break;
-				
-			default:
-				
+			case "separaEnderecoCliente":
+				System.out.println("RegraClientes, SEPARANDO ENDERECO CLIENTE...");
+				codigo = Long.parseLong(req.getParameter("codigo"));				
+				cli = new Cliente();
+				cli.setCodigo(codigo);				
+				cli = new ClienteDAO().buscaClientePorCodigo(cli);				
+				formataEnderecoParaFormulario(cli, req, resp);
+				break;
+			default:				
 				if(tarefa == null | tarefa.isEmpty()){
-					req.setAttribute("mensagem", "Não existe a tarefa ou é nula");
+					System.out.println("RegraClientes, DEFAULT, NAO EXISTE A TAREFA OU E NULA.");					
+					resp.setContentType("text/plain");
+					resp.setCharacterEncoding("UTF-8");
+					resp.getWriter().write("Não existe a tarefa ou é nula.");
 				}else{
-					req.setAttribute("mensagem", "Não existe a tarefa " + tarefa);
-				}
-				
-				dispatcher = req.getRequestDispatcher("controller?action=formCliente");
-				
+					System.out.println("RegraClientes, DEFAULT, NAO EXISTE A TAREFA " + tarefa);					
+					resp.setContentType("text/plain");
+					resp.setCharacterEncoding("UTF-8");
+					resp.getWriter().write("Não existe a tarefa " + tarefa);
+				}				
 				break;
 		}
-		
-		// Reencaminha a requisição
-		//dispatcher.forward(req, resp);
-		
 	}
 
 	// Método que formata o endereço recebido para ser armazenado no banco de dados
@@ -449,7 +508,7 @@ public class RegraClientes extends HttpServlet {
 		for(int i = 0; i < paramEndereco.length; i++){
 			
 			// Caso o parâmetro não foi preenchido, inclui a palavra "nulo;"
-			if(paramEndereco[i] == null){
+			if(paramEndereco[i] == null || paramEndereco[i] == ""){
 				endereco += "nulo;";		
 				
 			// Caso preenchido
@@ -483,7 +542,7 @@ public class RegraClientes extends HttpServlet {
 	}	
 	
 	// Método que formata o endereço do cliente cadastrado no banco de dados para exibição no formulário de ATUALIZAR o cliente
-	private void formataEnderecoParaFormulario(Cliente cliente, HttpServletRequest req) {
+	private void formataEnderecoParaFormulario(Cliente cliente, HttpServletRequest req, HttpServletResponse resp) {
 		String endereco;
 		
 		endereco = cliente.getEndereco();
@@ -496,11 +555,38 @@ public class RegraClientes extends HttpServlet {
 		
 		// Percorre o vetor e onde encontrar a palavra "nulo", substitui por um espaço vazio
 		for(int i = 0; i < cliEndereco.length; i++){
-			if(cliEndereco[i].equals("nulo")) cliEndereco[i] = " ";
+			if(cliEndereco[i].equals("nulo") || cliEndereco[i].isEmpty()) cliEndereco[i] = " ";
 		}
 		
+		// Caso a requisição seja separaEnderecoCliente
+		if(req.getParameter("action").equals("separaEnderecoCliente")){			
+			try {
+				
+				// Tipo JSON
+				resp.setContentType("application/json");				
+				resp.setCharacterEncoding("UTF-8");			
+				
+				// Montando o JSON
+				String dataEndereco = "";
+				dataEndereco = "{\"dataEndereco\":[{"						
+						+ "\"endereco\":\"" + cliEndereco[0] + "\","
+						+ "\"numero\":\"" + cliEndereco[1] + "\","
+						+ "\"complemento\":\"" + cliEndereco[2] + "\","
+						+ "\"bairro\":\"" + cliEndereco[3] + "\","
+						+ "\"cidade\":\"" + cliEndereco[4] + "\","
+						+ "\"estado\":\"" + cliEndereco[5] + "\","
+						+ "\"cep\":\"" + cliEndereco[6] + "\""
+						+ "}]}";
+				
+				// Respondendo o JSON
+				resp.getWriter().write(dataEndereco);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		
 		// Atribui na requisição o vetor de endereços para ser recuperado no formulário para ser editado os dados do cliente
-		req.setAttribute("cliEndereco", cliEndereco);
+		}else{
+			req.setAttribute("cliEndereco", cliEndereco);
+		}
 	}
-
 }

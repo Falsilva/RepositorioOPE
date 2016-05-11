@@ -1,17 +1,17 @@
 $(document).ready(function(){
-	
+
 	// VARIÁVEIS GLOBAIS - necessárias para o armazenamento temporário dos dados originais da edição de registros da tabela de usuários
 	var nome_usuario_tmp;
 	var nome_tmp;
 	var email_tmp;
 	var perfil_tmp;
-
+	
 	// MODAL PARA CADASTRAR - CLIQUE DO BOTÃO CADASTRAR EXIBE O MODAL
 	$("a[role=cadastrar]").click(function(event){
 		event.preventDefault();
 		
 		// Pega o Modal
-		var modal = $("#modal-form[rel=modalcadastrar]");
+		var modal = $("#modal-form-pedido[rel=modalcadastrar]");
 		
 		// Exibe o Modal Form Cadastrar
 		modal.modal();		
@@ -47,11 +47,16 @@ $(document).ready(function(){
 		
 		// Exibe o Modal Form Excluir
 		modal.modal();		
-	});
+	});	
 	
 	// CLIQUE DO BOTÃO EDITAR DA LINHA DE UM REGISTRO DA TABELA
 	$("a[role=editar]").click(function(event){
 		event.preventDefault();		
+		
+		nome_usuario_tmp = "";
+		nome_tmp = "";
+		email_tmp = "";
+		perfil_tmp = "";
 		
 		// Pega a TR
 		var tr = $(this).closest("tr");
@@ -64,15 +69,19 @@ $(document).ready(function(){
 		
 		// Pega os Dados das TDs
 		var nomeusuario = tdNomeUsuario.text();
+		nome_usuario_tmp = tdNomeUsuario.text();
 		var nome = tdNome.text();
+		nome_tmp = tdNome.text();
 		var email = tdEmail.text();
+		email_tmp = tdEmail.text();
 		var perfil = tdPerfil.text();
+		perfil_tmp = tdPerfil.text();
 		
 		// Troca a Exibição dos Botões de Ações
 		var btnEditarEditar = $(this).addClass("hidden");
 		var btnEditarExcluir = btnEditarEditar.next("a[role=excluir]").addClass("hidden");
 		var btnEditarSalvar = btnEditarExcluir.next("a[role=salvar]").removeClass("hidden");
-		var btnEditarCancelar = btnEditarSalvar.next("a[role=cancelar]").removeClass("hidden");		
+		var btnEditarCancelar = btnEditarSalvar.next("a[role=cancelar]").removeClass("hidden");			
 		
 		// Coloca os Inputs nas TDs
 		tdNomeUsuario.html("<input type='text' name='nomeusuario' class='hidden'></input>").val(nomeusuario);
@@ -83,14 +92,14 @@ $(document).ready(function(){
 		// Coloca os Dados nos Inputs
 		tdNomeUsuario.find("input").val(nomeusuario);
 		tdNome.find("input").val(nome);
-		tdEmail.find("input").val(email);
+		tdEmail.find("input").val(email);		
 		
 		// Coloca os Options com os Dados no Select (Campo Perfil)
 		var perfis;
 		$.ajax({			
 			url:"controller",
 			type:"post",
-			data:{
+			data:{				
 				action:"pegaPerfil"
 			},
 			success:function(resultado){
@@ -98,14 +107,14 @@ $(document).ready(function(){
 				perfis = resultado.split(",");								
 						
 				// Montando o campo Perfil com o array
-				var se = "";				
+				var campoPerfil = "";				
 				$.each(perfis, function(index, value){
-					if(perfil === value) se += "<option value='" + value + "' selected>" + value + "</option>";
-					else se += "<option value='" + value + "'>" + value + "</option>";					
+					if(perfil === value) campoPerfil += "<option value='" + value + "' selected>" + value + "</option>";
+					else campoPerfil += "<option value='" + value + "'>" + value + "</option>";					
 				});
 				
 				// Adicionando os options no select
-				tdPerfil.html("<select name='perfil'>" + se + "</select>");				
+				tdPerfil.html("<select name='perfil'>" + campoPerfil + "</select>");				
 			}
 		});
 	});
@@ -122,13 +131,13 @@ $(document).ready(function(){
 		var tdNome = tdNomeUsuario.next("td");
 		var tdEmail = tdNome.next("td");
 		var tdPerfil = tdEmail.next("td");
-		var tdAcoes = tdPerfil.next("td");
+		//var tdAcoes = tdPerfil.next("td");
 		
 		// Pega os Dados dos Inputs das TDs
 		var nomeusuario = tdNomeUsuario.find("input").val();
 		var nome = tdNome.find("input").val();
 		var email = tdEmail.find("input").val();
-		var perfil = tdPerfil.find("option:selected").val();		
+		var perfil = tdPerfil.find("option:selected").val();
 		
 		// AJAX
 		$.ajax({
@@ -137,6 +146,7 @@ $(document).ready(function(){
 			data:{
 				nome:nome,
 				email:email,
+				emailParaBusca:email_tmp,
 				nomeusuario:nomeusuario,				
 				perfil:perfil,
 				action:"atualizarUsuario",
@@ -145,8 +155,7 @@ $(document).ready(function(){
 			success:function(resultado){
 				
 				// Verificar se a resposta
-				if(resultado === "Atualizado"){					
-					console.log("SIM");
+				if(resultado === "Atualizado"){
 					// Troca a Exibição dos Botões de Ações
 					var btnEditarCancelar = $("a[role=cancelar]").addClass("hidden");
 					var btnEditarSalvar = btnEditarCancelar.prev("a[role=salvar]").addClass("hidden");
@@ -179,11 +188,11 @@ $(document).ready(function(){
 		var tdPerfil = tdEmail.next("td");
 		var tdAcoes = tdPerfil.next("td");
 		
-		// Pega os Dados dos Inputs das TDs
-		var nomeusuario = tdNomeUsuario.find("input").val();
-		var nome = tdNome.find("input").val();
-		var email = tdEmail.find("input").val();
-		var perfil = tdPerfil.find("option:selected").val();
+		// Pega os Dados das Variáveis Globais
+		var nomeusuario = nome_usuario_tmp;
+		var nome = nome_tmp;
+		var email = email_tmp;
+		var perfil = perfil_tmp;
 		
 		// Troca a Exibição dos Botões de Ações
 		var btnEditarCancelar = $(this).addClass("hidden");

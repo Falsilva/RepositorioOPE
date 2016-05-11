@@ -57,266 +57,7 @@
 			
 			<!-- BOTÕES DA BARRA DE NAVEGAÇÃO -->
 			<div class="navbar-buttons navbar-header pull-right" role="navigation">
-				<ul class="nav ace-nav">
-					
-					<!-- BOTÃO CINZA DE TAREFAS -->
-					<li class="grey">
-					
-						<!-- DESIGN DO BOTÃO -->
-						<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-						
-							<!-- ÍCONE DA TAREFA -->
-							<i class="ace-icon fa fa-tasks"></i>
-							
-							<!-- QUANTIDADE DE TAREFAS PENDENTES - BUSCA OS DADOS NO BANCO -->
-							<span class="badge badge-grey">4</span>
-						</a>
-						
-						<!-- LISTA DE OPÇÕES DO BOTÃO DE TAREFAS -->
-						<ul class="dropdown-menu dropdown-menu-right dropdown-navbar navbar-grey dropdown-caret dropdown-close">
-							
-							<!-- ITEM 1 - CABEÇALHO DOS ITENS DA LISTA -->
-							<li class="dropdown-header">
-								<i class="ace-icon fa fa-check"></i> 4 Tarefas pendentes
-							</li>
-							
-							<!-- ITEM 2 - CORPO DOS ITENS DA LISTA -->
-							<li class="dropdown-content">
-							
-								<!-- TAREFAS PENDENTES - BARRAS DE PROGRESSO -->
-								<ul class="dropdown-menu dropdown-navbar navbar-grey">																		
-									<li>
-										<a href="#">
-											<div class="clearfix">
-												<span class="pull-left">Atualização do Software</span>
-												<span class="pull-right">65%</span>
-											</div>
-											<div class="progress progress-mini">
-												<div style="width:65%" class="progress-bar"></div>
-											</div>
-										</a>
-									</li>									
-									<li>
-										<a href="#">
-											<div class="clearfix">
-												<span class="pull-left">Atualização do Hardware</span>
-												<span class="pull-right">35%</span>
-											</div>
-											<div class="progress progress-mini">
-												<div style="width:35%" class="progress-bar progress-bar-danger"></div>
-											</div>
-										</a>
-									</li>									
-									<li>
-										<a href="#">
-											<div class="clearfix">
-												<span class="pull-left">Teste Unitário</span>
-												<span class="pull-right">15%</span>
-											</div>
-											<div class="progress progress-mini">
-												<div style="width:15%" class="progress-bar progress-bar-warning"></div>
-											</div>
-										</a>
-									</li>									
-									<li>
-										<a href="#">
-											<div class="clearfix">
-												<span class="pull-left">Resoluções de Bugs</span>
-												<span class="pull-right">90%</span>
-											</div>
-											<div class="progress progress-mini progress-striped active">
-												<div style="width:90%" class="progress-bar progress-bar-success"></div>
-											</div>
-										</a>
-									</li>
-								</ul>
-							</li>
-							
-							<!-- ITEM 3 - RODAPÉ DOS ITENS DA LISTA -->
-							<li class="dropdown-footer">
-								<a href="#">
-									Veja todos os detalhes <i class="ace-icon fa fa-arrow-right"></i>
-								</a>
-							</li>
-						</ul>
-					</li>
-					
-					<!-- BOTÃO PINK DE NOTIFICAÇÕES -->
-					<li class="purple">
-					
-						<!-- DESIGN DO BOTÃO -->
-						<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-							<i class="ace-icon fa fa-bell icon-animated-bell"></i>
-							<span class="badge badge-important">8</span>
-						</a>
-						
-						<!-- LISTA DE OPÇÕES DO BOTÃO DE NOTIFICAÇÕES -->
-						<ul class="dropdown-menu dropdown-menu-right dropdown-navbar navbar-pink dropdown-caret dropdown-close">						
-							
-							<!-- ITEM 1 - CABEÇALHO DOS ITENS DA LISTA -->
-							<li class="dropdown-header">
-								<i class="ace-icon fa fa-exclamation-triangle"></i> 8 Notificações
-							</li>
-							
-							<!-- ITEM 2 - CORPO DOS ITENS DA LISTA -->
-							<li class="dropdown-content">
-							
-								<!-- NOTIFICAÇÕES -->
-								<ul class="dropdown-menu dropdown-navbar navbar-pink">
-									<li>
-										<a href="#">
-											<div class="clearfix">
-												<span class="pull-left">
-													<i class="btn btn-xs btn-pink no-hover fa fa-comment"></i> Novos Comentários
-												</span>
-												<span class="pull-right badge badge-info">+12</span>
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<i class="btn btn-xs btn-primary fa fa-user"></i> Bob cadastrou-se como Editor
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<div class="clearfix">
-												<span class="pull-left">
-													<i class="btn btn-xs btn-success no-hover fa fa-shopping-cart"></i> Novos Pedidos
-												</span>
-												<span class="pull-right badge badge-success">+8</span>
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<div class="clearfix">
-												<span class="pull-left">
-													<i class="btn btn-xs btn-info no-hover fa fa-twitter"></i> Seguidores
-												</span>
-												<span class="pull-right badge badge-info">+11</span>
-											</div>
-										</a>
-									</li>									
-								</ul>
-							</li>
-							
-							<!-- ITEM 3 - RODAPÉ DOS ITENS DA LISTA -->
-							<li class="dropdown-footer">
-								<a href="#">
-									Veja todas as notificações <i class="ace-icon fa fa-arrow-right"></i>
-								</a>
-							</li>
-						</ul>
-					</li>
-					
-					<!-- BOTÃO VERDE DE EMAILS -->
-					<li class="green">
-						
-						<!-- DESIGN DO BOTÃO -->
-						<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-							<i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
-							<span class="badge badge-success">5</span>
-						</a>
-						
-						<!-- LISTA DE OPÇÕES DO BOTÃO DE EMAILS -->
-						<ul class="dropdown-menu dropdown-menu-right dropdown-navbar navbar-green dropdown-caret dropdown-close">
-							
-							<!-- ITEM 1 - CABEÇALHO DOS ITENS DA LISTA -->
-							<li class="dropdown-header">
-								<i class="ace-icon fa fa-envelope-o"></i> 5 Mensagens
-							</li>
-							
-							<!-- ITEM 2 - CORPO DOS ITENS DA LISTA -->
-							<li class="dropdown-content">
-							
-								<!-- EMAILS -->
-								<ul class="dropdown-menu dropdown-navbar navbar-green">
-									<li>
-										<a class="clearfix" href="#">
-											<img src="resources/avatars/avatar.png" class="msg-photo" alt="Avatar do Alex" />
-											<span class="msg-body">
-												<span class="msg-title">
-													<span class="blue">Alex:</span> João de Santo Cristo mesmo autor...
-												</span>
-												<span class="msg-time">
-													<i class="ace-icon fa fa-clock-o"></i>
-													<span>&nbsp;um momento atrás</span>
-												</span>
-											</span>
-										</a>
-									</li>
-									<li>
-										<a class="clearfix" href="#">
-											<img src="resources/avatars/avatar3.png" class="msg-photo" alt="Avatar da Susana" />
-											<span class="msg-body">
-												<span class="msg-title">
-													<span class="blue">Susana:</span>
-													Desempenho do vestibular no portão de entrada...
-												</span>
-												<span class="msg-time">
-													<i class="ace-icon fa fa-clock-o"></i>
-													<span>&nbsp;20 minutos atrás</span>
-												</span>
-											</span>										
-										</a>
-									</li>
-									<li>
-										<a class="clearfix" href="#">
-											<img src="resources/avatars/avatar4.png" class="msg-photo" alt="Avatar do Bob" />
-											<span class="msg-body">
-												<span class="msg-title">
-													<span class="blue">Bob:</span>
-													A imigrição precisa ser vista com um pouco mais de suavidade...
-												</span>
-												<span class="msg-time">
-													<i class="ace-icon fa fa-clock-o"></i>
-													<span>&nbsp;3:15 pm</span>
-												</span>
-											</span>										
-										</a>
-									</li>
-									<li>
-										<a href="#" class="clearfix">
-											<img src="resources/avatars/avatar2.png" class="msg-photo" alt="Avatar da Kate" />
-											<span class="msg-body">
-												<span class="msg-title">
-													<span class="blue">Kate:</span>
-													Caros amigos, se houverem a necessidade de dar boas risadas...
-												</span>
-												<span class="msg-time">
-													<i class="ace-icon fa fa-clock-o"></i>
-													<span>&nbsp;1:33 pm</span>
-												</span>
-											</span>
-										</a>
-									</li>
-									<li>
-										<a href="#" class="clearfix">
-											<img src="resources/avatars/avatar5.png" class="msg-photo" alt="Avatar do Fred" />
-											<span class="msg-body">
-												<span class="msg-title">
-													<span class="blue">Fred:</span>
-													Desempenho no vestibular pelo autor...
-												</span>
-												<span class="msg-time">
-													<i class="ace-icon fa fa-clock-o"></i>
-													<span>&nbsp;10:09 am</span>
-												</span>
-											</span>
-										</a>
-									</li>								
-								</ul>
-							</li>
-							
-							<!-- ITEM 3 - RODAPÉ DOS ITENS DA LISTA -->
-							<li class="dropdown-footer">
-								<a href="#">
-									Veja todas as mensagens <i class="ace-icon fa fa-arrow-right"></i>
-								</a>
-							</li>
-						</ul>
-					</li>
+				<ul class="nav ace-nav">					
 					
 					<!-- BOTÃO AZUL COM NOME DE USUÁRIO -->
 					<li class="azul-escuro-nosso">
@@ -445,7 +186,7 @@
 				</li>
 				
 				<!-- ITEM 3 -- PEDIDOS -->
-				<li class="">
+				<li class="active open">
 					<a href="#" class="dropdown-toggle">
 						<i class="menu-icon fa fa-pencil-square-o"></i>
 						<span class="menu-text"> Pedidos </span>
@@ -465,7 +206,7 @@
 							</a>
 							<b class="arrow"></b>
 						</li>
-						<li class="">
+						<li class="active">
 							<a href="#" onclick="document.getElementById('form_venda').submit()">
 								<form id="form_venda" action="controller?action=venda" method="post"></form>
 								<i class="menu-icon fa fa-caret-right"></i>	Venda
@@ -478,17 +219,7 @@
 					</ul>
 				</li>
 				
-				<!-- ITEM 4 -- CONTAS -->
-				<li class="active">
-					<a href="#" onclick="document.getElementById('form_contas').submit()">
-						<form id="form_contas" action="controller?action=contas" method="post"></form>						
-						<i class="menu-icon fa fa-credit-card"></i>
-						<span class="menu-text"> Contas </span>
-					</a>
-					<b class="arrow"></b>
-				</li>
-				
-				<!-- ITEM 5 -- CAIXA -->
+				<!-- ITEM 4 -- CAIXA -->
 				<li class="">
 					<a href="#" onclick="document.getElementById('form_caixa').submit()">
 						<form id="form_caixa" action="controller?action=caixa" method="post"></form>
@@ -498,7 +229,7 @@
 					<b class="arrow"></b>
 				</li>
 				
-				<!-- ITEM 6 -- TABELA DE PREÇOS -->
+				<!-- ITEM 5 -- TABELA DE PREÇOS -->
 				<li class="">
 					<a href="#" onclick="document.getElementById('form_precos').submit()">
 						<form id="form_precos" action="controller?action=precos" method="post"></form>
@@ -506,75 +237,7 @@
 						<span class="menu-text"> Tabela de Preços </span>
 					</a>
 					<b class="arrow"></b>
-				</li>
-				<!-- 
-				<!-- ITEM 7 -- E-MAIL 
-				<li class="">
-					<a href="#" class="dropdown-toggle">
-						<i class="menu-icon fa fa-envelope-o"></i>
-						<span class="menu-text"> E-Mail </span>
-						<b class="arrow fa fa-angle-down"></b>
-					</a>
-					<b class="arrow"></b>
-
-					<!-- SUBMENU DO ITEM E-MAIL 
-					<ul class="submenu">	
-						<li class="">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i> Escrever
-								<span class="badge badge-transparent">									
-									<i class="ace-icon fa fa-pencil blue bigger-130"></i>
-								</span>
-							</a>
-							<b class="arrow"></b>
-						</li>					
-						<li class="">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i> Entrada
-								<span class="badge badge-transparent">									
-									<i class="ace-icon fa fa-inbox blue bigger-130"></i>
-								</span>
-							</a>
-							<b class="arrow"></b>
-						</li>
-						<li class="">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i> Enviados
-								<span class="badge badge-transparent">									
-									<i class="ace-icon fa fa-external-link blue bigger-130"></i>
-								</span>
-							</a>
-							<b class="arrow"></b>
-						</li>
-						<li class="">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i> Rascunhos
-								<span class="badge badge-transparent">									
-									<i class="ace-icon fa fa-file-text-o blue bigger-130"></i>
-								</span>
-							</a>
-							<b class="arrow"></b>
-						</li>						
-					</ul>
-				</li>
-				
-				<!-- ITEM 8 -- MAPA GERAL 
-				<li class="">
-					<a href="#">
-						<i class="menu-icon fa fa-map-o"></i>
-						<span class="menu-text"> Mapa Geral</span>							
-					</a>
-					<b class="arrow"></b>
-				</li>
-				
-				<!-- ITEM 9 -- CALENDÁRIO 
-				<li class="">
-					<a href="#">
-						<i class="menu-icon fa fa-calendar"></i>
-						<span class="menu-text"> Calendário</span>							
-					</a>
-					<b class="arrow"></b>
-				</li>-->
+				</li>				
 			</ul>
 			<!-- FIM -- LISTA DE ITENS DO MENU -->
 			
@@ -603,7 +266,8 @@
 							<i class="ace-icon fa fa-home home-icon"></i>
 							<a href="index.jsp">Home</a>
 						</li>						
-						<li class="active">Contas</li>
+						<li>Pedidos</li>
+						<li class="active">Venda</li>
 					</ul>				
 					
 				</div>
@@ -614,10 +278,11 @@
 				
 					<!-- CABEÇALHO DO CONTEÚDO -->
 					<div class="page-header">
-						<h1><strong>Contas</strong>
+						<h1><strong>Pedidos de Vendas</strong>
 							<small>
-								<i class="ace-icon fa fa-angle-double-right"></i> <strong>gestão dos custos diversos</strong>
-							</small>							
+								<i class="ace-icon fa fa-angle-double-right"></i> <strong>geração de pedidos &amp; histórico</strong>
+							</small>
+							
 						</h1>
 					</div>
 					<!-- FIM -- CABEÇALHO DO CONTEÚDO -->
@@ -629,77 +294,65 @@
 								<button type="button" class="close" data-dismiss="alert">
 									<i class="ace-icon fa fa-times"></i>
 								</button>
-								<i class="ace-icon fa fa-check green"></i> Pois é! Todo negócio possui custos fixos ou variáveis. Todos estão centralizados nesta página, com exceção das compras de materiais. Cadastre os custos que forem surgindo ou apenas fique de olho nos "Pendentes" de pagamento.
+								<i class="ace-icon fa fa-check green"></i> Oba, mais uma venda!! Gere aqui o pedido de vendas para controlar todas as receitas geradas pelas vendas, ficando de olho nos pedidos pendentes de recebimento e proporcionando uma visão mais adequada com a realidade do seu negócio. 
 							</div>
 						</div>
 					</div>					
 					<!-- FIM -- MENSAGEM DE APRESENTAÇÃO DA PÁGINA -->					
 					
-	                <!-- CONTAS -->
-	                <div class="row">	                
-	                	<div class="col-xs-12">
-	                	
+	                <!-- TABELA DE PEDIDOS -->
+	                <div class="row">
+	                	<div class="col-xs-12">       	
+	                			                	
 	                		<!-- BARRA DE FERRAMENTAS PARA A TABELA - VIA PLUGINS DATATABLES, TOOLTABLES  -->
 							<div class="tableTools-container">
 								<div class="btn-group btn-over-lap">
 										
-									<!-- BOTÃO NOVA CONTA -->
+									<!-- BOTÃO NOVO MATERIAL -->
 									<a href="#" class="btn btn-app btn-success btn-xs" role="cadastrar">
-										<i class="ace-icon fa fa-plus bigger-130">&nbsp;<i class="ace-icon fa fa-credit-card bigger-130"></i></i>Nova
+										<i class="ace-icon fa fa-plus bigger-130">&nbsp;<i class="ace-icon fa fa-cart-plus bigger-130"></i></i>Novo
 									</a>
 								</div>
-							</div>							
-							
+							</div>															                	
+	                	
 		                	<div class="widget-box transparent">
 				                    
-								<!-- TÍTULO DAS CONTAS -->
+								<!-- TÍTULO DOS PEDIDOS -->
 			                	<div class="widget-header widget-header-flat">
 									<h3 class="widget-title lighter">
-										<i class="ace-icon fa fa-credit-card"></i><strong> Contas Cadastradas</strong>
+										<i class="ace-icon fa fa-dollar"></i><strong> Histórico de Pedidos</strong>
 									</h3>
 								</div>
 									
-								<!-- CONTAS -->
+								<!-- PEDIDOS -->
 			                    <div class="widget-body">
 									<div class="widget-main no-padding">
 									
-										<div class="breadcrumbs">
-											<ul class="breadcrumb">
-												<li class="active">Pesquise informando as primeiras letras</li>
-											</ul>
-											<div class="nav-search" id="nav-search">
-												<form class="form-search" id="formPesquisar" action="controller?action=pesquisarUsuario" method="POST">
-													<span class="input-icon">													
-														<input class="nav-search-input" type="text" name="nome" id="nome" placeholder="Informe o custo..." />
-														<i class="ace-icon fa fa-search nav-search-icon"></i>
-													</span>												
-												</form>
-											</div>	
-										</div>
-												
-										<!-- RESULTADO DOS NÚMEROS DE CONTAS -->
+										<!-- RESULTADO DOS NÚMEROS DE PEDIDOS -->
 										<div class="table-header">
 											<strong>Resultado:</strong>
 										</div>
-										
+									
 										<table class="table table-bordered table-striped">
 											<thead class="thin-border-bottom">
 				                               	<tr>
-				                                   	<th>Cód.</th>
-				                                    <th>Descrição do Custo</th>
-				                                    <th>Valor (R$)</th>
-				                                    <th>Vencimento</th>
-				                                    <th>Status</th>
+				                                   	<th>No. Pedido</th>
+				                                   	<th>Data</th>
+				                                    <th>Cliente</th>				                                    
+				                                    <th>NF.</th>
+				                                    <th>Vlr. Compra (R$)</th>
+				                                    <th>Status</th>			                                    
 				                                    <th>Ações</th>
 				                              	</tr>
 			                       			</thead>
 				                       		<tbody>
 				                       			<tr>
-				                                   	<td class="text-right"><b>1</b></td>
-				                                    <td><b>Água</b></td>
-				                                    <td class="text-right"><b class="red">120,00</b></td>
-				                                    <td class="text-center"><b>29/05/2016</b></td>
-				                                    <td class="text-center"><b class="yellow">Pendente</b></td>
+				                                   	<td class="text-right"><b>12</b></td>
+				                                   	<td><b>10/05/2016</b></td>
+				                                    <td><b>Renova Plástico</b></td>
+				                                    <td><b>23654</b></td>
+				                                    <td class="text-right"><b>800,00</b></td>
+				                                    <td class="text-center"><span class="label label-success arrowed arrowed-right">Pago</span></td>
 				                                    
 				                                    <!-- COLUNA DE AÇÕES -->
 													<td>														
@@ -792,10 +445,198 @@
 				                       	</table>
 				                    </div>
 			                    </div>
+			                    <!-- FIM -- PEDIDOS -->
+			                    
+			                    <!-- MODAL FORMULÁRIO PARA CADASTRAR -->
+							<div id="modal-form-pedido" class="modal fade" tabindex="-1" rel="modalcadastrar">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="blue bigger">Por favor, preencha os campos...</h4>
+										</div>
+
+										<div class="modal-body">
+											
+											<div class="form-group">
+												<label for="nopedido">No. Pedido:</label>&nbsp;
+												<label id="nopedido" name="nopedido"><h3>56458</h3></label>
+											</div>
+											<div class="space-4"></div>											
+											<div class="form-group">
+												<label for="fornecedor">Fornecedor</label>
+												<div>
+													<input type="text" id="fornecedor" name="fornecedor" placeholder="Informe o fornecedor..." size="77" />
+												</div>
+											</div>
+											<div class="space-4"></div>
+											<div class="tableTools-container">
+												<div class="btn-group btn-over-lap">
+														
+													<!-- BOTÃO ADD ITEM -->
+													<a href="#" class="btn btn-primary btn-xs" role="additem">
+														<i class="ace-icon fa fa-plus bigger-120"></i>&nbsp;<b>Item</b>
+													</a>
+												</div>
+											</div>
+											<div class="space-4"></div>
+											<table class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
+												<thead>
+													<tr>
+														<th>Material</th>
+														<th>Peso</th>
+														<th>Valor</th>
+														<th>Ação</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>
+															<div class="form-group">																
+																<div>
+																	<input type="text" id="material" name="material" value="Plástico" />
+																</div>
+															</div>
+														</td>
+														<td>
+															<div class="form-group">																
+																<div>
+																	<input type="text" id="peso" class="text-right" name="peso" maxlength="9" value="100,00" />
+																</div>
+															</div>
+														</td>
+														<td>
+															<div class="form-group">
+																<div>
+																	<input type="text" id="valor" class="text-right" name="valor" maxlength="10" value="200,00" />
+																</div>
+															</div>
+														</td>
+														<td>
+															<div class="form-group">																
+																<div class="text-center acao">
+																
+																	<!-- EXIBIÇÃO EM TELAS GRANDES -->															
+																	<div class="action-buttons">
+																			
+																		<!-- BOTÃO REMOVER ITEM -->
+																		<a href="#" role="remover">
+																			<span class="red">
+																				<i class="ace-icon fa fa-times bigger-160"></i>
+																			</span>
+																		</a>
+																	</div>
+																</div>
+															</div>
+														</td>
+													</tr>
+													
+													<tr>
+														<td>
+															<div class="form-group">																
+																<div>
+																	<input type="text" id="material" name="material" value="Plástico" />
+																</div>
+															</div>
+														</td>
+														<td>
+															<div class="form-group">																
+																<div>
+																	<input type="text" id="peso" class="text-right" name="peso" maxlength="9" value="100,00" />
+																</div>
+															</div>
+														</td>
+														<td>
+															<div class="form-group">
+																<div>
+																	<input type="text" id="valor" class="text-right" name="valor" maxlength="10" value="200,00" />
+																</div>
+															</div>
+														</td>
+														<td>
+															<div class="form-group">																
+																<div class="text-center acao">
+																
+																	<!-- EXIBIÇÃO EM TELAS GRANDES -->															
+																	<div class="action-buttons">
+																			
+																		<!-- BOTÃO REMOVER ITEM -->
+																		<a href="#" role="remover">
+																			<span class="red">
+																				<i class="ace-icon fa fa-times bigger-160"></i>
+																			</span>
+																		</a>
+																	</div>
+																</div>
+															</div>
+														</td>
+													</tr>												
+												</tbody>
+											</table>																				
+										</div>
+
+										<div class="modal-footer">
+											<button id="btnCancelar" class="btn btn-sm" data-dismiss="modal">
+												<i class="ace-icon fa fa-times"></i> Cancelar
+											</button>
+											<button id="btnGerarPedido" class="btn btn-sm btn-primary">
+												<i class="ace-icon fa fa-check"></i> Gerar Pedido
+											</button>											
+										</div>										
+									</div>									
+								</div>
+							</div>
+							<!-- FIM -- MODAL FORMULÁRIO PARA CADASTRAR -->
+							
+							<!-- MODAL FORMULÁRIO PARA EXCLUIR -->
+							<div id="modal-form" class="modal fade" tabindex="-1" rel="modalexcluir">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class='red bigger'> Excluir... Tem certeza?</h4>
+										</div>
+
+										<div class="modal-body">
+											<div class="form-group">
+												<label for="nome">Nome</label>
+												<div>
+													<input type="text" id="nomeExcluir" name="nome" placeholder="Informe o nome completo..." size="40" />
+												</div>
+											</div>
+											<div class="space-4"></div>
+											<div class="form-group">
+												<label for="email">E-mail</label>
+												<div>
+													<input type="text" id="emailExcluir" name="email" placeholder="Informe o seu e-mail..." size="40" />
+												</div>
+											</div>													
+											<div class="space-4"></div>
+											<div class="form-group">
+												<label for="nomeusuario">Usuário</label>
+												<div>
+													<input type="text" id="nomeusuarioExcluir" name="nomeusuario" placeholder="Informe o nome de usuário..." size="35" />
+												</div>
+											</div>																							
+										</div>
+
+										<div class="modal-footer">
+											<button id="btnCancelarExcluir" class="btn btn-sm" data-dismiss="modal">
+												<i class="ace-icon fa fa-times"></i> Cancelar
+											</button>
+											<button id="btnExcluir" class="btn btn-sm btn-danger">
+												<i class="ace-icon fa fa-trash-o"></i> Excluir
+											</button>											
+										</div>										
+									</div>									
+								</div>
+							</div>
+							<!-- FIM -- MODAL FORMULÁRIO PARA EXCLUIR -->
+			                    
 			                </div>
-		                </div>
+			        	</div>
 	                </div>
-	                <!-- FIM -- CONTAS -->
+	                <!-- FIM -- TABELA DE PREÇOS -->
 				</div>
 				<!-- FIM -- CONTEÚDO DA PÁGINA -->
 			</div>
@@ -867,7 +708,13 @@
 	<script src="resources/js/ace.min.js"></script>	
     
     <!-- RELÓGIO -->
-    <script src="resources/js/relogio.js"></script>    
+    <script src="resources/js/relogio.js"></script>
+    
+    <!-- AJAX - SUBMIT FORMS - RECARREGA A PÁGINA QUANDO O MODAL É FECHADO -->
+    <script src="resources/js/ajaxpedidovenda.js"></script>
+    
+    <!-- EDITAR EXCLUIR -->
+    <script src="resources/js/manipulatabelapedidovenda.js"></script>
     
 </body>
 </html>

@@ -57,266 +57,7 @@
 			
 			<!-- BOTÕES DA BARRA DE NAVEGAÇÃO -->
 			<div class="navbar-buttons navbar-header pull-right" role="navigation">
-				<ul class="nav ace-nav">
-					
-					<!-- BOTÃO CINZA DE TAREFAS -->
-					<li class="grey">
-					
-						<!-- DESIGN DO BOTÃO -->
-						<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-						
-							<!-- ÍCONE DA TAREFA -->
-							<i class="ace-icon fa fa-tasks"></i>
-							
-							<!-- QUANTIDADE DE TAREFAS PENDENTES - BUSCA OS DADOS NO BANCO -->
-							<span class="badge badge-grey">4</span>
-						</a>
-						
-						<!-- LISTA DE OPÇÕES DO BOTÃO DE TAREFAS -->
-						<ul class="dropdown-menu dropdown-menu-right dropdown-navbar navbar-grey dropdown-caret dropdown-close">
-							
-							<!-- ITEM 1 - CABEÇALHO DOS ITENS DA LISTA -->
-							<li class="dropdown-header">
-								<i class="ace-icon fa fa-check"></i> 4 Tarefas pendentes
-							</li>
-							
-							<!-- ITEM 2 - CORPO DOS ITENS DA LISTA -->
-							<li class="dropdown-content">
-							
-								<!-- TAREFAS PENDENTES - BARRAS DE PROGRESSO -->
-								<ul class="dropdown-menu dropdown-navbar navbar-grey">																		
-									<li>
-										<a href="#">
-											<div class="clearfix">
-												<span class="pull-left">Atualização do Software</span>
-												<span class="pull-right">65%</span>
-											</div>
-											<div class="progress progress-mini">
-												<div style="width:65%" class="progress-bar"></div>
-											</div>
-										</a>
-									</li>									
-									<li>
-										<a href="#">
-											<div class="clearfix">
-												<span class="pull-left">Atualização do Hardware</span>
-												<span class="pull-right">35%</span>
-											</div>
-											<div class="progress progress-mini">
-												<div style="width:35%" class="progress-bar progress-bar-danger"></div>
-											</div>
-										</a>
-									</li>									
-									<li>
-										<a href="#">
-											<div class="clearfix">
-												<span class="pull-left">Teste Unitário</span>
-												<span class="pull-right">15%</span>
-											</div>
-											<div class="progress progress-mini">
-												<div style="width:15%" class="progress-bar progress-bar-warning"></div>
-											</div>
-										</a>
-									</li>									
-									<li>
-										<a href="#">
-											<div class="clearfix">
-												<span class="pull-left">Resoluções de Bugs</span>
-												<span class="pull-right">90%</span>
-											</div>
-											<div class="progress progress-mini progress-striped active">
-												<div style="width:90%" class="progress-bar progress-bar-success"></div>
-											</div>
-										</a>
-									</li>
-								</ul>
-							</li>
-							
-							<!-- ITEM 3 - RODAPÉ DOS ITENS DA LISTA -->
-							<li class="dropdown-footer">
-								<a href="#">
-									Veja todos os detalhes <i class="ace-icon fa fa-arrow-right"></i>
-								</a>
-							</li>
-						</ul>
-					</li>
-					
-					<!-- BOTÃO PINK DE NOTIFICAÇÕES -->
-					<li class="purple">
-					
-						<!-- DESIGN DO BOTÃO -->
-						<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-							<i class="ace-icon fa fa-bell icon-animated-bell"></i>
-							<span class="badge badge-important">8</span>
-						</a>
-						
-						<!-- LISTA DE OPÇÕES DO BOTÃO DE NOTIFICAÇÕES -->
-						<ul class="dropdown-menu dropdown-menu-right dropdown-navbar navbar-pink dropdown-caret dropdown-close">						
-							
-							<!-- ITEM 1 - CABEÇALHO DOS ITENS DA LISTA -->
-							<li class="dropdown-header">
-								<i class="ace-icon fa fa-exclamation-triangle"></i> 8 Notificações
-							</li>
-							
-							<!-- ITEM 2 - CORPO DOS ITENS DA LISTA -->
-							<li class="dropdown-content">
-							
-								<!-- NOTIFICAÇÕES -->
-								<ul class="dropdown-menu dropdown-navbar navbar-pink">
-									<li>
-										<a href="#">
-											<div class="clearfix">
-												<span class="pull-left">
-													<i class="btn btn-xs btn-pink no-hover fa fa-comment"></i> Novos Comentários
-												</span>
-												<span class="pull-right badge badge-info">+12</span>
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<i class="btn btn-xs btn-primary fa fa-user"></i> Bob cadastrou-se como Editor
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<div class="clearfix">
-												<span class="pull-left">
-													<i class="btn btn-xs btn-success no-hover fa fa-shopping-cart"></i> Novos Pedidos
-												</span>
-												<span class="pull-right badge badge-success">+8</span>
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<div class="clearfix">
-												<span class="pull-left">
-													<i class="btn btn-xs btn-info no-hover fa fa-twitter"></i> Seguidores
-												</span>
-												<span class="pull-right badge badge-info">+11</span>
-											</div>
-										</a>
-									</li>									
-								</ul>
-							</li>
-							
-							<!-- ITEM 3 - RODAPÉ DOS ITENS DA LISTA -->
-							<li class="dropdown-footer">
-								<a href="#">
-									Veja todas as notificações <i class="ace-icon fa fa-arrow-right"></i>
-								</a>
-							</li>
-						</ul>
-					</li>
-					
-					<!-- BOTÃO VERDE DE EMAILS -->
-					<li class="green">
-						
-						<!-- DESIGN DO BOTÃO -->
-						<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-							<i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
-							<span class="badge badge-success">5</span>
-						</a>
-						
-						<!-- LISTA DE OPÇÕES DO BOTÃO DE EMAILS -->
-						<ul class="dropdown-menu dropdown-menu-right dropdown-navbar navbar-green dropdown-caret dropdown-close">
-							
-							<!-- ITEM 1 - CABEÇALHO DOS ITENS DA LISTA -->
-							<li class="dropdown-header">
-								<i class="ace-icon fa fa-envelope-o"></i> 5 Mensagens
-							</li>
-							
-							<!-- ITEM 2 - CORPO DOS ITENS DA LISTA -->
-							<li class="dropdown-content">
-							
-								<!-- EMAILS -->
-								<ul class="dropdown-menu dropdown-navbar navbar-green">
-									<li>
-										<a class="clearfix" href="#">
-											<img src="resources/avatars/avatar.png" class="msg-photo" alt="Avatar do Alex" />
-											<span class="msg-body">
-												<span class="msg-title">
-													<span class="blue">Alex:</span> João de Santo Cristo mesmo autor...
-												</span>
-												<span class="msg-time">
-													<i class="ace-icon fa fa-clock-o"></i>
-													<span>&nbsp;um momento atrás</span>
-												</span>
-											</span>
-										</a>
-									</li>
-									<li>
-										<a class="clearfix" href="#">
-											<img src="resources/avatars/avatar3.png" class="msg-photo" alt="Avatar da Susana" />
-											<span class="msg-body">
-												<span class="msg-title">
-													<span class="blue">Susana:</span>
-													Desempenho do vestibular no portão de entrada...
-												</span>
-												<span class="msg-time">
-													<i class="ace-icon fa fa-clock-o"></i>
-													<span>&nbsp;20 minutos atrás</span>
-												</span>
-											</span>										
-										</a>
-									</li>
-									<li>
-										<a class="clearfix" href="#">
-											<img src="resources/avatars/avatar4.png" class="msg-photo" alt="Avatar do Bob" />
-											<span class="msg-body">
-												<span class="msg-title">
-													<span class="blue">Bob:</span>
-													A imigrição precisa ser vista com um pouco mais de suavidade...
-												</span>
-												<span class="msg-time">
-													<i class="ace-icon fa fa-clock-o"></i>
-													<span>&nbsp;3:15 pm</span>
-												</span>
-											</span>										
-										</a>
-									</li>
-									<li>
-										<a href="#" class="clearfix">
-											<img src="resources/avatars/avatar2.png" class="msg-photo" alt="Avatar da Kate" />
-											<span class="msg-body">
-												<span class="msg-title">
-													<span class="blue">Kate:</span>
-													Caros amigos, se houverem a necessidade de dar boas risadas...
-												</span>
-												<span class="msg-time">
-													<i class="ace-icon fa fa-clock-o"></i>
-													<span>&nbsp;1:33 pm</span>
-												</span>
-											</span>
-										</a>
-									</li>
-									<li>
-										<a href="#" class="clearfix">
-											<img src="resources/avatars/avatar5.png" class="msg-photo" alt="Avatar do Fred" />
-											<span class="msg-body">
-												<span class="msg-title">
-													<span class="blue">Fred:</span>
-													Desempenho no vestibular pelo autor...
-												</span>
-												<span class="msg-time">
-													<i class="ace-icon fa fa-clock-o"></i>
-													<span>&nbsp;10:09 am</span>
-												</span>
-											</span>
-										</a>
-									</li>								
-								</ul>
-							</li>
-							
-							<!-- ITEM 3 - RODAPÉ DOS ITENS DA LISTA -->
-							<li class="dropdown-footer">
-								<a href="#">
-									Veja todas as mensagens <i class="ace-icon fa fa-arrow-right"></i>
-								</a>
-							</li>
-						</ul>
-					</li>
+				<ul class="nav ace-nav">					
 					
 					<!-- BOTÃO AZUL COM NOME DE USUÁRIO -->
 					<li class="azul-escuro-nosso">
@@ -336,8 +77,7 @@
 								<a href="#" onclick="document.getElementById('form_logout').submit()">
 									<form id="form_logout" action="controller?action=logout" method="post"></form>									
 									<i class="ace-icon fa fa-power-off"></i> Sair																
-								</a>
-												
+								</a>												
 							</li>
 						</ul>
 					</li>					
@@ -456,7 +196,8 @@
 					<!-- SUBMENU DO ITEM PEDIDOS -->
 					<ul class="submenu">
 						<li class="">
-							<a href="#">
+							<a href="#" onclick="document.getElementById('form_compra').submit()">
+								<form id="form_compra" action="controller?action=compra" method="post"></form>
 								<i class="menu-icon fa fa-caret-right"></i> Compra 
 								<span class="badge badge-transparent">
 									<i class="ace-icon fa fa-cart-arrow-down red bigger-130"></i>
@@ -465,7 +206,8 @@
 							<b class="arrow"></b>
 						</li>
 						<li class="">
-							<a href="#">
+							<a href="#" onclick="document.getElementById('form_venda').submit()">
+								<form id="form_venda" action="controller?action=venda" method="post"></form>
 								<i class="menu-icon fa fa-caret-right"></i>	Venda
 								<span class="badge badge-transparent">									
 									<i class="ace-icon fa fa-cart-plus green bigger-130"></i>
@@ -476,26 +218,17 @@
 					</ul>
 				</li>
 				
-				<!-- ITEM 4 -- CONTAS -->
+				<!-- ITEM 4 -- CAIXA -->
 				<li class="">
-					<a href="#" onclick="document.getElementById('form_contas').submit()">
-						<form id="form_contas" action="controller?action=contas" method="post"></form>						
-						<i class="menu-icon fa fa-credit-card"></i>
-						<span class="menu-text"> Contas </span>
-					</a>
-					<b class="arrow"></b>
-				</li>
-				
-				<!-- ITEM 5 -- CAIXA -->
-				<li class="">
-					<a href="#" class="dropdown-toggle">
+					<a href="#" onclick="document.getElementById('form_caixa').submit()">
+						<form id="form_caixa" action="controller?action=caixa" method="post"></form>
 						<i class="menu-icon fa fa-money"></i>
 						<span class="menu-text"> Caixa </span>
 					</a>
 					<b class="arrow"></b>
 				</li>
 				
-				<!-- ITEM 6 -- TABELA DE PREÇOS -->
+				<!-- ITEM 5 -- TABELA DE PREÇOS -->
 				<li class="active">
 					<a href="#" onclick="document.getElementById('form_precos').submit()">
 						<form id="form_precos" action="controller?action=precos" method="post"></form>
@@ -503,75 +236,7 @@
 						<span class="menu-text"> Tabela de Preços </span>
 					</a>
 					<b class="arrow"></b>
-				</li>
-				<!-- 
-				<!-- ITEM 7 -- E-MAIL 
-				<li class="">
-					<a href="#" class="dropdown-toggle">
-						<i class="menu-icon fa fa-envelope-o"></i>
-						<span class="menu-text"> E-Mail </span>
-						<b class="arrow fa fa-angle-down"></b>
-					</a>
-					<b class="arrow"></b>
-
-					<!-- SUBMENU DO ITEM E-MAIL 
-					<ul class="submenu">	
-						<li class="">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i> Escrever
-								<span class="badge badge-transparent">									
-									<i class="ace-icon fa fa-pencil blue bigger-130"></i>
-								</span>
-							</a>
-							<b class="arrow"></b>
-						</li>					
-						<li class="">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i> Entrada
-								<span class="badge badge-transparent">									
-									<i class="ace-icon fa fa-inbox blue bigger-130"></i>
-								</span>
-							</a>
-							<b class="arrow"></b>
-						</li>
-						<li class="">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i> Enviados
-								<span class="badge badge-transparent">									
-									<i class="ace-icon fa fa-external-link blue bigger-130"></i>
-								</span>
-							</a>
-							<b class="arrow"></b>
-						</li>
-						<li class="">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i> Rascunhos
-								<span class="badge badge-transparent">									
-									<i class="ace-icon fa fa-file-text-o blue bigger-130"></i>
-								</span>
-							</a>
-							<b class="arrow"></b>
-						</li>						
-					</ul>
-				</li>
-				
-				<!-- ITEM 8 -- MAPA GERAL 
-				<li class="">
-					<a href="#">
-						<i class="menu-icon fa fa-map-o"></i>
-						<span class="menu-text"> Mapa Geral</span>							
-					</a>
-					<b class="arrow"></b>
-				</li>
-				
-				<!-- ITEM 9 -- CALENDÁRIO 
-				<li class="">
-					<a href="#">
-						<i class="menu-icon fa fa-calendar"></i>
-						<span class="menu-text"> Calendário</span>							
-					</a>
-					<b class="arrow"></b>
-				</li>-->
+				</li>				
 			</ul>
 			<!-- FIM -- LISTA DE ITENS DO MENU -->
 			
@@ -670,6 +335,33 @@
 				                                    <th>Ações</th>
 				                              	</tr>
 			                       			</thead>
+			                       			<!-- 
+			                       				Plásticos:
+												Plástico Rígido
+												Aparas Limpas (ou Plástico PE)
+												Plástico Colorido Limpo
+												Plástico Colorido com Tinta
+												Plástico Sujo
+												Plástico PP
+												
+												Metal (obs.: não trabalha com Cobre):
+												Panela
+												Latinha
+												Perfil
+												Metal (Isso é um tipo de classificação)
+												Bloco Metal
+												Torneira
+												Alumínio
+												Chumbo
+												Outros Tipos (Raro, que não gera grande volume)
+												
+												Papel:
+												Papel Branco
+												Livro
+												Revista
+												Jornal
+												Papelão (não compra, mas aparece quando gerado da escolha)			                       			
+			                       			 -->
 				                       		<tbody>
 				                       			<tr>
 				                                   	<td class="text-right"><b>1</b></td>

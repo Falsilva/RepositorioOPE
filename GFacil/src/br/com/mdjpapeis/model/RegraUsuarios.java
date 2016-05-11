@@ -86,73 +86,60 @@ public class RegraUsuarios extends HttpServlet{
 						if(req.getParameter("nome") != null){
 							System.out.println("RegraUsuarios, PESQUISANDO POR NOME...");
 							nome = req.getParameter("nome");
-							usuario.setNome(nome);
-							
+							usuario.setNome(nome);							
 							if(nome.isEmpty()){
 								usuarios = new UsuarioDAO().listar();
 							}else{
 								usuarios = new UsuarioDAO().buscaUsuarioPorNome(usuario);
-							}
-							
+							}							
 							pesquisa = "nome";
 						}
 					}
 				}							
 				
-				switch(pesquisa){
-				
+				switch(pesquisa){				
 					case "nomeusuario":
 						System.out.println("RegraUsuarios, PESQUISADO POR NOMEUSUARIO");
 						if(user != null){
-							System.out.println("RegraUsuarios, PESQUISA POR NOMEUSUARIO, USUÁRIO ENCONTRADO");
+							System.out.println("RegraUsuarios, PESQUISADO POR NOMEUSUARIO, USUARIO ENCONTRADO");
 							req.setAttribute("user", user);							
 						}else{
-							System.out.println("RegraUsuarios, PESQUISA POR NOMEUSUARIO, USUÁRIO NÃO ENCONTRADO");
+							System.out.println("RegraUsuarios, PESQUISADO POR NOMEUSUARIO, USUARIO NAO ENCONTRADO");
 							req.setAttribute("mensagem", "Usuário não encontrado");
-						}						
-						dispatcher = req.getRequestDispatcher("controller?action=formUsuario&tarefa="+tarefa);
-						
+						}
+						dispatcher = req.getRequestDispatcher("controller?action=usuarios");
 						break;
 						
 					case "email":
 						System.out.println("RegraUsuarios, PESQUISADO POR EMAIL");
 						if(user != null){
-							System.out.println("RegraUsuarios, PESQUISA POR EMAIL, USUÁRIO ENCONTRADO");
+							System.out.println("RegraUsuarios, PESQUISADO POR EMAIL, USUARIO ENCONTRADO");
 							req.setAttribute("user", user);							
 						}else{
-							System.out.println("RegraUsuarios, PESQUISA POR EMAIL, USUÁRIO NÃO ENCONTRADO");
+							System.out.println("RegraUsuarios, PESQUISA POR EMAIL, USUARIO NAO ENCONTRADO");
 							req.setAttribute("mensagem", "Usuário não encontrado");
-						}						
-						dispatcher = req.getRequestDispatcher("controller?action=formUsuario&tarefa="+tarefa);
-						
+						}
+						dispatcher = req.getRequestDispatcher("controller?action=usuarios");
 						break;
 						
 					default:
 						System.out.println("RegraUsuarios, PESQUISADO POR NOME");
 						if(usuarios != null){
-							System.out.println("RegraUsuarios, PESQUISA POR NOME, USUÁRIO(S) ENCONTRADO(S)");
-							/*PrintWriter out = resp.getWriter();
-							String csq = "";
-							for (Usuario usu : usuarios) {
-								csq = "{" + usu.getNome() + "}";
-							}
-							out.append(csq);*/
+							System.out.println("RegraUsuarios, PESQUISADO POR NOME, USUARIO(S) ENCONTRADO(S)");							
 							req.setAttribute("usuarios", usuarios);													
 						}else{
 							if(nome.isEmpty()){
-								System.out.println("RegraUsuarios, PESQUISADO POR NOME, USUÁRIO(S) NÃO CADASTRADO(S)");
+								System.out.println("RegraUsuarios, PESQUISADO POR NOME, USUARIO(S) NAO CADASTRADO(S)");
 								req.setAttribute("mensagem", "Não há usuários cadastrados");
 							}else{
-								System.out.println("RegraUsuarios, PESQUISADO POR NOME, USUÁRIO(S) NÃO ENCONTRADO(S)");
+								System.out.println("RegraUsuarios, PESQUISADO POR NOME, USUARIO(S) NAO ENCONTRADO(S)");
 								req.setAttribute("mensagem", "Usuário não encontrado");
 							}
-						}	
-						
-						dispatcher = req.getRequestDispatcher("controller?action=usuarios");
-						dispatcher.forward(req, resp); // APÓS TESTE COM AJAX QUANDO CADASTRAR
+						}						
+						dispatcher = req.getRequestDispatcher("controller?action=usuarios");						 
 						break;				
 				}
-				
+				dispatcher.forward(req, resp);
 				break;
 				
 			case("cadastrarUsuario"):
@@ -182,8 +169,7 @@ public class RegraUsuarios extends HttpServlet{
 						parametros[i][1] = "";
 						parametroVazio = true;
 						System.out.println("RegraUsuarios, CADASTRANDO USUARIOS, CAMPO NAO PREENCHIDO: " + parametros[i][0]);
-					}
-					
+					}					
 					
 					switch(parametros[i][0]){
 						case "nome":
@@ -199,8 +185,6 @@ public class RegraUsuarios extends HttpServlet{
 							user.setSenha(parametros[i][1]);
 							break;
 						case "perfil":
-							//PerfilUsuario pu = new PerfilUsuario();
-							//pu.setPerfil(parametros[i][1]);
 							for(Usuario.Perfil pf : Usuario.Perfil.values()){
 								if(parametros[i][1].toUpperCase().equals(pf.toString())){									
 									user.setPerfil(pf);
@@ -215,11 +199,6 @@ public class RegraUsuarios extends HttpServlet{
 					resp.setContentType("text/plain");
 					resp.setCharacterEncoding("UTF-8");
 					resp.getWriter().write("Preencha todos os campos");
-					/*req.setAttribute("mensagem", "Preencha todos os campos");
-					req.setAttribute("user", user);
-					dispatcher = req.getRequestDispatcher("controller?action=formUsuario&tarefa="+tarefa);*/
-					//dispatcher.forward(req, resp);
-					//dispatcher = req.getRequestDispatcher("controller?action=usuarios&tarefa="+tarefa);
 				}else{
 					System.out.println("RegraUsuarios, CADASTRANDO USUARIOS, DADOS VERIFICADOS, CAMPOS PREENCHIDOS...");
 					try{
@@ -235,7 +214,6 @@ public class RegraUsuarios extends HttpServlet{
 							// Caso o LOGIN seja igual, significa que além do EMAIL, o LOGIN informado também já existe
 							if(verificaUser.getLogin().equals(nomeusuario)){
 								System.out.println("RegraUsuarios, CADASTRANDO USUARIOS, USUARIO JA CADASTRADO COM ESSE EMAIL E LOGIN...");
-								//req.setAttribute("mensagem", "Já existe o USUARIO e EMAIL informados");
 								resp.setContentType("text/plain");
 								resp.setCharacterEncoding("UTF-8");
 								resp.getWriter().write("Já existe o USUARIO e EMAIL informados");
@@ -243,73 +221,47 @@ public class RegraUsuarios extends HttpServlet{
 							// Caso contrário, significa que somente o EMAIL informado já existe
 							}else{
 								System.out.println("RegraUsuarios, CADASTRANDO USUARIOS, USUARIO JA CADASTRADO COM ESSE EMAIL...");
-								//req.setAttribute("mensagem", "Já existe o EMAIL informado");
 								resp.setContentType("text/plain");
 								resp.setCharacterEncoding("UTF-8");
 								resp.getWriter().write("Já existe o EMAIL informado");
-							}
-							
+							}							
 							req.setAttribute("user", user);							
 							
 						// Caso não for encontrado um usuário com o EMAIL informado
 						}else{
 							System.out.println("RegraUsuarios, CADASTRANDO USUARIOS, CONSULTANDO A EXISTENCIA DE USUARIO PELO LOGIN...");
+							
 							// Busca por usuários que possuem o LOGIN informado
 							verificaUser = new UsuarioDAO().buscaUsuarioPorLogin(user);
 							
 							// Verifica se foi encontrado algum usuário com o LOGIN informado
 							if(verificaUser != null){
 								System.out.println("RegraUsuarios, CADASTRANDO USUARIOS, USUARIO JA CADASTRADO COM ESSE LOGIN...");
-								//req.setAttribute("mensagem", "Já existe o USUÁRIO informado");
-								//req.setAttribute("user", user);
 								resp.setContentType("text/plain");
 								resp.setCharacterEncoding("UTF-8");
 								resp.getWriter().write("Já existe o USUÁRIO informado");
 								
 							// Caso contrário, o cadastramento é realizado
 							}else{							
-								System.out.println("RegraUsuarios, CADASTRANDO USUARIOS, USUARIO ENCONTRADO, CADASTRANDO...");
-								new UsuarioDAO().inserir(user);					
-								
-								System.out.println("RegraUsuarios, CADASTRANDO USUARIOS, USUARIO CADASTRADO.");
-								
+								System.out.println("RegraUsuarios, CADASTRANDO USUARIOS, USUARIO NAO ENCONTRADO, CADASTRANDO...");
+								new UsuarioDAO().inserir(user);								
+								System.out.println("RegraUsuarios, CADASTRANDO USUARIOS, USUARIO CADASTRADO.");								
 								resp.setContentType("text/plain");
 								resp.setCharacterEncoding("UTF-8");
 								resp.getWriter().write("Usuário cadastrado com sucesso");
-								//req.setAttribute("mensagem", "Usuário cadastrado com sucesso");
 							}
 						}
 					}catch(PersistenceException e){
+						System.out.println("RegraUsuarios, CADASTRANDO USUARIOS, FALHA AO CADASTRAR, PersistenceException.");
 						resp.setContentType("text/plain");
 						resp.setCharacterEncoding("UTF-8");
-						resp.getWriter().write("Falha ao cadastrar o usuário");
-						
-						//req.setAttribute("mensagem", "Falha ao cadastrar o usuário");
-						
-					// Reencaminha a requisição
-					}finally{
-						
-						// Recebe o destino do redirecionamento da requisição
-						// dispatcher = req.getRequestDispatcher("controller?action=formUsuario&tarefa="+tarefa);
-						//PrintWriter out = resp.getWriter();
-						//out.print("Usuário cadastrado com sucesso");
-						/*PrintWriter out = resp.getWriter();
-							String csq = "";
-							for (Usuario usu : usuarios) {
-								csq = "{" + usu.getNome() + "}";
-							}
-							out.append(csq);*/
-						//dispatcher = req.getRequestDispatcher("controller?action=usuarios");
-						// Reencaminha a requisição
-						//dispatcher.forward(req, resp);
+						resp.getWriter().write("Falha ao cadastrar o usuário");						
 					}
 				}
-
 				break;
 				
 			case("atualizarUsuario"):
-				System.out.println("RegraUsuarios, ATUALIZANDO USUARIO...");
-			
+				System.out.println("RegraUsuarios, ATUALIZANDO USUARIO...");			
 				nome = req.getParameter("nome");
 				nomeusuario = req.getParameter("nomeusuario");	// esse é o nome de login				
 				email = req.getParameter("email");
@@ -319,8 +271,7 @@ public class RegraUsuarios extends HttpServlet{
 				
 				parametros = new String[][]{{"nome",nome},{"nomeusuario", nomeusuario}, {"emailParaBusca", emailParaBusca}, {"email", email}, {"senha", senha}, {"perfil", perfil}};
 								
-				user = new Usuario();
-				
+				user = new Usuario();				
 				parametroVazio = false;
 				
 				System.out.println("RegraUsuarios, ATUALIZANDO USUARIO, VERIFICANDO O RECEBIMENTO DE PARÂMETROS...");
@@ -370,12 +321,9 @@ public class RegraUsuarios extends HttpServlet{
 				if(parametroVazio){
 					req.setAttribute("mensagem", "Preencha todos os campos");
 					req.setAttribute("user", user);
-					dispatcher = req.getRequestDispatcher("controller?action=formUsuario&tarefa="+tarefa);
-					//dispatcher.forward(req, resp);
-				}else{
-					
-					try{
-						
+					dispatcher = req.getRequestDispatcher("controller?action=usuarios");
+				}else{					
+					try{						
 						Usuario verificaUser = null;
 						
 						// Busca por usuários que possuam o EMAIL informado
@@ -384,11 +332,7 @@ public class RegraUsuarios extends HttpServlet{
 
 						// Caso encontrado, significa que foi encontrado um usuário com o EMAIL informado e
 						// Caso o LOGIN seja diferente do informado, significa, que o EMAIL encontrado é de outro usuário
-						if(verificaUser != null && !verificaUser.getLogin().equals(nomeusuario)){
-							
-							//req.setAttribute("mensagem", "Já existe o EMAIL informado");
-							//req.setAttribute("user", user);
-							
+						if(verificaUser != null && !verificaUser.getLogin().equals(nomeusuario)){							
 							resp.setContentType("text/plain");
 							resp.setCharacterEncoding("UTF-8");
 							resp.getWriter().write("Já existe o EMAIL informado!");
@@ -418,26 +362,14 @@ public class RegraUsuarios extends HttpServlet{
 								// Realiza a atualização
 								new UsuarioDAO().atualizar(user);
 							}
-							
-							//req.setAttribute("mensagem", "Usuário atualizado com sucesso");
 							resp.setContentType("text/plain");
 							resp.setCharacterEncoding("UTF-8");
 							resp.getWriter().write("Atualizado");
 						}
 					}catch(PersistenceException e){
-						//req.setAttribute("mensagem", "Falha ao atualizar dados");
 						resp.setContentType("text/plain");
 						resp.setCharacterEncoding("UTF-8");
 						resp.getWriter().write("Desculpe, houve uma falha ao atualizar!");
-						
-					// Reencaminha a requisição
-					}finally{
-						
-						// Recebe o destino do redirecionamento da requisição
-						//dispatcher = req.getRequestDispatcher("controller?action=formUsuario&tarefa="+tarefa);
-						
-						// Reencaminha a requisição
-						//dispatcher.forward(req, resp);
 					}
 				}
 				break;
@@ -445,23 +377,14 @@ public class RegraUsuarios extends HttpServlet{
 			case("excluirUsuario"):
 				System.out.println("RegraUsuarios, EXCLUINDO USUARIO...");
 			
-				// A EXCLUSÃO É FEITA PELA "PRIMARY KEY", OU SEJA, PELO ATRIBUTO "LOGIN"				
-				//email = req.getParameter("userEmail");
-				//nomeusuario = req.getParameter("userLogin");
+				// A EXCLUSÃO É FEITA PELA "PRIMARY KEY", OU SEJA, PELO ATRIBUTO "LOGIN"	
 				nomeusuario = req.getParameter("nomeusuario");
-				//if(email == null | email.isEmpty()){
 				System.out.println("RegraUsuarios, EXCLUINDO USUARIO, VERIFICANDO O RECEBIMENTO DE DADOS...");
 				if(req.getParameter("nomeusuario") == null || req.getParameter("nomeusuario").isEmpty()){
-					System.out.println("RegraUsuarios, EXCLUINDO USUARIO, DADOS NAO RECEBIDOS, Nome de Usuario NULO ou VAZIO.");
-					
+					System.out.println("RegraUsuarios, EXCLUINDO USUARIO, DADOS NAO RECEBIDOS, Nome de Usuario NULO ou VAZIO.");					
 					resp.setContentType("text/plain");
 					resp.setCharacterEncoding("UTF-8");
 					resp.getWriter().write("Informe o Nome de Usuário");
-					//dispatcher = req.getRequestDispatcher("controller?action=usuarios");
-					
-					//req.setAttribute("mensagem", "Informe o email");
-					//dispatcher = req.getRequestDispatcher("controller?action=formUsuario&tarefa="+tarefa);					
-					//dispatcher.forward(req, resp);
 				}
 				System.out.println("RegraUsuarios, EXCLUINDO USUARIO, DADOS RECEBIDOS.");
 				user = new Usuario();
@@ -470,45 +393,28 @@ public class RegraUsuarios extends HttpServlet{
 				try{					
 					// Realiza a exclusão
 					new UsuarioDAO().excluir(user);
-					System.out.println("RegraUsuarios, EXCLUINDO USUARIO, EXCLUSÃO REALIZADA.");
-					//req.setAttribute("mensagem", "Exclusão realizada com sucesso");
+					System.out.println("RegraUsuarios, EXCLUINDO USUARIO, EXCLUSAO REALIZADA.");
 					resp.setContentType("text/plain");
 					resp.setCharacterEncoding("UTF-8");
-					resp.getWriter().write("Exclusão realizada com sucesso");					
-					
+					resp.getWriter().write("Exclusão realizada com sucesso");
 				}catch(PersistenceException e){
-					System.out.println("RegraUsuarios, EXCLUINDO USUARIO, EXCLUSÃO NÃO REALIZADA: PersistenceException");
-					//req.setAttribute("mensagem", "Falha ao excluir o usuário");
+					System.out.println("RegraUsuarios, EXCLUINDO USUARIO, EXCLUSAO NAO REALIZADA: PersistenceException");
 					resp.setContentType("text/plain");
 					resp.setCharacterEncoding("UTF-8");
 					resp.getWriter().write("Falha ao excluir o usuário");					
 				}catch(NullPointerException e){
-					//req.setAttribute("mensagem", "Falha ao excluir o usuário");
-					System.out.println("RegraUsuarios, EXCLUINDO USUARIO, EXCLUSÃO NÃO REALIZADA: NullPointerException");
+					System.out.println("RegraUsuarios, EXCLUINDO USUARIO, EXCLUSAO NAO REALIZADA: NullPointerException");
 					resp.setContentType("text/plain");
 					resp.setCharacterEncoding("UTF-8");
-					resp.getWriter().write("Falha ao excluir o usuário: NULO");
-					
+					resp.getWriter().write("Falha ao excluir o usuário: NULO");					
 					System.out.println("Login nulo.");
 					e.printStackTrace();
 				}catch(IllegalArgumentException ex){
-					System.out.println("RegraUsuarios, EXCLUINDO USUARIO, EXCLUSÃO NÃO REALIZADA: IllegalArgumentException");
+					System.out.println("RegraUsuarios, EXCLUINDO USUARIO, EXCLUSAO NAO REALIZADA: IllegalArgumentException");
 					resp.setContentType("text/plain");
 					resp.setCharacterEncoding("UTF-8");
-					resp.getWriter().write("Falha ao excluir o usuário");					
-				// Reencaminha a requisição
-				}finally{
-					System.out.println("RegraUsuarios, EXCLUINDO USUARIO, Redirecionando URL...");
-					// Recebe o destino do redirecionamento da requisição					
-					//dispatcher = req.getRequestDispatcher("controller?action=usuarios");
-					//dispatcher.forward(req, resp); // APÓS TESTE COM AJAX QUANDO CADASTRAR
-					
-					//dispatcher = req.getRequestDispatcher("controller?action=formUsuario&tarefa="+tarefa);
-					
-					// Reencaminha a requisição
-					//dispatcher.forward(req, resp);
-				}
-				
+					resp.getWriter().write("Falha ao excluir o usuário");
+				}				
 				break;
 			case ("pegaPerfil"):
 				System.out.println("RegraUsuario, PEGANDO OS PERFIS...");
@@ -527,21 +433,14 @@ public class RegraUsuarios extends HttpServlet{
 				resp.setCharacterEncoding("UTF-8");
 				resp.getWriter().write(ajaxPerfis[0] + "," + ajaxPerfis[1] + "," + ajaxPerfis[2]);
 				break;
-			default:
-				
+			default:				
 				if(tarefa == null | tarefa.isEmpty()){
 					req.setAttribute("mensagem", "Não existe a tarefa ou é nula");
 				}else{
 					req.setAttribute("mensagem", "Não existe a tarefa " + tarefa);
 				}
-				
-				dispatcher = req.getRequestDispatcher("controller?action=formUsuario");
-				//dispatcher.forward(req, resp);
-				
+				dispatcher = req.getRequestDispatcher("controller?action=usuarios");
 				break;
 		}
-		
-		
-		//dispatcher.forward(req, resp);
 	}
 }

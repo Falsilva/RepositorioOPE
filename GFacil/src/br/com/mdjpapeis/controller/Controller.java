@@ -46,18 +46,18 @@ public class Controller extends HttpServlet{
 				break;
 			case "usuarios":
 				dispatcher = req.getRequestDispatcher("WEB-INF/paginas/cadusuarios.jsp");
-				break;			
-			case "formCliente":
-				dispatcher = req.getRequestDispatcher("WEB-INF/paginas/formCliente.jsp");
 				break;
-			case "formFornecedor":
-				dispatcher = req.getRequestDispatcher("WEB-INF/paginas/formFornecedor.jsp");
+			case "compra":
+				dispatcher = req.getRequestDispatcher("WEB-INF/paginas/pedidocompra.jsp");
 				break;
-			case "formUsuario":				
-				dispatcher = req.getRequestDispatcher("WEB-INF/paginas/formUsuario.jsp");
+			case "venda":
+				dispatcher = req.getRequestDispatcher("WEB-INF/paginas/pedidovenda.jsp");
 				break;
 			case "contas":
 				dispatcher = req.getRequestDispatcher("WEB-INF/paginas/contas.jsp");
+				break;
+			case "caixa":
+				dispatcher = req.getRequestDispatcher("WEB-INF/paginas/caixa.jsp");
 				break;
 			case "precos":
 				dispatcher = req.getRequestDispatcher("WEB-INF/paginas/precos.jsp");
@@ -77,6 +77,9 @@ public class Controller extends HttpServlet{
 			case "excluirCliente":
 				dispatcher = req.getRequestDispatcher("excluirCliente");
 				break;
+			case "separaEnderecoCliente":
+				dispatcher = req.getRequestDispatcher("separaEnderecoCliente");
+				break;
 			case "listarFornecedores":
 				dispatcher = req.getRequestDispatcher("listarFornecedores");
 				break;
@@ -91,6 +94,9 @@ public class Controller extends HttpServlet{
 				break;
 			case "excluirFornecedor":
 				dispatcher = req.getRequestDispatcher("excluirFornecedor");
+				break;
+			case "separaEnderecoFornecedor":
+				dispatcher = req.getRequestDispatcher("separaEnderecoFornecedor");
 				break;
 			case "listarUsuarios":
 				dispatcher = req.getRequestDispatcher("listarUsuarios");

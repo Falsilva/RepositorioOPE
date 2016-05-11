@@ -34,7 +34,9 @@ import br.com.mdjpapeis.entity.Usuario;
 		"/cadastrarUsuario", 
 		"/atualizarUsuario", 
 		"/excluirUsuario",
-		"/pegaPerfil"
+		"/pegaPerfil",
+		"/separaEnderecoCliente",
+		"/separaEnderecoFornecedor"
 		})
 public class Filtro implements Filter {
 

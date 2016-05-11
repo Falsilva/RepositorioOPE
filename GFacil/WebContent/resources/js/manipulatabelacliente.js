@@ -1,17 +1,27 @@
 $(document).ready(function(){
 	
 	// VARIÁVEIS GLOBAIS - necessárias para o armazenamento temporário dos dados originais da edição de registros da tabela de usuários
-	var nome_usuario_tmp;
-	var nome_tmp;
+	var codigo_tmp;
+	var empresa_tmp;
+	var contato_tmp;
+	var telefone_tmp;
 	var email_tmp;
-	var perfil_tmp;
+	var cep_tmp;
+	var endereco_tmp;
+	var numero_tmp;
+	var complemento_tmp;
+	var bairro_tmp;
+	var cidade_tmp;
+	var estado_tmp;
+	var cnpj_tmp;
+	var inscEstadual_tmp;
 
 	// MODAL PARA CADASTRAR - CLIQUE DO BOTÃO CADASTRAR EXIBE O MODAL
 	$("a[role=cadastrar]").click(function(event){
 		event.preventDefault();
 		
 		// Pega o Modal
-		var modal = $("#modal-form[rel=modalcadastrar]");
+		var modal = $("#modal-form-cliente[rel=modalcadastrar]");
 		
 		// Exibe o Modal Form Cadastrar
 		modal.modal();		
@@ -25,25 +35,37 @@ $(document).ready(function(){
 		var tr = $(this).closest("tr");
 		
 		// Pega as TDs da TR
-		var tdNomeUsuario = tr.find("td:first").prop("class", "hidden");
-		var tdNome = tdNomeUsuario.next("td");
-		var tdEmail = tdNome.next("td");
-		var tdPerfil = tdEmail.next("td");
+		var tdCodigo = tr.find("td:first").prop("class", "hidden");
+		var tdEmpresa = tdCodigo.next("td");
+		var tdContato = tdEmpresa.next("td");
+		var tdTelefone = tdContato.next("td");
+		var tdEmail = tdTelefone.next("td");
+		var tdEndereco = tdEmail.next("td");
+		var tdCnpj = tdEndereco.next("td");
+		var tdInscEstadual = tdCnpj.next("td");
 		
-		// Pega os Dados das TDs
-		var nomeusuario = tdNomeUsuario.text();
-		var nome = tdNome.text();
-		var email = tdEmail.text();
-		var perfil = tdPerfil.text();
+		// Pega os Dados das TDs		
+		var codigo = tdCodigo.text();
+		var empresa = tdEmpresa.text();
+		var contato = tdContato.text();
+		var telefone = tdTelefone.text();
+		var email = tdEmail.text();		
+		var endereco = tdEndereco.text();		
+		var cnpj = tdCnpj.text();
+		var inscEstadual = tdInscEstadual.text();
 		
 		// Pega o Modal
-		var modal = $("#modal-form[rel=modalexcluir]");
+		var modal = $("#modal-form-cliente[rel=modalexcluir]");
 		
 		// Coloca os Dados no Modal e de Forma Somente Leitura
-		modal.find("#nomeusuarioExcluir").prop("readonly", true).val(nomeusuario);
-		modal.find("#nomeExcluir").prop("readonly", true).val(nome);
-		modal.find("#emailExcluir").prop("readonly", true).val(email);
-		modal.find("#perfilExcluir").prop("disabled", true).val(perfil);		
+		modal.find("#codigo").val(codigo);
+		modal.find("#empresa").prop("readonly", true).val(empresa);
+		modal.find("#contato").prop("readonly", true).val(contato);
+		modal.find("#telefone").prop("readonly", true).val(telefone);
+		modal.find("#email").prop("readonly", true).val(email);
+		modal.find("#endereco").prop("readonly", true).val(endereco);
+		modal.find("#cnpj").prop("readonly", true).val(cnpj);
+		modal.find("#inscEstadual").prop("readonly", true).val(inscEstadual);
 		
 		// Exibe o Modal Form Excluir
 		modal.modal();		
@@ -51,162 +73,103 @@ $(document).ready(function(){
 	
 	// CLIQUE DO BOTÃO EDITAR DA LINHA DE UM REGISTRO DA TABELA
 	$("a[role=editar]").click(function(event){
-		event.preventDefault();		
+		event.preventDefault();
+		
+		// Limpando as varíáveis utilizadas para preservação de dados
+		codigo_tmp = "";
+		empresa_tmp = "";
+		contato_tmp = "";
+		telefone_tmp = "";
+		email_tmp = "";		
+		endereco_tmp = "";
+		cnpj_tmp = "";
+		inscEstadual_tmp = "";
 		
 		// Pega a TR
 		var tr = $(this).closest("tr");
 		
 		// Pega as TDs da TR
-		var tdNomeUsuario = tr.find("td:first").prop("class", "hidden");
-		var tdNome = tdNomeUsuario.next("td");
-		var tdEmail = tdNome.next("td");
-		var tdPerfil = tdEmail.next("td");
+		var tdCodigo = tr.find("td:first").prop("class", "hidden");
+		var tdEmpresa = tdCodigo.next("td");
+		var tdContato = tdEmpresa.next("td");
+		var tdTelefone = tdContato.next("td");
+		var tdEmail = tdTelefone.next("td");
+		var tdEndereco = tdEmail.next("td");
+		var tdCnpj = tdEndereco.next("td");
+		var tdInscEstadual = tdCnpj.next("td");
 		
-		// Pega os Dados das TDs
-		var nomeusuario = tdNomeUsuario.text();
-		var nome = tdNome.text();
-		var email = tdEmail.text();
-		var perfil = tdPerfil.text();
+		// Pega os Dados das TDs		
+		var codigo = tdCodigo.text();
+		var empresa = tdEmpresa.text();
+		var contato = tdContato.text();
+		var telefone = tdTelefone.text();
+		var email = tdEmail.text();		
+		var endereco = tdEndereco.text();		
+		var cnpj = tdCnpj.text();
+		var inscEstadual = tdInscEstadual.text();
 		
-		// Troca a Exibição dos Botões de Ações
-		var btnEditarEditar = $(this).addClass("hidden");
-		var btnEditarExcluir = btnEditarEditar.next("a[role=excluir]").addClass("hidden");
-		var btnEditarSalvar = btnEditarExcluir.next("a[role=salvar]").removeClass("hidden");
-		var btnEditarCancelar = btnEditarSalvar.next("a[role=cancelar]").removeClass("hidden");		
+		// Guarda os Dados para a Recuperação em Caso de Cancelar a Edição
+		codigo_tmp = codigo;
+		empresa_tmp = empresa;
+		contato_tmp = contato;
+		telefone_tmp = telefone;
+		email_tmp = email;		
+		endereco_tmp = endereco;
+		cnpj_tmp = cnpj;
+		inscEstadual_tmp = inscEstadual;
 		
-		// Coloca os Inputs nas TDs
-		tdNomeUsuario.html("<input type='text' name='nomeusuario' class='hidden'></input>").val(nomeusuario);
-		tdNome.html("<input type='text' name='nome'></input>").val(nome);
-		tdEmail.html("<input type='text' name='email'></input>").val(email);
-		tdPerfil.html("<select name='perfil'></select>"); // Os options são inseridos logo abaixo			
-	
-		// Coloca os Dados nos Inputs
-		tdNomeUsuario.find("input").val(nomeusuario);
-		tdNome.find("input").val(nome);
-		tdEmail.find("input").val(email);
+		// Pega o Modal
+		var modal = $("#modal-form-cliente[rel=modalatualizar]");
 		
-		// Coloca os Options com os Dados no Select (Campo Perfil)
-		var perfis;
-		$.ajax({			
-			url:"controller",
-			type:"post",
-			data:{
-				action:"pegaPerfil"
-			},
-			success:function(resultado){
-				// Montando um array de string com o resultado
-				perfis = resultado.split(",");								
-						
-				// Montando o campo Perfil com o array
-				var se = "";				
-				$.each(perfis, function(index, value){
-					if(perfil === value) se += "<option value='" + value + "' selected>" + value + "</option>";
-					else se += "<option value='" + value + "'>" + value + "</option>";					
-				});
-				
-				// Adicionando os options no select
-				tdPerfil.html("<select name='perfil'>" + se + "</select>");				
-			}
-		});
-	});
-	
-	// CLIQUE DO BOTÃO SALVAR - BOTÃO VISÍVEL NO MODO DE EDIÇÃO DE UM REGISTRO DA TABELA 
-	$("a[role=salvar]").click(function(event){
-		event.preventDefault();		
+		// Coloca os Dados no Modal
+		modal.find("#codigo").val(codigo);
+		modal.find("#empresa").val(empresa);
+		modal.find("#contato").val(contato);
+		modal.find("#telefone").val(telefone);
+		modal.find("#email").val(email);
 		
-		// Pega a TR
-		var tr = $(this).closest("tr");
-		
-		// Pega as TDs da TR
-		var tdNomeUsuario = tr.find("td:first").prop("class", "hidden");
-		var tdNome = tdNomeUsuario.next("td");
-		var tdEmail = tdNome.next("td");
-		var tdPerfil = tdEmail.next("td");
-		var tdAcoes = tdPerfil.next("td");
-		
-		// Pega os Dados dos Inputs das TDs
-		var nomeusuario = tdNomeUsuario.find("input").val();
-		var nome = tdNome.find("input").val();
-		var email = tdEmail.find("input").val();
-		var perfil = tdPerfil.find("option:selected").val();		
-		
-		// AJAX
+		// Recupera os dados do endereço em campos separados 
 		$.ajax({
 			url:"controller",
 			type:"post",
+			dataType:"json",
 			data:{
-				nome:nome,
-				email:email,
-				nomeusuario:nomeusuario,				
-				perfil:perfil,
-				action:"atualizarUsuario",
-				tarefa:"atualizar"
-			},
+				codigo:codigo,				
+				action:"separaEnderecoCliente"
+			},			
 			success:function(resultado){
-				
-				// Verificar se a resposta
-				if(resultado === "Atualizado"){					
-					console.log("SIM");
-					// Troca a Exibição dos Botões de Ações
-					var btnEditarCancelar = $("a[role=cancelar]").addClass("hidden");
-					var btnEditarSalvar = btnEditarCancelar.prev("a[role=salvar]").addClass("hidden");
-					var btnEditarExcluir = btnEditarSalvar.prev("a[role=excluir]").removeClass("hidden");
-					var btnEditarEditar = btnEditarExcluir.prev("a[role=editar]").removeClass("hidden");
-							
-					// Remove os Inputs das TDs e Coloca os Dados
-					tdNomeUsuario.html("").text(nomeusuario);
-					tdNome.html("").text(nome);
-					tdEmail.html("").text(email);
-					tdPerfil.html("").text(perfil);
-				}else{
-					alert("NÃO ATUALIZOU");										
-				}	
-			}
-		});		
+				modal.find("#endereco").val(resultado.dataEndereco[0].endereco);
+				modal.find("#numero").val(resultado.dataEndereco[0].numero);
+				modal.find("#complemento").val(resultado.dataEndereco[0].complemento);
+				modal.find("#bairro").val(resultado.dataEndereco[0].bairro);
+				modal.find("#cidade").val(resultado.dataEndereco[0].cidade);
+				modal.find("#estado").val(resultado.dataEndereco[0].estado);
+				modal.find("#cep").val(resultado.dataEndereco[0].cep);
+			}		
+		});
+		
+		modal.find("#cnpj").val(cnpj);
+		modal.find("#inscEstadual").val(inscEstadual);
+		
+		// Exibe o Modal Form Atualizar
+		modal.modal();
 	});
-	
-	// CLIQUE DO BOTÃO CANCELAR - BOTÃO VISÍVEL NO MODO DE EDIÇÃO DE UM REGISTRO DA TABELA
-	$("a[role=cancelar]").click(function(event){
-		event.preventDefault();		
-	
-		// Pega a TR
-		var tr = $(this).closest("tr");
 		
-		// Pega as TDs da TR
-		var tdNomeUsuario = tr.find("td:first").prop("class", "hidden");
-		var tdNome = tdNomeUsuario.next("td");
-		var tdEmail = tdNome.next("td");
-		var tdPerfil = tdEmail.next("td");
-		var tdAcoes = tdPerfil.next("td");
-		
-		// Pega os Dados dos Inputs das TDs
-		var nomeusuario = tdNomeUsuario.find("input").val();
-		var nome = tdNome.find("input").val();
-		var email = tdEmail.find("input").val();
-		var perfil = tdPerfil.find("option:selected").val();
-		
-		// Troca a Exibição dos Botões de Ações
-		var btnEditarCancelar = $(this).addClass("hidden");
-		var btnEditarSalvar = btnEditarCancelar.prev("a[role=salvar]").addClass("hidden");
-		var btnEditarExcluir = btnEditarSalvar.prev("a[role=excluir]").removeClass("hidden");
-		var btnEditarEditar = btnEditarExcluir.prev("a[role=editar]").removeClass("hidden");
-				
-		// Remove os Inputs das TDs e Coloca os Dados
-		tdNomeUsuario.html("").text(nomeusuario);
-		tdNome.html("").text(nome);
-		tdEmail.html("").text(email);
-		tdPerfil.html("").text(perfil);		
-	});
-	
 	// RECARREGA A PÁGINA AO FECHAR O MODAL CADASTRAR
-	$("#modal-form[rel=modalcadastrar]").on("hidden.bs.modal", function (){
+	$("#modal-form-cliente[rel=modalcadastrar]").on("hidden.bs.modal", function (){
 		console.log("Modal Cadastrar Encerrado");
 		location.reload();
 	});
 	
 	// RECARREGA A PÁGINA AO FECHAR O MODAL EXCLUIR
-	$("#modal-form[rel=modalexcluir]").on("hidden.bs.modal", function (){
+	$("#modal-form-cliente[rel=modalexcluir]").on("hidden.bs.modal", function (){
 		console.log("Modal Excluir Encerrado");
+		location.reload();
+	});
+	
+	// RECARREGA A PÁGINA AO FECHAR O MODAL ATUALIZAR
+	$("#modal-form-cliente[rel=modalatualizar]").on("hidden.bs.modal", function (){
+		console.log("Modal Atualizar Encerrado");
 		location.reload();
 	});
 });

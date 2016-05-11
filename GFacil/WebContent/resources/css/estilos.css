@@ -145,3 +145,18 @@
     width: 400px;
     margin: 30px auto;
 }
+
+/* ------------------------------------ MODAL FORMS PEDIDOS ------------------------------------ */
+#modal-form-pedido > .modal-dialog {
+    width: 600px;
+    margin: 30px auto;
+}
+.modal-body > .table > tbody > tr > td {
+    padding: 0 !important;
+}
+
+/* ------------------------------------ MODAL FORMS CLIENTE ------------------------------------ */
+#modal-form-cliente > .modal-dialog, #modal-form-fornecedor > .modal-dialog {
+    width: 630px;
+    margin: 30px auto;
+}

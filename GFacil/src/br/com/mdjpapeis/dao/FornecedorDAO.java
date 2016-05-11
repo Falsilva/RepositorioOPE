@@ -158,6 +158,34 @@ public class FornecedorDAO implements GenericoDAO<Fornecedor>{
 		
 		return forn;
 	}
+	
+	// BUSCA FORNECEDOR PELA INSCRIÇÃO ESTADUAL
+	public Fornecedor buscaFornecedorPorInscEstadual(Fornecedor fornecedor) {
+		EntityManagerFactory conexao = Persistence.createEntityManagerFactory("MDJPapeisPU");		
+		List<Fornecedor> fornecedores = null;
+		Fornecedor forn = null;
+		try{					
+			EntityManager entityManager = conexao.createEntityManager();					
+			if(fornecedor.getInscEstadual() != null & !fornecedor.getInscEstadual().isEmpty()){					
+				String queryJPQL =	"SELECT F FROM Fornecedor F WHERE F.inscEstadual LIKE :inscEstadual";
+				Query query = entityManager.createQuery(queryJPQL);
+				query.setParameter("inscEstadual", fornecedor.getInscEstadual());
+				fornecedores = (List<Fornecedor>)query.getResultList();					
+				if(fornecedores.size() != 0){
+					for(Fornecedor forn2 : fornecedores){
+						forn = forn2;
+					}
+				}
+			}				
+			entityManager.close();
+					
+		}catch(IllegalArgumentException ex){					
+			ex.printStackTrace();					
+		}finally{					
+			conexao.close();			
+			return forn;
+		}
+	}
 		
 	// LISTA FORNECEDORES PELA EMPRESA
 	public List<Fornecedor> buscaFornecedorPorEmpresa(Fornecedor fornecedor){

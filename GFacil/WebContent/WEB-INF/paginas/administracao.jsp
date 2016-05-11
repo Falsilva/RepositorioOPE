@@ -57,267 +57,8 @@
 			
 			<!-- BOTÕES DA BARRA DE NAVEGAÇÃO -->
 			<div class="navbar-buttons navbar-header pull-right" role="navigation">
-				<ul class="nav ace-nav">
-					
-					<!-- BOTÃO CINZA DE TAREFAS -->
-					<li class="grey">
-					
-						<!-- DESIGN DO BOTÃO -->
-						<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-						
-							<!-- ÍCONE DA TAREFA -->
-							<i class="ace-icon fa fa-tasks"></i>
-							
-							<!-- QUANTIDADE DE TAREFAS PENDENTES - BUSCA OS DADOS NO BANCO -->
-							<span class="badge badge-grey">4</span>
-						</a>
-						
-						<!-- LISTA DE OPÇÕES DO BOTÃO DE TAREFAS -->
-						<ul class="dropdown-menu dropdown-menu-right dropdown-navbar navbar-grey dropdown-caret dropdown-close">
-							
-							<!-- ITEM 1 - CABEÇALHO DOS ITENS DA LISTA -->
-							<li class="dropdown-header">
-								<i class="ace-icon fa fa-check"></i> 4 Tarefas pendentes
-							</li>
-							
-							<!-- ITEM 2 - CORPO DOS ITENS DA LISTA -->
-							<li class="dropdown-content">
-							
-								<!-- TAREFAS PENDENTES - BARRAS DE PROGRESSO -->
-								<ul class="dropdown-menu dropdown-navbar navbar-grey">																		
-									<li>
-										<a href="#">
-											<div class="clearfix">
-												<span class="pull-left">Atualização do Software</span>
-												<span class="pull-right">65%</span>
-											</div>
-											<div class="progress progress-mini">
-												<div style="width:65%" class="progress-bar"></div>
-											</div>
-										</a>
-									</li>									
-									<li>
-										<a href="#">
-											<div class="clearfix">
-												<span class="pull-left">Atualização do Hardware</span>
-												<span class="pull-right">35%</span>
-											</div>
-											<div class="progress progress-mini">
-												<div style="width:35%" class="progress-bar progress-bar-danger"></div>
-											</div>
-										</a>
-									</li>									
-									<li>
-										<a href="#">
-											<div class="clearfix">
-												<span class="pull-left">Teste Unitário</span>
-												<span class="pull-right">15%</span>
-											</div>
-											<div class="progress progress-mini">
-												<div style="width:15%" class="progress-bar progress-bar-warning"></div>
-											</div>
-										</a>
-									</li>									
-									<li>
-										<a href="#">
-											<div class="clearfix">
-												<span class="pull-left">Resoluções de Bugs</span>
-												<span class="pull-right">90%</span>
-											</div>
-											<div class="progress progress-mini progress-striped active">
-												<div style="width:90%" class="progress-bar progress-bar-success"></div>
-											</div>
-										</a>
-									</li>
-								</ul>
-							</li>
-							
-							<!-- ITEM 3 - RODAPÉ DOS ITENS DA LISTA -->
-							<li class="dropdown-footer">
-								<a href="#">
-									Veja todos os detalhes <i class="ace-icon fa fa-arrow-right"></i>
-								</a>
-							</li>
-						</ul>
-					</li>
-					
-					<!-- BOTÃO PINK DE NOTIFICAÇÕES -->
-					<li class="purple">
-					
-						<!-- DESIGN DO BOTÃO -->
-						<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-							<i class="ace-icon fa fa-bell icon-animated-bell"></i>
-							<span class="badge badge-important">8</span>
-						</a>
-						
-						<!-- LISTA DE OPÇÕES DO BOTÃO DE NOTIFICAÇÕES -->
-						<ul class="dropdown-menu dropdown-menu-right dropdown-navbar navbar-pink dropdown-caret dropdown-close">						
-							
-							<!-- ITEM 1 - CABEÇALHO DOS ITENS DA LISTA -->
-							<li class="dropdown-header">
-								<i class="ace-icon fa fa-exclamation-triangle"></i> 8 Notificações
-							</li>
-							
-							<!-- ITEM 2 - CORPO DOS ITENS DA LISTA -->
-							<li class="dropdown-content">
-							
-								<!-- NOTIFICAÇÕES -->
-								<ul class="dropdown-menu dropdown-navbar navbar-pink">
-									<li>
-										<a href="#">
-											<div class="clearfix">
-												<span class="pull-left">
-													<i class="btn btn-xs btn-pink no-hover fa fa-comment"></i> Novos Comentários
-												</span>
-												<span class="pull-right badge badge-info">+12</span>
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<i class="btn btn-xs btn-primary fa fa-user"></i> Bob cadastrou-se como Editor
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<div class="clearfix">
-												<span class="pull-left">
-													<i class="btn btn-xs btn-success no-hover fa fa-shopping-cart"></i> Novos Pedidos
-												</span>
-												<span class="pull-right badge badge-success">+8</span>
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<div class="clearfix">
-												<span class="pull-left">
-													<i class="btn btn-xs btn-info no-hover fa fa-twitter"></i> Seguidores
-												</span>
-												<span class="pull-right badge badge-info">+11</span>
-											</div>
-										</a>
-									</li>									
-								</ul>
-							</li>
-							
-							<!-- ITEM 3 - RODAPÉ DOS ITENS DA LISTA -->
-							<li class="dropdown-footer">
-								<a href="#">
-									Veja todas as notificações <i class="ace-icon fa fa-arrow-right"></i>
-								</a>
-							</li>
-						</ul>
-					</li>
-					
-					<!-- BOTÃO VERDE DE EMAILS -->
-					<li class="green">
-						
-						<!-- DESIGN DO BOTÃO -->
-						<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-							<i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
-							<span class="badge badge-success">5</span>
-						</a>
-						
-						<!-- LISTA DE OPÇÕES DO BOTÃO DE EMAILS -->
-						<ul class="dropdown-menu dropdown-menu-right dropdown-navbar navbar-green dropdown-caret dropdown-close">
-							
-							<!-- ITEM 1 - CABEÇALHO DOS ITENS DA LISTA -->
-							<li class="dropdown-header">
-								<i class="ace-icon fa fa-envelope-o"></i> 5 Mensagens
-							</li>
-							
-							<!-- ITEM 2 - CORPO DOS ITENS DA LISTA -->
-							<li class="dropdown-content">
-							
-								<!-- EMAILS -->
-								<ul class="dropdown-menu dropdown-navbar navbar-green">
-									<li>
-										<a class="clearfix" href="#">
-											<img src="resources/avatars/avatar.png" class="msg-photo" alt="Avatar do Alex" />
-											<span class="msg-body">
-												<span class="msg-title">
-													<span class="blue">Alex:</span> João de Santo Cristo mesmo autor...
-												</span>
-												<span class="msg-time">
-													<i class="ace-icon fa fa-clock-o"></i>
-													<span>&nbsp;um momento atrás</span>
-												</span>
-											</span>
-										</a>
-									</li>
-									<li>
-										<a class="clearfix" href="#">
-											<img src="resources/avatars/avatar3.png" class="msg-photo" alt="Avatar da Susana" />
-											<span class="msg-body">
-												<span class="msg-title">
-													<span class="blue">Susana:</span>
-													Desempenho do vestibular no portão de entrada...
-												</span>
-												<span class="msg-time">
-													<i class="ace-icon fa fa-clock-o"></i>
-													<span>&nbsp;20 minutos atrás</span>
-												</span>
-											</span>										
-										</a>
-									</li>
-									<li>
-										<a class="clearfix" href="#">
-											<img src="resources/avatars/avatar4.png" class="msg-photo" alt="Avatar do Bob" />
-											<span class="msg-body">
-												<span class="msg-title">
-													<span class="blue">Bob:</span>
-													A imigrição precisa ser vista com um pouco mais de suavidade...
-												</span>
-												<span class="msg-time">
-													<i class="ace-icon fa fa-clock-o"></i>
-													<span>&nbsp;3:15 pm</span>
-												</span>
-											</span>										
-										</a>
-									</li>
-									<li>
-										<a href="#" class="clearfix">
-											<img src="resources/avatars/avatar2.png" class="msg-photo" alt="Avatar da Kate" />
-											<span class="msg-body">
-												<span class="msg-title">
-													<span class="blue">Kate:</span>
-													Caros amigos, se houverem a necessidade de dar boas risadas...
-												</span>
-												<span class="msg-time">
-													<i class="ace-icon fa fa-clock-o"></i>
-													<span>&nbsp;1:33 pm</span>
-												</span>
-											</span>
-										</a>
-									</li>
-									<li>
-										<a href="#" class="clearfix">
-											<img src="resources/avatars/avatar5.png" class="msg-photo" alt="Avatar do Fred" />
-											<span class="msg-body">
-												<span class="msg-title">
-													<span class="blue">Fred:</span>
-													Desempenho no vestibular pelo autor...
-												</span>
-												<span class="msg-time">
-													<i class="ace-icon fa fa-clock-o"></i>
-													<span>&nbsp;10:09 am</span>
-												</span>
-											</span>
-										</a>
-									</li>								
-								</ul>
-							</li>
-							
-							<!-- ITEM 3 - RODAPÉ DOS ITENS DA LISTA -->
-							<li class="dropdown-footer">
-								<a href="#">
-									Veja todas as mensagens <i class="ace-icon fa fa-arrow-right"></i>
-								</a>
-							</li>
-						</ul>
-					</li>
-					
+				<ul class="nav ace-nav">				
+										
 					<!-- BOTÃO AZUL COM NOME DE USUÁRIO -->
 					<li class="azul-escuro-nosso">
 					
@@ -336,11 +77,10 @@
 								<a href="#" onclick="document.getElementById('form_logout').submit()">
 									<form id="form_logout" action="controller?action=logout" method="post"></form>									
 									<i class="ace-icon fa fa-power-off"></i> Sair																
-								</a>
-												
+								</a>												
 							</li>
 						</ul>
-					</li>					
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -456,7 +196,8 @@
 					<!-- SUBMENU DO ITEM PEDIDOS -->
 					<ul class="submenu">
 						<li class="">
-							<a href="#">
+							<a href="#" onclick="document.getElementById('form_compra').submit()">
+								<form id="form_compra" action="controller?action=compra" method="post"></form>
 								<i class="menu-icon fa fa-caret-right"></i> Compra 
 								<span class="badge badge-transparent">
 									<i class="ace-icon fa fa-cart-arrow-down red bigger-130"></i>
@@ -465,7 +206,8 @@
 							<b class="arrow"></b>
 						</li>
 						<li class="">
-							<a href="#">
+							<a href="#" onclick="document.getElementById('form_venda').submit()">
+								<form id="form_venda" action="controller?action=venda" method="post"></form>
 								<i class="menu-icon fa fa-caret-right"></i>	Venda
 								<span class="badge badge-transparent">									
 									<i class="ace-icon fa fa-cart-plus green bigger-130"></i>
@@ -476,26 +218,17 @@
 					</ul>
 				</li>
 				
-				<!-- ITEM 4 -- CONTAS -->
+				<!-- ITEM 4 -- CAIXA -->
 				<li class="">
-					<a href="#" onclick="document.getElementById('form_contas').submit()">
-						<form id="form_contas" action="controller?action=contas" method="post"></form>					
-						<i class="menu-icon fa fa-credit-card"></i>
-						<span class="menu-text"> Contas </span>
-					</a>
-					<b class="arrow"></b>
-				</li>
-				
-				<!-- ITEM 5 -- CAIXA -->
-				<li class="">
-					<a href="#">
+					<a href="#" onclick="document.getElementById('form_caixa').submit()">
+						<form id="form_caixa" action="controller?action=caixa" method="post"></form>
 						<i class="menu-icon fa fa-money"></i>
 						<span class="menu-text"> Caixa </span>
 					</a>
 					<b class="arrow"></b>
 				</li>
 				
-				<!-- ITEM 6 -- TABELA DE PREÇOS -->
+				<!-- ITEM 5 -- TABELA DE PREÇOS -->
 				<li class="">
 					<a href="#" onclick="document.getElementById('form_precos').submit()">
 						<form id="form_precos" action="controller?action=precos" method="post"></form>
@@ -503,75 +236,7 @@
 						<span class="menu-text"> Tabela de Preços </span>
 					</a>
 					<b class="arrow"></b>
-				</li>
-				<!-- 
-				<!-- ITEM 7 -- E-MAIL 
-				<li class="">
-					<a href="#" class="dropdown-toggle">
-						<i class="menu-icon fa fa-envelope-o"></i>
-						<span class="menu-text"> E-Mail </span>
-						<b class="arrow fa fa-angle-down"></b>
-					</a>
-					<b class="arrow"></b>
-
-					<!-- SUBMENU DO ITEM E-MAIL 
-					<ul class="submenu">	
-						<li class="">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i> Escrever
-								<span class="badge badge-transparent">									
-									<i class="ace-icon fa fa-pencil blue bigger-130"></i>
-								</span>
-							</a>
-							<b class="arrow"></b>
-						</li>					
-						<li class="">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i> Entrada
-								<span class="badge badge-transparent">									
-									<i class="ace-icon fa fa-inbox blue bigger-130"></i>
-								</span>
-							</a>
-							<b class="arrow"></b>
-						</li>
-						<li class="">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i> Enviados
-								<span class="badge badge-transparent">									
-									<i class="ace-icon fa fa-external-link blue bigger-130"></i>
-								</span>
-							</a>
-							<b class="arrow"></b>
-						</li>
-						<li class="">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i> Rascunhos
-								<span class="badge badge-transparent">									
-									<i class="ace-icon fa fa-file-text-o blue bigger-130"></i>
-								</span>
-							</a>
-							<b class="arrow"></b>
-						</li>						
-					</ul>
-				</li>
-				
-				<!-- ITEM 8 -- MAPA GERAL 
-				<li class="">
-					<a href="#">
-						<i class="menu-icon fa fa-map-o"></i>
-						<span class="menu-text"> Mapa Geral</span>							
-					</a>
-					<b class="arrow"></b>
-				</li>
-				
-				<!-- ITEM 9 -- CALENDÁRIO 
-				<li class="">
-					<a href="#">
-						<i class="menu-icon fa fa-calendar"></i>
-						<span class="menu-text"> Calendário</span>							
-					</a>
-					<b class="arrow"></b>
-				</li>-->
+				</li>				
 			</ul>
 			<!-- FIM -- LISTA DE ITENS DO MENU -->
 			
@@ -627,27 +292,28 @@
 								<button type="button" class="close" data-dismiss="alert">
 									<i class="ace-icon fa fa-times"></i>
 								</button>
-								<i class="ace-icon fa fa-check green"></i> Aqui é onde tudo começa! Nesta página, você possui uma visão geral do que é mais importante para gerenciar melhor o seu negócio, como notificações importantes, tarefas pendentes, o saldo em caixa e uma visão gráfica de como anda o faturamento, além de acesso ao menu com as principais funcionalidades que sempre o acompanha durante a navegação do sistema.
+								<i class="ace-icon fa fa-check green"></i> Aqui é onde tudo começa! Nesta página, você possui uma visão geral do que é mais importante para gerenciar melhor o seu negócio, como o saldo em caixa e uma visão gráfica de como anda o balanço geral, além de acesso ao menu com as principais funcionalidades que sempre o acompanha durante a navegação do sistema.
+								<!-- MENSAGEM, SE HOUVER ALERTAS: Aqui é onde tudo começa! Nesta página, você possui uma visão geral do que é mais importante para gerenciar melhor o seu negócio, como notificações importantes, tarefas pendentes, o saldo em caixa e uma visão gráfica de como anda o faturamento, além de acesso ao menu com as principais funcionalidades que sempre o acompanha durante a navegação do sistema. -->
 							</div>
 						</div>
 					</div>					
 					<!-- FIM -- MENSAGEM DE APRESENTAÇÃO DA VISÃO GERAL - DASHBOARD -->
 					
-					<!-- NOTIFICAÇÕES -->
+					<!-- NOTIFICAÇÕES 
 					<div class="row">
 						<div class="col-xs-12">						
 							<div class="widget-box transparent">
 							
-								<!-- TÍTULO DOS PAINÉIS -->
+								<!-- TÍTULO DOS PAINÉIS 
 		                		<div class="widget-header widget-header-flat">									
 				                    <h3 class="widget-title lighter"><strong>Avisos</strong></h3>
 				                </div>
 				                
-				                <!-- PAINÉIS -->
+				                <!-- PAINÉIS 
 				                <div class="widget-body">
 									<div class="widget-main no-padding">
 									
-										<!-- PAINEL DE NOTIFICAÇÕES IMPORTANTES -->		                    
+										<!-- PAINEL DE NOTIFICAÇÕES IMPORTANTES 		                    
 					                    <div class="col-lg-3 col-md-6">
 					                        <div class="panel-nosso panel-red-nosso">
 					                            <div class="panel-heading-nosso">
@@ -671,7 +337,7 @@
 					                        </div>
 					                    </div>
 					                    
-					                    <!-- PAINEL DE TAREFAS -->
+					                    <!-- PAINEL DE TAREFAS 
 					                    <div class="col-lg-3 col-md-6">
 					                        <div class="panel-nosso panel-green-nosso">
 					                            <div class="panel-heading-nosso">
@@ -695,7 +361,7 @@
 					                        </div>
 					                    </div>
 					                    
-					                    <!-- PAINEL DE PEDIDOS PENDENTES -->
+					                    <!-- PAINEL DE PEDIDOS PENDENTES 
 					                    <div class="col-lg-3 col-md-6">
 					                        <div class="panel-nosso panel-yellow-nosso">
 					                            <div class="panel-heading-nosso">
@@ -741,7 +407,7 @@
 					                                </div>
 					                            </a>
 					                        </div>
-					                    </div> -->		                    			
+					                    </div> 		                    			
 		                    		</div>
 		                    	</div>
 		                    </div>
@@ -775,17 +441,17 @@
 								</div>
 	                		</div>
 	                		 
-	                		<!-- CAIXA - ÚLTIMOS LANÇAMENTOS -->
+	                		<!-- CAIXA - ÚLTIMOS LANÇAMENTOS 
 	                		<div class="widget-box transparent">
 			                    
-								<!-- TÍTULO DOS LANÇAMENTOS -->
+								<!-- TÍTULO DOS LANÇAMENTOS 
 		                		<div class="widget-header widget-header-flat">
 									<h3 class="widget-title lighter">
 										<i class="ace-icon fa fa-money"></i><strong> Caixa - Últimos Lançamentos</strong>
 									</h3>
 								</div>
 								
-								<!-- LANÇAMENTOS -->
+								<!-- LANÇAMENTOS 
 		                        <div class="widget-body">
 									<div class="widget-main no-padding">
 										<table class="table table-bordered table-striped">
@@ -793,8 +459,8 @@
 			                                	<tr>
 			                                    	<th>Item</th>
 			                                        <th>Data</th>
-			                                        <th>Lançamento</th>
-			                                        <th>Valor</th>
+			                                        <th>Descrição</th>
+			                                        <th>Valor (R$)</th>
 			                                	</tr>
 		                           			</thead>
 			                           		<tbody>
@@ -853,7 +519,7 @@
 		                    	<div class="text-right">
 		                        	<h5><a href="#">Ver o caixa <i class="fa fa-arrow-circle-right"></i></a></h5>
 		                    	</div>
-		                    </div>
+		                    </div> -->
 	                    </div>
 	                    <!-- FIM -- SALDO -- CAIXA - ÚLTIMOS LANÇAMENTOS -->
 	                    
@@ -864,7 +530,7 @@
 								<!-- TÍTULO DO GRÁFICO -->
 								<div class="widget-header widget-header-flat">
 									<h3 class="widget-title lighter">
-										<i class="ace-icon fa fa-signal"></i><strong> Faturamento</strong>
+										<i class="ace-icon fa fa-signal"></i><strong> Balanço Geral</strong>
 									</h3>
 								</div>
 								

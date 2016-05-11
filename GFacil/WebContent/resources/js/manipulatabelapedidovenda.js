@@ -11,7 +11,7 @@ $(document).ready(function(){
 		event.preventDefault();
 		
 		// Pega o Modal
-		var modal = $("#modal-form[rel=modalcadastrar]");
+		var modal = $("#modal-form-pedido[rel=modalcadastrar]");
 		
 		// Exibe o Modal Form Cadastrar
 		modal.modal();		
@@ -68,15 +68,13 @@ $(document).ready(function(){
 		var tdPerfil = tdEmail.next("td");
 		
 		// Pega os Dados das TDs
-		var nomeusuario = tdNomeUsuario.text();		
-		var nome = tdNome.text();		
-		var email = tdEmail.text();		
-		var perfil = tdPerfil.text();
-		
-		// Guarda os Dados para a Recuperação em Caso de Cancelar a Edição
+		var nomeusuario = tdNomeUsuario.text();
 		nome_usuario_tmp = tdNomeUsuario.text();
+		var nome = tdNome.text();
 		nome_tmp = tdNome.text();
+		var email = tdEmail.text();
 		email_tmp = tdEmail.text();
+		var perfil = tdPerfil.text();
 		perfil_tmp = tdPerfil.text();
 		
 		// Troca a Exibição dos Botões de Ações

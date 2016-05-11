@@ -160,6 +160,42 @@ public class ClienteDAO implements GenericoDAO<Cliente>{
 		}
 	}
 	
+	// BUSCA CLIENTE PELA INSCRIÇÃO ESTADUAL
+	public Cliente buscaClientePorInscEstadual(Cliente cliente) {
+		EntityManagerFactory conexao = Persistence.createEntityManagerFactory("MDJPapeisPU");		
+		List<Cliente> clientes = null;
+		Cliente cli = null;
+		try{
+				
+			EntityManager entityManager = conexao.createEntityManager();
+				
+			if(cliente.getInscEstadual() != null & !cliente.getInscEstadual().isEmpty()){
+				
+				String queryJPQL =	"SELECT C FROM Cliente C WHERE C.inscEstadual LIKE :inscEstadual";
+				Query query = entityManager.createQuery(queryJPQL);
+				query.setParameter("inscEstadual", cliente.getInscEstadual());
+				clientes = (List<Cliente>)query.getResultList();
+				
+				if(clientes.size() != 0){
+					for(Cliente cli2 : clientes){
+						cli = cli2;
+					}
+				}
+			}
+			
+			entityManager.close();
+				
+		}catch(IllegalArgumentException ex){
+				
+			ex.printStackTrace();
+				
+		}finally{
+				
+			conexao.close();			
+			return cli;
+		}
+	}
+	
 	// LISTA CLIENTES PELA EMPRESA
 	public List<Cliente> buscaClientePorEmpresa(Cliente cliente){
 			
@@ -191,5 +227,5 @@ public class ClienteDAO implements GenericoDAO<Cliente>{
 			conexao.close();			
 			return clientes;
 		}			
-	}	
+	}		
 }
