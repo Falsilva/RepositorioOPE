@@ -59,11 +59,23 @@ public class Controller extends HttpServlet{
 			case "caixa":
 				dispatcher = req.getRequestDispatcher("WEB-INF/paginas/caixa.jsp");
 				break;
-			case "precos":
+			case "produtos":
 				dispatcher = req.getRequestDispatcher("WEB-INF/paginas/precos.jsp");
 				break;
 			case "listarProdutos":
 				dispatcher = req.getRequestDispatcher("listarProdutos");
+				break;
+			case "pesquisarProduto":
+				dispatcher = req.getRequestDispatcher("pesquisarProduto");
+				break;
+			case "cadastrarProduto":
+				dispatcher = req.getRequestDispatcher("cadastrarProduto");
+				break;
+			case "atualizarProduto":
+				dispatcher = req.getRequestDispatcher("atualizarProduto");
+				break;
+			case "excluirProduto":
+				dispatcher = req.getRequestDispatcher("excluirProduto");
 				break;
 			case "listarClientes":
 				dispatcher = req.getRequestDispatcher("listarClientes");

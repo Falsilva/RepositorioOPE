@@ -326,156 +326,312 @@
 										<i class="ace-icon fa fa-plus bigger-130">&nbsp;<i class="ace-icon fa fa-dollar bigger-130"></i></i>Novo
 									</a>
 								</div>
-							</div>															                	
-	                	
-		                	<div class="widget-box transparent">
-				                    
-								<!-- TÍTULO DOS PREÇOS -->
-			                	<div class="widget-header widget-header-flat">
-									<h3 class="widget-title lighter">
-										<i class="ace-icon fa fa-dollar"></i><strong> Preços Comercializados</strong>
-									</h3>
-								</div>
-									
-								<!-- PREÇOS -->
-			                    <div class="widget-body">
-									<div class="widget-main no-padding">
-										<table class="table table-bordered table-striped">
-											<thead class="thin-border-bottom">
-				                               	<tr>
-				                                   	<th>Cód.</th>
-				                                    <th>Material</th>
-				                                    <th>Vlr. Compra (R$ / kg)</th>
-				                                    <th>Vlr. Venda (R$ / kg)</th>
-				                                    <th>Ações</th>
-				                              	</tr>
-			                       			</thead>
-			                       			<!-- 
-			                       				Plásticos:
-												Plástico Rígido
-												Aparas Limpas (ou Plástico PE)
-												Plástico Colorido Limpo
-												Plástico Colorido com Tinta
-												Plástico Sujo
-												Plástico PP
+							</div>										                	
+	                		                		
+	                		<!-- JSTL -- CONDIÇÃO PARA EXIBIR A TABELA -->							
+							<c:choose>
+								<c:when test="${not empty produtos}">
+								<!-- CASO HAJA PRODUTO -->
+								
+									<!-- RESULTADO DO NÚMEROS DE PRODUTOS -->
+									<div class="table-header">
+										<strong>Resultado: " ${produtos.size()} produto(s) cadastrado(s) "</strong>
+									</div>	                		
+	                			                		
+				                	<div class="widget-box transparent">
+						                    
+										<!-- TÍTULO DOS PREÇOS -->
+					                	<div class="widget-header widget-header-flat">
+											<h3 class="widget-title lighter">
+												<i class="ace-icon fa fa-dollar"></i><strong> Preços Comercializados</strong>
+											</h3>
+										</div>
+											
+										<!-- PREÇOS -->
+					                    <div class="widget-body">
+											<div class="widget-main no-padding">
+											
+												<!-- TABELA -->
+												<table class="table table-bordered table-striped">
 												
-												Metal (obs.: não trabalha com Cobre):
-												Panela
-												Latinha
-												Perfil
-												Metal (Isso é um tipo de classificação)
-												Bloco Metal
-												Torneira
-												Alumínio
-												Chumbo
-												Outros Tipos (Raro, que não gera grande volume)
-												
-												Papel:
-												Papel Branco
-												Livro
-												Revista
-												Jornal
-												Papelão (não compra, mas aparece quando gerado da escolha)			                       			
-			                       			 -->
-				                       		<tbody>
-				                       			<tr>
-				                                   	<td class="text-right"><b>1</b></td>
-				                                    <td><b>Plástico</b></td>
-				                                    <td class="text-right"><b class="blue">10,00</b></td>
-				                                    <td class="text-right"><b class="green">15,00</b></td>
-				                                    
-				                                    <!-- COLUNA DE AÇÕES -->
-													<td>														
-														<!-- EXIBIÇÃO EM TELAS GRANDES -->															
-														<div class="hidden-sm hidden-xs action-buttons">
-																	
-															<!-- BOTÃO EDITAR -->													
-															<a href="#" role="editar">
-																<span class="green">
-																	<i class="ace-icon fa fa-pencil bigger-130"></i>
-																</span>
-															</a>
-																	
-															<!-- BOTÃO EXCLUIR -->
-															<a href="#" role="excluir">
-																<span class="red">
-																	<i class="ace-icon fa fa-trash-o bigger-130"></i>
-																</span>
-															</a>
-															
-															<!-- BOTÃO SALVAR -->													
-															<a href="#" role="salvar" class="hidden">
-																<span class="blue">
-																	<i class="ace-icon fa fa-save bigger-130"></i>
-																</span>
-															</a>
-															
-															<!-- BOTÃO EXCLUIR -->
-															<a href="#" role="cancelar" class="hidden">
-																<span class="red">
-																	<i class="ace-icon fa fa-close bigger-130"></i>
-																</span>
-															</a>																
-																	
-															</div>
-	
-															<!-- EXIBIÇÃO EM TELAS PEQUENAS -->
-															<div class="hidden-md hidden-lg action-buttons">
-																<div class="inline pos-rel">
-																	
-																<!-- BOTÃO DROPDOWN-TOGGLE AMARELO -->
-																<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto">
-																	<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
-																</button>																	
-																		
-																<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">																	
-																	
-																	<!-- BOTÃO EDITAR -->
-																	<li>
-																		<a href="#" class="tooltip-success" data-rel="tooltip" title="Editar" role="editar">
+													<!-- CABEÇALHO DA TABELA -->
+													<thead class="thin-border-bottom">
+						                               	<tr>
+						                                   	<th class="hidden">Cód.</th>
+						                                    <th>Produto</th>
+						                                    <th>Vlr. Compra (R$ / kg)</th>
+						                                    <th>Vlr. Venda (R$ / kg)</th>
+						                                    <th>Ações</th>
+						                              	</tr>
+					                       			</thead>					                       			
+					                       			
+					                       			<!-- CORPO DA TABELA - REGISTROS E BOTÕES DE FUNCIONALIDADES -->
+						                       		<tbody>
+						                       		
+						                       			<!-- MONTA AS LINHAS CONFORME A EXISTÊNCIA DE PRODUTOS -->
+														<c:forEach var="produto" items="${produtos}">
+															<tr>														
+																<!-- COLUNA ESCONDIDA DE CÓDIGO DOS REGISTROS -->
+																<td class="text-right hidden">${produto.codigo}</td>
+																
+																<!-- COLUNAS DE REGISTROS -->
+																<td><b>${produto.produto}</b></td>
+																<td class="text-right"><b class="blue">${produto.precoCompra}</b></td>
+																<td class="text-right"><b class="green">${produto.precoVenda}</b></td>
+						                                    
+							                                    <!-- COLUNA DE AÇÕES -->
+																<td>														
+																	<!-- EXIBIÇÃO EM TELAS GRANDES -->															
+																	<div class="hidden-sm hidden-xs action-buttons">
+																				
+																		<!-- BOTÃO EDITAR -->													
+																		<a href="#" role="editar">
 																			<span class="green">
-																				<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+																				<i class="ace-icon fa fa-pencil bigger-130"></i>
 																			</span>
 																		</a>
-																	</li>
-																			
-																	<!-- BOTÃO EXCLUIR -->
-																	<li>
-																		<a href="#" class="tooltip-error" data-rel="tooltip" title="Excluir" role="excluir">
+																				
+																		<!-- BOTÃO EXCLUIR -->
+																		<a href="#" role="excluir">
 																			<span class="red">
-																				<i class="ace-icon fa fa-trash-o bigger-120"></i>
+																				<i class="ace-icon fa fa-trash-o bigger-130"></i>
 																			</span>
 																		</a>
-																	</li>
-																			
-																	<!-- BOTÃO SALVAR -->
-																	<li>																																
-																		<a href="#" class="tooltip-success hidden" data-rel="tooltip" title="Salvar" role="salvar">
+																		
+																		<!-- BOTÃO SALVAR -->													
+																		<a href="#" role="salvar" class="hidden">
 																			<span class="blue">
-																				<i class="ace-icon fa fa-save bigger-120"></i>
+																				<i class="ace-icon fa fa-save bigger-130"></i>
 																			</span>
 																		</a>
-																	</li>
-																			
-																	<!-- BOTÃO CANCELAR -->
-																	<li>
-																		<a href="#" class="tooltip-error hidden" data-rel="tooltip" title="Cancelar" role="cancelar">
+																		
+																		<!-- BOTÃO EXCLUIR -->
+																		<a href="#" role="cancelar" class="hidden">
 																			<span class="red">
-																				<i class="ace-icon fa fa-close bigger-120"></i>
+																				<i class="ace-icon fa fa-close bigger-130"></i>
 																			</span>
-																		</a>
-																	</li>																		
-																</ul>																	
-															</div>
-														</div>															
-													</td>
-													<!-- COLUNA DE AÇÕES -->
-				                                </tr>			                                
-				                            </tbody>
-				                       	</table>
-				                    </div>
-			                    </div>
-			                </div>
+																		</a>																
+																				
+																		</div>
+				
+																		<!-- EXIBIÇÃO EM TELAS PEQUENAS -->
+																		<div class="hidden-md hidden-lg action-buttons">
+																			<div class="inline pos-rel">
+																				
+																			<!-- BOTÃO DROPDOWN-TOGGLE AMARELO -->
+																			<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto">
+																				<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
+																			</button>																	
+																					
+																			<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">																	
+																				
+																				<!-- BOTÃO EDITAR -->
+																				<li>
+																					<a href="#" class="tooltip-success" data-rel="tooltip" title="Editar" role="editar">
+																						<span class="green">
+																							<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+																						</span>
+																					</a>
+																				</li>
+																						
+																				<!-- BOTÃO EXCLUIR -->
+																				<li>
+																					<a href="#" class="tooltip-error" data-rel="tooltip" title="Excluir" role="excluir">
+																						<span class="red">
+																							<i class="ace-icon fa fa-trash-o bigger-120"></i>
+																						</span>
+																					</a>
+																				</li>
+																						
+																				<!-- BOTÃO SALVAR -->
+																				<li>																																
+																					<a href="#" class="tooltip-success hidden" data-rel="tooltip" title="Salvar" role="salvar">
+																						<span class="blue">
+																							<i class="ace-icon fa fa-save bigger-120"></i>
+																						</span>
+																					</a>
+																				</li>
+																						
+																				<!-- BOTÃO CANCELAR -->
+																				<li>
+																					<a href="#" class="tooltip-error hidden" data-rel="tooltip" title="Cancelar" role="cancelar">
+																						<span class="red">
+																							<i class="ace-icon fa fa-close bigger-120"></i>
+																						</span>
+																					</a>
+																				</li>																		
+																			</ul>																	
+																		</div>
+																	</div>															
+																</td>
+																<!-- COLUNA DE AÇÕES -->
+						                                	</tr>
+						                                </c:forEach>
+						                                <!-- FIM -- MONTA AS LINHAS CONFORME A EXISTÊNCIA DE PRODUTOS -->			                                
+						                            </tbody>
+						                            <!-- FIM -- CORPO DA TABELA - REGISTROS E BOTÕES DE FUNCIONALIDADES -->
+						                       	</table>
+						                       	<!-- FIM -- TABELA -->
+						                    </div>
+					                    </div>
+					                </div>
+					            </c:when>								
+								<c:otherwise>
+								<!-- CASO NÃO HAJA PRODUTOS -->									
+									<div class="table-header">
+										Resultado: "${mensagem}"
+									</div>		
+								</c:otherwise>								
+							</c:choose>
+							<!-- JSTL -- CONDIÇÃO PARA EXIBIR A TABELA -->
+							
+							<!-- MODAL FORMULÁRIO PARA CADASTRAR -->
+							<div id="modal-form-precos" class="modal fade" tabindex="-1" rel="modalcadastrar">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="blue bigger">Por favor, preencha os campos...</h4>
+										</div>
+
+										<div class="modal-body">
+											<div class="form-group">
+												<label for="produto">Produto</label>
+												<div>
+													<input type="text" id="produto" name="produto" placeholder="Informe o produto..." size="48" />
+												</div>
+											</div>
+											<div class="space-4"></div>
+											<div class="form-group">
+												<label for="precoCompra">Vlr. Compra (R$ / kg)</label>
+												<div>
+													<input type="number" class="text-right" id="precoCompra" name="precoCompra" placeholder="Margem do preço de compra" size="25" />
+												</div>
+											</div>													
+											<div class="space-4"></div>
+											<div class="form-group">
+												<label for="precoVenda">Vlr. Venda (R$ / kg)</label>
+												<div>
+													<input type="number" class="text-right" id="precoVenda" name="precoVenda" placeholder="Margem do preço de venda" size="25" />
+												</div>
+											</div>												
+										</div>
+
+										<div class="modal-footer">
+											<button id="btnCancelar" class="btn btn-sm" data-dismiss="modal">
+												<i class="ace-icon fa fa-times"></i> Cancelar
+											</button>
+											<button id="btnCadastrar" class="btn btn-sm btn-primary">
+												<i class="ace-icon fa fa-check"></i> Cadastrar
+											</button>											
+										</div>										
+									</div>									
+								</div>
+							</div>
+							<!-- FIM -- MODAL FORMULÁRIO PARA CADASTRAR -->
+							
+							<!-- MODAL FORMULÁRIO PARA EXCLUIR -->
+							<div id="modal-form-precos" class="modal fade" tabindex="-1" rel="modalexcluir">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class='red bigger'> Excluir... Tem certeza?</h4>
+										</div>
+
+										<div class="modal-body">
+											<div class="form-group hidden">
+												<label for="codigo">Cód.</label>
+												<div>													
+													<input type="text" id="codigo" name="codigo" size="8" />
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="produto">Produto</label>
+												<div>
+													<input type="text" id="produto" name="produto" placeholder="Informe o produto..." size="48" />
+												</div>
+											</div>
+											<div class="space-4"></div>
+											<div class="form-group">
+												<label for="precoCompra">Vlr. Compra (R$ / kg)</label>
+												<div>
+													<input type="number" class="text-right" id="precoCompra" name="precoCompra" placeholder="Margem do preço de compra" size="25" />
+												</div>
+											</div>													
+											<div class="space-4"></div>
+											<div class="form-group">
+												<label for="precoVenda">Vlr. Venda (R$ / kg)</label>
+												<div>
+													<input type="number" class="text-right" id="precoVenda" name="precoVenda" placeholder="Margem do preço de venda" size="25" />
+												</div>
+											</div>							
+										</div>
+
+										<div class="modal-footer">
+											<button id="btnCancelarExcluir" class="btn btn-sm" data-dismiss="modal">
+												<i class="ace-icon fa fa-times"></i> Cancelar
+											</button>
+											<button id="btnExcluir" class="btn btn-sm btn-danger">
+												<i class="ace-icon fa fa-trash-o"></i> Excluir
+											</button>											
+										</div>										
+									</div>									
+								</div>
+							</div>
+							<!-- FIM -- MODAL FORMULÁRIO PARA EXCLUIR -->
+							
+							<!-- MODAL FORMULÁRIO PARA ATUALIZAR -->
+							<div id="modal-form-precos" class="modal fade" tabindex="-1" rel="modalatualizar">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="blue bigger">Edite os campos desejados...</h4>
+										</div>
+
+										<div class="modal-body">
+											<div class="form-group hidden">
+												<label for="codigo">Cód.</label>
+												<div>													
+													<input type="text" id="codigo" name="codigo" size="8" />
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="produto">Produto</label>
+												<div>
+													<input type="text" id="produto" name="produto" placeholder="Informe o produto..." size="48" />
+												</div>
+											</div>
+											<div class="space-4"></div>
+											<div class="form-group">
+												<label for="precoCompra">Vlr. Compra (R$ / kg)</label>
+												<div>
+													<input type="number" class="text-right" id="precoCompra" name="precoCompra" placeholder="Margem do preço de compra" size="25" />
+												</div>
+											</div>													
+											<div class="space-4"></div>
+											<div class="form-group">
+												<label for="precoVenda">Vlr. Venda (R$ / kg)</label>
+												<div>
+													<input type="number" class="text-right" id="precoVenda" name="precoVenda" placeholder="Margem do preço de venda" size="25" />
+												</div>
+											</div>										
+										</div>
+
+										<div class="modal-footer">
+											<button id="btnCancelar" class="btn btn-sm" data-dismiss="modal">
+												<i class="ace-icon fa fa-times"></i> Cancelar
+											</button>
+											<button id="btnSalvar" class="btn btn-sm btn-primary">
+												<i class="ace-icon fa fa-check"></i> Salvar
+											</button>											
+										</div>										
+									</div>									
+								</div>
+							</div>
+							<!-- FIM -- MODAL FORMULÁRIO PARA ATUALIZAR -->
+							
 			        	</div>
 	                </div>
 	                <!-- FIM -- TABELA DE PREÇOS -->
@@ -550,7 +706,13 @@
 	<script src="resources/js/ace.min.js"></script>	
     
     <!-- RELÓGIO -->
-    <script src="resources/js/relogio.js"></script>    
+    <script src="resources/js/relogio.js"></script>
+    
+    <!-- AJAX - SUBMIT FORMS - RECARREGA A PÁGINA QUANDO O MODAL CADASTRAR E EXCLUIR SÃO FECHADOS -->
+    <script src="resources/js/ajaxprecos.js"></script>
+    
+    <!-- EDITAR EXCLUIR -->
+    <script src="resources/js/manipulatabelaprecos.js"></script>
     
 </body>
 </html>

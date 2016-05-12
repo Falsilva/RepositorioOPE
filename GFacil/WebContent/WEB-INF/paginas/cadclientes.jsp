@@ -317,13 +317,7 @@
 					
 					<!-- TABELA DO CADASTRO -->
 					<div class="row">
-						<div class="col-xs-12">						
-							
-							<!-- IMPORTANTE LEMBRAR --- A PÁGINA INICIAL DO VENDEDOR DEVE SER ESTA E DEVE DESABILITAR ALGUMAS FUNÇÕES DO MENU 
-							<c:if test="${usuarioLogado.perfil != 'VENDEDOR'}">
-								<a href="index.jsp">Voltar</a>
-							</c:if>
-							-->
+						<div class="col-xs-12">
 							
 							<!-- BARRA DE FERRAMENTAS PARA A TABELA - VIA PLUGINS DATATABLES, TOOLTABLES  -->
 							<div class="tableTools-container">
@@ -356,13 +350,13 @@
 								<c:when test="${not empty clientes}">
 								<!-- CASO HAJA CLIENTE -->
 								
-									<!-- RESULTADO DO NÚMEROS DE USUÁRIOS -->
+									<!-- RESULTADO DO NÚMEROS DE CLIENTES -->
 									<div class="table-header">
 										<strong>Resultado: " ${clientes.size()} cliente(s) cadastrado(s) "</strong>
 									</div>										
 									
 									<div>
-										<!-- TABELA 1 - SIMPLES -->
+										<!-- TABELA -->
 										<table id="simple-table" class="table table-striped table-bordered table-hover">
 										
 											<!-- CABEÇALHO DA TABELA -->
@@ -483,7 +477,7 @@
 																</div>
 															</div>															
 														</td>
-														<!-- COLUNA DE AÇÕES -->
+														<!-- FIM -- COLUNA DE AÇÕES -->
 													</tr>													
 												</c:forEach>
 												<!-- FIM -- MONTA AS LINHAS CONFORME A EXISTÊNCIA DE USUÁRIOS -->																						
