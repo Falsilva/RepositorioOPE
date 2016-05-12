@@ -501,7 +501,7 @@
 				<!-- ITEM 6 -- TABELA DE PREÇOS -->
 				<li class="">
 					<a href="#" onclick="document.getElementById('form_precos').submit()">
-						<form id="form_precos" action="controller?action=precos" method="post"></form>
+						<form id="form_precos" action="controller?action=listarProdutos" method="post"></form>
 						<i class="menu-icon fa fa-dollar"></i>
 						<span class="menu-text"> Tabela de Preços </span>
 					</a>

@@ -131,6 +131,7 @@
 			<!-- LISTA DE ITENS DO MENU -->
 			<ul class="nav nav-list">
 			
+				<c:if test="${usuarioLogado.perfil == 'ADMINISTRADOR'}">
 				<!-- ITEM 1 -- DASHBOARD -->
 				<li class="">
 					<a href="index.jsp">
@@ -139,6 +140,7 @@
 					</a>
 					<b class="arrow"></b>
 				</li>
+				</c:if>
 
 				<!-- ITEM 2 -- CADASTROS -->
 				<li class="">
@@ -151,6 +153,7 @@
 
 					<!-- SUBMENU DO ITEM CADASTROS -->
 					<ul class="submenu">
+						<c:if test="${usuarioLogado.perfil == 'ADMINISTRADOR' || usuarioLogado.perfil == 'VENDEDOR'}">
 						<li class="">
 							<a href="#" onclick="document.getElementById('form_clientes').submit()">
 								<form id="form_clientes" action="controller?action=listarClientes" method="post"></form>
@@ -162,6 +165,8 @@
 							</a>
 							<b class="arrow"></b>
 						</li>
+						</c:if>
+						<c:if test="${usuarioLogado.perfil == 'ADMINISTRADOR' || usuarioLogado.perfil == 'COMPRADOR'}">
 						<li class="">
 							<a href="#" onclick="document.getElementById('form_fornecedores').submit()">
 								<form id="form_fornecedores" action="controller?action=listarFornecedores" method="post"></form>
@@ -172,6 +177,8 @@
 							</a>
 							<b class="arrow"></b>
 						</li>
+						</c:if>
+						<c:if test="${usuarioLogado.perfil == 'ADMINISTRADOR'}">
 						<li class="">
 							<a href="#" onclick="document.getElementById('form_usuarios').submit()">								
 								<form id="form_usuarios" action="controller?action=listarUsuarios" method="post"></form>
@@ -181,7 +188,8 @@
 								</span>
 							</a>
 							<b class="arrow"></b>
-						</li>						
+						</li>
+						</c:if>						
 					</ul>
 				</li>
 				
@@ -196,6 +204,7 @@
 
 					<!-- SUBMENU DO ITEM PEDIDOS -->
 					<ul class="submenu">
+						<c:if test="${usuarioLogado.perfil == 'ADMINISTRADOR' || usuarioLogado.perfil == 'COMPRADOR'}">
 						<li class="">
 							<a href="#" onclick="document.getElementById('form_compra').submit()">
 								<form id="form_compra" action="controller?action=compra" method="post"></form>
@@ -206,6 +215,8 @@
 							</a>
 							<b class="arrow"></b>
 						</li>
+						</c:if>
+						<c:if test="${usuarioLogado.perfil == 'ADMINISTRADOR' || usuarioLogado.perfil == 'VENDEDOR'}">
 						<li class="">
 							<a href="#" onclick="document.getElementById('form_venda').submit()">
 								<form id="form_venda" action="controller?action=venda" method="post"></form>
@@ -215,10 +226,12 @@
 								</span>
 							</a>
 							<b class="arrow"></b>
-						</li>												
+						</li>
+						</c:if>											
 					</ul>
-				</li>				
-				
+				</li>
+								
+				<c:if test="${usuarioLogado.perfil == 'ADMINISTRADOR'}">
 				<!-- ITEM 4 -- CAIXA -->
 				<li class="active">
 					<a href="#" onclick="document.getElementById('form_caixa').submit()">
@@ -228,16 +241,18 @@
 					</a>
 					<b class="arrow"></b>
 				</li>
+				</c:if>
 				
 				<!-- ITEM 5 -- TABELA DE PREÇOS -->
 				<li class="">
 					<a href="#" onclick="document.getElementById('form_precos').submit()">
-						<form id="form_precos" action="controller?action=precos" method="post"></form>
+						<form id="form_precos" action="controller?action=listarProdutos" method="post"></form>
 						<i class="menu-icon fa fa-dollar"></i>
 						<span class="menu-text"> Tabela de Preços </span>
 					</a>
 					<b class="arrow"></b>
-				</li>				
+				</li>
+								
 			</ul>
 			<!-- FIM -- LISTA DE ITENS DO MENU -->
 			

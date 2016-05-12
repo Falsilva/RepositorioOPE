@@ -53,14 +53,17 @@ public class Controller extends HttpServlet{
 			case "venda":
 				dispatcher = req.getRequestDispatcher("WEB-INF/paginas/pedidovenda.jsp");
 				break;
-			case "contas":
-				dispatcher = req.getRequestDispatcher("WEB-INF/paginas/contas.jsp");
-				break;
+			//case "contas":
+				//dispatcher = req.getRequestDispatcher("WEB-INF/paginas/contas.jsp");
+				//break;
 			case "caixa":
 				dispatcher = req.getRequestDispatcher("WEB-INF/paginas/caixa.jsp");
 				break;
 			case "precos":
 				dispatcher = req.getRequestDispatcher("WEB-INF/paginas/precos.jsp");
+				break;
+			case "listarProdutos":
+				dispatcher = req.getRequestDispatcher("listarProdutos");
 				break;
 			case "listarClientes":
 				dispatcher = req.getRequestDispatcher("listarClientes");
@@ -115,7 +118,7 @@ public class Controller extends HttpServlet{
 				break;
 			case "pegaPerfil":
 				dispatcher = req.getRequestDispatcher("pegaPerfil");				
-				break;
+				break;			
 			default:
 				dispatcher = req.getRequestDispatcher("WEB-INF/paginas/error.jsp");
 				break;

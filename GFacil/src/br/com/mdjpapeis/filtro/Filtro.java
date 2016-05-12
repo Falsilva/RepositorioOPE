@@ -18,6 +18,7 @@ import br.com.mdjpapeis.entity.Usuario;
 
 @WebFilter(urlPatterns = {
 		"/index.jsp",
+		"/index",
 		"/controller",
 		"/listarClientes", 
 		"/pesquisarCliente", 
@@ -36,7 +37,8 @@ import br.com.mdjpapeis.entity.Usuario;
 		"/excluirUsuario",
 		"/pegaPerfil",
 		"/separaEnderecoCliente",
-		"/separaEnderecoFornecedor"
+		"/separaEnderecoFornecedor",
+		"/listarProdutos"
 		})
 public class Filtro implements Filter {
 
@@ -54,7 +56,8 @@ public class Filtro implements Filter {
 
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
-
+		String action;
+		
 		// Recupera a sessão e obtém o usuário
 		Usuario usuario = (Usuario) req.getSession().getAttribute("usuarioLogado");
 		
@@ -70,7 +73,7 @@ public class Filtro implements Filter {
 			System.out.println("Filtro, TAREFA...................: " + req.getParameter("tarefa"));
 				
 			// Caso a requisição de algum usuário LOGADO seja para a tela de login (index.jsp), então a requisição redirecionada para outra tela
-			if(req.getRequestURI().equals("/GFacil/") || req.getRequestURI().equals("/GFacil/index.jsp") || (req.getRequestURI().equals("/GFacil/controller") & (req.getParameter("action").equals("index") || req.getParameter("action").equals("login")))){
+			if(req.getRequestURI().equals("/GFacil/") || req.getRequestURI().equals("/GFacil/index.jsp") || req.getRequestURI().equals("/GFacil/index") || (req.getRequestURI().equals("/GFacil/controller") & (req.getParameter("action").equals("index") || req.getParameter("action").equals("login")))){
 							
 				// Redireciona para a tela principal dependendo do PERFIL do usuário
 				switch (usuario.getPerfil().toString()){
@@ -117,6 +120,37 @@ public class Filtro implements Filter {
 					default:
 						break;
 				}
+			}else{
+				if((req.getRequestURI().equals("/GFacil/controller"))){					
+					switch (usuario.getPerfil().toString()){							
+						case "COMPRADOR":							
+							action = req.getParameter("action");
+							if(!action.equals("logout") && !action.equals("fornecedores") && !action.equals("compra") && !action.equals("listarFornecedores") && !action.equals("pesquisarFornecedor") && !action.equals("cadastrarFornecedor") && !action.equals("atualizarFornecedor") && !action.equals("excluirFornecedor") && !action.equals("separaEnderecoFornecedor")&& !action.equals("precos") && !action.equals("listarProdutos")){
+								// Recebe o destino do redirecionamento da requisição
+								dispatcher = req.getRequestDispatcher("controller?action=listarFornecedores");
+									
+								System.out.println("Filtro REDIRECIONAMENTO, URI.....: " + req.getRequestURI());
+								System.out.println("Filtro, ACTION...................: " + req.getParameter("action"));
+									
+								// Reencaminha a requisição
+								dispatcher.forward(req, resp);
+							}
+							break;
+						case "VENDEDOR":
+							action = req.getParameter("action");
+							if(!action.equals("logout") && !action.equals("clientes") && !action.equals("venda") && !action.equals("listarCliente") && !action.equals("pesquisarCliente") && !action.equals("cadastrarCliente") && !action.equals("atualizarCliente") && !action.equals("excluirCliente") && !action.equals("separaEnderecoCliente") && !action.equals("precos") && !action.equals("listarProdutos")){
+								// Recebe o destino do redirecionamento da requisição
+								dispatcher = req.getRequestDispatcher("controller?action=listarClientes");
+									
+								System.out.println("Filtro REDIRECIONAMENTO, URI.....: " + req.getRequestURI());
+								System.out.println("Filtro, ACTION...................: " + req.getParameter("action"));
+									
+								// Reencaminha a requisição
+								dispatcher.forward(req, resp);
+							}
+							break;
+					}
+				}
 			}
 				
 		// USUÁRIO NÃO LOGADO
@@ -127,7 +161,7 @@ public class Filtro implements Filter {
 			// Caso a requisição de algum usuário DESLOGADO seja DIFERENTE da tela de login (index.jsp), então a requisição redirecionada para tela de login
 			if(!req.getRequestURI().equals("/GFacil/") & !req.getRequestURI().equals("/GFacil/index.jsp")){
 						
-				String action = req.getParameter("action");
+				action = req.getParameter("action");
 						
 				if(action == null || (!action.equals("login") & !action.equals("index"))){
 						
