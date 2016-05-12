@@ -317,6 +317,7 @@
 	                <div class="row">
 	                	<div class="col-xs-12">
 	                	
+	                		<c:if test="${usuarioLogado.perfil == 'ADMINISTRADOR'}">
 	                		<!-- BARRA DE FERRAMENTAS PARA A TABELA - VIA PLUGINS DATATABLES, TOOLTABLES  -->
 							<div class="tableTools-container">
 								<div class="btn-group btn-over-lap">
@@ -327,7 +328,8 @@
 									</a>
 								</div>
 							</div>										                	
-	                		                		
+	                		</c:if>
+	                			                		
 	                		<!-- JSTL -- CONDIÇÃO PARA EXIBIR A TABELA -->							
 							<c:choose>
 								<c:when test="${not empty produtos}">
@@ -337,144 +339,157 @@
 									<div class="table-header">
 										<strong>Resultado: " ${produtos.size()} produto(s) cadastrado(s) "</strong>
 									</div>	                		
-	                			                		
-				                	<div class="widget-box transparent">
-						                    
-										<!-- TÍTULO DOS PREÇOS -->
-					                	<div class="widget-header widget-header-flat">
-											<h3 class="widget-title lighter">
-												<i class="ace-icon fa fa-dollar"></i><strong> Preços Comercializados</strong>
-											</h3>
-										</div>
-											
-										<!-- PREÇOS -->
-					                    <div class="widget-body">
-											<div class="widget-main no-padding">
-											
-												<!-- TABELA -->
-												<table class="table table-bordered table-striped">
+	                			    	
+	                			    <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2"> 		
+					                	<div class="widget-box transparent">
+							                    
+											<!-- TÍTULO DOS PREÇOS -->
+						                	<div class="widget-header widget-header-flat">
+												<h3 class="widget-title lighter">
+													<i class="ace-icon fa fa-dollar"></i><strong> Preços Comercializados</strong>
+												</h3>
+											</div>
 												
-													<!-- CABEÇALHO DA TABELA -->
-													<thead class="thin-border-bottom">
-						                               	<tr>
-						                                   	<th class="hidden">Cód.</th>
-						                                    <th>Produto</th>
-						                                    <th>Vlr. Compra (R$ / kg)</th>
-						                                    <th>Vlr. Venda (R$ / kg)</th>
-						                                    <th>Ações</th>
-						                              	</tr>
-					                       			</thead>					                       			
-					                       			
-					                       			<!-- CORPO DA TABELA - REGISTROS E BOTÕES DE FUNCIONALIDADES -->
-						                       		<tbody>
-						                       		
-						                       			<!-- MONTA AS LINHAS CONFORME A EXISTÊNCIA DE PRODUTOS -->
-														<c:forEach var="produto" items="${produtos}">
-															<tr>														
-																<!-- COLUNA ESCONDIDA DE CÓDIGO DOS REGISTROS -->
-																<td class="text-right hidden">${produto.codigo}</td>
-																
-																<!-- COLUNAS DE REGISTROS -->
-																<td><b>${produto.produto}</b></td>
-																<td class="text-right"><b class="blue">${produto.precoCompra}</b></td>
-																<td class="text-right"><b class="green">${produto.precoVenda}</b></td>
-						                                    
-							                                    <!-- COLUNA DE AÇÕES -->
-																<td>														
-																	<!-- EXIBIÇÃO EM TELAS GRANDES -->															
-																	<div class="hidden-sm hidden-xs action-buttons">
-																				
-																		<!-- BOTÃO EDITAR -->													
-																		<a href="#" role="editar">
-																			<span class="green">
-																				<i class="ace-icon fa fa-pencil bigger-130"></i>
-																			</span>
-																		</a>
-																				
-																		<!-- BOTÃO EXCLUIR -->
-																		<a href="#" role="excluir">
-																			<span class="red">
-																				<i class="ace-icon fa fa-trash-o bigger-130"></i>
-																			</span>
-																		</a>
-																		
-																		<!-- BOTÃO SALVAR -->													
-																		<a href="#" role="salvar" class="hidden">
-																			<span class="blue">
-																				<i class="ace-icon fa fa-save bigger-130"></i>
-																			</span>
-																		</a>
-																		
-																		<!-- BOTÃO EXCLUIR -->
-																		<a href="#" role="cancelar" class="hidden">
-																			<span class="red">
-																				<i class="ace-icon fa fa-close bigger-130"></i>
-																			</span>
-																		</a>																
-																				
-																		</div>
-				
-																		<!-- EXIBIÇÃO EM TELAS PEQUENAS -->
-																		<div class="hidden-md hidden-lg action-buttons">
-																			<div class="inline pos-rel">
-																				
-																			<!-- BOTÃO DROPDOWN-TOGGLE AMARELO -->
-																			<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto">
-																				<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
-																			</button>																	
+											<!-- PREÇOS -->
+						                    <div class="widget-body">
+												<div class="widget-main no-padding">
+												
+													<!-- TABELA -->
+													<table class="table table-bordered table-striped">
+													
+														<!-- CABEÇALHO DA TABELA -->
+														<thead class="thin-border-bottom">
+							                               	<tr>
+							                                   	<th class="hidden">Cód.</th>
+							                                    <th>Produto</th>
+							                                    <c:if test="${usuarioLogado.perfil == 'ADMINISTRADOR' || usuarioLogado.perfil == 'COMPRADOR'}">
+							                                    <th>Vlr. Compra (R$ / kg)</th>
+							                                    </c:if>
+							                                    <c:if test="${usuarioLogado.perfil == 'ADMINISTRADOR' || usuarioLogado.perfil == 'VENDEDOR'}">
+							                                    <th>Vlr. Venda (R$ / kg)</th>
+							                                    </c:if>
+							                                    <c:if test="${usuarioLogado.perfil == 'ADMINISTRADOR'}">
+							                                    <th>Ações</th>
+							                                    </c:if>
+							                              	</tr>
+						                       			</thead>					                       			
+						                       			
+						                       			<!-- CORPO DA TABELA - REGISTROS E BOTÕES DE FUNCIONALIDADES -->
+							                       		<tbody>
+							                       		
+							                       			<!-- MONTA AS LINHAS CONFORME A EXISTÊNCIA DE PRODUTOS -->
+															<c:forEach var="produto" items="${produtos}">
+																<tr>														
+																	<!-- COLUNA ESCONDIDA DE CÓDIGO DOS REGISTROS -->
+																	<td class="text-right hidden">${produto.codigo}</td>
+																	
+																	<!-- COLUNAS DE REGISTROS -->
+																	<td><b>${produto.produto}</b></td>
+																	<c:if test="${usuarioLogado.perfil == 'ADMINISTRADOR' || usuarioLogado.perfil == 'COMPRADOR'}">
+																	<td class="text-right"><b class="blue">${produto.precoCompra}</b></td>
+																	</c:if>
+																	<c:if test="${usuarioLogado.perfil == 'ADMINISTRADOR' || usuarioLogado.perfil == 'VENDEDOR'}">
+																	<td class="text-right"><b class="green">${produto.precoVenda}</b></td>
+							                                    	</c:if>
+							                                    	<c:if test="${usuarioLogado.perfil == 'ADMINISTRADOR'}">
+								                                    <!-- COLUNA DE AÇÕES -->
+																	<td>														
+																		<!-- EXIBIÇÃO EM TELAS GRANDES -->															
+																		<div class="hidden-sm hidden-xs action-buttons">
 																					
-																			<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">																	
-																				
-																				<!-- BOTÃO EDITAR -->
-																				<li>
-																					<a href="#" class="tooltip-success" data-rel="tooltip" title="Editar" role="editar">
-																						<span class="green">
-																							<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-																						</span>
-																					</a>
-																				</li>
+																			<!-- BOTÃO EDITAR -->													
+																			<a href="#" role="editar">
+																				<span class="green">
+																					<i class="ace-icon fa fa-pencil bigger-130"></i>
+																				</span>
+																			</a>
+																					
+																			<!-- BOTÃO EXCLUIR -->
+																			<a href="#" role="excluir">
+																				<span class="red">
+																					<i class="ace-icon fa fa-trash-o bigger-130"></i>
+																				</span>
+																			</a>
+																			
+																			<!-- BOTÃO SALVAR -->													
+																			<a href="#" role="salvar" class="hidden">
+																				<span class="blue">
+																					<i class="ace-icon fa fa-save bigger-130"></i>
+																				</span>
+																			</a>
+																			
+																			<!-- BOTÃO EXCLUIR -->
+																			<a href="#" role="cancelar" class="hidden">
+																				<span class="red">
+																					<i class="ace-icon fa fa-close bigger-130"></i>
+																				</span>
+																			</a>																
+																					
+																			</div>
+					
+																			<!-- EXIBIÇÃO EM TELAS PEQUENAS -->
+																			<div class="hidden-md hidden-lg action-buttons">
+																				<div class="inline pos-rel">
+																					
+																				<!-- BOTÃO DROPDOWN-TOGGLE AMARELO -->
+																				<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto">
+																					<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
+																				</button>																	
 																						
-																				<!-- BOTÃO EXCLUIR -->
-																				<li>
-																					<a href="#" class="tooltip-error" data-rel="tooltip" title="Excluir" role="excluir">
-																						<span class="red">
-																							<i class="ace-icon fa fa-trash-o bigger-120"></i>
-																						</span>
-																					</a>
-																				</li>
-																						
-																				<!-- BOTÃO SALVAR -->
-																				<li>																																
-																					<a href="#" class="tooltip-success hidden" data-rel="tooltip" title="Salvar" role="salvar">
-																						<span class="blue">
-																							<i class="ace-icon fa fa-save bigger-120"></i>
-																						</span>
-																					</a>
-																				</li>
-																						
-																				<!-- BOTÃO CANCELAR -->
-																				<li>
-																					<a href="#" class="tooltip-error hidden" data-rel="tooltip" title="Cancelar" role="cancelar">
-																						<span class="red">
-																							<i class="ace-icon fa fa-close bigger-120"></i>
-																						</span>
-																					</a>
-																				</li>																		
-																			</ul>																	
-																		</div>
-																	</div>															
-																</td>
-																<!-- COLUNA DE AÇÕES -->
-						                                	</tr>
-						                                </c:forEach>
-						                                <!-- FIM -- MONTA AS LINHAS CONFORME A EXISTÊNCIA DE PRODUTOS -->			                                
-						                            </tbody>
-						                            <!-- FIM -- CORPO DA TABELA - REGISTROS E BOTÕES DE FUNCIONALIDADES -->
-						                       	</table>
-						                       	<!-- FIM -- TABELA -->
+																				<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">																	
+																					
+																					<!-- BOTÃO EDITAR -->
+																					<li>
+																						<a href="#" class="tooltip-success" data-rel="tooltip" title="Editar" role="editar">
+																							<span class="green">
+																								<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+																							</span>
+																						</a>
+																					</li>
+																							
+																					<!-- BOTÃO EXCLUIR -->
+																					<li>
+																						<a href="#" class="tooltip-error" data-rel="tooltip" title="Excluir" role="excluir">
+																							<span class="red">
+																								<i class="ace-icon fa fa-trash-o bigger-120"></i>
+																							</span>
+																						</a>
+																					</li>
+																							
+																					<!-- BOTÃO SALVAR -->
+																					<li>																																
+																						<a href="#" class="tooltip-success hidden" data-rel="tooltip" title="Salvar" role="salvar">
+																							<span class="blue">
+																								<i class="ace-icon fa fa-save bigger-120"></i>
+																							</span>
+																						</a>
+																					</li>
+																							
+																					<!-- BOTÃO CANCELAR -->
+																					<li>
+																						<a href="#" class="tooltip-error hidden" data-rel="tooltip" title="Cancelar" role="cancelar">
+																							<span class="red">
+																								<i class="ace-icon fa fa-close bigger-120"></i>
+																							</span>
+																						</a>
+																					</li>																		
+																				</ul>																	
+																			</div>
+																		</div>															
+																	</td>
+																	</c:if>
+																	<!-- COLUNA DE AÇÕES -->
+							                                	</tr>
+							                                </c:forEach>
+							                                <!-- FIM -- MONTA AS LINHAS CONFORME A EXISTÊNCIA DE PRODUTOS -->			                                
+							                            </tbody>
+							                            <!-- FIM -- CORPO DA TABELA - REGISTROS E BOTÕES DE FUNCIONALIDADES -->
+							                       	</table>
+							                       	<!-- FIM -- TABELA -->
+							                    </div>
 						                    </div>
-					                    </div>
-					                </div>
+						                </div>						        	
+						        	</div>
 					            </c:when>								
 								<c:otherwise>
 								<!-- CASO NÃO HAJA PRODUTOS -->									
