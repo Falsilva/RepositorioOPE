@@ -30,8 +30,12 @@ public class Produto implements Serializable {
 	@Column(name = "PRECO_VENDA", nullable = false, scale = 2, precision = 10)
 	private BigDecimal precoVenda;
 	
-	public Produto(){
-		
+	// Construtor Padrão
+	public Produto(){}
+	
+	// Construtor utilizado para ItemProduto
+	public Produto(long codigoProduto){
+		this.codigo = codigoProduto;
 	}
 	
 	public Produto(String produto, BigDecimal precoCompra, BigDecimal precoVenda){

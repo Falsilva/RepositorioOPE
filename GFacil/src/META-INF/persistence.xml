@@ -12,7 +12,12 @@
 		<class>br.com.mdjpapeis.entity.Usuario</class>
 		<class>br.com.mdjpapeis.entity.Cliente</class>
 		<class>br.com.mdjpapeis.entity.Fornecedor</class>
-		<class>br.com.mdjpapeis.entity.Produto</class>	
+		<class>br.com.mdjpapeis.entity.Produto</class>
+		<class>br.com.mdjpapeis.entity.PedidoCompra</class>
+		<class>br.com.mdjpapeis.entity.PedidoVenda</class>
+		<class>br.com.mdjpapeis.entity.ItemPedido</class>
+		<class>br.com.mdjpapeis.entity.Caixa</class>
+		<class>br.com.mdjpapeis.entity.Movimentacao</class>	
 				
 		<!-- Exclui todas as Entidades não mapeadas -->
 		<exclude-unlisted-classes />
