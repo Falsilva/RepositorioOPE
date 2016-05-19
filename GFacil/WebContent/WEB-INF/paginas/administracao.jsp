@@ -449,9 +449,7 @@
 								<!-- SALDO -->
 								<div class="widget-body">
 									<div class="widget-main no-padding">
-										<div class="text-right">
-											<h2><strong><span class="green">R$ 395,00</span></strong></h2>
-										</div>
+										<div class="text-right" role="saldoTotal"></div>
 									</div>
 								</div>
 	                		</div>
@@ -642,6 +640,9 @@
 	
 	<!-- GRÁFICO FATURAMENTO -->
 	<script src="resources/js/grafico.js"></script>
+	
+	<!-- CARREGA DADOS DO CAIXA -->
+	<script src="resources/js/ajaxcaixa.js"></script>
     
 </body>
 </html>

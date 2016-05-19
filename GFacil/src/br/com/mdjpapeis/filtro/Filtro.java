@@ -42,7 +42,22 @@ import br.com.mdjpapeis.entity.Usuario;
 		"/pesquisarProduto",
 		"/cadastrarProduto",
 		"/atualizarProduto",
-		"/excluirProduto"
+		"/excluirProduto",
+		"/listarPedidoCompra",
+		"/pesquisarPedidoCompra",
+		"/cadastrarPedidoCompra",
+		"/atualizarPedidoCompra",
+		"/excluirPedidoCompra",		
+		"/listarPedidoVenda",
+		"/pesquisarPedidoVenda",
+		"/cadastrarPedidoVenda",
+		"/atualizarPedidoVenda",
+		"/excluirPedidoVenda",
+		"/listarCaixa",
+		"/pesquisarCaixa",
+		"/cadastrarCaixa",
+		"/atualizarCaixa",
+		"/excluirCaixa"
 		})
 public class Filtro implements Filter {
 
@@ -77,7 +92,11 @@ public class Filtro implements Filter {
 			System.out.println("Filtro, TAREFA...................: " + req.getParameter("tarefa"));
 				
 			// Caso a requisição de algum usuário LOGADO seja para a tela de login (index.jsp), então a requisição redirecionada para outra tela
-			if(req.getRequestURI().equals("/GFacil/") || req.getRequestURI().equals("/GFacil/index.jsp") || req.getRequestURI().equals("/GFacil/index") || (req.getRequestURI().equals("/GFacil/controller") & (req.getParameter("action").equals("index") || req.getParameter("action").equals("login")))){
+			if(req.getRequestURI().equals("/GFacil/") 
+					|| req.getRequestURI().equals("/GFacil/index.jsp") 
+					|| req.getRequestURI().equals("/GFacil/index") 
+					|| (req.getRequestURI().equals("/GFacil/controller") 
+							& (req.getParameter("action").equals("index") || req.getParameter("action").equals("login")))){
 							
 				// Redireciona para a tela principal dependendo do PERFIL do usuário
 				switch (usuario.getPerfil().toString()){
@@ -129,7 +148,22 @@ public class Filtro implements Filter {
 					switch (usuario.getPerfil().toString()){							
 						case "COMPRADOR":							
 							action = req.getParameter("action");
-							if(!action.equals("logout") && !action.equals("fornecedores") && !action.equals("compra") && !action.equals("listarFornecedores") && !action.equals("pesquisarFornecedor") && !action.equals("cadastrarFornecedor") && !action.equals("atualizarFornecedor") && !action.equals("excluirFornecedor") && !action.equals("separaEnderecoFornecedor")&& !action.equals("produtos") && !action.equals("listarProdutos")){
+							if(!action.equals("logout") 
+									&& !action.equals("fornecedores") 
+									&& !action.equals("compra") 
+									&& !action.equals("listarFornecedores") 
+									&& !action.equals("pesquisarFornecedor") 
+									&& !action.equals("cadastrarFornecedor") 
+									&& !action.equals("atualizarFornecedor") 
+									&& !action.equals("excluirFornecedor") 
+									&& !action.equals("separaEnderecoFornecedor")
+									&& !action.equals("produtos") 
+									&& !action.equals("listarProdutos")
+									&& !action.equals("listarPedidoCompra") 
+									&& !action.equals("pesquisarPedidoCompra") 
+									&& !action.equals("cadastrarPedidoCompra") 
+									&& !action.equals("atualizarPedidoCompra") 
+									&& !action.equals("excluirPedidoCompra")){
 								// Recebe o destino do redirecionamento da requisição
 								dispatcher = req.getRequestDispatcher("controller?action=listarFornecedores");
 									
@@ -142,7 +176,22 @@ public class Filtro implements Filter {
 							break;
 						case "VENDEDOR":
 							action = req.getParameter("action");
-							if(!action.equals("logout") && !action.equals("clientes") && !action.equals("venda") && !action.equals("listarCliente") && !action.equals("pesquisarCliente") && !action.equals("cadastrarCliente") && !action.equals("atualizarCliente") && !action.equals("excluirCliente") && !action.equals("separaEnderecoCliente") && !action.equals("produtos") && !action.equals("listarProdutos")){
+							if(!action.equals("logout") 
+									&& !action.equals("clientes") 
+									&& !action.equals("venda") 
+									&& !action.equals("listarCliente") 
+									&& !action.equals("pesquisarCliente") 
+									&& !action.equals("cadastrarCliente") 
+									&& !action.equals("atualizarCliente") 
+									&& !action.equals("excluirCliente") 
+									&& !action.equals("separaEnderecoCliente") 
+									&& !action.equals("produtos") 
+									&& !action.equals("listarProdutos")
+									&& !action.equals("listarPedidoVenda") 
+									&& !action.equals("pesquisarPedidoVenda") 
+									&& !action.equals("cadastrarPedidoVenda") 
+									&& !action.equals("atualizarPedidoVenda") 
+									&& !action.equals("excluirPedidoVenda")){
 								// Recebe o destino do redirecionamento da requisição
 								dispatcher = req.getRequestDispatcher("controller?action=listarClientes");
 									

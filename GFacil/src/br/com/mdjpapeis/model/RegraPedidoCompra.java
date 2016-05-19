@@ -15,16 +15,16 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.mdjpapeis.dao.ProdutoDAO;
 import br.com.mdjpapeis.entity.Produto;
 
-@WebServlet(urlPatterns = {"/listarProdutos", "/pesquisarProduto", "/cadastrarProduto", "/atualizarProduto", "/excluirProduto"})
-public class RegraProdutos extends HttpServlet {
+@WebServlet(urlPatterns = {"/listarPedidoCompra", "/pesquisarPedidoCompra", "/cadastrarPedidoCompra", "/atualizarPedidoCompra", "/excluirPedidoCompra"})
+public class RegraPedidoCompra extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) 
-			throws ServletException, IOException {		
+			throws ServletException, IOException {
 		
-		System.out.println("RegraProdutos - ACTION: " + req.getParameter("action"));
+		System.out.println("RegraPedidoCompra - ACTION: " + req.getParameter("action"));
 		
 		long codigo = 0;
 		String strProduto = null;
@@ -47,21 +47,21 @@ public class RegraProdutos extends HttpServlet {
 		RequestDispatcher dispatcher = null;
 		
 		switch(req.getParameter("action")){
-			case("listarProdutos"):
-				System.out.println("RegraProdutos, LISTANDO PRODUTOS...");
+			case("listarPedidoCompra"):
+				System.out.println("RegraPedidoCompra, LISTANDO PRODUTOS...");
 				produtos = new ProdutoDAO().listar();				
 				if(produtos != null){
-					System.out.println("RegraProdutos, PRODUTOS LISTADOS.");
+					System.out.println("RegraPedidoCompra, PRODUTOS LISTADOS.");
 					req.setAttribute("produtos", produtos);
 				}else{
-					System.out.println("RegraProdutos, NAO HA PRODUTOS CADASTRADOS.");
+					System.out.println("RegraPedidoCompra, NAO HA PRODUTOS CADASTRADOS.");
 					req.setAttribute("mensagem", "Não há produtos cadastrados");
 				}				
 				dispatcher = req.getRequestDispatcher("controller?action=produtos");
 				dispatcher.forward(req, resp);
 				break;
-			case("cadastrarProduto"):
-				System.out.println("RegraProdutos, CADASTRANDO PRODUTO...");
+			case("cadastrarPedidoCompra"):
+				System.out.println("RegraPedidoCompra, CADASTRANDO PRODUTO...");
 				strProduto = req.getParameter("produto");
 				strPrecoCompra = req.getParameter("precoCompra");
 				strPrecoVenda = req.getParameter("precoVenda");
@@ -70,11 +70,11 @@ public class RegraProdutos extends HttpServlet {
 				
 				prod = new Produto();
 				
-				System.out.println("RegraProdutos, CADASTRANDO PRODUTO, VERIFICANDO O RECEBIMENTO DOS DADOS...");
+				System.out.println("RegraPedidoCompra, CADASTRANDO PRODUTO, VERIFICANDO O RECEBIMENTO DOS DADOS...");
 				for(int i = 0; i < parametros.length; i++){
 					if(parametros[i][1] == null | parametros[i][1].isEmpty()){						
 						parametros[i][1] = "";
-						System.out.println("RegraProdutos, CADASTRANDO PRODUTO, CAMPO NAO PREENCHIDO: " + parametros[i][0]);
+						System.out.println("RegraPedidoCompra, CADASTRANDO PRODUTO, CAMPO NAO PREENCHIDO: " + parametros[i][0]);
 						resp.setContentType("text/plain");
 						resp.setCharacterEncoding("UTF-8");
 						resp.getWriter().write("Preencha todos os campos.");
@@ -91,7 +91,7 @@ public class RegraProdutos extends HttpServlet {
 								precoCompra = new BigDecimal(dblPrecoCompra);
 								prod.setPrecoCompra(precoCompra);
 							}catch(NumberFormatException e){
-								System.out.println("RegraProdutos, CADASTRANDO PRODUTO, NAO E NUMERO.");
+								System.out.println("RegraPedidoCompra, CADASTRANDO PRODUTO, NAO E NUMERO.");
 								resp.setContentType("text/plain");
 								resp.setCharacterEncoding("UTF-8");
 								resp.getWriter().write("Informe somente números!");
@@ -104,7 +104,7 @@ public class RegraProdutos extends HttpServlet {
 								precoVenda = new BigDecimal(dblPrecoVenda);
 								prod.setPrecoVenda(precoVenda);
 							}catch(NumberFormatException e){
-								System.out.println("RegraProdutos, CADASTRANDO PRODUTO, NAO E NUMERO.");
+								System.out.println("RegraPedidoCompra, CADASTRANDO PRODUTO, NAO E NUMERO.");
 								resp.setContentType("text/plain");
 								resp.setCharacterEncoding("UTF-8");
 								resp.getWriter().write("Informe somente números!");
@@ -114,36 +114,36 @@ public class RegraProdutos extends HttpServlet {
 					}
 				}
 				
-				System.out.println("RegraProdutos, CADASTRANDO PRODUTO, DADOS VERIFICADOS, CAMPOS PREENCHIDOS...");
+				System.out.println("RegraPedidoCompra, CADASTRANDO PRODUTO, DADOS VERIFICADOS, CAMPOS PREENCHIDOS...");
 				try{
-					System.out.println("RegraProdutos, CADASTRANDO PRODUTO, CONSULTANDO A EXISTENCIA DE PRODUTO PELO CODIGO...");
+					System.out.println("RegraPedidoCompra, CADASTRANDO PRODUTO, CONSULTANDO A EXISTENCIA DE PRODUTO PELO CODIGO...");
 												
 					// Busca por produto pelo produto informado
 					verificaProduto = new ProdutoDAO().buscaProdutoPorProduto(prod);
 					
 					if(verificaProduto != null){
-						System.out.println("RegraProdutos, CADASTRANDO PRODUTO, PRODUTO JA CADASTRADO COM ESSE NOME...");
+						System.out.println("RegraPedidoCompra, CADASTRANDO PRODUTO, PRODUTO JA CADASTRADO COM ESSE NOME...");
 						resp.setContentType("text/plain");
 						resp.setCharacterEncoding("UTF-8");
 						resp.getWriter().write("Já existe o produto informado.");
 					}else{
-						System.out.println("RegraProdutos, CADASTRANDO PRODUTO, PRODUTO NAO ENCONTRADO, CADASTRANDO...");
+						System.out.println("RegraPedidoCompra, CADASTRANDO PRODUTO, PRODUTO NAO ENCONTRADO, CADASTRANDO...");
 						new ProdutoDAO().inserir(prod);
-						System.out.println("RegraProdutos, CADASTRANDO PRODUTO, PRODUTO CADASTRADO.");
+						System.out.println("RegraPedidoCompra, CADASTRANDO PRODUTO, PRODUTO CADASTRADO.");
 						resp.setContentType("text/plain");
 						resp.setCharacterEncoding("UTF-8");
 						resp.getWriter().write("Produto cadastrado com sucesso!");
 					}
 					
 				}catch(PersistenceException e){
-					System.out.println("RegraProdutos, CADASTRANDO PRODUTO, FALHA AO CADASTRAR, PersistenceException.");
+					System.out.println("RegraPedidoCompra, CADASTRANDO PRODUTO, FALHA AO CADASTRAR, PersistenceException.");
 					resp.setContentType("text/plain");
 					resp.setCharacterEncoding("UTF-8");
 					resp.getWriter().write("Falha ao cadastrar o produto.");							
 				}
 				break;
-			case "atualizarProduto":
-				System.out.println("RegraProdutos, ATUALIZANDO PRODUTO...");				
+			case "atualizarPedidoCompra":
+				System.out.println("RegraPedidoCompra, ATUALIZANDO PRODUTO...");				
 				strProduto = req.getParameter("produto");
 				strPrecoCompra = req.getParameter("precoCompra");
 				strPrecoVenda = req.getParameter("precoVenda");
@@ -152,11 +152,11 @@ public class RegraProdutos extends HttpServlet {
 				
 				prod = new Produto();
 				
-				System.out.println("RegraProdutos, ATUALIZANDO PRODUTO, VERIFICANDO O RECEBIMENTO DOS DADOS...");
+				System.out.println("RegraPedidoCompra, ATUALIZANDO PRODUTO, VERIFICANDO O RECEBIMENTO DOS DADOS...");
 				for(int i = 0; i < parametros.length; i++){
 					if(parametros[i][1] == null | parametros[i][1].isEmpty()){						
 						parametros[i][1] = "";
-						System.out.println("RegraProdutos, ATUALIZANDO PRODUTO, CAMPO NAO PREENCHIDO: " + parametros[i][0]);
+						System.out.println("RegraPedidoCompra, ATUALIZANDO PRODUTO, CAMPO NAO PREENCHIDO: " + parametros[i][0]);
 						resp.setContentType("text/plain");
 						resp.setCharacterEncoding("UTF-8");
 						resp.getWriter().write("Preencha todos os campos.");
@@ -173,7 +173,7 @@ public class RegraProdutos extends HttpServlet {
 								precoCompra = new BigDecimal(dblPrecoCompra);
 								prod.setPrecoCompra(precoCompra);
 							}catch(NumberFormatException e){
-								System.out.println("RegraProdutos, CADASTRANDO PRODUTO, NAO E NUMERO.");
+								System.out.println("RegraPedidoCompra, CADASTRANDO PRODUTO, NAO E NUMERO.");
 								resp.setContentType("text/plain");
 								resp.setCharacterEncoding("UTF-8");
 								resp.getWriter().write("Informe somente números!");
@@ -186,7 +186,7 @@ public class RegraProdutos extends HttpServlet {
 								precoVenda = new BigDecimal(dblPrecoVenda);
 								prod.setPrecoVenda(precoVenda);
 							}catch(NumberFormatException e){
-								System.out.println("RegraProdutos, CADASTRANDO PRODUTO, NAO E NUMERO.");
+								System.out.println("RegraPedidoCompra, CADASTRANDO PRODUTO, NAO E NUMERO.");
 								resp.setContentType("text/plain");
 								resp.setCharacterEncoding("UTF-8");
 								resp.getWriter().write("Informe somente números!");
@@ -198,76 +198,78 @@ public class RegraProdutos extends HttpServlet {
 				
 				if(req.getParameter("codigo") != null && !req.getParameter("codigo").isEmpty()){
 					try{
-						System.out.println("RegraProdutos, ATUALIZANDO PRODUTO, CONVERTENDO DADOS.");
+						System.out.println("RegraPedidoCompra, ATUALIZANDO PRODUTO, CONVERTENDO DADOS.");
 						codigo = Long.parseLong(req.getParameter("codigo"));
-						System.out.println("RegraProdutos, ATUALIZANDO PRODUTO, DADOS CONVERTIDOS." + codigo);
+						System.out.println("RegraPedidoCompra, ATUALIZANDO PRODUTO, DADOS CONVERTIDOS." + codigo);
 												
 						prod.setCodigo(codigo);
 						
-						System.out.println("RegraProdutos, ATUALIZANDO PRODUTO, DADOS VERIFICADOS, CAMPOS PREENCHIDOS...");
+						System.out.println("RegraPedidoCompra, ATUALIZANDO PRODUTO, DADOS VERIFICADOS, CAMPOS PREENCHIDOS...");
 						new ProdutoDAO().atualizar(prod);
 						System.out.println("RegraProdutos, ATUALIZANDO PRODUTO, PRODUTO ATUALIZADO.");
 						resp.setContentType("text/plain");
 						resp.setCharacterEncoding("UTF-8");
 						resp.getWriter().write("Produto atualizado com sucesso!");
 					}catch(NumberFormatException e){
-						System.out.println("RegraProdutos, ATUALIZANDO PRODUTO, DADOS NAO FORMATADOS, CODIGO INVALIDO, NumberFormatException.");						
+						System.out.println("RegraPedidoCompra, ATUALIZANDO PRODUTO, DADOS NAO FORMATADOS, CODIGO INVALIDO, NumberFormatException.");						
 						e.printStackTrace();
 					}catch(PersistenceException e){
-						System.out.println("RegraProdutos, ATUALIZANDO PRODUTO, FALHA AO ATUALIZAR, PersistenceException.");
+						System.out.println("RegraPedidoCompra, ATUALIZANDO PRODUTO, FALHA AO ATUALIZAR, PersistenceException.");
 						resp.setContentType("text/plain");
 						resp.setCharacterEncoding("UTF-8");
 						resp.getWriter().write("Falha ao atualizar o produto.");
 						e.printStackTrace();
 					}
 				}else{
-					System.out.println("RegraProdutos, ATUALIZANDO PRODUTO, DADOS NAO RECEBIDOS, Codigo NULO ou VAZIO.");					
+					System.out.println("RegraPedidoCompra, ATUALIZANDO PRODUTO, DADOS NAO RECEBIDOS, Codigo NULO ou VAZIO.");					
 					resp.setContentType("text/plain");
 					resp.setCharacterEncoding("UTF-8");
 					resp.getWriter().write("Desculpe, falha ao atualizar, cód. produto inválido.");
 				}
 				break;
-			case("excluirProduto"):
-				System.out.println("RegraProdutos, EXCLUINDO PRODUTO...");			
-				System.out.println("RegraProdutos, EXCLUINDO PRODUTO, VERIFICANDO O RECEBIMENTO DE DADOS...");
+			case("excluirPedidoCompra"):
+				System.out.println("RegraPedidoCompra, EXCLUINDO PRODUTO...");			
+				System.out.println("RegraPedidoCompra, EXCLUINDO PRODUTO, VERIFICANDO O RECEBIMENTO DE DADOS...");
 				
 				// A EXCLUSÃO É FEITA PELA "PRIMARY KEY", OU SEJA, PELO ATRIBUTO "CODIGO"				
 				if(req.getParameter("codigo") != null && !req.getParameter("codigo").isEmpty()){
-					System.out.println("RegraProdutos, EXCLUINDO PRODUTO, DADOS RECEBIDOS.");
+					System.out.println("RegraPedidoCompra, EXCLUINDO PRODUTO, DADOS RECEBIDOS.");
 					try{
-						System.out.println("RegraProdutos, EXCLUINDO PRODUTO, CONVERTENDO DADOS.");
+						System.out.println("RegraPedidoCompra, EXCLUINDO PRODUTO, CONVERTENDO DADOS.");
 						codigo = Long.parseLong(req.getParameter("codigo"));
-						System.out.println("RegraProdutos, EXCLUINDO PRODUTO, DADOS CONVERTIDOS." + codigo);
+						System.out.println("RegraPedidoCompra, EXCLUINDO PRODUTO, DADOS CONVERTIDOS." + codigo);
 						
 						prod = new Produto();
 						prod.setCodigo(codigo);
 						
 						// Realiza a exclusão
 						new ProdutoDAO().excluir(prod);
-						System.out.println("RegraProdutos, EXCLUINDO PRODUTO, EXCLUSAO REALIZADA.");						
+						System.out.println("RegraPedidoCompra, EXCLUINDO PRODUTO, EXCLUSAO REALIZADA.");						
 						resp.setContentType("text/plain");
 						resp.setCharacterEncoding("UTF-8");
 						resp.getWriter().write("Exclusão realizada com sucesso!");
 						
 					}catch(NumberFormatException e){
-						System.out.println("RegraProdutos, EXCLUINDO PRODUTO, DADOS NAO FORMATADOS, CODIGO INVALIDO, NumberFormatException.");
+						System.out.println("RegraPedidoCompra, EXCLUINDO PRODUTO, DADOS NAO FORMATADOS, CODIGO INVALIDO, NumberFormatException.");
 						e.printStackTrace();
 						resp.setContentType("text/plain");
 						resp.setCharacterEncoding("UTF-8");
 						resp.getWriter().write("Código inválido.");
 					}catch(PersistenceException e){
-						System.out.println("RegraProdutos, EXCLUINDO PRODUTO, FALHA AO EXCLUIR: PersistenceException");						
+						System.out.println("RegraPedidoCompra, EXCLUINDO PRODUTO, FALHA AO EXCLUIR: PersistenceException");						
 						resp.setContentType("text/plain");
 						resp.setCharacterEncoding("UTF-8");
 						resp.getWriter().write("Falha ao excluir o produto.");
 					}
 				}else{
-					System.out.println("RegraProdutos, EXCLUINDO PRODUTO, DADOS NAO RECEBIDOS, Codigo NULO ou VAZIO.");					
+					System.out.println("RegraPedidoCompra, EXCLUINDO PRODUTO, DADOS NAO RECEBIDOS, Codigo NULO ou VAZIO.");					
 					resp.setContentType("text/plain");
 					resp.setCharacterEncoding("UTF-8");
 					resp.getWriter().write("Informe o Código.");
 				}			
 				break;
 		}
+		
 	}
+
 }

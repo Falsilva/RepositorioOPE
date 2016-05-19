@@ -59,30 +59,30 @@ public class PopulaBanco {
 		}*/		
 		
 		//------------------- MONTANDO DADOS PARA PEDIDO DE COMPRA --------------------------
-		/*Fornecedor fornecedor = new FornecedorDAO().listar().get(3);
-		
-		Produto produto1 = new Produto(5);
+		//Fornecedor fornecedor = new FornecedorDAO().listar().get(4);
+		/*
+		Produto produto1 = new Produto(14);
 		produto1 = new ProdutoDAO().buscaProdutoPorCodigo(produto1);
 		
-		Produto produto2 = new Produto(9);
+		Produto produto2 = new Produto(15);
 		produto2 = new ProdutoDAO().buscaProdutoPorCodigo(produto2);
 		
-		Produto produto3 = new Produto(7);
+		Produto produto3 = new Produto(16);
 		produto3 = new ProdutoDAO().buscaProdutoPorCodigo(produto3);
 		
-		ItemPedido item1 = new ItemPedido(produto1, new BigDecimal(5), produto1.getPrecoCompra());
-		ItemPedido item2 = new ItemPedido(produto2, new BigDecimal(5), produto2.getPrecoCompra());
-		ItemPedido item3 = new ItemPedido(produto3, new BigDecimal(5), produto3.getPrecoCompra());
+		ItemPedido item1 = new ItemPedido(produto1, new BigDecimal(150), produto1.getPrecoCompra());
+		ItemPedido item2 = new ItemPedido(produto2, new BigDecimal(150), produto2.getPrecoCompra());
+		ItemPedido item3 = new ItemPedido(produto3, new BigDecimal(150), produto3.getPrecoCompra());
 		
 		List<ItemPedido> itens = new ArrayList<ItemPedido>();
-		itens.add(item1);
+		/*itens.add(item1);
 		itens.add(item2);
 		itens.add(item3);
 		
 		BigDecimal valorPedido = item1.getValorItem().add(item2.getValorItem().add(item3.getValorItem()));
-		*/
+		
 		PedidoCompra pedido = new PedidoCompra();
-		/*pedido.setDataAbertura(Calendar.getInstance());
+		pedido.setDataAbertura(Calendar.getInstance());
 		pedido.setDataPagamento(Calendar.getInstance());
 		pedido.setFornecedor(fornecedor);		
 		pedido.setStatusCompra(StatusCompra.PENDENTE);
@@ -91,11 +91,11 @@ public class PopulaBanco {
 		pedido.setItensPedidoCompra(itens);		
 		
 		//------------------- CADASTRANDO PEDIDO DE VENDA --------------------------
-		Cliente cliente = new ClienteDAO().listar().get(3);		
+		Cliente cliente = new ClienteDAO().listar().get(4);		
 		
-		item1 = new ItemPedido(produto1, new BigDecimal(5), produto1.getPrecoVenda());
-		item2 = new ItemPedido(produto2, new BigDecimal(5), produto2.getPrecoVenda());
-		item3 = new ItemPedido(produto3, new BigDecimal(5), produto3.getPrecoVenda());
+		ItemPedido item1 = new ItemPedido(produto1, new BigDecimal(150), produto1.getPrecoVenda());
+		ItemPedido item2 = new ItemPedido(produto2, new BigDecimal(150), produto2.getPrecoVenda());
+		ItemPedido item3 = new ItemPedido(produto3, new BigDecimal(150), produto3.getPrecoVenda());
 		
 		itens = null;
 		itens = new ArrayList<ItemPedido>();
@@ -103,10 +103,10 @@ public class PopulaBanco {
 		itens.add(item2);
 		itens.add(item3);
 		
-		valorPedido = item1.getValorItem().add(item2.getValorItem().add(item3.getValorItem()));
-		*/
+		BigDecimal valorPedido = item1.getValorItem().add(item2.getValorItem().add(item3.getValorItem()));
+		
 		PedidoVenda pedidoVenda = new PedidoVenda();
-		/*pedidoVenda.setDataAbertura(Calendar.getInstance());
+		pedidoVenda.setDataAbertura(Calendar.getInstance());
 		pedidoVenda.setDataPagamento(Calendar.getInstance());
 		pedidoVenda.setCliente(cliente);		
 		pedidoVenda.setStatusVenda(StatusVenda.PENDENTE);
@@ -114,8 +114,8 @@ public class PopulaBanco {
 		
 		pedidoVenda.setItensPedidoVenda(itens);			
 		
-		Instant inicio = Instant.now();
-		
+		//Instant inicio = Instant.now();
+		/*
 		//------------------- CADASTRANDO E EXIBINDO PEDIDO DE COMPRA --------------------------
 		try{
 			new PedidoCompraDAO().inserir(pedido);
@@ -143,11 +143,11 @@ public class PopulaBanco {
 		}catch(PersistenceException e){
 			System.out.println("XIIIIIIIII - NAO CADASTROU");
 		}
-		
+		*/
 		//------------------- CADASTRANDO E EXIBINDO PEDIDO DE VENDA --------------------------
-		try{
+		/*try{
 			new PedidoVendaDAO().inserir(pedidoVenda);
-			System.out.println("CADASTRADO:");							
+			/*System.out.println("CADASTRADO:");							
 			
 			for(PedidoVenda ped : new PedidoVendaDAO().listar()){
 				System.out.println("---------------------------------------------------------------------------");
@@ -167,16 +167,16 @@ public class PopulaBanco {
 				}				
 				System.out.println("VLR. TOTAL: R$" + ped.getValorTotal());
 			}
-					
+			
 		}catch(PersistenceException e){
 			System.out.println("XIIIIIIIII - NAO CADASTROU");
 		}
-		*/
+		
 		
 		//--------------------------------------- EXIBINDO DADOS DOS PEDIDOS -----------------------------------		
-		pedido = new PedidoCompraDAO().buscaPedidoCompraPorCodigo(2);		
-		pedidoVenda = new PedidoVendaDAO().buscaPedidoVendaPorCodigo(2);
-			
+		//pedido = new PedidoCompraDAO().buscaPedidoCompraPorCodigo(3);	
+		pedidoVenda = new PedidoVendaDAO().buscaPedidoVendaPorCodigo(4);
+		/*
 		System.out.println("\nPEDIDO COMPRA..: " + pedido.getnPedido() + 
 				"\nDATA ABERTURA..: " + new SimpleDateFormat("dd/MM/yyyy").format(pedido.getDataAbertura().getTime()) + 
 				"\nDATA PAGAMENTO.: " + new SimpleDateFormat("dd/MM/yyyy").format(pedido.getDataPagamento().getTime()) +
@@ -200,8 +200,8 @@ public class PopulaBanco {
 		movimentacaoVenda.setPedidoVenda(pedidoVenda);
 		new MovimentacaoDAO().inserir(movimentacaoVenda);		
 		
-		List<Movimentacao> movimentacoes = new MovimentacaoDAO().listar();
-		
+		//List<Movimentacao> movimentacoes = new MovimentacaoDAO().listar();
+		/*
 		for(Movimentacao mov : movimentacoes){
 			System.out.println("ITEM " + mov.getnLancamento() +
 					": " + new SimpleDateFormat("dd/MM/yyyy").format(mov.getData().getTime()) +
@@ -211,12 +211,24 @@ public class PopulaBanco {
 		
 		
 		//------------------------------------------------- CAIXA ---------------------------------------------
-		Caixa caixa = new Caixa();
+		Caixa caixa = new CaixaDAO().buscaCaixaPorCodigo(1);
+		List<Movimentacao> movimentacoes = caixa.getMovimentacoes();
+		movimentacoes.add(movimentacaoVenda);		
 		
 		if(caixa.getSaldo() == null) caixa.setSaldo(new BigDecimal(0));
 		if(caixa.getTotalEntrada() == null) caixa.setTotalEntrada(new BigDecimal(0));
 		if(caixa.getTotalSaida() == null) caixa.setTotalSaida(new BigDecimal(0));
 		
+		
+		if(movimentacoes.get(movimentacoes.size()-1).getTipoLancamento().equals(Movimentacao.TipoLancamento.ENTRADA)){
+			caixa.setTotalEntrada(caixa.getTotalEntrada().add(movimentacaoVenda.getValorLancamento()));
+			caixa.setSaldo(caixa.getSaldo().add(caixa.getTotalEntrada()).subtract(caixa.getTotalSaida()));
+			System.out.println("ENTRADA: R$ " + caixa.getTotalEntrada());
+		}else{
+			//caixa.setTotalSaida(caixa.getTotalSaida().add(movimentacaoCompra.getValorLancamento()));
+			System.out.println("SAÍDA: R$ " + caixa.getTotalSaida());
+		}
+		/*
 		for(Movimentacao mov : movimentacoes){
 			if(mov.getTipoLancamento().equals(Movimentacao.TipoLancamento.ENTRADA)){
 				caixa.setTotalEntrada(caixa.getTotalEntrada().add(mov.getValorLancamento()));
@@ -226,13 +238,13 @@ public class PopulaBanco {
 				System.out.println("SAÍDA: R$ " + caixa.getTotalSaida());
 			}					
 		}
-		caixa.setSaldo(caixa.getSaldo().add(caixa.getTotalEntrada()).subtract(caixa.getTotalSaida()));
+		//caixa.setSaldo(caixa.getSaldo().add(caixa.getTotalEntrada()).subtract(caixa.getTotalSaida()));
+		caixa.setMovimentacoes(movimentacoes);
+		new CaixaDAO().atualizar(caixa);
 		
-		new CaixaDAO().inserir(caixa);
+		//System.out.println("SALDO: " + new CaixaDAO().buscaCaixaPorCodigo(1).getSaldo());		
 		
-		System.out.println("SALDO: " + new CaixaDAO().buscaCaixaPorCodigo(1).getSaldo());		
-		
-		Instant fim = Instant.now();
+		//Instant fim = Instant.now();
 		/*
 		// Data para Computadores
 		Duration duracao = Duration.between(inicio, fim);
@@ -291,6 +303,20 @@ public class PopulaBanco {
 		LocalDate natalDesseAno = natalMede.atYear(Year.now().getValue());
 		long diasAteONatal = LocalDate.now().until(natalDesseAno, ChronoUnit.DAYS);
 		*/
+		
+		// SEGUNDO TESTE CAIXA ZUADO
+		Caixa caixa = new CaixaDAO().buscaCaixaPorCodigo(1);
+		
+		System.out.println("\nENTRADAS: " + caixa.getTotalEntrada() + "\nSAÍDAS: " + caixa.getTotalSaida() + "\nSALDO: " + caixa.getSaldo());
+				
+		caixa.setTotalSaida(caixa.getTotalSaida().add(new BigDecimal(2000)));
+		caixa.setSaldo(caixa.getTotalEntrada().subtract(caixa.getTotalSaida()));
+		
+		caixa.setTotalSaida(caixa.getTotalSaida().add(new BigDecimal(500)));
+		caixa.setSaldo(caixa.getTotalEntrada().subtract(caixa.getTotalSaida()));
+		
+		System.out.println("\nENTRADAS: " + caixa.getTotalEntrada() + "\nSAÍDAS: " + caixa.getTotalSaida() + "\nSALDO: " + caixa.getSaldo());
+		
 	}
 
 }

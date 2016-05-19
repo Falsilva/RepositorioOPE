@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -22,7 +22,7 @@
 	<link rel="stylesheet" href="resources/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
 	
 	<!-- PERSONALIZAÇÃO PRÓPRIA -->
-    <link href="resources/css/estilos.css" rel="stylesheet">
+    <link href="resources/css/estilos.css" rel="stylesheet">	
 	
 	<title>MDJ Papeis</title>
 </head>
@@ -318,7 +318,7 @@
 					<div class="row">
 					
 						<!-- CAIXA - SALDO -->
-						<div class="col-xs-4">							
+						<div class="col-xs-4 pull-left">							
 	                		<div class="widget-box transparent">
 	                		
 	                			<!-- TÍTULO DO SALDO -->
@@ -331,13 +331,53 @@
 								<!-- SALDO -->
 								<div class="widget-body">
 									<div class="widget-main no-padding">
-										<div class="text-right">
-											<h2><strong><span class="green">R$ 3395,00</span></strong></h2>
-										</div>
+										<div class="text-right" role="saldoTotal"></div>
 									</div>
 								</div>
 	                		</div>
 	                	</div>
+	                	
+	                	<!-- CAIXA - BALANÇO GERAL -->
+						<div class="col-xs-6 pull-right">							
+						  	<div class="widget-box transparent">
+						                		
+						        <!-- TÍTULO DO BALANÇO GERAL -->
+							    <div class="widget-header widget-header-flat">
+									<h3 class="widget-title lighter">
+										<i class="ace-icon fa fa-money"></i><strong> Balanço Geral - Ano 2016</strong>
+									</h3>
+								</div>
+													
+								<!-- BALANÇO GERAL - ANO 2016 -->
+								<div class="widget-body">
+									<div class="widget-main no-padding">
+										<table class="table table-bordered table-striped" role="balancoGeral">
+											<thead class="thin-border-bottom">
+								        	   	<tr>
+								                   	<th class="text-center"><h4><b>Movimentação</b></h4></th>
+								            		<th class="text-center"><h4><b>Valor (R$)</b></h4></th>
+								    			</tr>
+									        </thead>
+									        <tbody>
+										       	<tr>
+									              	<td><b class="green"><h4>Receitas (R$)</b></h4></td>
+									                <td class="text-right" role="receitas"></td>				                                    
+									            </tr>
+									        	<tr>
+									              	<td><b class="red"><h4>Despesas (R$)</b></h4></td>
+									                <td class="text-right" role="despesas"></td>				                                    
+									            </tr>
+									            <tr>
+									              	<td><b class="blue"><h4>Resultado (R$)</b></h4></td>
+									                <td class="text-right" role="saldo"></td>				                                    
+									            </tr>			                                
+									        </tbody>
+										</table>
+									</div>
+								</div>
+						    </div>
+						</div>
+						<!-- FIM -- CAIXA - BALANÇO GERAL -->	                	
 	                </div>
 	                
 	                <!-- LINHA DIVISORA -->
@@ -348,274 +388,51 @@
 	                
 	                	<!-- ABAS -->
 	                	<div class="col-xs-12">
-							<div class="tabbable">
+							<div class="tabbable" role="abasMeses">
 							
 								<!-- TÍTULO DAS ABAS -->
 								<ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="meses">
 									<li>
-										<a data-toggle="tab" href="#janeiro">Janeiro</a>
+										<a data-toggle="tab" href="#janeiro" role="mes" id="1">Janeiro</a>
 									</li>
 									<li>
-										<a data-toggle="tab" href="#fevereiro">Fevereiro</a>
+										<a data-toggle="tab" href="#fevereiro" role="mes" id="2">Fevereiro</a>
 									</li>
 									<li>
-										<a data-toggle="tab" href="#marco">Março</a>
+										<a data-toggle="tab" href="#marco" role="mes" id="3">Março</a>
 									</li>
 									<li>
-										<a data-toggle="tab" href="#abril">Abril</a>
+										<a data-toggle="tab" href="#abril" role="mes" id="4">Abril</a>
 									</li>
 									<li class="active">
-										<a data-toggle="tab" href="#maio">Maio</a>
+										<a data-toggle="tab" href="#maio" role="mes" id="5">Maio</a>
 									</li>
 									<li>
-										<a data-toggle="tab" href="#junho">Junho</a>
+										<a data-toggle="tab" href="#junho" role="mes" id="6">Junho</a>
 									</li>
 									<li>
-										<a data-toggle="tab" href="#julho">Julho</a>
+										<a data-toggle="tab" href="#julho" role="mes" id="7">Julho</a>
 									</li>
 									<li>
-										<a data-toggle="tab" href="#agosto">Agosto</a>
+										<a data-toggle="tab" href="#agosto" role="mes" id="8">Agosto</a>
 									</li>
 									<li>
-										<a data-toggle="tab" href="#setembro">Setembro</a>
+										<a data-toggle="tab" href="#setembro" role="mes" id="9">Setembro</a>
 									</li>
 									<li>
-										<a data-toggle="tab" href="#outubro">Outubro</a>
+										<a data-toggle="tab" href="#outubro" role="mes" id="10">Outubro</a>
 									</li>
 									<li>
-										<a data-toggle="tab" href="#novembro">Novembro</a>
+										<a data-toggle="tab" href="#novembro" role="mes" id="11">Novembro</a>
 									</li>
 									<li>
-										<a data-toggle="tab" href="#dezembro">Dezembro</a>
+										<a data-toggle="tab" href="#dezembro" role="mes" id="12">Dezembro</a>
 									</li>
 								</ul>
 								<!-- FIM -- TÍTULO DAS ABAS -->
 								
 								<!-- CONTEÚDO DAS ABAS -->
-								<div class="tab-content">
-									
-									<!-- ABA JANEIRO -->
-									<div id="janeiro" class="tab-pane">
-										<h1>Sem Movimentações</h1>
-									</div>
-									<!-- FIM -- ABA JANEIRO -->
-									
-									<!-- ABA FEVEREIRO -->
-									<div id="fevereiro" class="tab-pane">
-										<h1>Sem Movimentações</h1>
-									</div>
-									<!-- FIM -- ABA FEVEREIRO -->
-									
-									<!-- ABA MARÇO -->
-									<div id="marco" class="tab-pane">
-										<h1>Sem Movimentações</h1>
-									</div>
-									<!-- FIM -- ABA MARÇO -->
-									
-									<!-- ABA ABRIL -->
-									<div id="abril" class="tab-pane">
-										<h1>Sem Movimentações</h1>
-									</div>
-									<!-- FIM -- ABA ABRIL -->
-									
-									<!-- ABA MAIO -->
-									<div id="maio" class="tab-pane in active">
-									
-										<!-- BALANÇOS -->
-										<div class="row">
-										
-											<!-- CAIXA - BALANÇO MENSAL -->
-						                	<div class="col-xs-6 pull-left">							
-						                		<div class="widget-box transparent">
-						                		
-						                			<!-- TÍTULO DO BALANÇO MENSAL -->
-							                		<div class="widget-header widget-header-flat">
-														<h3 class="widget-title lighter">
-															<i class="ace-icon fa fa-money"></i><strong> Balanço Mensal</strong>
-														</h3>
-													</div>
-													
-													<!-- BALANÇO GERAL MENSAL -->
-													<div class="widget-body">
-														<div class="widget-main no-padding">
-															<table class="table table-bordered table-striped">
-																<thead class="thin-border-bottom">
-									                               	<tr>
-									                                   	<th class="text-center"><h4><b>Movimentação</b></h4></th>
-									                                   	<th class="text-center"><h4><b>Valor (R$)</b></h4></th>
-									                              	</tr>
-								                       			</thead>
-									                       		<tbody>
-									                       			<tr>
-									                                    <td><b class="green"><h4>Receitas (R$)</b></h4></td>
-									                                    <td class="text-right"><h4><b class="green">+ 1500,00</b></h4></td>				                                    
-									                                </tr>
-									                                <tr>
-									                                    <td><b class="red"><h4>Despesas (R$)</b></h4></td>
-									                                    <td class="text-right"><h4><b class="red">- 1460,00</b></h4></td>				                                    
-									                                </tr>
-									                                <tr>
-									                                    <td><b class="blue"><h4>Resultado (R$)</b></h4></td>
-									                                    <td class="text-right"><h4><b class="blue">+ 40,00</b></h4></td>				                                    
-									                                </tr>			                                
-									                            </tbody>
-									                       	</table>
-														</div>
-													</div>
-						                		</div>
-						                	</div>
-						                	<!-- FIM -- CAIXA - BALANÇO MENSAL -->
-						                	
-						                	<!-- CAIXA - BALANÇO GERAL -->
-						                	<div class="col-xs-6 pull-right">							
-						                		<div class="widget-box transparent">
-						                		
-						                			<!-- TÍTULO DO BALANÇO GERAL -->
-							                		<div class="widget-header widget-header-flat">
-														<h3 class="widget-title lighter">
-															<i class="ace-icon fa fa-money"></i><strong> Balanço Geral - Ano 2016</strong>
-														</h3>
-													</div>
-													
-													<!-- BALANÇO GERAL - ANO 2016 -->
-													<div class="widget-body">
-														<div class="widget-main no-padding">
-															<table class="table table-bordered table-striped">
-																<thead class="thin-border-bottom">
-									                               	<tr>
-									                                   	<th class="text-center"><h4><b>Movimentação</b></h4></th>
-									                                   	<th class="text-center"><h4><b>Valor (R$)</b></h4></th>
-									                              	</tr>
-								                       			</thead>
-									                       		<tbody>
-									                       			<tr>
-									                                    <td><b class="green"><h4>Receitas (R$)</b></h4></td>
-									                                    <td class="text-right"><h4><b class="green">+ 300395,00</b></h4></td>				                                    
-									                                </tr>
-									                                <tr>
-									                                    <td><b class="red"><h4>Despesas (R$)</b></h4></td>
-									                                    <td class="text-right"><h4><b class="red">- 250798,00</b></h4></td>				                                    
-									                                </tr>
-									                                <tr>
-									                                    <td><b class="blue"><h4>Resultado (R$)</b></h4></td>
-									                                    <td class="text-right"><h4><b class="blue">+ 49597,00</b></h4></td>				                                    
-									                                </tr>			                                
-									                            </tbody>
-									                       	</table>
-														</div>
-													</div>
-						                		</div>
-						                	</div>
-						                	<!-- FIM -- CAIXA - BALANÇO GERAL -->
-						                </div>
-						                <!-- FIM BALANÇOS -->
-						                
-						                <!-- LINHA DIVISORA -->
-										<div class="hr hr-double hr-dotted hr18"></div>
-										
-						                <!-- TABELA DE MOVIMENTAÇÕES - MAIO -->
-						                <div class="row">	                	
-						                	<div class="col-xs-12">									                	
-						                	
-							                	<div class="widget-box transparent">
-									                    
-													<!-- TÍTULO DAS MOVIMENTAÇÕES -->
-								                	<div class="widget-header widget-header-flat">
-														<h3 class="widget-title lighter">
-															<i class="ace-icon fa fa-money"></i><strong> Movimentações</strong>
-														</h3>
-													</div>
-														
-													<!-- MOVIMENTAÇÕES -->
-								                    <div class="widget-body">
-														<div class="widget-main no-padding">
-															<table class="table table-bordered table-striped">
-																<thead class="thin-border-bottom">
-									                               	<tr>
-									                                   	<th>Item</th>
-									                                   	<th>Data</th>
-									                                    <th>Descrição</th>
-									                                    <th>Valor (R$)</th>
-									                              	</tr>
-								                       			</thead>
-									                       		<tbody>
-									                       			<tr>
-									                                   	<td class="text-right"><b>1</b></td>
-									                                    <td><b>10/05/2016</b></td>
-									                                    <td><b>Pedido de Compra nº 12</b></td>
-									                                    <td class="text-right"><b class="red">- 800,00</b></td>				                                    
-									                                </tr>
-									                                <tr>
-									                                   	<td class="text-right"><b>2</b></td>
-									                                    <td><b>23/05/2016</b></td>
-									                                    <td><b>Manutenção da Empilhadeira NF. 34254</b></td>
-									                                    <td class="text-right"><b class="red">- 540,00</b></td>				                                    
-									                                </tr>
-									                                <tr>
-									                                   	<td class="text-right"><b>3</b></td>
-									                                    <td><b>23/05/2016</b></td>
-									                                    <td><b>Pedido de Venda nº 6</b></td>
-									                                    <td class="text-right"><b class="green">+ 1500,00</b></td>				                                    
-									                                </tr>
-									                                <tr>
-									                                   	<td class="text-right"><b>4</b></td>
-									                                    <td><b>29/05/2016</b></td>
-									                                    <td><b>Água</b></td>
-									                                    <td class="text-right"><b class="red">- 120,00</b></td>				                                    
-									                                </tr>			                                
-									                            </tbody>
-									                       	</table>
-									                    </div>
-								                    </div>
-								                </div>
-								        	</div>
-						                </div>
-						                <!-- FIM -- TABELA DE MOVIMENTAÇÕES - MAIO -->
-									</div>
-									<!-- FIM -- ABA MAIO -->
-									
-									<!-- ABA JUNHO -->
-									<div id="junho" class="tab-pane">
-										<h1>Sem Movimentações</h1>
-									</div>
-									<!-- FIM -- ABA JUNHO -->
-									
-									<!-- ABA JULHO -->
-									<div id="julho" class="tab-pane">
-										<h1>Sem Movimentações</h1>
-									</div>
-									<!-- FIM -- ABA JULHO -->
-									
-									<!-- ABA AGOSTO -->
-									<div id="agosto" class="tab-pane">
-										<h1>Sem Movimentações</h1>
-									</div>
-									<!-- FIM -- ABA AGOSTO -->
-									
-									<!-- ABA SETEMBRO -->
-									<div id="setembro" class="tab-pane">
-										<h1>Sem Movimentações</h1>
-									</div>
-									<!-- FIM -- ABA SETEMBRO -->
-									
-									<!-- ABA OUTUBRO -->
-									<div id="outubro" class="tab-pane">
-										<h1>Sem Movimentações</h1>
-									</div>
-									<!-- FIM -- ABA OUTUBRO -->
-									
-									<!-- ABA NOVEMBRO -->
-									<div id="novembro" class="tab-pane">
-										<h1>Sem Movimentações</h1>
-									</div>
-									<!-- FIM -- ABA NOVEMBRO -->
-									
-									<!-- ABA DEZEMBRO -->
-									<div id="dezembro" class="tab-pane">
-										<h1>Sem Movimentações</h1>
-									</div>
-									<!-- FIM -- ABA DEZEMBRO -->
-								</div>
+								<div class="tab-content" id="conteudoMeses"></div>
 								<!-- FIM -- CONTEÚDO DAS ABAS -->
 							</div>
 						</div>
@@ -626,7 +443,7 @@
 				<!-- FIM -- CONTEÚDO DA PÁGINA -->
 			</div>
 		</div>
-		<!-- FIM -- CONTEÚDO PRINCIPAL DA PÁGINA -->
+		<!-- FIM -- CONTEÚDO PRINCIPAL DA PÁGINA -->	
 		
 		
 		<!--======================= DIVISA DOS BLOCOS DO CONTEÚDO PRINCIPAL E RODAPÉ =======================-->
@@ -659,7 +476,7 @@
 	<!--=======================================   SCRIPTS   ================================================-->
 	
 
-    <!-- JQUERY SCRIPTS -->
+   	<!-- JQUERY SCRIPTS -->
     <!--[if !IE]> -->
 	<script src="resources/js/jquery.2.1.1.min.js"></script>
 	<!-- <![endif]-->
@@ -693,7 +510,10 @@
 	<script src="resources/js/ace.min.js"></script>	
     
     <!-- RELÓGIO -->
-    <script src="resources/js/relogio.js"></script>    
+    <script src="resources/js/relogio.js"></script>     
     
+	<!-- CARREGA DADOS DO CAIXA -->
+	<script src="resources/js/ajaxcaixa.js"></script>
+	
 </body>
 </html>

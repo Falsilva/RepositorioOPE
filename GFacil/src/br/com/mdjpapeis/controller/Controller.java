@@ -127,10 +127,55 @@ public class Controller extends HttpServlet{
 				break;
 			case "excluirUsuario":
 				dispatcher = req.getRequestDispatcher("excluirUsuario");
-				break;
+				break;			
 			case "pegaPerfil":
 				dispatcher = req.getRequestDispatcher("pegaPerfil");				
-				break;			
+				break;
+			case "listarPedidoCompra":
+				dispatcher = req.getRequestDispatcher("listarPedidoCompra");
+				break;
+			case "pesquisarPedidoCompra":
+				dispatcher = req.getRequestDispatcher("pesquisarPedidoCompra");
+				break;
+			case "cadastrarPedidoCompra":
+				dispatcher = req.getRequestDispatcher("cadastrarPedidoCompra");
+				break;
+			case "atualizarPedidoCompra":
+				dispatcher = req.getRequestDispatcher("atualizarPedidoCompra");
+				break;
+			case "excluirPedidoCompra":
+				dispatcher = req.getRequestDispatcher("excluirPedidoCompra");
+				break;
+			case "listarPedidoVenda":
+				dispatcher = req.getRequestDispatcher("listarPedidoVenda");
+				break;
+			case "pesquisarPedidoVenda":
+				dispatcher = req.getRequestDispatcher("pesquisarPedidoVenda");
+				break;
+			case "cadastrarPedidoVenda":
+				dispatcher = req.getRequestDispatcher("cadastrarPedidoVenda");
+				break;
+			case "atualizarPedidoVenda":
+				dispatcher = req.getRequestDispatcher("atualizarPedidoVenda");
+				break;
+			case "excluirPedidoVenda":
+				dispatcher = req.getRequestDispatcher("excluirPedidoVenda");
+				break;
+			case "listarCaixa":
+				dispatcher = req.getRequestDispatcher("listarCaixa");
+				break;
+			case "pesquisarCaixa":
+				dispatcher = req.getRequestDispatcher("pesquisarCaixa");
+				break;
+			case "cadastrarCaixa":
+				dispatcher = req.getRequestDispatcher("cadastrarCaixa");
+				break;
+			case "atualizarCaixa":
+				dispatcher = req.getRequestDispatcher("atualizarCaixa");
+				break;
+			case "excluirCaixa":
+				dispatcher = req.getRequestDispatcher("excluirCaixa");
+				break;
 			default:
 				dispatcher = req.getRequestDispatcher("WEB-INF/paginas/error.jsp");
 				break;

@@ -86,7 +86,7 @@ public class CaixaDAO implements GenericoDAO<Caixa> {
 		return caixas;
 	}
 	
-public Caixa buscaCaixaPorCodigo(long codigo){
+	public Caixa buscaCaixaPorCodigo(long codigo){
 		
 		EntityManagerFactory conexao = Persistence.createEntityManagerFactory("MDJPapeisPU");				
 		Caixa caixa = null;		
