@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.mdjpapeis.dao.ProdutoDAO;
+import br.com.mdjpapeis.entity.Fornecedor;
 import br.com.mdjpapeis.entity.Produto;
 
 @WebServlet(urlPatterns = {"/listarProdutos", "/pesquisarProduto", "/cadastrarProduto", "/atualizarProduto", "/excluirProduto"})
@@ -49,16 +50,52 @@ public class RegraProdutos extends HttpServlet {
 		switch(req.getParameter("action")){
 			case("listarProdutos"):
 				System.out.println("RegraProdutos, LISTANDO PRODUTOS...");
-				produtos = new ProdutoDAO().listar();				
-				if(produtos != null){
-					System.out.println("RegraProdutos, PRODUTOS LISTADOS.");
-					req.setAttribute("produtos", produtos);
+				produtos = new ProdutoDAO().listar();
+				
+				if(tarefa != null && tarefa.equals("pedido")){						
+					
+					// Montando o JSON
+					String dataListaProdutos = "";
+					String arrayProdutos = "";
+					
+					if(produtos != null){
+						int count = 1;
+						for(Produto p : produtos){
+							if(count == 1){
+								arrayProdutos += "{"			
+										+ "\"codigo\":\"" + p.getCodigo() + "\","
+										+ "\"produto\":\"" + p.getProduto() + "\","
+										+ "\"precoCompra\":\"" + p.getPrecoCompra() + "\","
+										+ "\"precoVenda\":\"" + p.getPrecoVenda() + "\""
+										+ "}";
+								count = 2;
+							}else{
+								arrayProdutos += ", " + "{"			
+										+ "\"codigo\":\"" + p.getCodigo() + "\","
+										+ "\"produto\":\"" + p.getProduto() + "\","
+										+ "\"precoCompra\":\"" + p.getPrecoCompra() + "\","
+										+ "\"precoVenda\":\"" + p.getPrecoVenda() + "\""
+										+ "}";
+							}
+						}					
+						dataListaProdutos = "{\"dataListaProdutos\":[" + arrayProdutos + "]}";
+					}else{
+						dataListaProdutos = "{\"dataListaProdutos\":\"null\"}";
+					}
+					resp.setContentType("application/json");				
+					resp.setCharacterEncoding("UTF-8");
+					resp.getWriter().write(dataListaProdutos);
 				}else{
-					System.out.println("RegraProdutos, NAO HA PRODUTOS CADASTRADOS.");
-					req.setAttribute("mensagem", "Não há produtos cadastrados");
-				}				
-				dispatcher = req.getRequestDispatcher("controller?action=produtos");
-				dispatcher.forward(req, resp);
+					if(produtos != null){
+						System.out.println("RegraProdutos, PRODUTOS LISTADOS.");
+						req.setAttribute("produtos", produtos);
+					}else{
+						System.out.println("RegraProdutos, NAO HA PRODUTOS CADASTRADOS.");
+						req.setAttribute("mensagem", "Não há produtos cadastrados");
+					}
+					dispatcher = req.getRequestDispatcher("controller?action=produtos");
+					dispatcher.forward(req, resp);
+				}
 				break;
 			case("cadastrarProduto"):
 				System.out.println("RegraProdutos, CADASTRANDO PRODUTO...");

@@ -43,7 +43,7 @@
 							<br />
 							<div class="form-group input-group has-success">
                             	<span class="input-group-addon alert-success"><i class="glyphicon glyphicon-user"></i></span>
-                                <input type="text" class="form-control" name="nomeusuario" id="nome" placeholder="Seu nome de usuário" autofocus />
+                                <input type="text" class="form-control" name="nomeusuario" id="nome" placeholder="Seu nome de usuário" autofocus autocomplete="off" />
                             </div>
                             <div class="form-group input-group has-success">
                                 <span class="input-group-addon alert-success"><i class="glyphicon glyphicon-lock"  ></i></span>

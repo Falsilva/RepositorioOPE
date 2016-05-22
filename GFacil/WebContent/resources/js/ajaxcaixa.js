@@ -19,7 +19,6 @@ $(document).ready(function(){
 				action:"pesquisarCaixa"
 			},
 			success:function(resultado){
-				console.log("SUCCESS CAIXA GERAL");				
 				
 				// DIV CAIXA SALDO TOTAL - PÁGS. DASHBOARD E CAIXA
 				divCaixaSaldoTotal.html("<h2><strong><span></span></strong></h2>");
@@ -71,7 +70,6 @@ $(document).ready(function(){
 	var divAbasMeses = $("div[role=abasMeses]");
 	
 	if(divAbasMeses.length){
-		console.log("0.DIV ABAS MESES ENCONTRADA");
 		mes = null;
 		ano = null;
 		
@@ -93,23 +91,22 @@ $(document).ready(function(){
 		// CONTEUDO DAS ABAS - FUNCAO PARA MONTAR A DIV COM CONTEUDO DO MES SEM OS DADOS
 		var divConteudoMeses = divAbasMeses.find("#conteudoMeses");		
 		var montaDivConteudoMeses = function(mes){
-			console.log("1.INICIO DA MONTAGEM DA DIV");
+			
 			// PEGA O MES E ANO ATUAL QUANDO A PÁGINA É CARREGADA
 			if(mes == null){
 				var dataCompleta = new Date();
 				mes = parseInt(dataCompleta.getMonth() + 1);
 				ano = parseInt(dataCompleta.getFullYear());
 			}
-			console.log("2.VERIFICOU MES: " + mes);
+			
 			// GARANTE QUE A DIV COM O CONTEUDO DO MES ESTEJA LIMPA ANTES DA MONTAGEM
 			divConteudoMeses.html("");
-			console.log("3.LIMPOU A DIV: " + divConteudoMeses.html());
 			
 			// ADICIONA A QTD. DE DIVS PELAS ABAS CORRESPONDENTES AOS MESES					
 			aMeses.each(function(index, value){
 				divConteudoMeses.append("<div class='tab-pane'></div>");
 			});
-			console.log("4.DIVs ADICIONADAS, QTD: " + divConteudoMeses.find("div").length);
+			
 			divMes = divConteudoMeses.find("div");
 			divMes.each(function(index, value){
 				switch(index+1){					
@@ -117,7 +114,6 @@ $(document).ready(function(){
 						$(this).prop("id", "janeiro");
 						if(mes == (index+1)){
 							$(this).addClass("active");
-							console.log("5.SWITCH CASE " + (index+1) + ", ADCIONADA A CLASSE ACTIVE");
 							montaTableCaixaBalancoMensal(mes);
 							montaMovimentacaoMensal(mes);
 						}
@@ -126,7 +122,6 @@ $(document).ready(function(){
 						$(this).prop("id", "fevereiro");
 						if(mes == (index+1)){
 							$(this).addClass("active");
-							console.log("5.SWITCH CASE " + (index+1) + ", ADCIONADA A CLASSE ACTIVE");
 							montaTableCaixaBalancoMensal(mes);
 							montaMovimentacaoMensal(mes);
 						}
@@ -135,7 +130,6 @@ $(document).ready(function(){
 						$(this).prop("id", "marco");
 						if(mes == (index+1)){
 							$(this).addClass("active");
-							console.log("5.SWITCH CASE " + (index+1) + ", ADCIONADA A CLASSE ACTIVE");
 							montaTableCaixaBalancoMensal(mes);
 							montaMovimentacaoMensal(mes);
 						}
@@ -144,7 +138,6 @@ $(document).ready(function(){
 						$(this).prop("id", "abril");
 						if(mes == (index+1)){
 							$(this).addClass("active");
-							console.log("5.SWITCH CASE " + (index+1) + ", ADCIONADA A CLASSE ACTIVE");
 							montaTableCaixaBalancoMensal(mes);
 							montaMovimentacaoMensal(mes);
 						}
@@ -153,7 +146,6 @@ $(document).ready(function(){
 						$(this).prop("id", "maio");
 						if(mes == (index+1)){
 							$(this).addClass("active");
-							console.log("5.SWITCH CASE " + (index+1) + ", ADCIONADA A CLASSE ACTIVE");
 							montaTableCaixaBalancoMensal(mes);
 							montaMovimentacaoMensal(mes);
 						}
@@ -162,7 +154,6 @@ $(document).ready(function(){
 						$(this).prop("id", "junho");
 						if(mes == (index+1)){
 							$(this).addClass("active");
-							console.log("5.SWITCH CASE " + (index+1) + ", ADCIONADA A CLASSE ACTIVE");
 							montaTableCaixaBalancoMensal(mes);
 							montaMovimentacaoMensal(mes);
 						}
@@ -171,7 +162,6 @@ $(document).ready(function(){
 						$(this).prop("id", "julho");
 						if(mes == (index+1)){
 							$(this).addClass("active");
-							console.log("5.SWITCH CASE " + (index+1) + ", ADCIONADA A CLASSE ACTIVE");
 							montaTableCaixaBalancoMensal(mes);
 							montaMovimentacaoMensal(mes);
 						}
@@ -180,7 +170,6 @@ $(document).ready(function(){
 						$(this).prop("id", "agosto");
 						if(mes == (index+1)){
 							$(this).addClass("active");
-							console.log("5.SWITCH CASE " + (index+1) + ", ADCIONADA A CLASSE ACTIVE");
 							montaTableCaixaBalancoMensal(mes);
 							montaMovimentacaoMensal(mes);
 						}
@@ -198,7 +187,6 @@ $(document).ready(function(){
 						$(this).prop("id", "outubro");
 						if(mes == (index+1)){
 							$(this).addClass("active");
-							console.log("5.SWITCH CASE " + (index+1) + ", ADCIONADA A CLASSE ACTIVE");
 							montaTableCaixaBalancoMensal(mes);
 							montaMovimentacaoMensal(mes);
 						}
@@ -207,7 +195,6 @@ $(document).ready(function(){
 						$(this).prop("id", "novembro");
 						if(mes == (index+1)){
 							$(this).addClass("active");
-							console.log("5.SWITCH CASE " + (index+1) + ", ADCIONADA A CLASSE ACTIVE");
 							montaTableCaixaBalancoMensal(mes);
 							montaMovimentacaoMensal(mes);
 						}
@@ -215,20 +202,17 @@ $(document).ready(function(){
 					case 12:
 						$(this).prop("id", "dezembro");
 						if(mes == (index+1)){
-							$(this).addClass("active");							
-							console.log("5.SWITCH CASE " + (index+1) + ", ADCIONADA A CLASSE ACTIVE");
+							$(this).addClass("active");
 							montaTableCaixaBalancoMensal(mes);
 							montaMovimentacaoMensal(mes);
 						}
 						break;
 				}				
 			});
-			console.log("7.COLOCOU AS DIV");
 		}
 		
 		// MONTA A TABELA DO CAIXA BALANCO MENSAL DO MES ATIVO		
 		var montaTableCaixaBalancoMensal = function(mes){
-			console.log("6.DIV MES: " + divMes.html());			
 			divMes.append("<div class='row' role='caixaMensal'></div>");
 			
 			rowCaixaMensal = divMes.find("div[role=caixaMensal]");
@@ -240,7 +224,7 @@ $(document).ready(function(){
 			
 			rowCaixaMensal.find("div.widget-header").append("<h3 class='widget-title lighter'></h3>");
 			rowCaixaMensal.find("div.widget-header > h3").html("<i class='ace-icon fa fa-money'></i><strong></strong>");
-			rowCaixaMensal.find("div.widget-header > h3 > strong").text(" Balanço Mensal");
+			rowCaixaMensal.find("div.widget-header > h3 > strong").text(" Balanco Mensal");
 			
 			rowCaixaMensal.find("div.widget-body").append("<div class='widget-main no-padding'></div>");
 			rowCaixaMensal.find("div.widget-main").append("<table class='table table-bordered table-striped' role='balancoMensal'></table>");
@@ -250,7 +234,7 @@ $(document).ready(function(){
 			tbodyCaixaBalancoMensal = tableCaixaBalancoMensal.append("<tbody></tbody>");
 			
 			theadCaixaBalancoMensal.append("<tr>" +
-					"<th class='text-center'><h4><b>Movimentação</b></h4></th>" +
+					"<th class='text-center'><h4><b>Movimentacao</b></h4></th>" +
 					"<th class='text-center'><h4><b>Valor (R$)</b></h4></th>" +
 					"</tr>");
 			tbodyCaixaBalancoMensal.append("<tr>" +
@@ -269,7 +253,6 @@ $(document).ready(function(){
 		
 		// MONTA AS MOVIMENTACOES DO MES ATIVO
 		var montaMovimentacaoMensal = function(mes){
-			console.log("7.DIV MES: " + divMes.html());
 			divMes.append("<div class='row' role='movimentacaoMensal'>");
 			
 			rowMovimentacaoMensal = divMes.find("div[role=movimentacaoMensal]");
@@ -281,7 +264,7 @@ $(document).ready(function(){
 			
 			rowMovimentacaoMensal.find("div.widget-header").append("<h3 class='widget-title lighter'></h3>");
 			rowMovimentacaoMensal.find("div.widget-header > h3").html("<i class='ace-icon fa fa-money'></i><strong></strong>");
-			rowMovimentacaoMensal.find("div.widget-header > h3 > strong").text(" Movimentações");
+			rowMovimentacaoMensal.find("div.widget-header > h3 > strong").text(" Movimentacoes");
 			
 			rowMovimentacaoMensal.find("div.widget-body").append("<div class='widget-main no-padding'></div>");
 			rowMovimentacaoMensal.find("div.widget-main").append("<table class='table table-bordered table-striped'></table>");
@@ -293,7 +276,7 @@ $(document).ready(function(){
 			theadMovimentacaoMensal.append("<tr>" +
 					"<th>Item</th>" +
 					"<th>Data</th>" +
-					"<th>Lançamento</th>" +
+					"<th>Lancamento</th>" +
 					"<th>Valor (R$)</th>" +
 					"</tr>");
 			
@@ -302,7 +285,6 @@ $(document).ready(function(){
 		
 		// FUNCAO QUE EXECUTA O AJAX PARA CONSULTAR DADOS DO CAIXA E MOVIMENTACAO DO PERIODO INFORMADO
 		var ajaxMovimentacaoMensal = function(mes, ano){
-			console.log("ENTROU NO AJAX MES");
 			$.ajax({
 				url:"controller",
 				type:"post",
@@ -313,16 +295,15 @@ $(document).ready(function(){
 					ano:ano,
 					action:"pesquisarCaixa"
 				},
-				success:function(resultado){					
-					console.log("SUCESS CAIXA MENSAL: " + resultado.dataCaixaMes);
+				success:function(resultado){
 					if(resultado.dataCaixaMes == "null"){
-						console.log("NULO");
 						divConteudoMeses.html("<h3><b class='blue'></b></h3>");
 						divConteudoMeses.addClass("center");
 						divConteudoMeses.find("b").text("Não há lançamentos.");						
 					}else{
 						if(divAbasMeses.length){
 							divConteudoMeses.removeClass("center");
+							
 							// CAIXA MENSAL - CARREGA OS DADOS
 							tbodyCaixaBalancoMensal.find("td[role=receitas]").html("<h4><b class='green'>R$ " + resultado.dataCaixaMes[0].totalEntrada + "</b></h4>");
 							tbodyCaixaBalancoMensal.find("td[role=despesas]").html("<h4><b class='red'>R$ " + resultado.dataCaixaMes[0].totalSaida + "</b></h4>");
@@ -357,14 +338,10 @@ $(document).ready(function(){
 		
 		// CLIQUE DE UMA ABA MES
 		aMeses.on("click", function(e){			
-			//e.preventDefault();
+			e.preventDefault();
 			mes = "";
-			mes = $(this).attr("id");			
-			console.log("0.CLICADO NA ABA MES: " + mes + ". " + $(this).html());
-			montaDivConteudoMeses(mes);
-			//carregaAba(mesNovo);
+			mes = $(this).attr("id");
+			montaDivConteudoMeses(mes);			
 		});
-	}
-	//console.log(divAbasMeses.find("ul li ul.active a"));
-	
+	}	
 });

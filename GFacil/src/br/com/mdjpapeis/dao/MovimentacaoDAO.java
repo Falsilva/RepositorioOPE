@@ -8,8 +8,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 
 import br.com.mdjpapeis.entity.Movimentacao;
+import br.com.mdjpapeis.entity.PedidoCompra;
 
 public class MovimentacaoDAO implements GenericoDAO<Movimentacao> {
 
@@ -61,6 +63,45 @@ public class MovimentacaoDAO implements GenericoDAO<Movimentacao> {
 		}
 	}
 
+	public void excluirMovimentacaoCompra(PedidoCompra pedidoCompra) throws PersistenceException {
+		EntityManagerFactory conexao = Persistence.createEntityManagerFactory("MDJPapeisPU");
+		List<Movimentacao> movimentacoes = null;
+		try{
+			EntityManager entityManager = conexao.createEntityManager();		
+			entityManager.getTransaction().begin();
+			
+			String queryJPQL =	"SELECT M FROM Movimentacao M WHERE M.pedidoCompra = :pedidoCompra";
+			
+			Query query = entityManager.createQuery(queryJPQL);
+			query.setParameter("pedidoCompra", pedidoCompra);
+			movimentacoes = (List<Movimentacao>)query.getResultList();
+			
+			if(movimentacoes.size() != 0){
+				for(Movimentacao mov : movimentacoes){
+					if(mov.getPedidoCompra().getnPedido() == pedidoCompra.getnPedido())
+						entityManager.remove(mov);
+				}
+			}
+			
+			// Tornando o caixa gerenciável pelo entityManager, necessário para usar o método remove a seguir
+			//movimentacao = entityManager.find(Movimentacao.class, nPedidoCompra);
+			
+			//entityManager.remove(movimentacao);		
+			entityManager.getTransaction().commit();
+			entityManager.close();		
+		}catch(IllegalArgumentException ex){
+			System.out.println("MovimentacaoDAO - CATCH IllegalArgumentException");
+			ex.printStackTrace();
+			throw new PersistenceException(ex);		
+		}catch(PersistenceException ex){
+			System.out.println("MovimentacaoDAO - CATCH PersistenceException");
+			ex.printStackTrace();
+			throw new PersistenceException(ex);			
+		}finally{					
+			conexao.close();
+		}
+	}
+	
 	@Override
 	public List<Movimentacao> listar() throws PersistenceException {
 		List<Movimentacao> movimentacoes = new ArrayList();
@@ -104,5 +145,4 @@ public class MovimentacaoDAO implements GenericoDAO<Movimentacao> {
 		}
 		return movimentacoes;
 	}
-
 }

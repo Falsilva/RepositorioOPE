@@ -86,7 +86,7 @@ public class PedidoCompraDAO implements GenericoDAO<PedidoCompra> {
 		return pedidosCompras;
 	}
 	
-	public PedidoCompra buscaPedidoCompraPorCodigo(long codigo){
+	public PedidoCompra buscaPedidoCompraPorNumeroPedido(long nPedido){
 		
 		EntityManagerFactory conexao = Persistence.createEntityManagerFactory("MDJPapeisPU");
 				
@@ -95,7 +95,7 @@ public class PedidoCompraDAO implements GenericoDAO<PedidoCompra> {
 		try{
 			
 			EntityManager entityManager = conexao.createEntityManager();						
-			pedidoCompra = entityManager.find(PedidoCompra.class, codigo);			
+			pedidoCompra = entityManager.find(PedidoCompra.class, nPedido);			
 			entityManager.close();
 			
 		}catch(IllegalArgumentException ex){

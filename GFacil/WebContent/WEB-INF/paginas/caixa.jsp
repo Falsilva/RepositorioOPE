@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -207,7 +207,7 @@
 						<c:if test="${usuarioLogado.perfil == 'ADMINISTRADOR' || usuarioLogado.perfil == 'COMPRADOR'}">
 						<li class="">
 							<a href="#" onclick="document.getElementById('form_compra').submit()">
-								<form id="form_compra" action="controller?action=compra" method="post"></form>
+								<form id="form_compra" action="controller?action=listarPedidoCompra" method="post"></form>
 								<i class="menu-icon fa fa-caret-right"></i> Compra 
 								<span class="badge badge-transparent">
 									<i class="ace-icon fa fa-cart-arrow-down red bigger-130"></i>

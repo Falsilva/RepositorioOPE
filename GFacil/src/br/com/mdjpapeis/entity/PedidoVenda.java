@@ -41,11 +41,12 @@ public class PedidoVenda {
 	@Column(name = "DATA_PAGAMENTO", nullable = true)
 	private Calendar dataPagamento;
 		
-	// Quando o Status for CANCELADO
+	// Quando o Status for CANCELADO 
+	/*
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATA_CANCELAMENTO", nullable = true)
 	private Calendar dataCancelamento;
-		
+	*/
 	// Atributo para a somatória dos valores dos itens
 	@Column(name = "VALOR_TOTAL", nullable = false, scale = 2, precision = 10)
 	private BigDecimal valorTotal;
@@ -57,7 +58,7 @@ public class PedidoVenda {
 	public enum StatusVenda{
 		PENDENTE,
 		PAGO,
-		CANCELADO
+		// CANCELADO
 	}	
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)	// UNIDIRECIONAL - onde o JoinColumn gera uma chave estrangeira na tabela ITEM_PRODUTO, senão geraria uma tabela intermediária, por padrão, um JoinTable
@@ -91,19 +92,19 @@ public class PedidoVenda {
 	public Calendar getDataPagamento() {
 		return dataPagamento;
 	}
-
+	
 	public void setDataPagamento(Calendar dataPagamento) {
 		this.dataPagamento = dataPagamento;
 	}
-
+	/*
 	public Calendar getDataCancelamento() {
 		return dataCancelamento;
 	}
-
+	
 	public void setDataCancelamento(Calendar dataCancelamento) {
 		this.dataCancelamento = dataCancelamento;
 	}
-
+	*/
 	public BigDecimal getValorTotal() {
 		return valorTotal;
 	}

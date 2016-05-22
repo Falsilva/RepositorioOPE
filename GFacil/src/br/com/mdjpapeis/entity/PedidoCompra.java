@@ -44,10 +44,11 @@ public class PedidoCompra implements Serializable {
 	private Calendar dataPagamento;
 	
 	// Quando o Status for CANCELADO
+	/*
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATA_CANCELAMENTO", nullable = true)
 	private Calendar dataCancelamento;
-	
+	*/
 	// Atributo para a somatória dos valores dos itens
 	@Column(name = "VALOR_TOTAL", nullable = false, scale = 2, precision = 10)
 	private BigDecimal valorTotal;
@@ -59,7 +60,7 @@ public class PedidoCompra implements Serializable {
 	public enum StatusCompra{
 		PENDENTE,
 		PAGO,
-		CANCELADO
+		// CANCELADO
 	}
 	
 	// UM PEDIDO TEM UMA LISTA DE ITENS	- o atributo mappedBy indica o relacionamento bidirecional	
@@ -99,7 +100,7 @@ public class PedidoCompra implements Serializable {
 	public void setDataPagamento(Calendar dataPagamento) {
 		this.dataPagamento = dataPagamento;
 	}
-
+	/*
 	public Calendar getDataCancelamento() {
 		return dataCancelamento;
 	}
@@ -107,7 +108,7 @@ public class PedidoCompra implements Serializable {
 	public void setDataCancelamento(Calendar dataCancelamento) {
 		this.dataCancelamento = dataCancelamento;
 	}
-
+	*/
 	public BigDecimal getValorTotal() {
 		return valorTotal;
 	}

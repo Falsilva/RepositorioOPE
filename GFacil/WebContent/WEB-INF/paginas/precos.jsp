@@ -206,7 +206,7 @@
 						<c:if test="${usuarioLogado.perfil == 'ADMINISTRADOR' || usuarioLogado.perfil == 'COMPRADOR'}">
 						<li class="">
 							<a href="#" onclick="document.getElementById('form_compra').submit()">
-								<form id="form_compra" action="controller?action=compra" method="post"></form>
+								<form id="form_compra" action="controller?action=listarPedidoCompra" method="post"></form>
 								<i class="menu-icon fa fa-caret-right"></i> Compra 
 								<span class="badge badge-transparent">
 									<i class="ace-icon fa fa-cart-arrow-down red bigger-130"></i>
@@ -337,7 +337,14 @@
 								
 									<!-- RESULTADO DO NÚMEROS DE PRODUTOS -->
 									<div class="table-header">
-										<strong>Resultado: " ${produtos.size()} produto(s) cadastrado(s) "</strong>
+										<c:choose>
+											<c:when test="${produtos.size() > 0}">
+												<strong>Resultado: " ${produtos.size()} materiais cadastrados "</strong>
+											</c:when>
+											<c:otherwise>
+												<strong>Resultado: " ${produtos.size()} material cadastrado "</strong>
+											</c:otherwise>
+										</c:choose>
 									</div>	                		
 	                			    	
 	                			    <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2"> 		
@@ -361,7 +368,7 @@
 														<thead class="thin-border-bottom">
 							                               	<tr>
 							                                   	<th class="hidden">Cód.</th>
-							                                    <th>Produto</th>
+							                                    <th>Material</th>
 							                                    <c:if test="${usuarioLogado.perfil == 'ADMINISTRADOR' || usuarioLogado.perfil == 'COMPRADOR'}">
 							                                    <th>Vlr. Compra (R$ / kg)</th>
 							                                    </c:if>
@@ -511,21 +518,21 @@
 
 										<div class="modal-body">
 											<div class="form-group">
-												<label for="produto">Produto</label>
+												<label for="produto">Material *</label>
 												<div>
 													<input type="text" id="produto" name="produto" placeholder="Informe o produto..." size="48" />
 												</div>
 											</div>
 											<div class="space-4"></div>
 											<div class="form-group">
-												<label for="precoCompra">Vlr. Compra (R$ / kg)</label>
+												<label for="precoCompra">Vlr. Compra (R$ / kg) *</label>
 												<div>
 													<input type="number" class="text-right" id="precoCompra" name="precoCompra" placeholder="Margem do preço de compra" size="25" />
 												</div>
 											</div>													
 											<div class="space-4"></div>
 											<div class="form-group">
-												<label for="precoVenda">Vlr. Venda (R$ / kg)</label>
+												<label for="precoVenda">Vlr. Venda (R$ / kg) *</label>
 												<div>
 													<input type="number" class="text-right" id="precoVenda" name="precoVenda" placeholder="Margem do preço de venda" size="25" />
 												</div>
@@ -533,12 +540,17 @@
 										</div>
 
 										<div class="modal-footer">
-											<button id="btnCancelar" class="btn btn-sm" data-dismiss="modal">
-												<i class="ace-icon fa fa-times"></i> Cancelar
-											</button>
-											<button id="btnCadastrar" class="btn btn-sm btn-primary">
-												<i class="ace-icon fa fa-check"></i> Cadastrar
-											</button>											
+											<div class="pull-left text-left">
+												<b class="blue">* campos obrigatórios</b>												
+											</div>
+											<div class="pull-right">
+												<button id="btnCancelar" class="btn btn-sm" data-dismiss="modal">
+													<i class="ace-icon fa fa-times"></i> Cancelar
+												</button>
+												<button id="btnCadastrar" class="btn btn-sm btn-primary">
+													<i class="ace-icon fa fa-check"></i> Cadastrar
+												</button>
+											</div>											
 										</div>										
 									</div>									
 								</div>

@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -25,6 +26,21 @@
     <link href="resources/css/estilos.css" rel="stylesheet">
 	
 	<title>MDJ Papeis</title>
+	<style>	
+		.ui-autocomplete {
+		    max-height: 100px;
+		    overflow-y: auto;
+		    /* prevent horizontal scrollbar */
+		    overflow-x: hidden;
+		    z-index: 1100;
+	  	}
+		  /* IE 6 doesn't support max-height
+		   * we use height instead, but this forces the menu to always be this tall
+		   */
+		* html .ui-autocomplete {
+	    	height: 100px;
+	  	}
+	</style>
 </head>
 <body class="no-skin">
 
@@ -206,7 +222,7 @@
 						<c:if test="${usuarioLogado.perfil == 'ADMINISTRADOR' || usuarioLogado.perfil == 'COMPRADOR'}">
 						<li class="active">
 							<a href="#" onclick="document.getElementById('form_compra').submit()">
-								<form id="form_compra" action="controller?action=compra" method="post"></form>
+								<form id="form_compra" action="controller?action=listarPedidoCompra" method="post"></form>
 								<i class="menu-icon fa fa-caret-right"></i> Compra 
 								<span class="badge badge-transparent">
 									<i class="ace-icon fa fa-cart-arrow-down red bigger-130"></i>
@@ -340,125 +356,168 @@
 									
 								<!-- PEDIDOS -->
 			                    <div class="widget-body">
-									<div class="widget-main no-padding">
-									
-										<!-- RESULTADO DOS NÚMEROS DE PEDIDOS -->
-										<div class="table-header">
-											<strong>Resultado:</strong>
+									<div class="widget-main no-padding">											
+										<div class="breadcrumbs">
+											<ul class="breadcrumb">
+												<li class="active">
+													<b>Pesquise pelo número do pedido... <i class="ace-icon fa fa-angle-double-right"></i></b>
+												</li>
+											</ul>
+											<div class="nav-search" id="nav-search">
+												<form class="form-search" id="formPesquisarPedidoCompra" action="controller?action=pesquisarPedidoCompra" method="POST">
+													<span class="input-icon">													
+														<input class="nav-search-input" type="text" name="nPedido" id="nPedido" placeholder="No. Pedido..." />
+														<i class="ace-icon fa fa-search nav-search-icon"></i>
+													</span>												
+												</form>
+											</div>	
 										</div>
-										
-										<!-- TABELA DE PEDIDOS -->
-										<table class="table table-bordered table-striped">
-											<thead class="thin-border-bottom">
-				                               	<tr>
-				                                   	<th>No. Pedido</th>
-				                                   	<th>Data</th>
-				                                    <th>Fornecedor</th>				                                    
-				                                    <th>Material</th>
-				                                    <th>Vlr. Compra (R$)</th>
-				                                    <th>Status</th>			                                    
-				                                    <th>Ações</th>
-				                              	</tr>
-			                       			</thead>
-				                       		<tbody>
-				                       			<tr>
-				                                   	<td class="text-right"><b>12</b></td>
-				                                   	<td><b>10/05/2016</b></td>
-				                                    <td><b>Renova Plástico</b></td>
-				                                    <td><b>Plástico</b></td>
-				                                    <td class="text-right"><b>800,00</b></td>
-				                                    <td class="text-center"><span class="label label-success arrowed arrowed-right">Pago</span></td>
-				                                    
-				                                    <!-- COLUNA DE AÇÕES -->
-													<td>														
-														<!-- EXIBIÇÃO EM TELAS GRANDES -->															
-														<div class="hidden-sm hidden-xs action-buttons">
-																	
-															<!-- BOTÃO EDITAR -->													
-															<a href="#" role="editar">
-																<span class="green">
-																	<i class="ace-icon fa fa-pencil bigger-130"></i>
-																</span>
-															</a>
-																	
-															<!-- BOTÃO EXCLUIR -->
-															<a href="#" role="excluir">
-																<span class="red">
-																	<i class="ace-icon fa fa-trash-o bigger-130"></i>
-																</span>
-															</a>
-															
-															<!-- BOTÃO SALVAR -->													
-															<a href="#" role="salvar" class="hidden">
-																<span class="blue">
-																	<i class="ace-icon fa fa-save bigger-130"></i>
-																</span>
-															</a>
-															
-															<!-- BOTÃO EXCLUIR -->
-															<a href="#" role="cancelar" class="hidden">
-																<span class="red">
-																	<i class="ace-icon fa fa-close bigger-130"></i>
-																</span>
-															</a>																
-																	
-														</div>
-	
-														<!-- EXIBIÇÃO EM TELAS PEQUENAS -->
-														<div class="hidden-md hidden-lg action-buttons">
-															<div class="inline pos-rel">
-																	
-																<!-- BOTÃO DROPDOWN-TOGGLE AMARELO -->
-																<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto">
-																	<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
-																</button>																	
-																			
-																<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">																	
-																		
-																	<!-- BOTÃO EDITAR -->
-																	<li>
-																		<a href="#" class="tooltip-success" data-rel="tooltip" title="Editar" role="editar">
+												
+										<!-- JSTL -- CONDIÇÃO PARA EXIBIR A TABELA -->							
+										<c:choose>
+											<c:when test="${not empty pedidosCompra}">
+											<!-- CASO HAJA PEDIDO -->
+											
+												<!-- RESULTADO DOS NÚMEROS DE PEDIDOS -->
+												<div class="table-header">
+													<strong>Resultado: " ${pedidosCompra.size()} pedidos(s) gerado(s) "</strong>
+												</div>
+												
+												<!-- TABELA DE PEDIDOS -->
+												<table class="table table-bordered table-striped">
+													<thead class="thin-border-bottom">
+						                               	<tr>
+						                                   	<th class="text-center">No. Pedido</th>
+						                                   	<th class="text-center">Data</th>
+						                                    <th class="text-center">Fornecedor</th>
+						                                    <th class="text-center">Vlr. Compra (R$)</th>
+						                                    <th class="text-center">Status</th>			                                    
+						                                    <th>Ações</th>
+						                              	</tr>
+					                       			</thead>
+						                       		<tbody>
+						                       		
+						                       			<!-- MONTA AS LINHAS CONFORME A EXISTÊNCIA DE PEDIDOS -->
+														<c:forEach var="pedidoCompra" items="${pedidosCompra}">
+															<tr>														
+																<!-- COLUNA ESCONDIDA DE CÓDIGO DOS REGISTROS -->
+																<td class="text-right"><b>${pedidoCompra.nPedido}</b></td>
+							                                   	<td class="text-center"><b><fmt:formatDate value="${pedidoCompra.dataAbertura.time}" pattern="dd/MM/yyyy" /></b></td>
+							                                    <td><b>${pedidoCompra.fornecedor.empresa}</b></td>
+							                                    <td class="text-right"><b>${pedidoCompra.valorTotal}</b></td>							                                    
+							                                    <c:choose>
+							                                    	<c:when test="${pedidoCompra.statusCompra eq 'PENDENTE'}">
+							                                   			<td class="text-center"><span class="label label-danger arrowed arrowed-right">${pedidoCompra.statusCompra}</span></td>
+							                                   		</c:when>
+							                                   		<c:when test="${pedidoCompra.statusCompra eq 'PAGO'}">
+							                                   			<td class="text-center"><span class="label label-success arrowed arrowed-right">${pedidoCompra.statusCompra}</span></td>
+							                                   		</c:when>
+							                                   		<c:otherwise>
+							                                   			<td class="text-center"><span class="label label-grey arrowed arrowed-right">${pedidoCompra.statusCompra}</span></td>
+							                                   		</c:otherwise>
+							                                   	</c:choose>							                                    
+							                                    
+							                                    <!-- COLUNA DE AÇÕES -->
+																<td>														
+																	<!-- EXIBIÇÃO EM TELAS GRANDES -->															
+																	<div class="hidden-sm hidden-xs action-buttons">
+																				
+																		<!-- BOTÃO EDITAR -->													
+																		<a href="#" role="editar">
 																			<span class="green">
-																				<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+																				<i class="ace-icon fa fa-pencil bigger-130"></i>
 																			</span>
 																		</a>
-																	</li>
 																				
-																	<!-- BOTÃO EXCLUIR -->
-																	<li>
-																		<a href="#" class="tooltip-error" data-rel="tooltip" title="Excluir" role="excluir">
+																		<!-- BOTÃO EXCLUIR -->
+																		<a href="#" role="excluir">
 																			<span class="red">
-																				<i class="ace-icon fa fa-trash-o bigger-120"></i>
+																				<i class="ace-icon fa fa-trash-o bigger-130"></i>
 																			</span>
 																		</a>
-																	</li>
-																				
-																	<!-- BOTÃO SALVAR -->
-																	<li>																																
-																		<a href="#" class="tooltip-success hidden" data-rel="tooltip" title="Salvar" role="salvar">
+																		
+																		<!-- BOTÃO SALVAR -->													
+																		<a href="#" role="salvar" class="hidden">
 																			<span class="blue">
-																				<i class="ace-icon fa fa-save bigger-120"></i>
+																				<i class="ace-icon fa fa-save bigger-130"></i>
 																			</span>
 																		</a>
-																	</li>
-																				
-																	<!-- BOTÃO CANCELAR -->
-																	<li>
-																		<a href="#" class="tooltip-error hidden" data-rel="tooltip" title="Cancelar" role="cancelar">
+																		
+																		<!-- BOTÃO EXCLUIR -->
+																		<a href="#" role="cancelar" class="hidden">
 																			<span class="red">
-																				<i class="ace-icon fa fa-close bigger-120"></i>
+																				<i class="ace-icon fa fa-close bigger-130"></i>
 																			</span>
-																		</a>
-																	</li>																		
-																</ul>
-															</div>																	
-														</div>																												
-													</td>
-													<!-- COLUNA DE AÇÕES -->
-				                                </tr>			                                
-				                            </tbody>
-				                       	</table>
-				                       	<!-- FIM -- TABELA DE PEDIDOS -->
+																		</a>																
+																				
+																	</div>
+				
+																	<!-- EXIBIÇÃO EM TELAS PEQUENAS -->
+																	<div class="hidden-md hidden-lg action-buttons">
+																		<div class="inline pos-rel">
+																				
+																			<!-- BOTÃO DROPDOWN-TOGGLE AMARELO -->
+																			<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto">
+																				<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
+																			</button>																	
+																						
+																			<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">																	
+																					
+																				<!-- BOTÃO EDITAR -->
+																				<li>
+																					<a href="#" class="tooltip-success" data-rel="tooltip" title="Editar" role="editar">
+																						<span class="green">
+																							<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+																						</span>
+																					</a>
+																				</li>
+																							
+																				<!-- BOTÃO EXCLUIR -->
+																				<li>
+																					<a href="#" class="tooltip-error" data-rel="tooltip" title="Excluir" role="excluir">
+																						<span class="red">
+																							<i class="ace-icon fa fa-trash-o bigger-120"></i>
+																						</span>
+																					</a>
+																				</li>
+																							
+																				<!-- BOTÃO SALVAR -->
+																				<li>																																
+																					<a href="#" class="tooltip-success hidden" data-rel="tooltip" title="Salvar" role="salvar">
+																						<span class="blue">
+																							<i class="ace-icon fa fa-save bigger-120"></i>
+																						</span>
+																					</a>
+																				</li>
+																							
+																				<!-- BOTÃO CANCELAR -->
+																				<li>
+																					<a href="#" class="tooltip-error hidden" data-rel="tooltip" title="Cancelar" role="cancelar">
+																						<span class="red">
+																							<i class="ace-icon fa fa-close bigger-120"></i>
+																						</span>
+																					</a>
+																				</li>																		
+																			</ul>
+																		</div>																	
+																	</div>																												
+																</td>
+																<!-- FIM -- COLUNA DE AÇÕES -->
+															</tr>													
+														</c:forEach>
+														<!-- FIM -- MONTA AS LINHAS CONFORME A EXISTÊNCIA DE PEDIDOS -->			                                
+						                            </tbody>
+						                       	</table>
+						                       	<!-- FIM -- TABELA DE PEDIDOS -->						            											
+											</c:when>								
+											<c:otherwise>
+											<!-- CASO NÃO HAJA PEDIDOS -->									
+												<div class="table-header">
+													<strong>Resultado: "${mensagem}"</strong>
+												</div>		
+											</c:otherwise>								
+										</c:choose>
+										<!-- JSTL -- CONDIÇÃO PARA EXIBIR A TABELA -->
 				                    </div>
 			                    </div>
 			                </div>
@@ -476,14 +535,14 @@
 										<div class="modal-body">
 											
 											<div class="form-group">
-												<label for="nopedido">No. Pedido:</label>&nbsp;
-												<label id="nopedido" name="nopedido"><h3>56458</h3></label>
+												<label for="noPedido">No. Pedido:</label>&nbsp;
+												<label id="noPedido" name="nopedido"></label>
 											</div>
 											<div class="space-4"></div>											
 											<div class="form-group">
 												<label for="fornecedor">Fornecedor</label>
 												<div>
-													<input type="text" id="fornecedor" name="fornecedor" placeholder="Informe o fornecedor..." size="77" />
+													<input type="text" id="fornecedor" name="fornecedor" placeholder="Informe o fornecedor..." size="77" />													
 												</div>
 											</div>
 											<div class="space-4"></div>
@@ -497,99 +556,7 @@
 												</div>
 											</div>
 											<div class="space-4"></div>
-											<table class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
-												<thead>
-													<tr>
-														<th>Material</th>
-														<th>Peso</th>
-														<th>Valor</th>
-														<th>Ação</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td>
-															<div class="form-group">																
-																<div>
-																	<input type="text" id="material" name="material" value="Plástico" />
-																</div>
-															</div>
-														</td>
-														<td>
-															<div class="form-group">																
-																<div>
-																	<input type="text" id="peso" class="text-right" name="peso" maxlength="9" value="100,00" />
-																</div>
-															</div>
-														</td>
-														<td>
-															<div class="form-group">
-																<div>
-																	<input type="text" id="valor" class="text-right" name="valor" maxlength="10" value="200,00" />
-																</div>
-															</div>
-														</td>
-														<td>
-															<div class="form-group">																
-																<div class="text-center acao">
-																
-																	<!-- EXIBIÇÃO EM TELAS GRANDES -->															
-																	<div class="action-buttons">
-																			
-																		<!-- BOTÃO REMOVER ITEM -->
-																		<a href="#" role="remover">
-																			<span class="red">
-																				<i class="ace-icon fa fa-times bigger-160"></i>
-																			</span>
-																		</a>
-																	</div>
-																</div>
-															</div>
-														</td>
-													</tr>
-													
-													<tr>
-														<td>
-															<div class="form-group">																
-																<div>
-																	<input type="text" id="material" name="material" value="Plástico" />
-																</div>
-															</div>
-														</td>
-														<td>
-															<div class="form-group">																
-																<div>
-																	<input type="text" id="peso" class="text-right" name="peso" maxlength="9" value="100,00" />
-																</div>
-															</div>
-														</td>
-														<td>
-															<div class="form-group">
-																<div>
-																	<input type="text" id="valor" class="text-right" name="valor" maxlength="10" value="200,00" />
-																</div>
-															</div>
-														</td>
-														<td>
-															<div class="form-group">																
-																<div class="text-center acao">
-																
-																	<!-- EXIBIÇÃO EM TELAS GRANDES -->															
-																	<div class="action-buttons">
-																			
-																		<!-- BOTÃO REMOVER ITEM -->
-																		<a href="#" role="remover">
-																			<span class="red">
-																				<i class="ace-icon fa fa-times bigger-160"></i>
-																			</span>
-																		</a>
-																	</div>
-																</div>
-															</div>
-														</td>
-													</tr>												
-												</tbody>
-											</table>																				
+											<div id="itemNovo"></div>																				
 										</div>
 
 										<div class="modal-footer">
@@ -606,7 +573,7 @@
 							<!-- FIM -- MODAL FORMULÁRIO PARA CADASTRAR -->
 							
 							<!-- MODAL FORMULÁRIO PARA EXCLUIR -->
-							<div id="modal-form" class="modal fade" tabindex="-1" rel="modalexcluir">
+							<div id="modal-form-pedido" class="modal fade" tabindex="-1" rel="modalexcluir">
 								<div class="modal-dialog">
 									<div class="modal-content">
 										<div class="modal-header">
@@ -615,24 +582,41 @@
 										</div>
 
 										<div class="modal-body">
-											<div class="form-group">
-												<label for="nome">Nome</label>
-												<div>
-													<input type="text" id="nomeExcluir" name="nome" placeholder="Informe o nome completo..." size="40" />
+											<div class="form-inline">
+												<div class="form-group">
+													<label for="noPedidoExcluir">No. Pedido</label>
+													<div>
+														<input type="text" id="noPedidoExcluir" class="text-right" name="noPedidoExcluir" size="9" />
+													</div>
 												</div>
-											</div>
-											<div class="space-4"></div>
-											<div class="form-group">
-												<label for="email">E-mail</label>
-												<div>
-													<input type="text" id="emailExcluir" name="email" placeholder="Informe o seu e-mail..." size="40" />
+												&nbsp;
+												<div class="form-group">
+													<label for="dataExcluir">Data</label>
+													<div>
+														<input type="text" id="dataExcluir" class="text-center" name="dataExcluir" size="9" />
+													</div>
 												</div>
 											</div>													
 											<div class="space-4"></div>
 											<div class="form-group">
-												<label for="nomeusuario">Usuário</label>
+												<label for="fornecedorExcluir">Fornecedor</label>
 												<div>
-													<input type="text" id="nomeusuarioExcluir" name="nomeusuario" placeholder="Informe o nome de usuário..." size="35" />
+													<input type="text" id="fornecedorExcluir" name="fornecedorExcluir" size="77" />
+												</div>
+											</div>
+											<div class="form-inline">
+												<div class="form-group">
+													<label for="valorExcluir">Vlr. Compra (R$)</label>
+													<div class="text-right">
+														<input type="text" id="valorExcluir" class="text-right" name="valorExcluir" size="20" />
+													</div>
+												</div>
+												&nbsp;
+												<div class="form-group">
+													<label for="statusExcluir">Status</label>
+													<div class="text-right">
+														<input type="text" id="statusExcluir" class="text-center" name="statusExcluir" size="12" />
+													</div>
 												</div>
 											</div>																							
 										</div>
@@ -716,6 +700,9 @@
 	
     <!-- BOOTSTRAP SCRIPTS -->
     <script src="resources/js/bootstrap.min.js"></script>
+    
+    <!-- JQUERY UI UTILIZADO AUTOCOMPLETE DE FORNECEDOR NO MODAL CADASTRAR -->
+    <script src="resources/js/jquery-ui.min.js"></script>
     
     <!-- ACE CONFIGURAÇÕES DESTA PÁGINA -->
 	<script src="resources/js/ace-elements.min.js"></script>

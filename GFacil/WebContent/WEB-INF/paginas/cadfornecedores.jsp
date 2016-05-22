@@ -208,7 +208,7 @@
 						<c:if test="${usuarioLogado.perfil == 'ADMINISTRADOR' || usuarioLogado.perfil == 'COMPRADOR'}">
 						<li class="">
 							<a href="#" onclick="document.getElementById('form_compra').submit()">
-								<form id="form_compra" action="controller?action=compra" method="post"></form>
+								<form id="form_compra" action="controller?action=listarPedidoCompra" method="post"></form>
 								<i class="menu-icon fa fa-caret-right"></i> Compra 
 								<span class="badge badge-transparent">
 									<i class="ace-icon fa fa-cart-arrow-down red bigger-130"></i>
@@ -534,21 +534,21 @@
 											<div class="space-4"></div>
 											<div class="form-inline">
 												<div class="form-group">
-													<label for="contato">Contato</label>
+													<label for="contato">Contato *</label>
 													<div>
 														<input type="text" id="contato" name="contato" placeholder="Informe o contato..." size="25" /> <!-- <span>*</span> -->													
 													</div>
 												</div>
 												&nbsp;
 												<div class="form-group">
-													<label for="telefone">Telefone</label>
+													<label for="telefone">Telefone **</label>
 													<div>			
 														<input type="text" id="telefone" name="telefone" placeholder="(99)9.9999-9999" size="15" />
 													</div>
 												</div>					
 												&nbsp;
 												<div class="form-group">
-													<label for="email">E-mail</label>
+													<label for="email">E-mail **</label>
 													<div>
 														<input type="text" id="email" name="email" placeholder="Informe o e-mail..." size="30" />													
 													</div>
@@ -558,7 +558,7 @@
 											<div class="form-group">
 												<label for="cep">CEP</label>											
 												<div>
-													<input type="text" name="cep" id="cep" placeholder="00000-000" />
+													<input type="text" name="cep" id="cep" placeholder="00000-000" />&nbsp;&nbsp;<b class="blue">(Localize o endereço)</b>
 												</div>
 											</div>
 											<div class="form-group">
@@ -624,12 +624,19 @@
 										</div>
 
 										<div class="modal-footer">
-											<button id="btnCancelar" class="btn btn-sm" data-dismiss="modal">
-												<i class="ace-icon fa fa-times"></i> Cancelar
-											</button>
-											<button id="btnCadastrar" class="btn btn-sm btn-primary">
-												<i class="ace-icon fa fa-check"></i> Cadastrar
-											</button>											
+											<div class="pull-left text-left">
+												<b class="blue">* campo obrigatório
+												<br />
+												** preenchimento obrigatório de um dos campos</b>
+											</div>
+											<div class="pull-right">
+												<button id="btnCancelar" class="btn btn-sm" data-dismiss="modal">
+													<i class="ace-icon fa fa-times"></i> Cancelar
+												</button>
+												<button id="btnCadastrar" class="btn btn-sm btn-primary">
+													<i class="ace-icon fa fa-check"></i> Cadastrar
+												</button>
+											</div>											
 										</div>										
 									</div>									
 								</div>
@@ -774,21 +781,21 @@
 											<div class="space-4"></div>
 											<div class="form-inline">
 												<div class="form-group">
-													<label for="contato">Contato</label>
+													<label for="contato">Contato *</label>
 													<div>
 														<input type="text" id="contato" name="contato" size="25" /> <!-- <span>*</span> -->													
 													</div>
 												</div>
 												&nbsp;
 												<div class="form-group">
-													<label for="telefone">Telefone</label>
+													<label for="telefone">Telefone **</label>
 													<div>			
 														<input type="text" id="telefone" name="telefone" size="15" />
 													</div>
 												</div>					
 												&nbsp;
 												<div class="form-group">
-													<label for="email">E-mail</label>
+													<label for="email">E-mail **</label>
 													<div>
 														<input type="text" id="email" name="email" size="30" />													
 													</div>
@@ -798,7 +805,7 @@
 											<div class="form-group">
 												<label for="cep">CEP</label>											
 												<div>
-													<input type="text" name="cep" id="cep" />
+													<input type="text" name="cep" id="cep" />&nbsp;&nbsp;<b class="blue">(Localize o endereço)</b>
 												</div>
 											</div>
 											<div class="form-group">
@@ -865,12 +872,19 @@
 										</div>
 
 										<div class="modal-footer">
-											<button id="btnCancelar" class="btn btn-sm" data-dismiss="modal">
-												<i class="ace-icon fa fa-times"></i> Cancelar
-											</button>
-											<button id="btnSalvar" class="btn btn-sm btn-primary">
-												<i class="ace-icon fa fa-check"></i> Salvar
-											</button>											
+											<div class="pull-left text-left">
+												<b class="blue">* campo obrigatório
+												<br />
+												** preenchimento obrigatório de um dos campos</b>
+											</div>
+											<div class="pull-right">
+												<button id="btnCancelar" class="btn btn-sm" data-dismiss="modal">
+													<i class="ace-icon fa fa-times"></i> Cancelar
+												</button>
+												<button id="btnSalvar" class="btn btn-sm btn-primary">
+													<i class="ace-icon fa fa-check"></i> Salvar
+												</button>
+											</div>																						
 										</div>										
 									</div>									
 								</div>
@@ -983,6 +997,6 @@
     
     <!-- BUSCA ENDEREÇO PELO CEP -->
     <script type="text/javascript" src="resources/js/buscaCEP.js"></script>    
-            	
+    
 </body>
 </html>

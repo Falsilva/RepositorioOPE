@@ -62,18 +62,53 @@ public class RegraFornecedores extends HttpServlet{
 				System.out.println("RegraFornecedores, LISTANDO FORNECEDORES...");
 				fornecedores = new FornecedorDAO().listar();
 				
-				if(fornecedores != null){
-					System.out.println("RegraFornecedores, FORNECEDORES LISTADOS, FORMATANDO O ENDERECO PARA EXIBICAO...");
-					formataEnderecoParaExibicao(fornecedores);
-					System.out.println("RegraFornecedores, FORNECEDORES LISTADOS, ENDERECO FORMATADO.");
-					req.setAttribute("fornecedores", fornecedores);
+				if(tarefa != null && tarefa.equals("pedidoCompra")){						
+					
+					// Montando o JSON
+					String dataListaFornecedores = "";
+					String arrayFornecedores = "";
+					
+					if(fornecedores != null){
+						int count = 1;
+						for(Fornecedor f : fornecedores){
+							if(count == 1){
+								arrayFornecedores += "{"			
+										+ "\"codigo\":\"" + f.getCodigo() + "\","
+										+ "\"empresa\":\"" + f.getEmpresa() + "\","
+										+ "\"contato\":\"" + f.getContato() + "\","
+										+ "\"tipo\":\"" + f.getTipo().toString() + "\""
+										+ "}";
+								count = 2;
+							}else{
+								arrayFornecedores += ", " + "{"			
+										+ "\"codigo\":\"" + f.getCodigo() + "\","
+										+ "\"empresa\":\"" + f.getEmpresa() + "\","
+										+ "\"contato\":\"" + f.getContato() + "\","
+										+ "\"tipo\":\"" + f.getTipo().toString() + "\""
+										+ "}";
+							}
+						}					
+						dataListaFornecedores = "{\"dataListaFornecedores\":[" + arrayFornecedores + "]}";
+					}else{
+						dataListaFornecedores = "{\"dataListaFornecedores\":\"null\"}";
+					}
+					resp.setContentType("application/json");				
+					resp.setCharacterEncoding("UTF-8");
+					resp.getWriter().write(dataListaFornecedores);
 				}else{
-					System.out.println("RegraFornecedores, NAO HA FORNECEDORES CADASTRADOS.");
-					req.setAttribute("mensagem", "Não há fornecedores cadastrados");
+					if(fornecedores != null){
+						System.out.println("RegraFornecedores, FORNECEDORES LISTADOS, FORMATANDO O ENDERECO PARA EXIBICAO...");
+						formataEnderecoParaExibicao(fornecedores);
+						System.out.println("RegraFornecedores, FORNECEDORES LISTADOS, ENDERECO FORMATADO.");
+						req.setAttribute("fornecedores", fornecedores);
+					}else{
+						System.out.println("RegraFornecedores, NAO HA FORNECEDORES CADASTRADOS.");
+						req.setAttribute("mensagem", "Não há fornecedores cadastrados");
+					}
+					
+					dispatcher = req.getRequestDispatcher("controller?action=fornecedores");
+					dispatcher.forward(req, resp);
 				}
-				
-				dispatcher = req.getRequestDispatcher("controller?action=fornecedores");
-				dispatcher.forward(req, resp);
 				break;
 			case("pesquisarFornecedor"):
 				System.out.println("RegraFornecedores, PESQUISANDO FORNECEDOR(ES)...");

@@ -207,7 +207,7 @@
 						<c:if test="${usuarioLogado.perfil == 'ADMINISTRADOR' || usuarioLogado.perfil == 'COMPRADOR'}">
 						<li class="">
 							<a href="#" onclick="document.getElementById('form_compra').submit()">
-								<form id="form_compra" action="controller?action=compra" method="post"></form>
+								<form id="form_compra" action="controller?action=listarPedidoCompra" method="post"></form>
 								<i class="menu-icon fa fa-caret-right"></i> Compra 
 								<span class="badge badge-transparent">
 									<i class="ace-icon fa fa-cart-arrow-down red bigger-130"></i>
@@ -497,34 +497,34 @@
 
 										<div class="modal-body">
 											<div class="form-group">
-												<label for="nome">Nome</label>
+												<label for="nome">Nome *</label>
 												<div>
 													<input type="text" id="nome" name="nome" placeholder="Informe o nome completo..." size="40" />
 												</div>
 											</div>
 											<div class="space-4"></div>
 											<div class="form-group">
-												<label for="email">E-mail</label>
+												<label for="email">E-mail *</label>
 												<div>
 													<input type="text" id="email" name="email" placeholder="Informe o seu e-mail..." size="40" />
 												</div>
 											</div>													
 											<div class="space-4"></div>
 											<div class="form-group">
-												<label for="nomeusuario">Usuário</label>
+												<label for="nomeusuario">Usuário *</label>
 												<div>
 													<input type="text" id="nomeusuario" name="nomeusuario" placeholder="Informe o nome de usuário..." size="35" />
 												</div>
 											</div>
 											<div class="space-4"></div>
 											<div class="form-group">
-												<label for="senha">Senha</label>
+												<label for="senha">Senha *</label>
 												<div>
 													<input type="password" id="senha" name="senha" placeholder="Informe uma senha..." maxlength="4" size="35" />
 												</div>
 											</div>
 											<div class="form-group">
-												<label for="perfil">Perfil</label>
+												<label for="perfil">Perfil *</label>
 												<div>															
 													<select class="chosen-select" data-placeholder="Escolha o perfil..." name="perfil" id="perfil">											
 														<c:forEach var="perfil" items="<%= Usuario.Perfil.values() %>">
@@ -536,12 +536,17 @@
 										</div>
 
 										<div class="modal-footer">
-											<button id="btnCancelar" class="btn btn-sm" data-dismiss="modal">
-												<i class="ace-icon fa fa-times"></i> Cancelar
-											</button>
-											<button id="btnCadastrar" class="btn btn-sm btn-primary">
-												<i class="ace-icon fa fa-check"></i> Cadastrar
-											</button>											
+											<div class="pull-left text-left">
+												<b class="blue">* campos obrigatórios</b>												
+											</div>
+											<div class="pull-right">
+												<button id="btnCancelar" class="btn btn-sm" data-dismiss="modal">
+													<i class="ace-icon fa fa-times"></i> Cancelar
+												</button>
+												<button id="btnCadastrar" class="btn btn-sm btn-primary">
+													<i class="ace-icon fa fa-check"></i> Cadastrar
+												</button>
+											</div>										
 										</div>										
 									</div>									
 								</div>

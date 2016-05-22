@@ -1,8 +1,8 @@
 $(document).ready(function(){
-	
+		
 	// SUBMIT - FORM CADASTRAR USUÁRIO
-	$("#btnCadastrar").click(function(){		
-		console.log("Modal Cadastrar, Botão Cadastrar Clicado");
+	/*$("#btnCadastrar").click(function(){		
+		console.log("Modal Cadastrar, Botao Cadastrar Clicado");
 		
 		// Pega os dados digitados
 		var nome = $("#modal-form[rel=modalcadastrar]").find("#nome").val();
@@ -34,33 +34,34 @@ $(document).ready(function(){
 			}
 		});
 	});
+	*/
+	
 	
 	// SUBMIT - FORM EXCLUIR USUÁRIO
 	$("#btnExcluir").click(function(){
-		console.log("Modal Excluir, Botão Excluir Clicado");
+		console.log("Modal Excluir, Botao Excluir Clicado");
 		
-		// Pega os dados do campo de Login (Nome de Usuário)		
-		var nomeusuario = $("#modal-form[rel=modalexcluir]").find("#nomeusuarioExcluir").val();
-		
+		// Pega o código do campo		
+		var nPedido = $("#modal-form-pedido[rel=modalexcluir]").find("#noPedidoExcluir").val();
+		var statusExcluir = $("#modal-form-pedido[rel=modalexcluir]").find("#statusExcluir").val();
+		console.log("No. PEDIDO: " + nPedido + " STATUS: " + statusExcluir);
 		// AJAX
 		$.ajax({
 			url:"controller",
 			type:"post",
 			data:{
-				nomeusuario:nomeusuario,
-				//action:"pesquisarUsuario",
-				action:"excluirUsuario",
-				//tarefa:"excluir"
+				nPedido:nPedido,
+				statusExcluir:statusExcluir,
+				action:"excluirPedidoCompra",
 			},
 			success:function(resultado){
-				console.log("Modal Excluir, Resultado da Ação Recebido");
-				$("#modal-form[rel=modalexcluir]").find(".modal-header").html("<h4 class='blue bigger'>Resultado...</h4>").prepend("<button type='button' class='close' data-dismiss='modal'>&times;</button>");
-				$("#modal-form[rel=modalexcluir]").find(".modal-body").html("<h3>" + resultado + "</h3>");
-				var botao = $("#modal-form[rel=modalexcluir]").find("#btnCancelarExcluir").attr("id", "btnFecharExcluir");				
+				console.log("Modal Excluir, Resultado da Acao Recebido");
+				$("#modal-form-pedido[rel=modalexcluir]").find(".modal-header").html("<h4 class='blue bigger'>Resultado...</h4>").prepend("<button type='button' class='close' data-dismiss='modal'>&times;</button>");
+				$("#modal-form-pedido[rel=modalexcluir]").find(".modal-body").html("<h3>" + resultado + "</h3>");
+				var botao = $("#modal-form-pedido[rel=modalexcluir]").find("#btnCancelarExcluir").attr("id", "btnFecharExcluir");				
 				botao.text("Fechar");
-				$("#modal-form[rel=modalexcluir]").find("#btnExcluir").addClass("hidden");				
+				$("#modal-form-pedido[rel=modalexcluir]").find("#btnExcluir").addClass("hidden");				
 			}
 		});
 	});	
-	
 });
