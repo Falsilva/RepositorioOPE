@@ -56,7 +56,7 @@ $(document).ready(function(){
 		modal.modal();		
 	});	
 	
-	// CLIQUE DO BOTÃO EDITAR DA LINHA DE UM REGISTRO DA TABELA
+	/* CLIQUE DO BOTÃO EDITAR DA LINHA DE UM REGISTRO DA TABELA
 	$("a[role=editar]").click(function(event){
 		event.preventDefault();		
 		
@@ -126,7 +126,7 @@ $(document).ready(function(){
 		});
 	});
 	
-	// CLIQUE DO BOTÃO SALVAR - BOTÃO VISÍVEL NO MODO DE EDIÇÃO DE UM REGISTRO DA TABELA 
+	/* CLIQUE DO BOTÃO SALVAR - BOTÃO VISÍVEL NO MODO DE EDIÇÃO DE UM REGISTRO DA TABELA 
 	$("a[role=salvar]").click(function(event){
 		event.preventDefault();		
 		
@@ -213,10 +213,7 @@ $(document).ready(function(){
 		tdEmail.html("").text(email);
 		tdPerfil.html("").text(perfil);		
 	});	
-	
-	
-	
-	
+	*/	
 	
 	// BUSCA O NÚMERO DO PRÓXIMO PEDIDO PARA O MODAL CADASTRAR PEDIDO DE COMPRA
 	$.ajax({
@@ -234,10 +231,6 @@ $(document).ready(function(){
 			}
 		}
 	});		
-	
-	
-	
-	
 	
 	// CARREGA A LISTA DE FORNECEDORES NO MODAL CADASTRAR PEDIDO DE COMPRA
 	divInputFornecedor = $("#fornecedor").closest("div");
@@ -258,7 +251,11 @@ $(document).ready(function(){
 				divInputFornecedor.find("b").text("Não há fornecedores cadastrados.");
 			}else{
 				$.each(resultado.dataListaFornecedores, function(index, value){	
-					resultadoCodFornecedores = resultado.dataListaFornecedores[index].codigo;
+					
+					// GUARDA OS CÓDIGOS DOS FORNECEDORES PARA UTILIZAÇÃO POSTERIOR
+					resultadoCodFornecedores[index] = resultado.dataListaFornecedores[index].codigo;	
+					
+					// GUARDA A FORMA DE EXIBIÇÃO DOS NOMES DOS FORNECEDORES(CAMPO EMPRESA) PARA EXIBIÇÃO POSTERIOR
 					if(resultado.dataListaFornecedores[index].tipo == "CATADOR")						
 						resultadoFornecedores[index] = "Catador: " + resultado.dataListaFornecedores[index].contato;
 					else 
@@ -274,23 +271,36 @@ $(document).ready(function(){
 		source: resultadoFornecedores
 	});	
 	
-		
+	// GUARDA O CÓDIGO DO FORNECEDOR APÓS SELECIONADO
+	var codFornecedor = "";
 	$("#fornecedor").blur(function(){
 		var forn = $(this);
-					
-		if(forn.val() != null || forn.val() != ""){
+		codFornecedor = "";
+		
+		if(forn.val() != null && forn.val() != ""){
 			$.each(resultadoFornecedores, function(index, value){					
-				if(forn.val() == value){
-					forn.append("<span class='hidden'>" + resultadoCodFornecedores[index] + "</span>");		
+				if(forn.val() == value){					
+					codFornecedor = resultadoCodFornecedores[index];
+					if(i != 0)
+						$("#btnGerarPedido").prop("disabled", false);
 				}
 			});
+		}else{
+			$("#btnGerarPedido").prop("disabled", true);
 		}
+		
+		// DESABILITA O BOTÃO GERAR PEDIDO QUANDO O CAMPO FORNECEDOR PERDE O FOCO E NO CASO DO FORNECEDOR NÃO TER SIDO INFORMADO
+		//if(codFornecedor == "") $("#btnGerarPedido").prop("disabled", true);
 	});
+	
+	// INICIA O FORMULÁRIO DO PEDIDO DE COMPRA COM O BOTÃO GERAR PEDIDO DESABILITADO
+	//if(codFornecedor == "") $("#btnGerarPedido").prop("disabled", true);	
 	
 	// CARREGA A LISTA DE PRODUTOS NO MODAL CADASTRAR PEDIDO DE COMPRA	
 	var resultadoCodProdutos = []; 	
 	var resultadoProdutos = [];
 	var resultadoPrecoCompraProdutos = [];
+	var ids = [];
 	$.ajax({
 		url:"controller",
 		type:"post",
@@ -314,182 +324,18 @@ $(document).ready(function(){
 		}
 	});
 	
+	$("#btnGerarPedido").prop("disabled", true);
 	
-	
-	var ajaxFornecedor = "";
-	var ajaxCodProduto = [];
-	var ajaxPesos = [];
-	var ajaxPrecos = [];
-	
-	$("#btnGerarPedido").click(function(){
-		// Pega os dados digitados
-		var codFornecedor = $("#fornecedor").find("span").text();
-		var tamanhoItens = $("#itemNovo").find(".form-inline").length;
-		
-		console.log("Cód. Forn. " + codFornecedor);
-		if(ajaxCodProduto == null || ajaxCodProduto == ""){
-			console.log("nulo");
-		}else{
-			$.each(ajaxCodProduto, function(index, value){
-				console.log("Prod: " + value);
-			});
-		}
-
-		$.each(tamanhoItens, function(index, value){
-			console.log("tamanhoItens INDEX: " + index);
-			$(this).attr("id", (index+1));
-			var id = $(this).attr("id");
-			
-			var inputs = $(this).find("input");
-			$.each(inputs, function(ind, val){
-				var idNovo = "";
-				switch(ind){						
-					case 0:
-						console.log("CódProd: " + $(this).val());
-						//ajaxCodProduto[ind] = $(this).val();
-						break;
-					case 1:
-						console.log("Hein: " + $(this).val());
-						//ajaxCodProduto[ind] = $(this).val();
-						break;
-					case 2:
-						console.log("Peso: " + $(this).val());
-						//ajaxPesos[ind] = $(this).val();
-						break;
-					case 3:						
-						console.log("Valor: " + $(this).val());
-						//ajaxPrecos[ind] = $(this).val();
-						break;
-					default:
-						break;
-				}				
-			});
-		});
-		
-		
-		/*
-		$.ajax({
-			url:"controller",
-			type:"post",
-			data:{
-				codFornecedor:codFornecedor,
-				prods:prods,				
-				pesos:pesos,
-				valores:valores,
-				action:"cadastrarPedidoCompra"
-			},
-			success:function(resultado){
-				console.log("Modal Cadastrar, Resultado da Ação Recebido");
-				$("#modal-form-pedido[rel=modalcadastrar]").find(".modal-header").html("<h4 class='blue bigger'>Resultado...</h4>").prepend("<button type='button' class='close' data-dismiss='modal'>&times;</button>");
-				$("#modal-form-pedido[rel=modalcadastrar]").find(".modal-body").html("<h3>" + resultado + "</h3>");
-				var botao = $("#modal-form-pedido[rel=modalcadastrar]").find("#btnCancelar").attr("id", "btnFechar");				
-				botao.text("Fechar");				
-				$("#modal-form-pedido[rel=modalcadastrar]").find("#btnGerarPedido").addClass("hidden");				
-			}
-		});
-		*/
-	});
-	
-	
-	// CLIQUE PARA ADICIONAR UM ITEM DE PRODUTO NO MODAL CADASTRAR PEDIDO
-	var i = 0;
-	$("a[role=additem").click(function(e){
-		e.preventDefault();		
-		i++;
-		
-		// MONTA UM LINHA DE ITEM
-		insereLinha(i);
-		
-		// COMPLETA O CAMPO DO PRODUTO NO MODAL CADASTRAR PEDIDO	
-		$("#material" + i).autocomplete({
-			source: resultadoProdutos
-		});
-		
-		// QUANDO O CAMPO PRODUTO PERDE O FOCO, COMPLETA OS CAMPOS PESO E VALOR DO PRODUTO NO MODAL CADASTRAR PEDIDO
-		$("#material" + i).blur(function(){
-			var prod = $(this);
-			var id = prod.closest(".form-inline").attr("id");			
-			if(prod.val() != null || prod.val() != ""){
-				$.each(resultadoProdutos, function(index, value){					
-					if(prod.val() == value){						
-						$("#codProduto" + id).val(resultadoCodProdutos[index]);
-						$("#peso" + id).val(1);
-						$("#valor" + id).val(resultadoPrecoCompraProdutos[index]);
-						ajaxCodProduto.push(resultadoCodProdutos[index]);
-					}
-				});
-			}
-		});
-		
-		// ADICIONA A ESCUTA DO CLIQUE REMOVER ITEM
-		$("a[role=removerItem").click(function(){
-			i--;
-			$(this).closest(".form-inline").next(".space-4").remove();
-			$(this).closest(".form-inline").remove();
-			
-			var lista = $("#itemNovo").find(".form-inline");
-			
-			console.log("TAMANHO DA LISTA: " + lista.length);
-			
-			$.each(lista, function(index, value){
-				$(this).attr("id", (index+1));
-				var id = $(this).attr("id");
-				
-				var inputs = $(this).find("input");
-				$.each(inputs, function(ind, val){
-					var idNovo = "";
-					switch(ind){						
-						case 0:
-							idNovo = "codProduto" + id;
-							ajaxCodProduto.splice(ind);
-							break;
-						case 1:
-							idNovo = "material" + id;
-							break;
-						case 2:
-							idNovo = "peso" + id;
-							break;
-						case 3:
-							idNovo = "valor" + id;
-							break;
-					}
-					$(this).attr("id", idNovo);
-				});
-				
-				var labels = $(this).attr("label");
-				$.each(labels, function(ind, val){
-					var idNovo = "";
-					switch(ind){
-						case 0:
-							idNovo = "codProduto" + id;
-							break;
-						case 1:
-							idNovo = "material" + id;
-							break;
-						case 2:
-							idNovo = "peso" + id;
-							break;
-						case 3:
-							idNovo = "valor" + id;
-							break;
-						default:
-							break;
-					}
-					$(this).attr("id", idNovo);
-				});				
-			});	
-		});
-	});
-	/*"<div class='form-group'>" +
-		"<label for='item" + i + "'>Item</label>" +
-		"<div>" +
-			"<input type='text' id='item" + i + "' name='item" + i + "' value='" + i + "' size='1' class='text-center' readonly />" +
-		"</div>" +
-	"</div>&nbsp;" +*/
 	// FUNCAO PARA MONTAR UMA LINHA DE ITEM
 	var insereLinha = function(i){		
 		$("#itemNovo")
-			.append("<div class='form-inline' id=" + i + ">" +						
+			.append("<div class='form-inline' id=" + i + ">" +	
+						"<div class='form-group'>" +
+							"<label for='item" + i + "'>Item</label>" +
+							"<div>" +
+								"<input type='text' id='item" + i + "' name='item" + i + "' value='" + i + "' size='1' class='text-center' readonly />" +
+							"</div>" +
+						"</div>&nbsp;" +
 						"<div class='form-group hidden'>" +
 							"<label for='codProduto" + i + "'>Cód. Produto</label>" +
 							"<div>" +
@@ -518,7 +364,7 @@ $(document).ready(function(){
 							"<label></label>" +
 							"<div class='text-center acao'>" +
 								"<div class='action-buttons'>" +
-									"<a href='#' role='removerItem'>" +
+									"<a href='#' role='removerItem' id='removerItem" + i + "'>" +
 										"<span class='red'>" +
 											"<i class='ace-icon fa fa-times bigger-160'></i>" +
 										"</span>" +
@@ -528,10 +374,193 @@ $(document).ready(function(){
 						"</div>" +
 					"</div>" +
 					"<div class='space-4'></div>");		
-		
 	}
 	
+	// CLIQUE PARA ADICIONAR UM ITEM DE PRODUTO NO MODAL CADASTRAR PEDIDO
+	var i = 0;
+
+	$("a[role=additem").click(function(e){
+		e.preventDefault();
+		
+		i++;
+		console.log("i = " + i + " - ADD ITEM INICIO");
+		
+		// MONTA UM LINHA DE ITEM
+		insereLinha(i);		
+		
+		// ADICIONA UM EVENTO DE REMOÇÃO DE ITEM
+		$("a[id='removerItem" + i + "']").click(function(e){
+			e.preventDefault();
+			console.log("i = " + i + " - REMOVE ITEM INICIO");
+			
+			var linhaRemovida = $(this).closest(".form-inline");
+			console.log("ID DA LINHA QUE FOI REMOVIDA: " + linhaRemovida.attr("id") + " - i = " + i);
+			var id = linhaRemovida.attr("id");
+			
+			// VERIFICANDO A REMOÇÃO DO COD. PRODUTO
+			console.log("INICIO - PERCORRE OS COD. PROD:");
+			$.each(ajaxCodProduto, function(index, value){
+				console.log("\tINDEX: " + index + " COD. PRODUTO: " + value);				
+			});
+									
+			console.log("MEIO - PERCORRE OS COD. PROD:");			
+			$.each(ajaxCodProduto, function(index, value){				
+				console.log("\tINDEX: " + index + " COD. PRODUTO: " + value + " ID: " + id);
+				if((id - 1) == index){
+					console.log("\t\tINDEX: " + index + " COD. PRODUTO: " + value + " - REMOVIDO");
+					ajaxCodProduto.splice(index, 1);				
+					
+				}
+			});
+			
+			console.log("FIM - PERCORRE OS COD. PROD:");
+			$.each(ajaxCodProduto, function(index, value){				
+				console.log("\tINDEX: " + index + " COD. PRODUTO: " + value);				
+			});
+			// VERIFIÇÃO CONCLUÍDA - FUNCIONANDO PERFEITAMENTE
+			
+			console.log("THE END\n");
+			
+			// REMOVE A DIV DE ESPAÇAMENTO ENTRE LINHAS
+			linhaRemovida.next(".space-4").remove();
+			
+			// REMOVE A DIV LINHA DE FATO
+			linhaRemovida.remove();	
+			
+			var lista = $("#itemNovo").find(".form-inline");
+			$.each(lista, function(index, value){
+				
+				// RENOMEIA O ID DO FORM-INLINE
+				$(this).attr("id", (index+1));
+				var id = $(this).attr("id");				
+				
+				// RENOMEIA OS IDs DOS INPUTS
+				var inputs = $(this).find("input");
+				$.each(inputs, function(ind, val){
+					var codProdutoRenomeado = $(this);
+					var idNovo = "";
+					switch(ind){
+						case 0:
+							idNovo = "item" + id;
+							$(this).val(id);
+							break;
+						case 1:
+							idNovo = "codProduto" + id;														
+							break;
+						case 2:
+							idNovo = "material" + id;
+							break;
+						case 3:
+							idNovo = "peso" + id;
+							break;
+						case 4:
+							idNovo = "valor" + id;
+							break;
+					}					
+					$(this).attr("id", idNovo);					
+				});
+				
+				// RENOMEIA OS IDs DOS LABELS
+				var labels = $(this).attr("label");
+				$.each(labels, function(ind, val){
+					var idNovo = "";
+					switch(ind){
+						case 0:
+							idNovo = "item" + id;
+							break;
+						case 1:
+							idNovo = "codProduto" + id;
+							break;
+						case 2:
+							idNovo = "material" + id;
+							break;
+						case 3:
+							idNovo = "peso" + id;
+							break;
+						case 4:
+							idNovo = "valor" + id;
+							break;
+						default:
+							break;
+					}
+					$(this).attr("id", idNovo);
+				});				
+			});
+			i--;
+			if(i == 0)
+				$("#btnGerarPedido").prop("disabled", true);
+			console.log("i = " + i + " - REMOVE ITEM FIM");
+		});
+		
+		console.log("i = " + i + " - ADD ITEM FIM");
+		// COMPLETA O CAMPO DO PRODUTO NO MODAL CADASTRAR PEDIDO	
+		$("#material" + i).autocomplete({
+			source: resultadoProdutos
+		});
+		
+		
+		
+		
+		
+		// QUANDO O CAMPO PRODUTO PERDE O FOCO, COMPLETA OS CAMPOS PESO E VALOR DO PRODUTO NO MODAL CADASTRAR PEDIDO
+		$("#material" + i).blur(function(){
+			
+			var prod = $(this);
+			var id = prod.closest(".form-inline").attr("id");			
+			if(prod.val() != null && prod.val() != ""){
+				$.each(resultadoProdutos, function(index, value){
+					
+					// ADICIONA OS DADOS NOS INPUTs - CÓD. PRODUTO, PESO, VALOR
+					if(prod.val() == value){						
+						$("#codProduto" + id).val(resultadoCodProdutos[index]);
+						$("#peso" + id).val(1);
+						$("#valor" + id).val(resultadoPrecoCompraProdutos[index]);
+						
+						// MONTANDO O ARRAY DE DADOS PARA ENVIO DO AJAX - CÓD. PRODUTO						
+						ajaxCodProduto.push(resultadoCodProdutos[index]);
+						ids.push(id);
+						
+						if(codFornecedor != "")
+							$("#btnGerarPedido").prop("disabled", false);
+					}
+				});
+			}
+		});				
+	});
 	
+	// ENVIA OS DADOS PARA O CADASTRAMENTO DO PEDIDO
+	var ajaxFornecedor = "";
+	var ajaxCodProduto = [];
+	var ajaxPesos = [];
+	var ajaxPrecos = [];
+	var inputMaterial = [];	
+		
+	// CADASTRA O PEDIDO
+	$("#btnGerarPedido").click(function(){
+		
+		var lista = $("#itemNovo").find(".form-inline");
+		
+		// PEGA OS DADOS DOS ITENS - PELA VERICACAO DO CÓDIGO DO PRODUTO
+		if(ajaxCodProduto == null || ajaxCodProduto == ""){
+			console.log("nulo");
+		}else{
+			
+			// PEGA OS PESOS E PREÇOS DOS INPUTS
+			$.each(lista, function(index, value){
+				ajaxPesos.push($("#peso" + ids[index]).val());
+				ajaxPrecos.push($("#valor" + ids[index]).val());
+			});
+			
+			// TESTE PARA VER SE PEGOU OS DADOS DO PEDIDO
+			console.log("COD. FORNECEDOR. " + codFornecedor);
+			$.each(ajaxCodProduto, function(index, value){
+				console.log("LINHA: " + ids[index] + 
+						" COD. PRODUTO: " + value +  
+						" PESO: " + ajaxPesos[index] + 
+						" VALOR: " + ajaxPrecos[index]);
+			});
+		}
+	});
 	
 	// RECARREGA A PÁGINA AO FECHAR O MODAL CADASTRAR
 	$("#modal-form-pedido[rel=modalcadastrar]").on("hidden.bs.modal", function (){

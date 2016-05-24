@@ -674,7 +674,8 @@
 
     <!-- JQUERY SCRIPTS -->
     <!--[if !IE]> -->
-	<script src="resources/js/jquery.2.1.1.min.js"></script>
+	<script src="resources/js/jquery.2.2.4.min.js"></script>
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script> -->
 	<!-- <![endif]-->
 	
 	<!--[if IE]> 
