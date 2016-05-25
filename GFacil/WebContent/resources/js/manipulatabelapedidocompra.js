@@ -233,6 +233,8 @@ $(document).ready(function(){
 	});		
 	
 	// CARREGA A LISTA DE FORNECEDORES NO MODAL CADASTRAR PEDIDO DE COMPRA
+	$("#btnGerarPedido").prop("disabled", true);
+	
 	divInputFornecedor = $("#fornecedor").closest("div");
 	var resultadoFornecedores = [];
 	var resultadoCodFornecedores = [];
@@ -322,9 +324,7 @@ $(document).ready(function(){
 				});
 			}
 		}
-	});
-	
-	$("#btnGerarPedido").prop("disabled", true);
+	});	
 	
 	// FUNCAO PARA MONTAR UMA LINHA DE ITEM
 	var insereLinha = function(i){		
@@ -408,8 +408,8 @@ $(document).ready(function(){
 				console.log("\tINDEX: " + index + " COD. PRODUTO: " + value + " ID: " + id);
 				if((id - 1) == index){
 					console.log("\t\tINDEX: " + index + " COD. PRODUTO: " + value + " - REMOVIDO");
-					ajaxCodProduto.splice(index, 1);				
-					
+					ajaxCodProduto.splice(index, 1);
+					ids.splice(index, 1);
 				}
 			});
 			
@@ -484,11 +484,23 @@ $(document).ready(function(){
 							break;
 					}
 					$(this).attr("id", idNovo);
-				});				
+				});	
+				
+				// RENOMEIA O ID DO BOTÃO
+				$(this).find("#removerItem" + index).attr("id", id);
 			});
+			
 			i--;
 			if(i == 0)
 				$("#btnGerarPedido").prop("disabled", true);
+			else
+				if(codFornecedor != "" && i == ids.length){
+					console.log("FORNECEDOR PREENCHIDO E i: " + i + " = qtd. ids: " + ids.length);
+					$("#btnGerarPedido").prop("disabled", false);
+				}else{
+					console.log("FORNECEDOR NAO PREENCHIDO OU i: " + i + " != qtd. ids: " + ids.length);
+					$("#btnGerarPedido").prop("disabled", true);
+				}
 			console.log("i = " + i + " - REMOVE ITEM FIM");
 		});
 		
@@ -498,9 +510,14 @@ $(document).ready(function(){
 			source: resultadoProdutos
 		});
 		
+		//$("#btnGerarPedido").prop("disabled", true);
 		
-		
-		
+		// QUANDO O CAMPO PRODUTO GANHA O FOCO, GARANTE DE REMOVER O COD. CASO PREENCHIDO ANTERIORMENTE E A DESABILITAÇÃO DO BOTÃO
+		$("#material" + i).focus(function(){			
+			ajaxCodProduto.splice((i - 1), 1);
+			ids.splice((i - 1), 1);
+			console.log("MATERIAL GANHOU FOCO, i: " + i + " qtd. ids: " + ids.length);
+		});
 		
 		// QUANDO O CAMPO PRODUTO PERDE O FOCO, COMPLETA OS CAMPOS PESO E VALOR DO PRODUTO NO MODAL CADASTRAR PEDIDO
 		$("#material" + i).blur(function(){
@@ -519,13 +536,34 @@ $(document).ready(function(){
 						// MONTANDO O ARRAY DE DADOS PARA ENVIO DO AJAX - CÓD. PRODUTO						
 						ajaxCodProduto.push(resultadoCodProdutos[index]);
 						ids.push(id);
-						
-						if(codFornecedor != "")
+						console.log("ID é o mesmo que i? ID: " + id + " i: " + i + " qtd. ids: " + ids.length);
+						if(codFornecedor != "" && i == ids.length){
+							console.log("MATERIAL PERDEU FOCO - BOTAO HABILITADO, i: " + i + " = qtd. ids: " + ids.length + " - FORNECEDOR PREENCHIDO");
 							$("#btnGerarPedido").prop("disabled", false);
+						}else{
+							console.log("MATERIAL PERDEU FOCO - BOTAO DESABILITADO, i: " + i + " = qtd. ids: " + ids.length + " - FORNECEDOR TALVEZ NAO PREENCHIDO")
+							$("#btnGerarPedido").prop("disabled", true);
+						}
 					}
 				});
+			}else{
+				console.log("MATERIAL PERDEU FOCO 'VAZIO' - BOTAO DESABILITADO, i: " + i + " = qtd. ids: " + ids.length)
+				$("#btnGerarPedido").prop("disabled", true);
 			}
-		});				
+		});
+		
+		/*
+		$("#peso" + 1).keyup(function(){
+			var $this = $(this); //armazeno o ponteiro em uma variavel
+			var valor = $this.val().replace(/[^0-9]+/gi,'');[0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2}
+			$this.val(valor);
+		});
+		
+		$("#valor" + 1).keyup(function(){
+			var $this = $(this); //armazeno o ponteiro em uma variavel
+			var valor = $this.val().replace(/[^0-9]+/gi,'');
+			$this.val(valor);
+		});*/
 	});
 	
 	// ENVIA OS DADOS PARA O CADASTRAMENTO DO PEDIDO
@@ -547,17 +585,38 @@ $(document).ready(function(){
 			
 			// PEGA OS PESOS E PREÇOS DOS INPUTS
 			$.each(lista, function(index, value){
-				ajaxPesos.push($("#peso" + ids[index]).val());
-				ajaxPrecos.push($("#valor" + ids[index]).val());
+				if (typeof value == 'undefined') {
+					console.log("INDEFINIDO: index " + index);
+				}else{						
+					if($.isNumeric($("#peso" + ids[index]).val()) && $.isNumeric($("#valor" + ids[index]).val())){
+						console.log("São números, PESO: " + $("#peso" + ids[index]).val() + " VALOR: " + $("#valor" + ids[index]).val());						
+						ajaxPesos.push($("#peso" + ids[index]).val());
+						ajaxPrecos.push($("#valor" + ids[index]).val());
+					}else{
+						if(!$.isNumeric($("#peso" + ids[index]).val()) && !$.isNumeric($("#valor" + ids[index]).val())){
+							$("#valor" + ids[index]).closest(".form-group").addClass("has-error");
+							$("#peso" + ids[index]).closest(".form-group").addClass("has-error");
+							console.log("Não são números VALOR: " + $("#valor" + ids[index]).val() + " PESO: " + $("#peso" + ids[index]).val());
+						}else{
+							if($.isNumeric($("#peso" + ids[index]).val())){
+								$("#valor" + ids[index]).closest(".form-group").addClass("has-error");
+								console.log("Não é número VALOR: " + $("#valor" + ids[index]).val());
+							}else{
+								$("#peso" + ids[index]).closest(".form-group").addClass("has-error");
+								console.log("Não é número PESO: " + $("#peso" + ids[index]).val());
+							}
+						}
+					}		
+				}			
 			});
 			
 			// TESTE PARA VER SE PEGOU OS DADOS DO PEDIDO
 			console.log("COD. FORNECEDOR. " + codFornecedor);
 			$.each(ajaxCodProduto, function(index, value){
 				console.log("LINHA: " + ids[index] + 
-						" COD. PRODUTO: " + value +  
-						" PESO: " + ajaxPesos[index] + 
-						" VALOR: " + ajaxPrecos[index]);
+						"\n\tCOD. PRODUTO: " + value +  
+						"\n\tPESO: " + ajaxPesos[index] + 
+						"\n\tVALOR: " + ajaxPrecos[index] + "\n");
 			});
 		}
 	});
