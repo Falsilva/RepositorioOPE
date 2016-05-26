@@ -283,7 +283,7 @@ $(document).ready(function(){
 			$.each(resultadoFornecedores, function(index, value){					
 				if(forn.val() == value){					
 					codFornecedor = resultadoCodFornecedores[index];
-					if(i != 0)
+					if(i != 0 && i == ids.length)
 						$("#btnGerarPedido").prop("disabled", false);
 				}
 			});
@@ -383,7 +383,17 @@ $(document).ready(function(){
 		e.preventDefault();
 		
 		i++;
-		console.log("i = " + i + " - ADD ITEM INICIO");
+		
+		console.log("ITEM " + i + " ADICIONADO");
+		
+		if(codFornecedor != "" && i == ids.length){	
+			console.log("\tFORNECEDOR PREENCHIDO E\n\ti...........: " + i + " É IGUAL A\n\tids.length..: " + ids.length + "\n\tVALOR do ids: " + ids[i]);
+			$("#btnGerarPedido").prop("disabled", false);
+		}else{
+			console.log("\tFORNECEDOR NAO PREENCHIDO OU\n\ti...........: " + i + " É DIFERENTE de\n\tids.length..: " + ids.length + "\n\tVALOR do ids: " + ids[i]);
+			$("#btnGerarPedido").prop("disabled", true);
+		}
+		
 		
 		// MONTA UM LINHA DE ITEM
 		insereLinha(i);		
@@ -391,35 +401,36 @@ $(document).ready(function(){
 		// ADICIONA UM EVENTO DE REMOÇÃO DE ITEM
 		$("a[id='removerItem" + i + "']").click(function(e){
 			e.preventDefault();
-			console.log("i = " + i + " - REMOVE ITEM INICIO");
+			//console.log("i = " + i + " - REMOVE ITEM INICIO");
 			
 			var linhaRemovida = $(this).closest(".form-inline");
-			console.log("ID DA LINHA QUE FOI REMOVIDA: " + linhaRemovida.attr("id") + " - i = " + i);
+			console.log("ITEM " + linhaRemovida.attr("id") + " A SER REMOVIDO\n\ti...........: " + i + "\n\tVALOR do ids: " + ids[i-1]);
 			var id = linhaRemovida.attr("id");
 			
 			// VERIFICANDO A REMOÇÃO DO COD. PRODUTO
-			console.log("INICIO - PERCORRE OS COD. PROD:");
-			$.each(ajaxCodProduto, function(index, value){
-				console.log("\tINDEX: " + index + " COD. PRODUTO: " + value);				
-			});
+			//console.log("REMOVENDO O COD. PROD:");
+			//$.each(ajaxCodProduto, function(index, value){
+				//console.log("\tINDEX: " + index + " COD. PRODUTO: " + value);				
+			//});
 									
-			console.log("MEIO - PERCORRE OS COD. PROD:");			
+			console.log("\tREMOVENDO O COD. PROD e o ID:");			
 			$.each(ajaxCodProduto, function(index, value){				
-				console.log("\tINDEX: " + index + " COD. PRODUTO: " + value + " ID: " + id);
-				if((id - 1) == index){
-					console.log("\t\tINDEX: " + index + " COD. PRODUTO: " + value + " - REMOVIDO");
+				//console.log("\tINDEX: " + index + " COD. PRODUTO: " + value + " ID: " + id);
+				if((id - 1) == index){				
+					console.log("\t\tVALOR do ids VALOR.....: " + ids[index] + " - REMOVIDO");
+					console.log("\t\tVALOR do ajaxCodProduto: " + value + " - REMOVIDO");
 					ajaxCodProduto.splice(index, 1);
-					ids.splice(index, 1);
+					ids.splice(index, 1);					
 				}
 			});
 			
-			console.log("FIM - PERCORRE OS COD. PROD:");
-			$.each(ajaxCodProduto, function(index, value){				
-				console.log("\tINDEX: " + index + " COD. PRODUTO: " + value);				
+			console.log("\tVERIFICANDO A REMOÇÃO, IDS E CODs. PRODs. ATUAIS:");			
+			$.each(ids, function(index, value){				
+				console.log("\t\tINDEX: " + index + " IDS: " + value);				
 			});
-			// VERIFIÇÃO CONCLUÍDA - FUNCIONANDO PERFEITAMENTE
-			
-			console.log("THE END\n");
+			$.each(ajaxCodProduto, function(index, value){				
+				console.log("\t\tINDEX: " + index + " COD. PRODUTO: " + value);				
+			});			
 			
 			// REMOVE A DIV DE ESPAÇAMENTO ENTRE LINHAS
 			linhaRemovida.next(".space-4").remove();
@@ -427,6 +438,8 @@ $(document).ready(function(){
 			// REMOVE A DIV LINHA DE FATO
 			linhaRemovida.remove();	
 			
+			// RENOMEANDO OS IDs
+			console.log("\tRENOMEANDO OS IDs:")
 			var lista = $("#itemNovo").find(".form-inline");
 			$.each(lista, function(index, value){
 				
@@ -445,7 +458,7 @@ $(document).ready(function(){
 							$(this).val(id);
 							break;
 						case 1:
-							idNovo = "codProduto" + id;														
+							idNovo = "codProduto" + id;												
 							break;
 						case 2:
 							idNovo = "material" + id;
@@ -490,45 +503,101 @@ $(document).ready(function(){
 				$(this).find("#removerItem" + index).attr("id", id);
 			});
 			
+			// VERIFICANDO SE HÁ ALGUM CAMPO DE MATERIAL VAZIO			
+			var campoVazio = false;
+			var linhasItens = $("itemNovo").find(".form-inline");
+			$.each(linhasItens, function(index, value){
+				if($("#material" + (index + 1)).val() == ""){
+					campoVazio = true;
+					console.log("\tCAMPO MATERIAL VAZIO - LINHA: " + (index + 1));
+				}
+			});
+			
 			i--;
-			if(i == 0)
+			
+			if(i == 0){
 				$("#btnGerarPedido").prop("disabled", true);
-			else
-				if(codFornecedor != "" && i == ids.length){
-					console.log("FORNECEDOR PREENCHIDO E i: " + i + " = qtd. ids: " + ids.length);
+				console.log("\tNÃO HÁ LINHAS - BOTÃO DESABILITADO");
+			}else{
+				if(codFornecedor != "" && i == ids.length && campoVazio == false){
+					console.log("\tFORNECEDOR PREENCHIDO E\n\t\ti.........: " + i + " É IGUAL A\n\t\tids.length: " + ids.length + " E\n\t\ttodos os campos de materiais preenchidos");
 					$("#btnGerarPedido").prop("disabled", false);
 				}else{
-					console.log("FORNECEDOR NAO PREENCHIDO OU i: " + i + " != qtd. ids: " + ids.length);
+					console.log("\tFORNECEDOR NAO PREENCHIDO OU\n\t\ti.........: " + i + " É DIFERENTE de\n\t\tids.length: " + ids.length + "OU\n\t\t há algum campo de material vazio");
 					$("#btnGerarPedido").prop("disabled", true);
 				}
-			console.log("i = " + i + " - REMOVE ITEM FIM");
+			}
+			
+			console.log("\tÚLTIMA CONFERÊNCIA, IDS E CODs. PRODs. ATUAIS:");			
+			$.each(ids, function(index, value){				
+				console.log("\t\tINDEX: " + index + " IDS: " + value);				
+			});
+			$.each(ajaxCodProduto, function(index, value){				
+				console.log("\t\tINDEX: " + index + " COD. PRODUTO: " + value);				
+			});
+			
+			console.log("\tFIM DA REMOÇÃO:\n\t\ti......................: " + i + "\n\t\tids.length...........: " + ids.length + "\n\t\tVALOR do ids...........: " + ids[i-1] + "\n\t\tVALOR do ajaxCodProduto: " + ajaxCodProduto[i-1]);
 		});
 		
-		console.log("i = " + i + " - ADD ITEM FIM");
+		
 		// COMPLETA O CAMPO DO PRODUTO NO MODAL CADASTRAR PEDIDO	
 		$("#material" + i).autocomplete({
 			source: resultadoProdutos
-		});
+		});		
 		
-		//$("#btnGerarPedido").prop("disabled", true);
-		
+		var guardaMaterial = "";
 		// QUANDO O CAMPO PRODUTO GANHA O FOCO, GARANTE DE REMOVER O COD. CASO PREENCHIDO ANTERIORMENTE E A DESABILITAÇÃO DO BOTÃO
-		$("#material" + i).focus(function(){			
+		$("#material" + i).focus(function(){
+			console.log("\tMATERIAL GANHOU FOCO:\n\t\ti......................: " + i + "\n\t\tids.length.............: " + ids.length + "\n\t\tVALOR do ids...........: " + ids[i-1] + "\n\t\tVALOR do ajaxCodProduto: " + ajaxCodProduto[i-1]);
+			
+			guardaMaterial = $(this).val();
+			console.log("guardaMaterial: " + guardaMaterial);
+			
+			console.log("\t\tFOCO INICIO:");			
+			$.each(ids, function(index, value){				
+				console.log("\t\t\tINDEX: " + index + " IDS: " + value);				
+			});
+			$.each(ajaxCodProduto, function(index, value){				
+				console.log("\t\t\tINDEX: " + index + " COD. PRODUTO: " + value + " - VALOR DO CAMPO: " + $("#material" + ids[index]).val());				
+			});
+			
 			ajaxCodProduto.splice((i - 1), 1);
 			ids.splice((i - 1), 1);
-			console.log("MATERIAL GANHOU FOCO, i: " + i + " qtd. ids: " + ids.length);
+			
+			console.log("\t\tFOCO FIM:");			
+			$.each(ids, function(index, value){				
+				console.log("\t\t\tINDEX: " + index + " IDS: " + value);				
+			});
+			$.each(ajaxCodProduto, function(index, value){				
+				console.log("\t\t\tINDEX: " + index + " COD. PRODUTO: " + value + " - VALOR DO CAMPO: " + $("#material" + ids[index]).val());				
+			});
+			
+			console.log("\t\tREMOVEU UM índice do ajaxCodProduto E UM ids:\n\t\t\ti......................: " + i + "\n\t\t\tids.length.............: " + ids.length + "\n\t\t\tVALOR do ids...........: " + ids[i-1] + "\n\t\t\tVALOR do ajaxCodProduto: " + ajaxCodProduto[i-1]);
 		});
 		
 		// QUANDO O CAMPO PRODUTO PERDE O FOCO, COMPLETA OS CAMPOS PESO E VALOR DO PRODUTO NO MODAL CADASTRAR PEDIDO
 		$("#material" + i).blur(function(){
+			console.log("\tMATERIAL PERDEU FOCO:");
+			if($(this) == ""){
+				console.log("Houve alteração")
+			}
+			console.log("\t\tVERIFICANDO IDS E CODs. PRODs. ATUAIS:");			
+			$.each(ids, function(index, value){				
+				console.log("\t\t\tINDEX: " + index + " IDS: " + value);				
+			});
+			$.each(ajaxCodProduto, function(index, value){				
+				console.log("\t\t\tINDEX: " + index + " COD. PRODUTO: " + value + " - VALOR DO CAMPO: " + $("#material" + ids[index]).val());				
+			});
 			
 			var prod = $(this);
+			var encontrado = false;
 			var id = prod.closest(".form-inline").attr("id");			
 			if(prod.val() != null && prod.val() != ""){
 				$.each(resultadoProdutos, function(index, value){
 					
 					// ADICIONA OS DADOS NOS INPUTs - CÓD. PRODUTO, PESO, VALOR
-					if(prod.val() == value){						
+					if(prod.val() == value){
+						
 						$("#codProduto" + id).val(resultadoCodProdutos[index]);
 						$("#peso" + id).val(1);
 						$("#valor" + id).val(resultadoPrecoCompraProdutos[index]);
@@ -536,34 +605,104 @@ $(document).ready(function(){
 						// MONTANDO O ARRAY DE DADOS PARA ENVIO DO AJAX - CÓD. PRODUTO						
 						ajaxCodProduto.push(resultadoCodProdutos[index]);
 						ids.push(id);
-						console.log("ID é o mesmo que i? ID: " + id + " i: " + i + " qtd. ids: " + ids.length);
+						
+						
+						$.each(ids, function(ind, val){
+							console.log("\t\tids         >>> INDEX: " + ind + " VALUE: " + val);
+						});
+						$.each(ajaxCodProduto, function(ind, val){
+							console.log("\t\tajaxCodProd >>> INDEX: " + ind + " VALUE: " + val);
+						});
+						
+						encontrado = true;
+						
+						console.log("\t\tLINHA " + id + "\n\t\t\ti......................: " + i + "\n\t\t\tids.length.............: " + ids.length + "\n\t\t\tVALOR do ids...........: " + ids[i-1] + "\n\t\t\tVALOR do ajaxCodProduto: " + ajaxCodProduto[i-1] + " - " + value);
 						if(codFornecedor != "" && i == ids.length){
-							console.log("MATERIAL PERDEU FOCO - BOTAO HABILITADO, i: " + i + " = qtd. ids: " + ids.length + " - FORNECEDOR PREENCHIDO");
+							//console.log("MATERIAL PERDEU FOCO - BOTAO HABILITADO:\n\ti: " + i + "\n\tqtd. ids: " + ids.length + "\n\tCod. Prod: " + ajaxCodProd[index+1] + "\n\tFORNECEDOR PREENCHIDO");
 							$("#btnGerarPedido").prop("disabled", false);
 						}else{
-							console.log("MATERIAL PERDEU FOCO - BOTAO DESABILITADO, i: " + i + " = qtd. ids: " + ids.length + " - FORNECEDOR TALVEZ NAO PREENCHIDO")
+							//console.log("MATERIAL PERDEU FOCO - BOTAO DESABILITADO:\n\ti: " + i + "\n\tqtd. ids: " + ids.length + "\n\tCod. Prod: " + ajaxCodProd[index+1] + "\n\tFORNECEDOR TALVEZ NAO PREENCHIDO");
 							$("#btnGerarPedido").prop("disabled", true);
 						}
-					}
+					}					
 				});
+				if(encontrado == false){
+					prod.val(guardaMaterial);
+					$.each(resultadoProdutos, function(index, value){
+						if(prod.val() == value){
+							
+							$("#codProduto" + id).val(resultadoCodProdutos[index]);
+							$("#peso" + id).val(1);
+							$("#valor" + id).val(resultadoPrecoCompraProdutos[index]);
+							
+							// MONTANDO O ARRAY DE DADOS PARA ENVIO DO AJAX - CÓD. PRODUTO						
+							ajaxCodProduto.push(resultadoCodProdutos[index]);
+							ids.push(id);
+							
+							
+							$.each(ids, function(ind, val){
+								console.log("\t\tids         >>> INDEX: " + ind + " VALUE: " + val);
+							});
+							$.each(ajaxCodProduto, function(ind, val){
+								console.log("\t\tajaxCodProd >>> INDEX: " + ind + " VALUE: " + val);
+							});
+							
+							encontrado = true;
+							
+							console.log("\t\tLINHA " + id + "\n\t\t\ti......................: " + i + "\n\t\t\tids.length.............: " + ids.length + "\n\t\t\tVALOR do ids...........: " + ids[i-1] + "\n\t\t\tVALOR do ajaxCodProduto: " + ajaxCodProduto[i-1] + " - " + value);
+							if(codFornecedor != "" && i == ids.length){
+								//console.log("MATERIAL PERDEU FOCO - BOTAO HABILITADO:\n\ti: " + i + "\n\tqtd. ids: " + ids.length + "\n\tCod. Prod: " + ajaxCodProd[index+1] + "\n\tFORNECEDOR PREENCHIDO");
+								$("#btnGerarPedido").prop("disabled", false);
+							}else{
+								//console.log("MATERIAL PERDEU FOCO - BOTAO DESABILITADO:\n\ti: " + i + "\n\tqtd. ids: " + ids.length + "\n\tCod. Prod: " + ajaxCodProd[index+1] + "\n\tFORNECEDOR TALVEZ NAO PREENCHIDO");
+								$("#btnGerarPedido").prop("disabled", true);
+							}
+						}
+					});
+				}
+				guardaMaterial="";
 			}else{
-				console.log("MATERIAL PERDEU FOCO 'VAZIO' - BOTAO DESABILITADO, i: " + i + " = qtd. ids: " + ids.length)
-				$("#btnGerarPedido").prop("disabled", true);
-			}
-		});
-		
-		/*
-		$("#peso" + 1).keyup(function(){
-			var $this = $(this); //armazeno o ponteiro em uma variavel
-			var valor = $this.val().replace(/[^0-9]+/gi,'');[0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2}
-			$this.val(valor);
-		});
-		
-		$("#valor" + 1).keyup(function(){
-			var $this = $(this); //armazeno o ponteiro em uma variavel
-			var valor = $this.val().replace(/[^0-9]+/gi,'');
-			$this.val(valor);
-		});*/
+				
+					prod.val(guardaMaterial);
+					$.each(resultadoProdutos, function(index, value){
+						if(prod.val() == value){
+							
+							$("#codProduto" + id).val(resultadoCodProdutos[index]);
+							$("#peso" + id).val(1);
+							$("#valor" + id).val(resultadoPrecoCompraProdutos[index]);
+							
+							// MONTANDO O ARRAY DE DADOS PARA ENVIO DO AJAX - CÓD. PRODUTO						
+							ajaxCodProduto.push(resultadoCodProdutos[index]);
+							ids.push(id);
+							
+							
+							$.each(ids, function(ind, val){
+								console.log("\t\tids         >>> INDEX: " + ind + " VALUE: " + val);
+							});
+							$.each(ajaxCodProduto, function(ind, val){
+								console.log("\t\tajaxCodProd >>> INDEX: " + ind + " VALUE: " + val);
+							});
+							
+							encontrado = true;
+							
+							console.log("\t\tLINHA " + id + "\n\t\t\ti......................: " + i + "\n\t\t\tids.length.............: " + ids.length + "\n\t\t\tVALOR do ids...........: " + ids[i-1] + "\n\t\t\tVALOR do ajaxCodProduto: " + ajaxCodProduto[i-1] + " - " + value);
+							if(codFornecedor != "" && i == ids.length){
+								//console.log("MATERIAL PERDEU FOCO - BOTAO HABILITADO:\n\ti: " + i + "\n\tqtd. ids: " + ids.length + "\n\tCod. Prod: " + ajaxCodProd[index+1] + "\n\tFORNECEDOR PREENCHIDO");
+								$("#btnGerarPedido").prop("disabled", false);
+							}else{
+								//console.log("MATERIAL PERDEU FOCO - BOTAO DESABILITADO:\n\ti: " + i + "\n\tqtd. ids: " + ids.length + "\n\tCod. Prod: " + ajaxCodProd[index+1] + "\n\tFORNECEDOR TALVEZ NAO PREENCHIDO");
+								$("#btnGerarPedido").prop("disabled", true);
+							}
+						}
+					});
+					guardaMaterial="";
+				//ajaxCodProduto.splice((i - 1), 1);
+				//ids.splice((i - 1), 1);
+				//console.log("MATERIAL PERDEU FOCO 'VAZIO' - BOTAO DESABILITADO:\n\ti: " + i + "\n\tqtd. ids: " + ids.length + "\n\tCod. Prod: " + prod.find("#codProduto" + id).val());
+				//$("#btnGerarPedido").prop("disabled", true);
+				
+			}			
+		});		
 	});
 	
 	// ENVIA OS DADOS PARA O CADASTRAMENTO DO PEDIDO
@@ -579,45 +718,102 @@ $(document).ready(function(){
 		var lista = $("#itemNovo").find(".form-inline");
 		
 		// PEGA OS DADOS DOS ITENS - PELA VERICACAO DO CÓDIGO DO PRODUTO
-		if(ajaxCodProduto == null || ajaxCodProduto == ""){
+		if((ajaxCodProduto == null || ajaxCodProduto == "") && (codFornecedor == null || codFornecedor == "")){
 			console.log("nulo");
 		}else{
+			
+			var contador = 0;
 			
 			// PEGA OS PESOS E PREÇOS DOS INPUTS
 			$.each(lista, function(index, value){
 				if (typeof value == 'undefined') {
 					console.log("INDEFINIDO: index " + index);
 				}else{						
-					if($.isNumeric($("#peso" + ids[index]).val()) && $.isNumeric($("#valor" + ids[index]).val())){
-						console.log("São números, PESO: " + $("#peso" + ids[index]).val() + " VALOR: " + $("#valor" + ids[index]).val());						
-						ajaxPesos.push($("#peso" + ids[index]).val());
-						ajaxPrecos.push($("#valor" + ids[index]).val());
+					if($.isNumeric($("#peso" + (index + 1)).val()) && $.isNumeric($("#valor" + (index + 1)).val())){
+						console.log("São números, PESO: " + $("#peso" + (index + 1)).val() + " VALOR: " + $("#valor" + (index + 1)).val());						
+						ajaxPesos.push($("#peso" + (index + 1)).val());
+						ajaxPrecos.push($("#valor" + (index + 1)).val());
+						contador++;
 					}else{
-						if(!$.isNumeric($("#peso" + ids[index]).val()) && !$.isNumeric($("#valor" + ids[index]).val())){
-							$("#valor" + ids[index]).closest(".form-group").addClass("has-error");
-							$("#peso" + ids[index]).closest(".form-group").addClass("has-error");
-							console.log("Não são números VALOR: " + $("#valor" + ids[index]).val() + " PESO: " + $("#peso" + ids[index]).val());
+						if(!$.isNumeric($("#peso" + (index + 1)).val()) && !$.isNumeric($("#valor" + (index + 1)).val())){
+							$("#valor" + (index + 1)).closest(".form-group").addClass("has-error");
+							$("#peso" + (index + 1)).closest(".form-group").addClass("has-error");
+							console.log("Não são números VALOR: " + $("#valor" + (index + 1)).val() + " PESO: " + $("#peso" + (index + 1)).val());
 						}else{
-							if($.isNumeric($("#peso" + ids[index]).val())){
-								$("#valor" + ids[index]).closest(".form-group").addClass("has-error");
-								console.log("Não é número VALOR: " + $("#valor" + ids[index]).val());
+							if($.isNumeric($("#peso" + (index + 1)).val())){
+								$("#valor" + (index + 1)).closest(".form-group").addClass("has-error");
+								console.log("Não é número VALOR: " + $("#valor" + (index + 1)).val());
 							}else{
-								$("#peso" + ids[index]).closest(".form-group").addClass("has-error");
-								console.log("Não é número PESO: " + $("#peso" + ids[index]).val());
+								$("#peso" + (index + 1)).closest(".form-group").addClass("has-error");
+								console.log("Não é número PESO: " + $("#peso" + (index + 1)).val());
 							}
 						}
 					}		
-				}			
+				}				
 			});
+									
+			if(contador == lista.length){
+				
+				console.log("COD. FORNECEDOR. " + codFornecedor);
+				
+				var jsonCodProdutos = [];
+				var jsonPesos = [];
+				var jsonValores = [];
+				
+				// CONVERTENDO OS ARRAYS EM JSON PARA ENVIO POR AJAX 
+				$.each(ajaxCodProduto, function(index, value){
+					if(index == 0){
+						jsonCodProdutos.push("{\"codProduto\":\"" + value + "\"}");
+					}else{
+						jsonCodProdutos.push(", " + "{\"codProduto\":\"" + value + "\"}");
+					}					
+				});
+				$.each(ajaxPesos, function(index, value){
+					if(index == 0){
+						jsonPesos.push("{\"peso\":\"" + value + "\"}");
+					}else{
+						jsonPesos.push(", " + "{\"peso\":\"" + value + "\"}");
+					}			
+				});
+				$.each(ajaxPrecos, function(index, value){
+					if(index == 0){
+						jsonValores.push("{\"valor\":\"" + value + "\"}");
+					}else{
+						jsonValores.push(", " + "{\"valor\":\"" + value + "\"}");
+					}
+				});
+				
+				// AJAX - ENVIANDO OS DADOS PARA O CADASTRAMENTO DO PEDIDO
+				$.ajax({
+					url:"controller",
+					type:"post",
+					//dataType:"json",
+					data:{
+						codFornecedor:codFornecedor,
+						codProdutos:jsonCodProdutos,
+						pesos:jsonPesos,
+						valores:jsonValores,
+						action:"cadastrarPedidoCompra"
+					},
+					success:function(resultado){
+						console.log("Resultado recebido: " + resultado);
+						$("#modal-form-pedido[rel=modalcadastrar]").find(".modal-header").html("<h4 class='blue bigger'>Resultado...</h4>").prepend("<button type='button' class='close' data-dismiss='modal'>&times;</button>");
+						$("#modal-form-pedido[rel=modalcadastrar]").find(".modal-body").html("<h3>" + resultado + "</h3>");
+						var botao = $("#modal-form-pedido[rel=modalcadastrar]").find("#btnCancelar").html("<i class='ace-icon fa fa-times'></i> Fechar");				
+						botao.text("Fechar");
+						$("#modal-form-pedido[rel=modalcadastrar]").find("#btnGerarPedido").addClass("hidden");
+					}
+				});
+			}
 			
-			// TESTE PARA VER SE PEGOU OS DADOS DO PEDIDO
+			/* TESTE PARA VER SE PEGOU OS DADOS DO PEDIDO
 			console.log("COD. FORNECEDOR. " + codFornecedor);
 			$.each(ajaxCodProduto, function(index, value){
 				console.log("LINHA: " + ids[index] + 
 						"\n\tCOD. PRODUTO: " + value +  
 						"\n\tPESO: " + ajaxPesos[index] + 
 						"\n\tVALOR: " + ajaxPrecos[index] + "\n");
-			});
+			});*/
 		}
 	});
 	

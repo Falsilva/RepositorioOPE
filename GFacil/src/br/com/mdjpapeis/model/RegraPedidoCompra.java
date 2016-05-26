@@ -117,8 +117,18 @@ public class RegraPedidoCompra extends HttpServlet {
 					}
 					dispatcher.forward(req, resp);					
 				}
-				break;/*
+				break;
 			case("cadastrarPedidoCompra"):
+				
+				System.out.println("COD. FORNECEDOR: " + req.getParameter("codFornecedor"));
+				
+				
+				resp.setContentType("text/plain");
+				resp.setCharacterEncoding("UTF-8");
+				resp.getWriter().write("Pedido de Compra gerado com sucesso.");
+				
+				
+				/*
 				System.out.println("RegraPedidoCompra, CADASTRANDO PEDICOCOMPRA...");
 				strProduto = req.getParameter("produto");
 				strPrecoCompra = req.getParameter("precoCompra");
@@ -198,8 +208,9 @@ public class RegraPedidoCompra extends HttpServlet {
 					resp.setContentType("text/plain");
 					resp.setCharacterEncoding("UTF-8");
 					resp.getWriter().write("Falha ao cadastrar o produto.");							
-				}
+				}*/
 				break;
+				/*
 			case "atualizarPedidoCompra":
 				System.out.println("RegraPedidoCompra, ATUALIZANDO PRODUTO...");				
 				strProduto = req.getParameter("produto");
