@@ -1,10 +1,18 @@
 package br.com.mdjpapeis.model;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
+import javax.json.Json;
 import javax.persistence.PersistenceException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,7 +24,10 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.mdjpapeis.dao.MovimentacaoDAO;
 import br.com.mdjpapeis.dao.PedidoCompraDAO;
 import br.com.mdjpapeis.dao.ProdutoDAO;
+import br.com.mdjpapeis.entity.Fornecedor;
+import br.com.mdjpapeis.entity.ItemPedido;
 import br.com.mdjpapeis.entity.PedidoCompra;
+import br.com.mdjpapeis.entity.PedidoCompra.StatusCompra;
 import br.com.mdjpapeis.entity.Produto;
 
 @WebServlet(urlPatterns = {"/listarPedidoCompra", "/pesquisarPedidoCompra", "/cadastrarPedidoCompra", "/atualizarPedidoCompra", "/excluirPedidoCompra"})
@@ -31,15 +42,16 @@ public class RegraPedidoCompra extends HttpServlet {
 		System.out.println("RegraPedidoCompra - ACTION: " + req.getParameter("action"));
 		
 		long nPedido = 0;
-		String status = null;
-		String strnPedido = null;
-		String strPrecoCompra = null;
-		String strPrecoVenda = null;
+		String status = null;		
+		String strItens = null;
+		String[] arrayItens = null;
+		int contador = 0;
 		
 		double dblPrecoCompra = 0;
 		double dblPrecoVenda = 0;
 		BigDecimal precoCompra = null;
 		BigDecimal precoVenda = null;
+		BigDecimal valorTotalPedido = new BigDecimal(0);
 		
 		long proximoNumero = 0;
 		
@@ -119,96 +131,70 @@ public class RegraPedidoCompra extends HttpServlet {
 				}
 				break;
 			case("cadastrarPedidoCompra"):
+				System.out.println("RegraPedidoCompra, CADASTRANDO PEDIDO DE COMPRA...");
 				
-				System.out.println("COD. FORNECEDOR: " + req.getParameter("codFornecedor"));
-				
-				
-				resp.setContentType("text/plain");
-				resp.setCharacterEncoding("UTF-8");
-				resp.getWriter().write("Pedido de Compra gerado com sucesso.");
-				
-				
-				/*
-				System.out.println("RegraPedidoCompra, CADASTRANDO PEDICOCOMPRA...");
-				strProduto = req.getParameter("produto");
-				strPrecoCompra = req.getParameter("precoCompra");
-				strPrecoVenda = req.getParameter("precoVenda");
-				
-				parametros = new String[][]{{"produto", strProduto}, {"precoCompra", strPrecoCompra}, {"precoVenda", strPrecoVenda}};
-				
-				pedCompra = new PedidoCompra();
-				
-				System.out.println("RegraPedidoCompra, CADASTRANDO PRODUTO, VERIFICANDO O RECEBIMENTO DOS DADOS...");
-				for(int i = 0; i < parametros.length; i++){
-					if(parametros[i][1] == null | parametros[i][1].isEmpty()){						
-						parametros[i][1] = "";
-						System.out.println("RegraPedidoCompra, CADASTRANDO PRODUTO, CAMPO NAO PREENCHIDO: " + parametros[i][0]);
-						resp.setContentType("text/plain");
-						resp.setCharacterEncoding("UTF-8");
-						resp.getWriter().write("Preencha todos os campos.");
-						break;
-					}
-					
-					switch(parametros[i][0]){
-						case "produto":
-							pedCompra.setProduto(parametros[i][1]);
-							break;
-						case "precoCompra":
-							try{
-								dblPrecoCompra = Double.parseDouble(parametros[i][1]);
-								precoCompra = new BigDecimal(dblPrecoCompra);
-								prod.setPrecoCompra(precoCompra);
-							}catch(NumberFormatException e){
-								System.out.println("RegraPedidoCompra, CADASTRANDO PRODUTO, NAO E NUMERO.");
-								resp.setContentType("text/plain");
-								resp.setCharacterEncoding("UTF-8");
-								resp.getWriter().write("Informe somente números!");
-								e.printStackTrace();
-							}														
-							break;
-						case "precoVenda":
-							try{
-								dblPrecoVenda = Double.parseDouble(parametros[i][1]);
-								precoVenda = new BigDecimal(dblPrecoVenda);
-								prod.setPrecoVenda(precoVenda);
-							}catch(NumberFormatException e){
-								System.out.println("RegraPedidoCompra, CADASTRANDO PRODUTO, NAO E NUMERO.");
-								resp.setContentType("text/plain");
-								resp.setCharacterEncoding("UTF-8");
-								resp.getWriter().write("Informe somente números!");
-								e.printStackTrace();
-							}														
-							break;
-					}
-				}
-				
-				System.out.println("RegraPedidoCompra, CADASTRANDO PRODUTO, DADOS VERIFICADOS, CAMPOS PREENCHIDOS...");
 				try{
-					System.out.println("RegraPedidoCompra, CADASTRANDO PRODUTO, CONSULTANDO A EXISTENCIA DE PRODUTO PELO CODIGO...");
-												
-					// Busca por produto pelo produto informado
-					verificaProduto = new ProdutoDAO().buscaProdutoPorProduto(prod);
-					
-					if(verificaProduto != null){
-						System.out.println("RegraPedidoCompra, CADASTRANDO PRODUTO, PRODUTO JA CADASTRADO COM ESSE NOME...");
+					if(req.getParameter("itens") != null && !req.getParameter("itens").isEmpty() && req.getParameter("codFornecedor") != null && !req.getParameter("codFornecedor").isEmpty()){
+						strItens = req.getParameter("itens").replace("},{", "};{");
+						arrayItens = strItens.split(";");
+						
+						List<ItemPedido> listaItens = new ArrayList<ItemPedido>();
+						
+						contador = 0;
+						for(String strItem : arrayItens){		
+							Gson json = new Gson();
+							ItemPedido item = json.fromJson(strItem, ItemPedido.class);						
+							listaItens.add(item);
+							System.out.println("\nITEM:\nCOD_PRODUTO: " + listaItens.get(contador).getProduto().getCodigo() + "\n" 
+									+ "PRODUTO....: " + listaItens.get(contador).getProduto().getProduto() + "\n"
+									+ "PESO.......: " + listaItens.get(contador).getPeso() + "\n"
+									+ "VALOR_ITEM.: " + listaItens.get(contador).getValorItem());
+							contador++;
+						}
+						contador = 0;
+						
+						Fornecedor fornecedor = new Fornecedor();
+						fornecedor.setCodigo(Long.parseLong(req.getParameter("codFornecedor")));
+							
+						PedidoCompra pc = new PedidoCompra();
+						pc.setDataAbertura(Calendar.getInstance());
+						pc.setFornecedor(fornecedor);
+						pc.setItensPedidoCompra(listaItens);						
+						pc.setStatusCompra(StatusCompra.PENDENTE);
+						
+						System.out.println("  \n" + "PEDIDO.........:\n"
+								+ "DATA...........: " + new SimpleDateFormat("dd/MM/yyyy").format(pc.getDataAbertura().getTime()) + "\n"
+								+ "COD. FORNECEDOR: " + pc.getFornecedor().getCodigo() + "\n"
+								+ "STATUS.........: " + pc.getStatusCompra().toString() + "\n"
+								+ "ITENS:");
+						System.out.println("\tCOD. PRODUTO  |  PESO  |  VALOR ITEM\n");
+						for(ItemPedido icompra : pc.getItensPedidoCompra()){
+							System.out.println("  \n" + "\t" + icompra.getProduto().getCodigo() + " | "
+									+ icompra.getPeso() + " | "
+									+ "R$ " + icompra.getValorItem() + "\n");
+							valorTotalPedido = valorTotalPedido.add(icompra.getValorItem());
+						}
+						
+						pc.setValorTotal(valorTotalPedido);
+						System.out.println("VALOR DO PEDIDO: R$ " + pc.getValorTotal());
+						
+						new PedidoCompraDAO().inserir(pc);
+						
 						resp.setContentType("text/plain");
 						resp.setCharacterEncoding("UTF-8");
-						resp.getWriter().write("Já existe o produto informado.");
+						resp.getWriter().write("Pedido gerado com sucesso.");						
 					}else{
-						System.out.println("RegraPedidoCompra, CADASTRANDO PRODUTO, PRODUTO NAO ENCONTRADO, CADASTRANDO...");
-						new ProdutoDAO().inserir(prod);
-						System.out.println("RegraPedidoCompra, CADASTRANDO PRODUTO, PRODUTO CADASTRADO.");
 						resp.setContentType("text/plain");
 						resp.setCharacterEncoding("UTF-8");
-						resp.getWriter().write("Produto cadastrado com sucesso!");
-					}
-					
-				}catch(PersistenceException e){
-					System.out.println("RegraPedidoCompra, CADASTRANDO PRODUTO, FALHA AO CADASTRAR, PersistenceException.");
+						resp.getWriter().write("Ops! Pedido não cadastrado.");
+					}				
+				}catch(NullPointerException e){
+					System.out.println("RegraPedidoCompra, CADASTRANDO PEDIDO DE COMPRA, FALHA AO CADASTRAR - NullPointerException");
+					e.printStackTrace();						
 					resp.setContentType("text/plain");
 					resp.setCharacterEncoding("UTF-8");
-					resp.getWriter().write("Falha ao cadastrar o produto.");							
-				}*/
+					resp.getWriter().write("Ops! Pedido não cadastrado.");
+				}
 				break;
 				/*
 			case "atualizarPedidoCompra":

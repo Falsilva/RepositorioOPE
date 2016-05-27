@@ -274,22 +274,31 @@ $(document).ready(function(){
 	});	
 	
 	// GUARDA O CÓDIGO DO FORNECEDOR APÓS SELECIONADO
-	var codFornecedor = "";
+	var codFornecedor = "";	
+	var encontrouFornecedor = false;
 	$("#fornecedor").blur(function(){
+		encontrouFornecedor = false;
 		var forn = $(this);
 		codFornecedor = "";
 		
 		if(forn.val() != null && forn.val() != ""){
 			$.each(resultadoFornecedores, function(index, value){					
 				if(forn.val() == value){					
-					codFornecedor = resultadoCodFornecedores[index];
-					if(i != 0 && i == ids.length)
-						$("#btnGerarPedido").prop("disabled", false);
+					codFornecedor = resultadoCodFornecedores[index];					
+					encontrouFornecedor = true;
 				}
 			});
 		}else{
 			$("#btnGerarPedido").prop("disabled", true);
 		}
+		if(encontrouFornecedor == true){
+			if(i != 0 && i == ids.length){
+				$("#btnGerarPedido").prop("disabled", false);						
+			}
+		}else{
+			$("#btnGerarPedido").prop("disabled", true);
+			forn.val("");
+		}	
 		
 		// DESABILITA O BOTÃO GERAR PEDIDO QUANDO O CAMPO FORNECEDOR PERDE O FOCO E NO CASO DO FORNECEDOR NÃO TER SIDO INFORMADO
 		//if(codFornecedor == "") $("#btnGerarPedido").prop("disabled", true);
@@ -601,6 +610,7 @@ $(document).ready(function(){
 						$("#codProduto" + id).val(resultadoCodProdutos[index]);
 						$("#peso" + id).val(1);
 						$("#valor" + id).val(resultadoPrecoCompraProdutos[index]);
+						$("#valor" + id).val(formataNumeroParaExibicao($("#valor" + id).val(), 2, ',', '.'));
 						
 						// MONTANDO O ARRAY DE DADOS PARA ENVIO DO AJAX - CÓD. PRODUTO						
 						ajaxCodProduto.push(resultadoCodProdutos[index]);
@@ -634,6 +644,7 @@ $(document).ready(function(){
 							$("#codProduto" + id).val(resultadoCodProdutos[index]);
 							$("#peso" + id).val(1);
 							$("#valor" + id).val(resultadoPrecoCompraProdutos[index]);
+							$("#valor" + id).val(formataNumeroParaExibicao($("#valor" + id).val(), 2, ',', '.'));
 							
 							// MONTANDO O ARRAY DE DADOS PARA ENVIO DO AJAX - CÓD. PRODUTO						
 							ajaxCodProduto.push(resultadoCodProdutos[index]);
@@ -670,6 +681,7 @@ $(document).ready(function(){
 							$("#codProduto" + id).val(resultadoCodProdutos[index]);
 							$("#peso" + id).val(1);
 							$("#valor" + id).val(resultadoPrecoCompraProdutos[index]);
+							$("#valor" + id).val(formataNumeroParaExibicao($("#valor" + id).val(), 2, ',', '.'));
 							
 							// MONTANDO O ARRAY DE DADOS PARA ENVIO DO AJAX - CÓD. PRODUTO						
 							ajaxCodProduto.push(resultadoCodProdutos[index]);
@@ -702,8 +714,40 @@ $(document).ready(function(){
 				//$("#btnGerarPedido").prop("disabled", true);
 				
 			}			
-		});		
+		});
+		
+		$("#peso" + i).blur(function(){
+			console.log("Campo peso perdeu o foco");
+			
+			var id = $(this).closest(".form-inline").attr("id");
+			
+			var vlrPeso = $(this).val().replace('.','.').replace(',','.');
+			var vlrValor = "";			
+			if(vlrPeso != ""){
+				$.each(resultadoCodProdutos, function(index, value){
+					if(value == $("#codProduto" + id).val()){
+						vlrValor = resultadoPrecoCompraProdutos[index];					
+					}
+				});			
+				var vlrTotal = parseFloat(vlrPeso) * parseFloat(vlrValor);
+				$("#valor" + id).val(formataNumeroParaExibicao(vlrTotal, 2, ',', '.'));
+				$(this).val(vlrPeso.replace('.',','));
+				console.log("PESO: " + vlrPeso)
+			}else{
+				$("#valor" + id).val("");
+			}
+		});
+		
+		function formataNumeroParaExibicao(number, decimals, dec_point, thousands_sep) {
+			var n = number, c = isNaN(decimals = Math.abs(decimals)) ? 2 : decimals;
+			var d = dec_point == undefined ? "," : dec_point;
+			var t = thousands_sep == undefined ? "." : thousands_sep, s = n < 0 ? "-" : "";
+			var i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", j = (j = i.length) > 3 ? j % 3 : 0;
+			return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+		}
 	});
+	
+	
 	
 	// ENVIA OS DADOS PARA O CADASTRAMENTO DO PEDIDO
 	var ajaxFornecedor = "";
@@ -714,6 +758,11 @@ $(document).ready(function(){
 		
 	// CADASTRA O PEDIDO
 	$("#btnGerarPedido").click(function(){
+		
+		function formataNumeroParaEnvio(number) {
+			var numberFormatado = number.replace(".", "");
+			return parseFloat(numberFormatado.replace(",", "."));			
+		}
 		
 		var lista = $("#itemNovo").find(".form-inline");
 		
@@ -728,11 +777,15 @@ $(document).ready(function(){
 			$.each(lista, function(index, value){
 				if (typeof value == 'undefined') {
 					console.log("INDEFINIDO: index " + index);
-				}else{						
-					if($.isNumeric($("#peso" + (index + 1)).val()) && $.isNumeric($("#valor" + (index + 1)).val())){
-						console.log("São números, PESO: " + $("#peso" + (index + 1)).val() + " VALOR: " + $("#valor" + (index + 1)).val());						
-						ajaxPesos.push($("#peso" + (index + 1)).val());
-						ajaxPrecos.push($("#valor" + (index + 1)).val());
+				}else{
+					var pesoFormatado = formataNumeroParaEnvio($("#peso" + (index + 1)).val());
+					var valorFormatado = formataNumeroParaEnvio($("#valor" + (index + 1)).val());
+					console.log("ANTES.: " + $("#valor" + (index + 1)).val());
+					console.log("DEPOIS: " + valorFormatado);
+					if($.isNumeric(pesoFormatado) && $.isNumeric(valorFormatado)){
+						console.log("São números, PESO: " + pesoFormatado + " VALOR: " + valorFormatado);						
+						ajaxPesos.push(pesoFormatado);
+						ajaxPrecos.push(valorFormatado);
 						contador++;
 					}else{
 						if(!$.isNumeric($("#peso" + (index + 1)).val()) && !$.isNumeric($("#valor" + (index + 1)).val())){
@@ -751,69 +804,81 @@ $(document).ready(function(){
 					}		
 				}				
 			});
-									
-			if(contador == lista.length){
+							
+			// VERIFICA SE TODOS OS CAMPOS FORAM PREENCHIDOS COM O CONTADOR DE LINHAS
+			if(contador == lista.length){				
 				
-				console.log("COD. FORNECEDOR. " + codFornecedor);
-				
-				var jsonCodProdutos = [];
-				var jsonPesos = [];
-				var jsonValores = [];
+				var jsonItens = {};
 				
 				// CONVERTENDO OS ARRAYS EM JSON PARA ENVIO POR AJAX 
 				$.each(ajaxCodProduto, function(index, value){
 					if(index == 0){
-						jsonCodProdutos.push("{\"codProduto\":\"" + value + "\"}");
+						//jsonItens = "{\"produto\":\"" + value + "\",\"peso\":\"" + ajaxPesos[index] + "\",\"valorItem\":\"" + ajaxPrecos[index] + "\"}";
+						//jsonProduto = "[{\"codigo\":" + value + ",\"produto\":\"\",\"precoCompra\":0,\"precoVenda\":0}]";
+						jsonItens = "{\"peso\":\"" + ajaxPesos[index] + "\"," +
+									"\"valorItem\":\"" + ajaxPrecos[index] + "\"," +
+									"\"produto\":" +
+										"{\"codigo\":\"" + value + "\"}}";											
 					}else{
-						jsonCodProdutos.push(", " + "{\"codProduto\":\"" + value + "\"}");
+						//jsonItens += ", " + "{\"produto\":\"" + value + "\",\"peso\":\"" + ajaxPesos[index] + "\",\"valorItem\":\"" + ajaxPrecos[index] + "\"}";
+						//jsonProduto = "[{\"codigo\":" + value + ",\"produto\":\"\",\"precoCompra\":0,\"precoVenda\":0}]";
+						jsonItens += "," + "{\"peso\":\"" + ajaxPesos[index] + "\"," +
+											"\"valorItem\":\"" + ajaxPrecos[index] + "\"," +
+											"\"produto\":" +
+												"{\"codigo\":\"" + value + "\"}}";;
 					}					
-				});
-				$.each(ajaxPesos, function(index, value){
-					if(index == 0){
-						jsonPesos.push("{\"peso\":\"" + value + "\"}");
-					}else{
-						jsonPesos.push(", " + "{\"peso\":\"" + value + "\"}");
-					}			
-				});
-				$.each(ajaxPrecos, function(index, value){
-					if(index == 0){
-						jsonValores.push("{\"valor\":\"" + value + "\"}");
-					}else{
-						jsonValores.push(", " + "{\"valor\":\"" + value + "\"}");
-					}
-				});
+				});				
+											
+				/*
+				jsonItens = "{\"peso\":\"5.00\"," +
+						"\"valorItem\":\"2.50\"," +
+						"\"produto\":{\"codigo\":1," +
+							"\"produto\":\"Plástico\"," +
+							"\"precoCompra\":1.50," +
+							"\"precoVenda\":3.00" +
+							"}}," +
+						"{\"peso\":\"100.00\"," +
+						"\"valorItem\":\"50.00\"," +
+						"\"produto\":{\"codigo\":4," +
+							"\"produto\":\"Latinha\"," +
+							"\"precoCompra\":10.00," +
+							"\"precoVenda\":15.00" +
+							"}}";
+				*/
 				
 				// AJAX - ENVIANDO OS DADOS PARA O CADASTRAMENTO DO PEDIDO
 				$.ajax({
 					url:"controller",
 					type:"post",
-					//dataType:"json",
 					data:{
 						codFornecedor:codFornecedor,
-						codProdutos:jsonCodProdutos,
-						pesos:jsonPesos,
-						valores:jsonValores,
+						itens:jsonItens,				
 						action:"cadastrarPedidoCompra"
 					},
+					//antes de enviar ele alerta para esperar
+			        beforeSend : function(){
+			            $('#carregando').show('100');
+			        },
 					success:function(resultado){
+						$('#carregando').hide('100');
 						console.log("Resultado recebido: " + resultado);
 						$("#modal-form-pedido[rel=modalcadastrar]").find(".modal-header").html("<h4 class='blue bigger'>Resultado...</h4>").prepend("<button type='button' class='close' data-dismiss='modal'>&times;</button>");
 						$("#modal-form-pedido[rel=modalcadastrar]").find(".modal-body").html("<h3>" + resultado + "</h3>");
 						var botao = $("#modal-form-pedido[rel=modalcadastrar]").find("#btnCancelar").html("<i class='ace-icon fa fa-times'></i> Fechar");				
 						botao.text("Fechar");
 						$("#modal-form-pedido[rel=modalcadastrar]").find("#btnGerarPedido").addClass("hidden");
+					},
+					error:function(resultado){
+						$('#carregando').hide('100');
+						console.log("Resultado recebido: " + resultado);
+						$("#modal-form-pedido[rel=modalcadastrar]").find(".modal-header").html("<h4 class='blue bigger'>Resultado...</h4>").prepend("<button type='button' class='close' data-dismiss='modal'>&times;</button>");
+						$("#modal-form-pedido[rel=modalcadastrar]").find(".modal-body").html("<h3>Desculpe, houve uma falha!</h3>");
+						var botao = $("#modal-form-pedido[rel=modalcadastrar]").find("#btnCancelar").html("<i class='ace-icon fa fa-times'></i> Fechar");				
+						botao.text("Fechar");
+						$("#modal-form-pedido[rel=modalcadastrar]").find("#btnGerarPedido").addClass("hidden");
 					}
 				});
 			}
-			
-			/* TESTE PARA VER SE PEGOU OS DADOS DO PEDIDO
-			console.log("COD. FORNECEDOR. " + codFornecedor);
-			$.each(ajaxCodProduto, function(index, value){
-				console.log("LINHA: " + ids[index] + 
-						"\n\tCOD. PRODUTO: " + value +  
-						"\n\tPESO: " + ajaxPesos[index] + 
-						"\n\tVALOR: " + ajaxPrecos[index] + "\n");
-			});*/
 		}
 	});
 	
