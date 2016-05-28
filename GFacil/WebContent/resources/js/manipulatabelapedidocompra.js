@@ -23,21 +23,25 @@ $(document).ready(function(){
 	
 	// MODAL EXCLUIR - CLIQUE DO BOTÃO EXCLUIR DA LINHA DE UM REGISTRO TABELA EXIBE O MODAL
 	$("a[role=excluir]").click(function(event){
-		event.preventDefault();
+		event.preventDefault();		
 		
 		// Pega a TR
 		var tr = $(this).closest("tr");
 		
 		// Pega as TDs da TR
 		var tdNoPedido = tr.find("td:first");
-		var tdData = tdNoPedido.next("td");
-		var tdFornecedor = tdData.next("td");
+		var tdData = tdNoPedido.next("td");				
+		var tdDataPagto = tdData.next("td");
+		var tdFornecedor = tdDataPagto.next("td");
 		var tdValor = tdFornecedor.next("td");
 		var tdStatus = tdValor.next("td");
+		var tdItensPC = tdStatus.next("td");
+		var divItensPC = tdItensPC.find(".grupoDeItens");
 		
 		// Pega os Dados das TDs
 		var noPedidoExcluir = tdNoPedido.text();
 		var dataPedidoExcluir = tdData.text();
+		var dataPedidoPagtoExcluir = tdDataPagto.text();
 		var fornecedorExcluir = tdFornecedor.text();
 		var valorExcluir = tdValor.text();
 		var statusExcluir = tdStatus.text();
@@ -47,173 +51,91 @@ $(document).ready(function(){
 		
 		// Coloca os Dados no Modal e de Forma Somente Leitura
 		modal.find("#noPedidoExcluir").prop("readonly", true).val(noPedidoExcluir);
-		modal.find("#dataExcluir").prop("readonly", true).val(dataPedidoExcluir);
+		modal.find("#dataExcluir").prop("readonly", true).val(dataPedidoExcluir);		
+		if(dataPedidoPagtoExcluir != ""){			
+			modal.find("#dataPagamentoExcluir").closest(".form-group").removeClass("hidden");
+			modal.find("#dataPagamentoExcluir").prop("readonly", true).val(dataPedidoPagtoExcluir);			
+		}
+					
+		$.each(divItensPC, function(index, value){
+			var divUmMaterial = $(this).find("div:first");
+			var divDoisPeso = divUmMaterial.next("div");
+			var divTresValor = divDoisPeso.next("div");
+			
+			if(index == 0){
+				modal.find("#itensExcluir").append("<div class='form-inline' id=" + (index + 1) + ">" +	
+						"<div class='form-group'>" +
+							"<label for='item" + (index + 1) + "'>Item</label>" +
+							"<div>" +
+								"<input type='text' id='item" + (index + 1) + "' name='item" + (index + 1) + "' value='" + (index + 1) + "' size='1' class='text-center' readonly />" +
+							"</div>" +
+						"</div>&nbsp;" +
+						"<div class='form-group hidden'>" +
+							"<label for='codProduto" + (index + 1) + "'>Cód. Produto</label>" +
+							"<div>" +
+								"<input type='text' id='codProduto" + (index + 1) + "' name='codProduto" + (index + 1) + "' size='3' class='text-center' readonly />" +
+							"</div>" +
+						"</div>&nbsp;" +
+						"<div class='form-group'>" +
+							"<label for='material" + (index + 1) + "'>Material</label>" +
+							"<div>" +
+								"<input type='text' id='material" + (index + 1) + "' name='material" + (index + 1) + "' value='" + divUmMaterial.text() + "' size='37' readonly />" +
+							"</div>" +
+						"</div>&nbsp;" +
+						"<div class='form-group'>" +
+							"<label for='peso" + (index + 1) + "'>Peso (Kg)</label>" +
+							"<div>" +
+								"<input type='text' id='peso" + (index + 1) + "' class='text-right' name='peso" + (index + 1) + "' value='" + divDoisPeso.text() + "' size='9' maxlength='9' readonly />" +
+							"</div>" +
+						"</div>&nbsp;" +
+						"<div class='form-group'>" +
+							"<label for='valor" + (index + 1) + "'>Valor (R$)</label>" +
+							"<div>" +
+								"<input type='text' id='valor" + (index + 1) + "' class='text-right' name='valor" + (index + 1) + "' value='" + divTresValor.text() + "' size='9' maxlength='10' readonly />" +
+							"</div>" +
+						"</div>" +				
+					"</div>" +
+					"<div class='space-4'></div>");
+			}else{
+				modal.find("#itensExcluir").append("<div class='form-inline' id=" + (index + 1) + ">" +	
+						"<div class='form-group'>" +							
+							"<div>" +
+								"<input type='text' id='item" + (index + 1) + "' name='item" + (index + 1) + "' value='" + (index + 1) + "' size='1' class='text-center' readonly />" +
+							"</div>" +
+						"</div>&nbsp;" +
+						"<div class='form-group hidden'>" +							
+							"<div>" +
+								"<input type='text' id='codProduto" + (index + 1) + "' name='codProduto" + (index + 1) + "' size='3' class='text-center' readonly />" +
+							"</div>" +
+						"</div>&nbsp;" +
+						"<div class='form-group'>" +							
+							"<div>" +
+								"<input type='text' id='material" + (index + 1) + "' name='material" + (index + 1) + "' value='" + divUmMaterial.text() + "' size='37' readonly />" +
+							"</div>" +
+						"</div>&nbsp;" +
+						"<div class='form-group'>" +							
+							"<div>" +
+								"<input type='text' id='peso" + (index + 1) + "' class='text-right' name='peso" + (index + 1) + "' value='" + divDoisPeso.text() + "' size='9' maxlength='9' readonly />" +
+							"</div>" +
+						"</div>&nbsp;" +
+						"<div class='form-group'>" +							
+							"<div>" +
+								"<input type='text' id='valor" + (index + 1) + "' class='text-right' name='valor" + (index + 1) + "' value='" + divTresValor.text() + "' size='9' maxlength='10' readonly />" +
+							"</div>" +
+						"</div>" +				
+					"</div>" +
+					"<div class='space-4'></div>");
+			}
+		});
+		
 		modal.find("#fornecedorExcluir").prop("readonly", true).val(fornecedorExcluir);
 		modal.find("#valorExcluir").prop("readonly", true).val(valorExcluir);
 		modal.find("#statusExcluir").prop("readonly", true).val(statusExcluir);
 		
 		// Exibe o Modal Form Excluir
 		modal.modal();		
-	});	
-	
-	/* CLIQUE DO BOTÃO EDITAR DA LINHA DE UM REGISTRO DA TABELA
-	$("a[role=editar]").click(function(event){
-		event.preventDefault();		
-		
-		nome_usuario_tmp = "";
-		nome_tmp = "";
-		email_tmp = "";
-		perfil_tmp = "";
-		
-		// Pega a TR
-		var tr = $(this).closest("tr");
-		
-		// Pega as TDs da TR
-		var tdNomeUsuario = tr.find("td:first").prop("class", "hidden");
-		var tdNome = tdNomeUsuario.next("td");
-		var tdEmail = tdNome.next("td");
-		var tdPerfil = tdEmail.next("td");
-		
-		// Pega os Dados das TDs
-		var nomeusuario = tdNomeUsuario.text();
-		nome_usuario_tmp = tdNomeUsuario.text();
-		var nome = tdNome.text();
-		nome_tmp = tdNome.text();
-		var email = tdEmail.text();
-		email_tmp = tdEmail.text();
-		var perfil = tdPerfil.text();
-		perfil_tmp = tdPerfil.text();
-		
-		// Troca a Exibição dos Botões de Ações
-		var btnEditarEditar = $(this).addClass("hidden");
-		var btnEditarExcluir = btnEditarEditar.next("a[role=excluir]").addClass("hidden");
-		var btnEditarSalvar = btnEditarExcluir.next("a[role=salvar]").removeClass("hidden");
-		var btnEditarCancelar = btnEditarSalvar.next("a[role=cancelar]").removeClass("hidden");			
-		
-		// Coloca os Inputs nas TDs
-		tdNomeUsuario.html("<input type='text' name='nomeusuario' class='hidden'></input>").val(nomeusuario);
-		tdNome.html("<input type='text' name='nome'></input>").val(nome);
-		tdEmail.html("<input type='text' name='email'></input>").val(email);
-		tdPerfil.html("<select name='perfil'></select>"); // Os options são inseridos logo abaixo			
-	
-		// Coloca os Dados nos Inputs
-		tdNomeUsuario.find("input").val(nomeusuario);
-		tdNome.find("input").val(nome);
-		tdEmail.find("input").val(email);		
-		
-		// Coloca os Options com os Dados no Select (Campo Perfil)
-		var perfis;
-		$.ajax({			
-			url:"controller",
-			type:"post",
-			data:{				
-				action:"pegaPerfil"
-			},
-			success:function(resultado){
-				// Montando um array de string com o resultado
-				perfis = resultado.split(",");								
-						
-				// Montando o campo Perfil com o array
-				var campoPerfil = "";				
-				$.each(perfis, function(index, value){
-					if(perfil === value) campoPerfil += "<option value='" + value + "' selected>" + value + "</option>";
-					else campoPerfil += "<option value='" + value + "'>" + value + "</option>";					
-				});
-				
-				// Adicionando os options no select
-				tdPerfil.html("<select name='perfil'>" + campoPerfil + "</select>");				
-			}
-		});
 	});
 	
-	/* CLIQUE DO BOTÃO SALVAR - BOTÃO VISÍVEL NO MODO DE EDIÇÃO DE UM REGISTRO DA TABELA 
-	$("a[role=salvar]").click(function(event){
-		event.preventDefault();		
-		
-		// Pega a TR
-		var tr = $(this).closest("tr");
-		
-		// Pega as TDs da TR
-		var tdNomeUsuario = tr.find("td:first").prop("class", "hidden");
-		var tdNome = tdNomeUsuario.next("td");
-		var tdEmail = tdNome.next("td");
-		var tdPerfil = tdEmail.next("td");
-		//var tdAcoes = tdPerfil.next("td");
-		
-		// Pega os Dados dos Inputs das TDs
-		var nomeusuario = tdNomeUsuario.find("input").val();
-		var nome = tdNome.find("input").val();
-		var email = tdEmail.find("input").val();
-		var perfil = tdPerfil.find("option:selected").val();
-		
-		// AJAX
-		$.ajax({
-			url:"controller",
-			type:"post",
-			data:{
-				nome:nome,
-				email:email,
-				emailParaBusca:email_tmp,
-				nomeusuario:nomeusuario,				
-				perfil:perfil,
-				action:"atualizarUsuario",
-				tarefa:"atualizar"
-			},
-			success:function(resultado){
-				
-				// Verificar se a resposta
-				if(resultado === "Atualizado"){
-					// Troca a Exibição dos Botões de Ações
-					var btnEditarCancelar = $("a[role=cancelar]").addClass("hidden");
-					var btnEditarSalvar = btnEditarCancelar.prev("a[role=salvar]").addClass("hidden");
-					var btnEditarExcluir = btnEditarSalvar.prev("a[role=excluir]").removeClass("hidden");
-					var btnEditarEditar = btnEditarExcluir.prev("a[role=editar]").removeClass("hidden");
-							
-					// Remove os Inputs das TDs e Coloca os Dados
-					tdNomeUsuario.html("").text(nomeusuario);
-					tdNome.html("").text(nome);
-					tdEmail.html("").text(email);
-					tdPerfil.html("").text(perfil);
-				}else{
-					alert("NÃO ATUALIZOU");										
-				}	
-			}
-		});		
-	});
-	
-	// CLIQUE DO BOTÃO CANCELAR - BOTÃO VISÍVEL NO MODO DE EDIÇÃO DE UM REGISTRO DA TABELA
-	$("a[role=cancelar]").click(function(event){
-		event.preventDefault();		
-	
-		// Pega a TR
-		var tr = $(this).closest("tr");
-		
-		// Pega as TDs da TR
-		var tdNomeUsuario = tr.find("td:first").prop("class", "hidden");
-		var tdNome = tdNomeUsuario.next("td");
-		var tdEmail = tdNome.next("td");
-		var tdPerfil = tdEmail.next("td");
-		var tdAcoes = tdPerfil.next("td");
-		
-		// Pega os Dados das Variáveis Globais
-		var nomeusuario = nome_usuario_tmp;
-		var nome = nome_tmp;
-		var email = email_tmp;
-		var perfil = perfil_tmp;
-		
-		// Troca a Exibição dos Botões de Ações
-		var btnEditarCancelar = $(this).addClass("hidden");
-		var btnEditarSalvar = btnEditarCancelar.prev("a[role=salvar]").addClass("hidden");
-		var btnEditarExcluir = btnEditarSalvar.prev("a[role=excluir]").removeClass("hidden");
-		var btnEditarEditar = btnEditarExcluir.prev("a[role=editar]").removeClass("hidden");
-				
-		// Remove os Inputs das TDs e Coloca os Dados
-		tdNomeUsuario.html("").text(nomeusuario);
-		tdNome.html("").text(nome);
-		tdEmail.html("").text(email);
-		tdPerfil.html("").text(perfil);		
-	});	
-	*/	
 	
 	// BUSCA O NÚMERO DO PRÓXIMO PEDIDO PARA O MODAL CADASTRAR PEDIDO DE COMPRA
 	$.ajax({
@@ -298,14 +220,8 @@ $(document).ready(function(){
 		}else{
 			$("#btnGerarPedido").prop("disabled", true);
 			forn.val("");
-		}	
-		
-		// DESABILITA O BOTÃO GERAR PEDIDO QUANDO O CAMPO FORNECEDOR PERDE O FOCO E NO CASO DO FORNECEDOR NÃO TER SIDO INFORMADO
-		//if(codFornecedor == "") $("#btnGerarPedido").prop("disabled", true);
-	});
-	
-	// INICIA O FORMULÁRIO DO PEDIDO DE COMPRA COM O BOTÃO GERAR PEDIDO DESABILITADO
-	//if(codFornecedor == "") $("#btnGerarPedido").prop("disabled", true);	
+		}
+	});	
 	
 	// CARREGA A LISTA DE PRODUTOS NO MODAL CADASTRAR PEDIDO DE COMPRA	
 	var resultadoCodProdutos = []; 	
@@ -387,7 +303,6 @@ $(document).ready(function(){
 	
 	// CLIQUE PARA ADICIONAR UM ITEM DE PRODUTO NO MODAL CADASTRAR PEDIDO
 	var i = 0;
-
 	$("a[role=additem").click(function(e){
 		e.preventDefault();
 		
@@ -401,26 +316,18 @@ $(document).ready(function(){
 		}else{
 			console.log("\tFORNECEDOR NAO PREENCHIDO OU\n\ti...........: " + i + " É DIFERENTE de\n\tids.length..: " + ids.length + "\n\tVALOR do ids: " + ids[i]);
 			$("#btnGerarPedido").prop("disabled", true);
-		}
-		
+		}		
 		
 		// MONTA UM LINHA DE ITEM
 		insereLinha(i);		
 		
 		// ADICIONA UM EVENTO DE REMOÇÃO DE ITEM
 		$("a[id='removerItem" + i + "']").click(function(e){
-			e.preventDefault();
-			//console.log("i = " + i + " - REMOVE ITEM INICIO");
+			e.preventDefault();			
 			
 			var linhaRemovida = $(this).closest(".form-inline");
 			console.log("ITEM " + linhaRemovida.attr("id") + " A SER REMOVIDO\n\ti...........: " + i + "\n\tVALOR do ids: " + ids[i-1]);
 			var id = linhaRemovida.attr("id");
-			
-			// VERIFICANDO A REMOÇÃO DO COD. PRODUTO
-			//console.log("REMOVENDO O COD. PROD:");
-			//$.each(ajaxCodProduto, function(index, value){
-				//console.log("\tINDEX: " + index + " COD. PRODUTO: " + value);				
-			//});
 									
 			console.log("\tREMOVENDO O COD. PROD e o ID:");			
 			$.each(ajaxCodProduto, function(index, value){				
@@ -546,8 +453,7 @@ $(document).ready(function(){
 			});
 			
 			console.log("\tFIM DA REMOÇÃO:\n\t\ti......................: " + i + "\n\t\tids.length...........: " + ids.length + "\n\t\tVALOR do ids...........: " + ids[i-1] + "\n\t\tVALOR do ajaxCodProduto: " + ajaxCodProduto[i-1]);
-		});
-		
+		});		
 		
 		// COMPLETA O CAMPO DO PRODUTO NO MODAL CADASTRAR PEDIDO	
 		$("#material" + i).autocomplete({
@@ -627,11 +533,9 @@ $(document).ready(function(){
 						encontrado = true;
 						
 						console.log("\t\tLINHA " + id + "\n\t\t\ti......................: " + i + "\n\t\t\tids.length.............: " + ids.length + "\n\t\t\tVALOR do ids...........: " + ids[i-1] + "\n\t\t\tVALOR do ajaxCodProduto: " + ajaxCodProduto[i-1] + " - " + value);
-						if(codFornecedor != "" && i == ids.length){
-							//console.log("MATERIAL PERDEU FOCO - BOTAO HABILITADO:\n\ti: " + i + "\n\tqtd. ids: " + ids.length + "\n\tCod. Prod: " + ajaxCodProd[index+1] + "\n\tFORNECEDOR PREENCHIDO");
+						if(codFornecedor != "" && i == ids.length){							
 							$("#btnGerarPedido").prop("disabled", false);
-						}else{
-							//console.log("MATERIAL PERDEU FOCO - BOTAO DESABILITADO:\n\ti: " + i + "\n\tqtd. ids: " + ids.length + "\n\tCod. Prod: " + ajaxCodProd[index+1] + "\n\tFORNECEDOR TALVEZ NAO PREENCHIDO");
+						}else{							
 							$("#btnGerarPedido").prop("disabled", true);
 						}
 					}					
@@ -661,11 +565,9 @@ $(document).ready(function(){
 							encontrado = true;
 							
 							console.log("\t\tLINHA " + id + "\n\t\t\ti......................: " + i + "\n\t\t\tids.length.............: " + ids.length + "\n\t\t\tVALOR do ids...........: " + ids[i-1] + "\n\t\t\tVALOR do ajaxCodProduto: " + ajaxCodProduto[i-1] + " - " + value);
-							if(codFornecedor != "" && i == ids.length){
-								//console.log("MATERIAL PERDEU FOCO - BOTAO HABILITADO:\n\ti: " + i + "\n\tqtd. ids: " + ids.length + "\n\tCod. Prod: " + ajaxCodProd[index+1] + "\n\tFORNECEDOR PREENCHIDO");
+							if(codFornecedor != "" && i == ids.length){								
 								$("#btnGerarPedido").prop("disabled", false);
-							}else{
-								//console.log("MATERIAL PERDEU FOCO - BOTAO DESABILITADO:\n\ti: " + i + "\n\tqtd. ids: " + ids.length + "\n\tCod. Prod: " + ajaxCodProd[index+1] + "\n\tFORNECEDOR TALVEZ NAO PREENCHIDO");
+							}else{								
 								$("#btnGerarPedido").prop("disabled", true);
 							}
 						}
@@ -674,45 +576,38 @@ $(document).ready(function(){
 				guardaMaterial="";
 			}else{
 				
-					prod.val(guardaMaterial);
-					$.each(resultadoProdutos, function(index, value){
-						if(prod.val() == value){
+				prod.val(guardaMaterial);
+				$.each(resultadoProdutos, function(index, value){
+					if(prod.val() == value){
 							
-							$("#codProduto" + id).val(resultadoCodProdutos[index]);
-							$("#peso" + id).val(1);
-							$("#valor" + id).val(resultadoPrecoCompraProdutos[index]);
-							$("#valor" + id).val(formataNumeroParaExibicao($("#valor" + id).val(), 2, ',', '.'));
+						$("#codProduto" + id).val(resultadoCodProdutos[index]);
+						$("#peso" + id).val(1);
+						$("#valor" + id).val(resultadoPrecoCompraProdutos[index]);
+						$("#valor" + id).val(formataNumeroParaExibicao($("#valor" + id).val(), 2, ',', '.'));
 							
-							// MONTANDO O ARRAY DE DADOS PARA ENVIO DO AJAX - CÓD. PRODUTO						
-							ajaxCodProduto.push(resultadoCodProdutos[index]);
-							ids.push(id);
+						// MONTANDO O ARRAY DE DADOS PARA ENVIO DO AJAX - CÓD. PRODUTO						
+						ajaxCodProduto.push(resultadoCodProdutos[index]);
+						ids.push(id);
 							
 							
-							$.each(ids, function(ind, val){
-								console.log("\t\tids         >>> INDEX: " + ind + " VALUE: " + val);
-							});
-							$.each(ajaxCodProduto, function(ind, val){
-								console.log("\t\tajaxCodProd >>> INDEX: " + ind + " VALUE: " + val);
-							});
+						$.each(ids, function(ind, val){
+							console.log("\t\tids         >>> INDEX: " + ind + " VALUE: " + val);
+						});
+						$.each(ajaxCodProduto, function(ind, val){
+							console.log("\t\tajaxCodProd >>> INDEX: " + ind + " VALUE: " + val);
+						});
 							
-							encontrado = true;
+						encontrado = true;
 							
-							console.log("\t\tLINHA " + id + "\n\t\t\ti......................: " + i + "\n\t\t\tids.length.............: " + ids.length + "\n\t\t\tVALOR do ids...........: " + ids[i-1] + "\n\t\t\tVALOR do ajaxCodProduto: " + ajaxCodProduto[i-1] + " - " + value);
-							if(codFornecedor != "" && i == ids.length){
-								//console.log("MATERIAL PERDEU FOCO - BOTAO HABILITADO:\n\ti: " + i + "\n\tqtd. ids: " + ids.length + "\n\tCod. Prod: " + ajaxCodProd[index+1] + "\n\tFORNECEDOR PREENCHIDO");
-								$("#btnGerarPedido").prop("disabled", false);
-							}else{
-								//console.log("MATERIAL PERDEU FOCO - BOTAO DESABILITADO:\n\ti: " + i + "\n\tqtd. ids: " + ids.length + "\n\tCod. Prod: " + ajaxCodProd[index+1] + "\n\tFORNECEDOR TALVEZ NAO PREENCHIDO");
-								$("#btnGerarPedido").prop("disabled", true);
-							}
+						console.log("\t\tLINHA " + id + "\n\t\t\ti......................: " + i + "\n\t\t\tids.length.............: " + ids.length + "\n\t\t\tVALOR do ids...........: " + ids[i-1] + "\n\t\t\tVALOR do ajaxCodProduto: " + ajaxCodProduto[i-1] + " - " + value);
+						if(codFornecedor != "" && i == ids.length){							
+							$("#btnGerarPedido").prop("disabled", false);
+						}else{							
+							$("#btnGerarPedido").prop("disabled", true);
 						}
-					});
-					guardaMaterial="";
-				//ajaxCodProduto.splice((i - 1), 1);
-				//ids.splice((i - 1), 1);
-				//console.log("MATERIAL PERDEU FOCO 'VAZIO' - BOTAO DESABILITADO:\n\ti: " + i + "\n\tqtd. ids: " + ids.length + "\n\tCod. Prod: " + prod.find("#codProduto" + id).val());
-				//$("#btnGerarPedido").prop("disabled", true);
-				
+					}
+				});
+				guardaMaterial="";
 			}			
 		});
 		
@@ -827,24 +722,7 @@ $(document).ready(function(){
 											"\"produto\":" +
 												"{\"codigo\":\"" + value + "\"}}";;
 					}					
-				});				
-											
-				/*
-				jsonItens = "{\"peso\":\"5.00\"," +
-						"\"valorItem\":\"2.50\"," +
-						"\"produto\":{\"codigo\":1," +
-							"\"produto\":\"Plástico\"," +
-							"\"precoCompra\":1.50," +
-							"\"precoVenda\":3.00" +
-							"}}," +
-						"{\"peso\":\"100.00\"," +
-						"\"valorItem\":\"50.00\"," +
-						"\"produto\":{\"codigo\":4," +
-							"\"produto\":\"Latinha\"," +
-							"\"precoCompra\":10.00," +
-							"\"precoVenda\":15.00" +
-							"}}";
-				*/
+				});
 				
 				// AJAX - ENVIANDO OS DADOS PARA O CADASTRAMENTO DO PEDIDO
 				$.ajax({
@@ -881,6 +759,29 @@ $(document).ready(function(){
 			}
 		}
 	});
+	
+	
+	
+	//CLIQUE DO BOTÃO EDITAR DA LINHA DE UM REGISTRO DA TABELA
+	$("a[role=editar]").click(function(event){
+		event.preventDefault();
+		
+		
+		
+		// Pega o Modal
+		var modal = $("#modal-form-pedido[rel=modalatualizar]");
+		
+		// Coloca os Dados no Modal e de Forma Somente Leitura
+		modal.find("#noPedidoExcluir").prop("readonly", true).val(noPedidoExcluir);
+		modal.find("#dataExcluir").prop("readonly", true).val(dataPedidoExcluir);
+		modal.find("#fornecedorExcluir").prop("readonly", true).val(fornecedorExcluir);
+		modal.find("#valorExcluir").prop("readonly", true).val(valorExcluir);
+		modal.find("#statusExcluir").prop("readonly", true).val(statusExcluir);
+		
+		// Exibe o Modal Form Excluir
+		modal.modal();	
+	});
+	
 	
 	// RECARREGA A PÁGINA AO FECHAR O MODAL CADASTRAR
 	$("#modal-form-pedido[rel=modalcadastrar]").on("hidden.bs.modal", function (){

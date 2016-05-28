@@ -40,7 +40,19 @@
 		* html .ui-autocomplete {
 	    	height: 100px;
 	  	}
-	</style>
+	  	#itensExcluir {
+		  width:auto;
+		  height:152px;
+		  background-color:#FFFFFF;
+		  overflow:auto;
+		}
+		#itemNovo {
+		  width:auto;
+		  height:152px;
+		  background-color:#FFFFFF;
+		  overflow:auto;
+		}
+	</style>	
 </head>
 <body class="no-skin">
 
@@ -388,11 +400,12 @@
 													<thead class="thin-border-bottom">
 						                               	<tr>
 						                                   	<th class="text-center">No. Pedido</th>
-						                                   	<th class="text-center">Data</th>
+						                                   	<th class="text-center">Data</th>						                                   	
 						                                    <th class="text-center">Fornecedor</th>
 						                                    <th class="text-center">Vlr. Compra (R$)</th>
-						                                    <th class="text-center">Status</th>			                                    
-						                                    <th>Ações</th>
+						                                    <th class="text-center">Status</th>
+						                                    <th class="hidden">Itens</th>                            
+						                                    <th>Ações</th>						                                    
 						                              	</tr>
 					                       			</thead>
 						                       		<tbody>
@@ -402,8 +415,24 @@
 															<tr>														
 																<!-- COLUNA ESCONDIDA DE CÓDIGO DOS REGISTROS -->
 																<td class="text-right"><b>${pedidoCompra.nPedido}</b></td>
-							                                   	<td class="text-center"><b><fmt:formatDate value="${pedidoCompra.dataAbertura.time}" pattern="dd/MM/yyyy" /></b></td>
-							                                    <td><b>${pedidoCompra.fornecedor.empresa}</b></td>
+																<c:choose>
+							                                    	<c:when test="${pedidoCompra.statusCompra eq 'PENDENTE'}">
+							                                   			<td class="text-center"><b><fmt:formatDate value="${pedidoCompra.dataAbertura.time}" pattern="dd/MM/yyyy" /></b></td>
+							                                   			<td class="text-center  hidden"></td>
+							                                   		</c:when>
+							                                   		<c:otherwise>
+							                                   			<td class="text-center hidden"><b><fmt:formatDate value="${pedidoCompra.dataAbertura.time}" pattern="dd/MM/yyyy" /></b></td>
+							                                   			<td class="text-center"><b><fmt:formatDate value="${pedidoCompra.dataPagamento.time}" pattern="dd/MM/yyyy" /></b></td>
+							                                   		</c:otherwise>
+							                                   	</c:choose>
+							                                   	<c:choose>
+							                                   		<c:when test="${pedidoCompra.fornecedor.tipo eq 'EMPRESA'}">				                                   	
+							                                    		<td><b>${pedidoCompra.fornecedor.empresa}</b></td>
+							                                    	</c:when>
+							                                    	<c:otherwise>
+							                                    		<td><b>Catador: ${pedidoCompra.fornecedor.contato}</b></td>
+							                                    	</c:otherwise>
+							                                    </c:choose>
 							                                    <td class="text-right"><b>${pedidoCompra.valorTotal}</b></td>							                                    
 							                                    <c:choose>
 							                                    	<c:when test="${pedidoCompra.statusCompra eq 'PENDENTE'}">
@@ -416,7 +445,15 @@
 							                                   			<td class="text-center"><span class="label label-grey arrowed arrowed-right">${pedidoCompra.statusCompra}</span></td>
 							                                   		</c:otherwise>
 							                                   	</c:choose>							                                    
-							                                    
+							                                    <td class="hidden">
+							                                    	<c:forEach var="itemPC" items="${pedidoCompra.itensPedidoCompra}">
+							                                    		<div class="grupoDeItens">
+								                                    		<div>${itemPC.produto.produto}</div>
+								                                    		<div>${itemPC.peso}</div>
+								                                    		<div>${itemPC.valorItem}</div>
+							                                    		</div>
+							                                    	</c:forEach>
+							                                    </td>
 							                                    <!-- COLUNA DE AÇÕES -->
 																<td>														
 																	<!-- EXIBIÇÃO EM TELAS GRANDES -->															
@@ -572,6 +609,55 @@
 							</div>
 							<!-- FIM -- MODAL FORMULÁRIO PARA CADASTRAR -->
 							
+							<!-- MODAL FORMULÁRIO PARA ATUALIZAR -->
+							<div id="modal-form-pedido" class="modal fade" tabindex="-1" rel="modalatualizar">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="blue bigger">Edite os campos desejados...</h4>
+										</div>
+
+										<div class="modal-body">
+											
+											<div class="form-group">
+												<label for="noPedido">No. Pedido:</label>&nbsp;
+												<label id="noPedido" name="nopedido"></label>
+											</div>
+											<div class="space-4"></div>											
+											<div class="form-group">
+												<label for="fornecedor">Fornecedor</label>
+												<div>
+													<input type="text" id="fornecedor" name="fornecedor" placeholder="Informe o fornecedor..." size="77" />													
+												</div>
+											</div>
+											<div class="space-4"></div>
+											<div class="tableTools-container">
+												<div class="btn-group btn-over-lap">
+														
+													<!-- BOTÃO ADD ITEM -->
+													<a href="#" class="btn btn-primary btn-xs" role="additem">
+														<i class="ace-icon fa fa-plus bigger-120"></i>&nbsp;<b>Item</b>
+													</a>
+												</div>
+											</div>
+											<div class="space-4"></div>
+											<div id="itemNovo"></div>																				
+										</div>
+
+										<div class="modal-footer">
+											<button id="btnCancelar" class="btn btn-sm" data-dismiss="modal">
+												<i class="ace-icon fa fa-times"></i> Cancelar
+											</button>
+											<button id="btnGerarPedido" class="btn btn-sm btn-primary">
+												<i class="ace-icon fa fa-check"></i> Gerar Pedido
+											</button>											
+										</div>										
+									</div>									
+								</div>
+							</div>
+							<!-- FIM -- MODAL FORMULÁRIO PARA ATUALIZAR -->
+							
 							<!-- MODAL FORMULÁRIO PARA EXCLUIR -->
 							<div id="modal-form-pedido" class="modal fade" tabindex="-1" rel="modalexcluir">
 								<div class="modal-dialog">
@@ -584,16 +670,23 @@
 										<div class="modal-body">
 											<div class="form-inline">
 												<div class="form-group">
-													<label for="noPedidoExcluir">No. Pedido</label>
+													<label for="noPedidoExcluir"><br />No. Pedido</label>
 													<div>
 														<input type="text" id="noPedidoExcluir" class="text-right" name="noPedidoExcluir" size="9" />
 													</div>
 												</div>
 												&nbsp;
 												<div class="form-group">
-													<label for="dataExcluir">Data</label>
+													<label for="dataExcluir">Data da<br />Abertura</label>
 													<div>
 														<input type="text" id="dataExcluir" class="text-center" name="dataExcluir" size="9" />
+													</div>
+												</div>
+												&nbsp;
+												<div class="form-group hidden">
+													<label for="dataPagamentoExcluir">Data do<br />Pagamento</label>
+													<div>
+														<input type="text" id="dataPagamentoExcluir" class="text-center" name="dataPagamentoExcluir" size="9" />
 													</div>
 												</div>
 											</div>													
@@ -604,6 +697,7 @@
 													<input type="text" id="fornecedorExcluir" name="fornecedorExcluir" size="77" />
 												</div>
 											</div>
+											<div id="itensExcluir"></div>
 											<div class="form-inline">
 												<div class="form-group">
 													<label for="valorExcluir">Vlr. Compra (R$)</label>
