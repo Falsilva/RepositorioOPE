@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="br.com.mdjpapeis.entity.PedidoCompra" %>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -12,15 +13,18 @@
 	
 	<!-- BOOTSTRAP STYLES-->
     <link href="resources/css/bootstrap.css" rel="stylesheet" />
-    
-     <!-- FONTAWESOME STYLES-->
-    <link href="resources/font-awesome/4.6.1/css/font-awesome.css" rel="stylesheet" />
-        
-    <!-- GOOGLE FONTS -->
-	<link rel="stylesheet" href="resources/fonts/fonts.googleapis.com.css" />
 	
 	<!-- ACE STYLES -->
 	<link rel="stylesheet" href="resources/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
+	
+	<!-- FONTAWESOME STYLES-->
+    <link href="resources/font-awesome/4.6.1/css/font-awesome.css" rel="stylesheet" />
+    
+    <!-- ESTILIZAÇÃO DO CALENDÁRIO - DATEPICKER -->
+    <link rel="stylesheet" href="resources/css/datepicker.min.css" />
+        
+    <!-- GOOGLE FONTS -->
+	<link rel="stylesheet" href="resources/fonts/fonts.googleapis.com.css" />
 	
 	<!-- PERSONALIZAÇÃO PRÓPRIA -->
     <link href="resources/css/estilos.css" rel="stylesheet">
@@ -30,7 +34,7 @@
 		.ui-autocomplete {
 		    max-height: 100px;
 		    overflow-y: auto;
-		    /* prevent horizontal scrollbar */
+		    /* previne o scrollbar horizontal */
 		    overflow-x: hidden;
 		    z-index: 1100;
 	  	}
@@ -40,17 +44,15 @@
 		* html .ui-autocomplete {
 	    	height: 100px;
 	  	}
-	  	#itensExcluir {
+	  	#itemNovo, #itensExcluir, #itensEditar {
 		  width:auto;
 		  height:152px;
 		  background-color:#FFFFFF;
 		  overflow:auto;
 		}
-		#itemNovo {
-		  width:auto;
-		  height:152px;
-		  background-color:#FFFFFF;
-		  overflow:auto;
+		.datepicker {
+			position:relative;
+			z-index:1100 !important;
 		}
 	</style>	
 </head>
@@ -355,7 +357,7 @@
 										<i class="ace-icon fa fa-plus bigger-130">&nbsp;<i class="ace-icon fa fa-pencil-square-o bigger-130"></i></i>Novo
 									</a>
 								</div>
-							</div>															                	
+							</div>										                	
 	                	
 		                	<div class="widget-box transparent">
 				                    
@@ -579,7 +581,7 @@
 											<div class="form-group">
 												<label for="fornecedor">Fornecedor</label>
 												<div>
-													<input type="text" id="fornecedor" name="fornecedor" placeholder="Informe o fornecedor..." size="77" />													
+													<input type="text" class="form-control" id="fornecedor" name="fornecedor" placeholder="Informe o fornecedor..." />													
 												</div>
 											</div>
 											<div class="space-4"></div>
@@ -610,7 +612,7 @@
 							<!-- FIM -- MODAL FORMULÁRIO PARA CADASTRAR -->
 							
 							<!-- MODAL FORMULÁRIO PARA ATUALIZAR -->
-							<div id="modal-form-pedido" class="modal fade" tabindex="-1" rel="modalatualizar">
+							<div id="modal-form-pedido" class="modal fade" tabindex="-1" rel="modaleditar">
 								<div class="modal-dialog">
 									<div class="modal-content">
 										<div class="modal-header">
@@ -619,16 +621,37 @@
 										</div>
 
 										<div class="modal-body">
-											
-											<div class="form-group">
-												<label for="noPedido">No. Pedido:</label>&nbsp;
-												<label id="noPedido" name="nopedido"></label>
+											<div class="form-inline">
+												<div class="form-group">
+													<label for="noPedidoEditar"><br />No. Pedido:</label>													
+													<div>
+														<input type="text" id="noPedidoEditar" class="text-right" name="noPedidoEditar" size="9" />
+													</div>
+												</div>
+												&nbsp;
+												<div class="form-group">
+													<label for="dataAberturaEditar">Data da<br />Abertura</label>
+													<div>
+														<input type="text" id="dataAberturaEditar" class="text-center" name="dataAberturaEditar" size="9" readonly />
+													</div>
+												</div>
+												&nbsp;												
+												<div class="form-group">
+													<label for="dataPagamentoEditar">Data do<br />Pagamento</label>
+													<br />											
+													<div class="input-group">
+														<input type="text" class="form-control date-picker" id="dataPagamentoEditar" name="dataPagamentoEditar" data-date-format="dd/mm/yyyy" size="9" />	
+														<span class="input-group-addon">
+															<i class="fa fa-calendar bigger-110"></i>
+														</span>													
+													</div>													
+												</div>
 											</div>
-											<div class="space-4"></div>											
+											<div class="space-4"></div>									
 											<div class="form-group">
-												<label for="fornecedor">Fornecedor</label>
+												<label for="fornecedorEditar">Fornecedor</label>
 												<div>
-													<input type="text" id="fornecedor" name="fornecedor" placeholder="Informe o fornecedor..." size="77" />													
+													<input type="text" class="form-control" id="fornecedorEditar" name="fornecedorEditar" />													
 												</div>
 											</div>
 											<div class="space-4"></div>
@@ -636,21 +659,40 @@
 												<div class="btn-group btn-over-lap">
 														
 													<!-- BOTÃO ADD ITEM -->
-													<a href="#" class="btn btn-primary btn-xs" role="additem">
+													<a href="#" class="btn btn-primary btn-xs" role="additemEditar">
 														<i class="ace-icon fa fa-plus bigger-120"></i>&nbsp;<b>Item</b>
 													</a>
 												</div>
 											</div>
 											<div class="space-4"></div>
-											<div id="itemNovo"></div>																				
+											<div id="itensEditar"></div>
+											<div class="form-inline">
+												<div class="form-group">
+													<label for="valorEditar">Vlr. Compra (R$)</label>
+													<div class="text-right">
+														<input type="text" id="valorEditar" class="text-right" name="valorEditar" size="20" />
+													</div>
+												</div>
+												&nbsp;
+												<div class="form-group">
+													<label for="statusEditar">Status</label>
+													<div>
+														<select class="chosen-select" data-placeholder="Escolha o perfil..." name="statusEditar" id="statusEditar">
+															<c:forEach var="status" items="<%= PedidoCompra.StatusCompra.values() %>">
+																<option value="${status}">${status}</option>
+															</c:forEach>
+														</select>
+													</div>
+												</div>
+											</div>																				
 										</div>
 
 										<div class="modal-footer">
 											<button id="btnCancelar" class="btn btn-sm" data-dismiss="modal">
 												<i class="ace-icon fa fa-times"></i> Cancelar
 											</button>
-											<button id="btnGerarPedido" class="btn btn-sm btn-primary">
-												<i class="ace-icon fa fa-check"></i> Gerar Pedido
+											<button id="btnEditarPedido" class="btn btn-sm btn-primary">
+												<i class="ace-icon fa fa-check"></i> Atualizar
 											</button>											
 										</div>										
 									</div>									
@@ -694,7 +736,7 @@
 											<div class="form-group">
 												<label for="fornecedorExcluir">Fornecedor</label>
 												<div>
-													<input type="text" id="fornecedorExcluir" name="fornecedorExcluir" size="77" />
+													<input type="text" class="form-control" id="fornecedorExcluir" name="fornecedorExcluir" />
 												</div>
 											</div>
 											<div id="itensExcluir"></div>
@@ -798,6 +840,14 @@
     
     <!-- JQUERY UI UTILIZADO AUTOCOMPLETE DE FORNECEDOR NO MODAL CADASTRAR -->
     <script src="resources/js/jquery-ui.min.js"></script>
+    
+    <!-- JQUERY UI DATEPICKER - CALENDÁRIO -->
+    <script src="resources/js/jquery-ui.custom.min.js"></script>	
+    <script src="resources/js/chosen.jquery.min.js"></script>
+    <script src="resources/js/bootstrap-datepicker.min.js"></script>
+	<!-- <script src="resources/js/jquery.autosize.min.js"></script>
+	<script src="resources/js/jquery.inputlimiter.1.3.1.min.js"></script>
+	<script src="resources/js/jquery.maskedinput.min.js"></script> -->
     
     <!-- ACE CONFIGURAÇÕES DESTA PÁGINA -->
 	<script src="resources/js/ace-elements.min.js"></script>

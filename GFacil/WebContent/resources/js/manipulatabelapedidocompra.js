@@ -762,25 +762,182 @@ $(document).ready(function(){
 	
 	
 	
-	//CLIQUE DO BOTÃO EDITAR DA LINHA DE UM REGISTRO DA TABELA
+	/*
+	$("#dataPagamentoEditar").datepicker({
+		format: 'dd/mm/yyyy',                
+	    language: 'pt-BR',
+		autoclose: true,
+		todayHighlight: true
+	}).next().on(ace.click_event, function(){
+		$(this).prev().focus();
+	});
+	
+	
+	$("#dataTeste").datepicker({
+		dateFormat: 'dd/mm/yy',
+	    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+	    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+	    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+	    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+	    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+	    nextText: 'Próximo',
+	    prevText: 'Anterior',
+		inline: true
+	});
+	*/
+	
+	
+	
+	// MODAL ATUALIZAR - CLIQUE DO BOTÃO EXCLUIR DA LINHA DE UM REGISTRO TABELA EXIBE O MODAL
 	$("a[role=editar]").click(function(event){
-		event.preventDefault();
+		event.preventDefault();		
 		
+		// Pega a TR
+		var tr = $(this).closest("tr");
 		
+		// Pega as TDs da TR
+		var tdNoPedidoEditar = tr.find("td:first");
+		var tdDataAbertura = tdNoPedidoEditar.next("td");				
+		var tdDataPagto = tdDataAbertura.next("td");
+		var tdFornecedor = tdDataPagto.next("td");
+		var tdValor = tdFornecedor.next("td");
+		var tdStatus = tdValor.next("td");
+		var tdItensPC = tdStatus.next("td");
+		var divItensPC = tdItensPC.find(".grupoDeItens");
+		
+		// Pega os Dados das TDs
+		var noPedidoEditar = tdNoPedidoEditar.text();
+		var dataPedidoAberturaEditar = tdDataAbertura.text();
+		var dataPedidoPagtoEditar = tdDataPagto.text();
+		var fornecedorEditar = tdFornecedor.text();
+		var valorEditar = tdValor.text();
+		var statusEditar = tdStatus.text();
 		
 		// Pega o Modal
-		var modal = $("#modal-form-pedido[rel=modalatualizar]");
+		var modal = $("#modal-form-pedido[rel=modaleditar]");
 		
 		// Coloca os Dados no Modal e de Forma Somente Leitura
-		modal.find("#noPedidoExcluir").prop("readonly", true).val(noPedidoExcluir);
-		modal.find("#dataExcluir").prop("readonly", true).val(dataPedidoExcluir);
-		modal.find("#fornecedorExcluir").prop("readonly", true).val(fornecedorExcluir);
-		modal.find("#valorExcluir").prop("readonly", true).val(valorExcluir);
-		modal.find("#statusExcluir").prop("readonly", true).val(statusExcluir);
+		modal.find("#noPedidoEditar").prop("readonly", true).val(noPedidoEditar);
+		modal.find("#dataAberturaEditar").prop("readonly", true).val(dataPedidoAberturaEditar);	
 		
-		// Exibe o Modal Form Excluir
-		modal.modal();	
+		if(dataPedidoPagtoEditar != ""){			
+			modal.find("#dataPagamentoEditar").closest(".form-group");
+			modal.find("#dataPagamentoEditar").datepicker("setDate", dataPedidoPagtoEditar);
+			/*
+			var dataFormatada = new Date(dataPedidoPagtoEditar);			
+			var d = dataFormatada.getDate();
+			var m = dataFormatada.getMonth();
+			m += 1;  // JavaScript months are 0-11
+			var y = dataFormatada.getFullYear();
+
+			modal.find("#dataPagamentoEditar").val(d + "/" + m + "/" + y);*/
+		}else{
+			modal.find("#dataPagamentoEditar").closest(".form-group").addClass("hidden");
+		}
+				
+		$.each(divItensPC, function(index, value){
+			var divUmMaterial = $(this).find("div:first");
+			var divDoisPeso = divUmMaterial.next("div");
+			var divTresValor = divDoisPeso.next("div");
+			
+			if(index == 0){
+				modal.find("#itensEditar").append("<div class='form-inline' id=" + (index + 1) + ">" +	
+						"<div class='form-group'>" +
+							"<label for='item" + (index + 1) + "'>Item</label>" +
+							"<div>" +
+								"<input type='text' id='item" + (index + 1) + "' name='item" + (index + 1) + "' value='" + (index + 1) + "' size='1' class='text-center' readonly />" +
+							"</div>" +
+						"</div>&nbsp;" +
+						"<div class='form-group hidden'>" +
+							"<label for='codProduto" + (index + 1) + "'>Cód. Produto</label>" +
+							"<div>" +
+								"<input type='text' id='codProduto" + (index + 1) + "' name='codProduto" + (index + 1) + "' size='3' class='text-center' />" +
+							"</div>" +
+						"</div>&nbsp;" +
+						"<div class='form-group'>" +
+							"<label for='material" + (index + 1) + "'>Material</label>" +
+							"<div>" +
+								"<input type='text' id='material" + (index + 1) + "' name='material" + (index + 1) + "' value='" + divUmMaterial.text() + "' size='37' />" +
+							"</div>" +
+						"</div>&nbsp;" +
+						"<div class='form-group'>" +
+							"<label for='peso" + (index + 1) + "'>Peso (Kg)</label>" +
+							"<div>" +
+								"<input type='text' id='peso" + (index + 1) + "' class='text-right' name='peso" + (index + 1) + "' value='" + divDoisPeso.text() + "' size='9' maxlength='9' />" +
+							"</div>" +
+						"</div>&nbsp;" +
+						"<div class='form-group'>" +
+							"<label for='valor" + (index + 1) + "'>Valor (R$)</label>" +
+							"<div>" +
+								"<input type='text' id='valor" + (index + 1) + "' class='text-right' name='valor" + (index + 1) + "' value='" + divTresValor.text() + "' size='9' maxlength='10' />" +
+							"</div>" +
+						"</div>" +				
+					"</div>" +
+					"<div class='space-4'></div>");
+			}else{
+				modal.find("#itensEditar").append("<div class='form-inline' id=" + (index + 1) + ">" +	
+						"<div class='form-group'>" +							
+							"<div>" +
+								"<input type='text' id='item" + (index + 1) + "' name='item" + (index + 1) + "' value='" + (index + 1) + "' size='1' class='text-center' readonly />" +
+							"</div>" +
+						"</div>&nbsp;" +
+						"<div class='form-group hidden'>" +							
+							"<div>" +
+								"<input type='text' id='codProduto" + (index + 1) + "' name='codProduto" + (index + 1) + "' size='3' class='text-center' />" +
+							"</div>" +
+						"</div>&nbsp;" +
+						"<div class='form-group'>" +							
+							"<div>" +
+								"<input type='text' id='material" + (index + 1) + "' name='material" + (index + 1) + "' value='" + divUmMaterial.text() + "' size='37' />" +
+							"</div>" +
+						"</div>&nbsp;" +
+						"<div class='form-group'>" +							
+							"<div>" +
+								"<input type='text' id='peso" + (index + 1) + "' class='text-right' name='peso" + (index + 1) + "' value='" + divDoisPeso.text() + "' size='9' maxlength='9' />" +
+							"</div>" +
+						"</div>&nbsp;" +
+						"<div class='form-group'>" +							
+							"<div>" +
+								"<input type='text' id='valor" + (index + 1) + "' class='text-right' name='valor" + (index + 1) + "' value='" + divTresValor.text() + "' size='9' maxlength='10' />" +
+							"</div>" +
+						"</div>" +				
+					"</div>" +
+					"<div class='space-4'></div>");
+			}
+		});
+				
+		modal.find("#fornecedorEditar").prop("readonly", true).val(fornecedorEditar);
+		modal.find("#valorEditar").prop("readonly", true).val(valorEditar);
+		
+		var optionsEditar = modal.find("#statusEditar").find("option");		
+		$.each(optionsEditar, function(index, value){
+			if(statusEditar == $(this).val()){
+				$(this).prop("selected", true);
+			}
+		});
+		
+		// Exibe o Modal Form Editar
+		modal.modal();		
+	});	
+	
+	
+	$("#dataPagamentoEditar").datepicker({
+		dateFormat: 'dd/mm/yy',
+	    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+	    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+	    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+	    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+	    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+	    nextText: 'Próximo',
+	    prevText: 'Anterior',
+		inline: true,
+		autoclose: true,
+		todayHighlight: true
+	}).next().on(ace.click_event, function(){
+		$(this).prev().focus();
 	});
+	
+	
 	
 	
 	// RECARREGA A PÁGINA AO FECHAR O MODAL CADASTRAR
