@@ -256,6 +256,9 @@ public class RegraPedidoCompra extends HttpServlet {
 						
 						System.out.println("COD FORNECEDOR: " + pedidoCompra.getFornecedor().getCodigo());
 						
+						
+						
+						
 						// PEGA OS ITENS EM STRING, MAS NA ESTRUTURA JSON, E COLOCA EM UM ARRAY
 						strItens = req.getParameter("itens").replace("},{", "};{");
 						arrayItens = strItens.split(";");
@@ -275,15 +278,17 @@ public class RegraPedidoCompra extends HttpServlet {
 						}
 						contador = 0;					
 						
-						
+						// SE ITENS DIMINUI
 						if(listaItens.size() < pedidoCompra.getItensPedidoCompra().size()){
 							// EXCLUI OS ITENS PELO FK_PEDIDO
 							System.out.println("QTD. ITENS MENOR - EXCLUIR O RESTANTE");
 						}else{
+							// SE ITENS AUMENTOU
 							if(listaItens.size() > pedidoCompra.getItensPedidoCompra().size()){
 								// PEGA OS ITENS A MAIS E CADASTRA OS ITENS COM O FK_PEDIDO
 								System.out.println("QTD. ITENS MAIOR - CADASTRAR O RESTANTE");
 							}else{
+								// SE MANTEVE A MESMA QUANTIDADE - SERÁ QUE SÃO OS MESMOS???
 								// SETA OS ITENS PARA ATUALIZAR
 								System.out.println("QTD. ITENS IGUAL - ATUALIZAR");
 								for(ItemPedido it : pedidoCompra.getItensPedidoCompra()){
@@ -292,6 +297,10 @@ public class RegraPedidoCompra extends HttpServlet {
 								}
 							}
 						}
+						
+						
+						
+						
 						
 						// ADICIONA A LISTA DE ITENS NO PEDIDO
 						pedidoCompra.setItensPedidoCompra(listaItens);
