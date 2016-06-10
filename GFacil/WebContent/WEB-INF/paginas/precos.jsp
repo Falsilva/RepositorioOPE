@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -6,7 +6,7 @@
 <head>	
 	<meta charset="utf-8" />
 	
-	<!-- OTIMIZAÃ‡ÃƒO PARA MOBILE -->
+	<!-- OTIMIZAÇÃO PARA MOBILE -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />    
 	
 	<!-- BOOTSTRAP STYLES-->
@@ -21,7 +21,7 @@
 	<!-- ACE STYLES -->
 	<link rel="stylesheet" href="resources/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
 	
-	<!-- PERSONALIZAÃ‡ÃƒO PRÃ“PRIA -->
+	<!-- PERSONALIZAÇÃO PRÓPRIA -->
     <link href="resources/css/estilos.css" rel="stylesheet">
 	
 	<title>MDJ Papeis</title>
@@ -29,16 +29,16 @@
 <body class="no-skin">
 
 	
-	<!--=================== BLOCO DA BARRA DE NAVEGAÃ‡ÃƒO SUPERIOR E CONTEÃšDO DA PÃGINA ====================-->
+	<!--=================== BLOCO DA BARRA DE NAVEGAÇÃO SUPERIOR E CONTEÚDO DA PÁGINA ====================-->
 	
 	
-	<!-- BARRA DE NAVEGAÃ‡ÃƒO -->
+	<!-- BARRA DE NAVEGAÇÃO -->
 	<div id="navbar" class="navbar navbar-default">
 	
-		<!-- CONTEÃšDO DA BARRA DE NAVEGAÃ‡ÃƒO -- SUPERIOR -->
+		<!-- CONTEÚDO DA BARRA DE NAVEGAÇÃO -- SUPERIOR -->
 		<div id="navbar-container" class="navbar-container">
 			
-			<!-- BOTÃƒO DE ACESSO AO MENU PARA TELAS PEQUENAS -- ESSE BOTÃƒO ALTERNA A EXIBIÃ‡ÃƒO DA BARRA DE NAVEGAÃ‡ÃƒO LATERAL -- MENU LATERAL -->
+			<!-- BOTÃO DE ACESSO AO MENU PARA TELAS PEQUENAS -- ESSE BOTÃO ALTERNA A EXIBIÇÃO DA BARRA DE NAVEGAÇÃO LATERAL -- MENU LATERAL -->
 			<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
 				<span class="sr-only">Toggle sidebar</span>
 				<span class="icon-bar"></span>
@@ -46,23 +46,23 @@
 				<span class="icon-bar"></span>
 			</button>
 			
-			<!-- ÃCONE DA BARRA DE NAVEGAÃ‡ÃƒO -->
+			<!-- ÍCONE DA BARRA DE NAVEGAÇÃO -->
 			<div class="navbar-header pull-left">
 				<a href="#" class="navbar-brand">
 					<small>
-						<i class="fa fa-recycle"></i> MDJ PapÃ©is
+						<i class="fa fa-recycle"></i> MDJ Papéis
 					</small>
 				</a>
 			</div>
 			
-			<!-- BOTÃ•ES DA BARRA DE NAVEGAÃ‡ÃƒO -->
+			<!-- BOTÕES DA BARRA DE NAVEGAÇÃO -->
 			<div class="navbar-buttons navbar-header pull-right" role="navigation">
 				<ul class="nav ace-nav">					
 					
-					<!-- BOTÃƒO AZUL COM NOME DE USUÃRIO -->
+					<!-- BOTÃO AZUL COM NOME DE USUÁRIO -->
 					<li class="azul-escuro-nosso">
 					
-						<!-- DESIGN DO BOTÃƒO -->
+						<!-- DESIGN DO BOTÃO -->
 						<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 							<i class="ace-icon fa fa-user"></i>
 							<span class="user-info">
@@ -71,7 +71,7 @@
 							<i class="ace-icon fa fa-caret-down"></i>
 						</a>
 						
-						<!-- LISTA DE OPÃ‡Ã•ES DO BOTÃƒO -->
+						<!-- LISTA DE OPÇÕES DO BOTÃO -->
 						<ul class="user-menu dropdown-menu dropdown-menu-right dropdown-yellow dropdown-caret dropdown-close">
 							<li>				
 								<a href="#" onclick="document.getElementById('form_logout').submit()">
@@ -84,27 +84,27 @@
 				</ul>
 			</div>
 		</div>
-		<!-- FIM -- CONTEÃšDO DA BARRA DE NAVEGAÃ‡ÃƒO -- SUPERIOR -->		
+		<!-- FIM -- CONTEÚDO DA BARRA DE NAVEGAÇÃO -- SUPERIOR -->		
 	</div>
-	<!-- FIM -- BARRA DE NAVEGAÃ‡ÃƒO -->
+	<!-- FIM -- BARRA DE NAVEGAÇÃO -->
 		
 		
-	<!--============= DIVISA DOS BLOCOS DE BARRA DE NAVEGAÃ‡ÃƒO SUPERIOR E CONTEÃšDO DA PÃGINA ==============-->
+	<!--============= DIVISA DOS BLOCOS DE BARRA DE NAVEGAÇÃO SUPERIOR E CONTEÚDO DA PÁGINA ==============-->
 		
 		
-	<!-- CONTEÃšDO DA PÃGINA -- INCLUI MENU LATERAL E CONTEÃšDO PRINCIPAL-->
+	<!-- CONTEÚDO DA PÁGINA -- INCLUI MENU LATERAL E CONTEÚDO PRINCIPAL-->
 	<div class="main-container" id="main-container">
 		
 		<!--===================================== BLOCO MENU LATERAL =====================================-->
 		
 		
-		<!-- BARRA DE NAVEGAÃ‡ÃƒO LATERAL -- MENU LATERAL -- NO MODO TELA PEQUENA, ESSE MENU Ã‰ ACESSADO PELO BOTÃƒO LÃ EMCIMA COM O id="menu-toggler"  -->
+		<!-- BARRA DE NAVEGAÇÃO LATERAL -- MENU LATERAL -- NO MODO TELA PEQUENA, ESSE MENU É ACESSADO PELO BOTÃO LÁ EMCIMA COM O id="menu-toggler"  -->
 		<div id="sidebar" class="sidebar responsive">
 		
 			<!-- BARRA LATERAL DE ATALHOS -->
 			<div class="sidebar-shortcuts" id="sidebar-shortcuts">
 					
-				<!-- RELÃ“GIO - QUANDO EXIBIÃ‡ÃƒO TOTAL DO MENU  -->
+				<!-- RELÓGIO - QUANDO EXIBIÇÃO TOTAL DO MENU  -->
 				<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">																
 					<div class="widget-box-relogio transparent">
 	                	<div class="widget-header widget-header-flat">
@@ -118,7 +118,7 @@
 					</div>
 				</div>
 
-				<!-- RELÃ“GIO - QUANDO EXIBIÃ‡ÃƒO RECOLHIDA DO MENU  -->
+				<!-- RELÓGIO - QUANDO EXIBIÇÃO RECOLHIDA DO MENU  -->
 				<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
 					<span class="badge badge-primary">
 						<i class="ace-icon fa fa-clock-o"></i>
@@ -181,7 +181,7 @@
 						<li class="">
 							<a href="#" onclick="document.getElementById('form_usuarios').submit()">								
 								<form id="form_usuarios" action="controller?action=listarUsuarios" method="post"></form>
-								<i class="menu-icon fa fa-caret-right"></i>	UsuÃ¡rios
+								<i class="menu-icon fa fa-caret-right"></i>	Usuários
 								<span class="badge badge-transparent">
 									<i class="ace-icon fa fa-users blue bigger-130"></i>
 								</span>
@@ -242,12 +242,12 @@
 				</li>
 				</c:if>
 				
-				<!-- ITEM 5 -- TABELA DE PREÃ‡OS -->
+				<!-- ITEM 5 -- TABELA DE PREÇOS -->
 				<li class="active">
 					<a href="#" onclick="document.getElementById('form_precos').submit()">
 						<form id="form_precos" action="controller?action=listarProdutos" method="post"></form>
 						<i class="menu-icon fa fa-dollar"></i>
-						<span class="menu-text"> Tabela de PreÃ§os </span>
+						<span class="menu-text"> Tabela de Preços </span>
 					</a>
 					<b class="arrow"></b>
 				</li>
@@ -255,23 +255,23 @@
 			</ul>
 			<!-- FIM -- LISTA DE ITENS DO MENU -->
 			
-			<!-- ÃCONE DE SETA QUE RECOLHE O MENU LATERAL PARA A ESQUERDA -->
+			<!-- ÍCONE DE SETA QUE RECOLHE O MENU LATERAL PARA A ESQUERDA -->
 			<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
 				<i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
 			</div>
 						
 		</div>
-		<!-- FIM -- BARRA DE NAVEGAÃ‡ÃƒO LATERAL -- MENU LATERAL -->
+		<!-- FIM -- BARRA DE NAVEGAÇÃO LATERAL -- MENU LATERAL -->
 		
 		
-		<!--=================== DIVISA DOS BLOCOS DO MENU LATERAL E CONTEÃšDO PRINCIPAL ===================-->
+		<!--=================== DIVISA DOS BLOCOS DO MENU LATERAL E CONTEÚDO PRINCIPAL ===================-->
 		
 		
-		<!-- CONTEÃšDO PRINCIPAL DA PÃGINA -->
+		<!-- CONTEÚDO PRINCIPAL DA PÁGINA -->
 		<div class="main-content">
 			<div class="main-content-inner">
 			
-				<!-- BARRA DE NAVEGAÃ‡ÃƒO DE CATEGORIAS LISTADAS -->
+				<!-- BARRA DE NAVEGAÇÃO DE CATEGORIAS LISTADAS -->
 				<div class="breadcrumbs" id="breadcrumbs">
 					
 					<!-- CATEGORIAS LISTADAS -->
@@ -280,40 +280,40 @@
 							<i class="ace-icon fa fa-home home-icon"></i>
 							<a href="index.jsp">Home</a>
 						</li>						
-						<li class="active">Tabela de PreÃ§os</li>
+						<li class="active">Tabela de Preços</li>
 					</ul>				
 					
 				</div>
-				<!-- FIM -- BARRA DE NAVEGAÃ‡ÃƒO DE CATEGORIAS LISTADAS -->
+				<!-- FIM -- BARRA DE NAVEGAÇÃO DE CATEGORIAS LISTADAS -->
 				
-				<!-- CONTEÃšDO DA PÃGINA -->
+				<!-- CONTEÚDO DA PÁGINA -->
 				<div class="page-content">
 				
-					<!-- CABEÃ‡ALHO DO CONTEÃšDO -->
+					<!-- CABEÇALHO DO CONTEÚDO -->
 					<div class="page-header">
-						<h1><strong>Tabela de PreÃ§os</strong>
+						<h1><strong>Tabela de Preços</strong>
 							<small>
-								<i class="ace-icon fa fa-angle-double-right"></i> <strong>preÃ§os de compra &amp; venda dos materiais</strong>
+								<i class="ace-icon fa fa-angle-double-right"></i> <strong>preços de compra &amp; venda dos materiais</strong>
 							</small>
 							
 						</h1>
 					</div>
-					<!-- FIM -- CABEÃ‡ALHO DO CONTEÃšDO -->
+					<!-- FIM -- CABEÇALHO DO CONTEÚDO -->
 					
-					<!-- MENSAGEM DE APRESENTAÃ‡ÃƒO DA PÃGINA -->
+					<!-- MENSAGEM DE APRESENTAÇÃO DA PÁGINA -->
 					<div class="row">
 						<div class="col-xs-12">						
 							<div class="alert alert-block alert-success">
 								<button type="button" class="close" data-dismiss="alert">
 									<i class="ace-icon fa fa-times"></i>
 								</button>
-								<i class="ace-icon fa fa-check green"></i> NÃ£o lembra dos preÃ§os? Sem problemas, vocÃª estÃ¡ no lugar certo. Como pode ver, esta Ã© a pÃ¡gina a qual pode-se consultar a margem de preÃ§os negociados na compra ou venda dos materiais. 
+								<i class="ace-icon fa fa-check green"></i> Não lembra dos preços? Sem problemas, você está no lugar certo. Como pode ver, esta é a página a qual pode-se consultar a margem de preços negociados na compra ou venda dos materiais. 
 							</div>
 						</div>
 					</div>					
-					<!-- FIM -- MENSAGEM DE APRESENTAÃ‡ÃƒO DA PÃGINA -->					
+					<!-- FIM -- MENSAGEM DE APRESENTAÇÃO DA PÁGINA -->					
 					
-	                <!-- TABELA DE PREÃ‡OS -->
+	                <!-- TABELA DE PREÇOS -->
 	                <div class="row">
 	                	<div class="col-xs-12">
 	                	
@@ -322,7 +322,7 @@
 							<div class="tableTools-container">
 								<div class="btn-group btn-over-lap">
 										
-									<!-- BOTÃƒO NOVO MATERIAL -->
+									<!-- BOTÃO NOVO MATERIAL -->
 									<a href="#" class="btn btn-app btn-success btn-xs" role="cadastrar">
 										<i class="ace-icon fa fa-plus bigger-130">&nbsp;<i class="ace-icon fa fa-dollar bigger-130"></i></i>Novo
 									</a>
@@ -330,12 +330,12 @@
 							</div>										                	
 	                		</c:if>
 	                			                		
-	                		<!-- JSTL -- CONDIÃ‡ÃƒO PARA EXIBIR A TABELA -->							
+	                		<!-- JSTL -- CONDIÇÃO PARA EXIBIR A TABELA -->							
 							<c:choose>
 								<c:when test="${not empty produtos}">
 								<!-- CASO HAJA PRODUTO -->
 								
-									<!-- RESULTADO DO NÃšMEROS DE PRODUTOS -->
+									<!-- RESULTADO DO NÚMEROS DE PRODUTOS -->
 									<div class="table-header">
 										<c:choose>
 											<c:when test="${produtos.size() > 0}">
@@ -350,24 +350,24 @@
 	                			    <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2"> 		
 					                	<div class="widget-box transparent">
 							                    
-											<!-- TÃTULO DOS PREÃ‡OS -->
+											<!-- TÍTULO DOS PREÇOS -->
 						                	<div class="widget-header widget-header-flat">
 												<h3 class="widget-title lighter">
-													<i class="ace-icon fa fa-dollar"></i><strong> PreÃ§os Comercializados</strong>
+													<i class="ace-icon fa fa-dollar"></i><strong> Preços Comercializados</strong>
 												</h3>
 											</div>
 												
-											<!-- PREÃ‡OS -->
+											<!-- PREÇOS -->
 						                    <div class="widget-body">
 												<div class="widget-main no-padding">
 												
 													<!-- TABELA -->
 													<table class="table table-bordered table-striped">
 													
-														<!-- CABEÃ‡ALHO DA TABELA -->
+														<!-- CABEÇALHO DA TABELA -->
 														<thead class="thin-border-bottom">
 							                               	<tr>
-							                                   	<th class="hidden">CÃ³d.</th>
+							                                   	<th class="hidden">Cód.</th>
 							                                    <th>Material</th>
 							                                    <c:if test="${usuarioLogado.perfil == 'ADMINISTRADOR' || usuarioLogado.perfil == 'COMPRADOR'}">
 							                                    <th>Vlr. Compra (R$ / kg)</th>
@@ -376,18 +376,18 @@
 							                                    <th>Vlr. Venda (R$ / kg)</th>
 							                                    </c:if>
 							                                    <c:if test="${usuarioLogado.perfil == 'ADMINISTRADOR'}">
-							                                    <th>AÃ§Ãµes</th>
+							                                    <th>Ações</th>
 							                                    </c:if>
 							                              	</tr>
 						                       			</thead>					                       			
 						                       			
-						                       			<!-- CORPO DA TABELA - REGISTROS E BOTÃ•ES DE FUNCIONALIDADES -->
+						                       			<!-- CORPO DA TABELA - REGISTROS E BOTÕES DE FUNCIONALIDADES -->
 							                       		<tbody>
 							                       		
-							                       			<!-- MONTA AS LINHAS CONFORME A EXISTÃŠNCIA DE PRODUTOS -->
+							                       			<!-- MONTA AS LINHAS CONFORME A EXISTÊNCIA DE PRODUTOS -->
 															<c:forEach var="produto" items="${produtos}">
 																<tr>														
-																	<!-- COLUNA ESCONDIDA DE CÃ“DIGO DOS REGISTROS -->
+																	<!-- COLUNA ESCONDIDA DE CÓDIGO DOS REGISTROS -->
 																	<td class="text-right hidden">${produto.codigo}</td>
 																	
 																	<!-- COLUNAS DE REGISTROS -->
@@ -399,33 +399,33 @@
 																	<td class="text-right"><b class="green">${produto.precoVenda}</b></td>
 							                                    	</c:if>
 							                                    	<c:if test="${usuarioLogado.perfil == 'ADMINISTRADOR'}">
-								                                    <!-- COLUNA DE AÃ‡Ã•ES -->
+								                                    <!-- COLUNA DE AÇÕES -->
 																	<td>														
-																		<!-- EXIBIÃ‡ÃƒO EM TELAS GRANDES -->															
+																		<!-- EXIBIÇÃO EM TELAS GRANDES -->															
 																		<div class="hidden-sm hidden-xs action-buttons">
 																					
-																			<!-- BOTÃƒO EDITAR -->													
+																			<!-- BOTÃO EDITAR -->													
 																			<a href="#" role="editar">
 																				<span class="green">
 																					<i class="ace-icon fa fa-pencil bigger-130"></i>
 																				</span>
 																			</a>
 																					
-																			<!-- BOTÃƒO EXCLUIR -->
+																			<!-- BOTÃO EXCLUIR -->
 																			<a href="#" role="excluir">
 																				<span class="red">
 																					<i class="ace-icon fa fa-trash-o bigger-130"></i>
 																				</span>
 																			</a>
 																			
-																			<!-- BOTÃƒO SALVAR -->													
+																			<!-- BOTÃO SALVAR -->													
 																			<a href="#" role="salvar" class="hidden">
 																				<span class="blue">
 																					<i class="ace-icon fa fa-save bigger-130"></i>
 																				</span>
 																			</a>
 																			
-																			<!-- BOTÃƒO EXCLUIR -->
+																			<!-- BOTÃO EXCLUIR -->
 																			<a href="#" role="cancelar" class="hidden">
 																				<span class="red">
 																					<i class="ace-icon fa fa-close bigger-130"></i>
@@ -434,18 +434,18 @@
 																					
 																			</div>
 					
-																			<!-- EXIBIÃ‡ÃƒO EM TELAS PEQUENAS -->
+																			<!-- EXIBIÇÃO EM TELAS PEQUENAS -->
 																			<div class="hidden-md hidden-lg action-buttons">
 																				<div class="inline pos-rel">
 																					
-																				<!-- BOTÃƒO DROPDOWN-TOGGLE AMARELO -->
+																				<!-- BOTÃO DROPDOWN-TOGGLE AMARELO -->
 																				<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto">
 																					<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
 																				</button>																	
 																						
 																				<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">																	
 																					
-																					<!-- BOTÃƒO EDITAR -->
+																					<!-- BOTÃO EDITAR -->
 																					<li>
 																						<a href="#" class="tooltip-success" data-rel="tooltip" title="Editar" role="editar">
 																							<span class="green">
@@ -454,7 +454,7 @@
 																						</a>
 																					</li>
 																							
-																					<!-- BOTÃƒO EXCLUIR -->
+																					<!-- BOTÃO EXCLUIR -->
 																					<li>
 																						<a href="#" class="tooltip-error" data-rel="tooltip" title="Excluir" role="excluir">
 																							<span class="red">
@@ -463,7 +463,7 @@
 																						</a>
 																					</li>
 																							
-																					<!-- BOTÃƒO SALVAR -->
+																					<!-- BOTÃO SALVAR -->
 																					<li>																																
 																						<a href="#" class="tooltip-success hidden" data-rel="tooltip" title="Salvar" role="salvar">
 																							<span class="blue">
@@ -472,7 +472,7 @@
 																						</a>
 																					</li>
 																							
-																					<!-- BOTÃƒO CANCELAR -->
+																					<!-- BOTÃO CANCELAR -->
 																					<li>
 																						<a href="#" class="tooltip-error hidden" data-rel="tooltip" title="Cancelar" role="cancelar">
 																							<span class="red">
@@ -485,12 +485,12 @@
 																		</div>															
 																	</td>
 																	</c:if>
-																	<!-- COLUNA DE AÃ‡Ã•ES -->
+																	<!-- COLUNA DE AÇÕES -->
 							                                	</tr>
 							                                </c:forEach>
-							                                <!-- FIM -- MONTA AS LINHAS CONFORME A EXISTÃŠNCIA DE PRODUTOS -->			                                
+							                                <!-- FIM -- MONTA AS LINHAS CONFORME A EXISTÊNCIA DE PRODUTOS -->			                                
 							                            </tbody>
-							                            <!-- FIM -- CORPO DA TABELA - REGISTROS E BOTÃ•ES DE FUNCIONALIDADES -->
+							                            <!-- FIM -- CORPO DA TABELA - REGISTROS E BOTÕES DE FUNCIONALIDADES -->
 							                       	</table>
 							                       	<!-- FIM -- TABELA -->
 							                    </div>
@@ -499,15 +499,15 @@
 						        	</div>
 					            </c:when>								
 								<c:otherwise>
-								<!-- CASO NÃƒO HAJA PRODUTOS -->									
+								<!-- CASO NÃO HAJA PRODUTOS -->									
 									<div class="table-header">
 										Resultado: "${mensagem}"
 									</div>		
 								</c:otherwise>								
 							</c:choose>
-							<!-- JSTL -- CONDIÃ‡ÃƒO PARA EXIBIR A TABELA -->
+							<!-- JSTL -- CONDIÇÃO PARA EXIBIR A TABELA -->
 							
-							<!-- MODAL FORMULÃRIO PARA CADASTRAR -->
+							<!-- MODAL FORMULÁRIO PARA CADASTRAR -->
 							<div id="modal-form-precos" class="modal fade" tabindex="-1" rel="modalcadastrar">
 								<div class="modal-dialog">
 									<div class="modal-content">
@@ -527,21 +527,21 @@
 											<div class="form-group">
 												<label for="precoCompra">Vlr. Compra (R$ / kg) *</label>
 												<div>
-													<input type="number" class="text-right" id="precoCompra" name="precoCompra" placeholder="Margem do preÃ§o de compra" size="25" />
+													<input type="number" class="text-right" id="precoCompra" name="precoCompra" placeholder="Margem do preço de compra" size="25" />
 												</div>
 											</div>													
 											<div class="space-4"></div>
 											<div class="form-group">
 												<label for="precoVenda">Vlr. Venda (R$ / kg) *</label>
 												<div>
-													<input type="number" class="text-right" id="precoVenda" name="precoVenda" placeholder="Margem do preÃ§o de venda" size="25" />
+													<input type="number" class="text-right" id="precoVenda" name="precoVenda" placeholder="Margem do preço de venda" size="25" />
 												</div>
 											</div>												
 										</div>
 
 										<div class="modal-footer">
 											<div class="pull-left text-left">
-												<b class="blue">* campos obrigatÃ³rios</b>												
+												<b class="blue">* campos obrigatórios</b>												
 											</div>
 											<div class="pull-right">
 												<button id="btnCancelar" class="btn btn-sm" data-dismiss="modal">
@@ -555,9 +555,9 @@
 									</div>									
 								</div>
 							</div>
-							<!-- FIM -- MODAL FORMULÃRIO PARA CADASTRAR -->
+							<!-- FIM -- MODAL FORMULÁRIO PARA CADASTRAR -->
 							
-							<!-- MODAL FORMULÃRIO PARA EXCLUIR -->
+							<!-- MODAL FORMULÁRIO PARA EXCLUIR -->
 							<div id="modal-form-precos" class="modal fade" tabindex="-1" rel="modalexcluir">
 								<div class="modal-dialog">
 									<div class="modal-content">
@@ -568,7 +568,7 @@
 
 										<div class="modal-body">
 											<div class="form-group hidden">
-												<label for="codigo">CÃ³d.</label>
+												<label for="codigo">Cód.</label>
 												<div>													
 													<input type="text" id="codigo" name="codigo" size="8" />
 												</div>
@@ -583,14 +583,14 @@
 											<div class="form-group">
 												<label for="precoCompra">Vlr. Compra (R$ / kg)</label>
 												<div>
-													<input type="number" class="text-right" id="precoCompra" name="precoCompra" placeholder="Margem do preÃ§o de compra" size="25" />
+													<input type="number" class="text-right" id="precoCompra" name="precoCompra" placeholder="Margem do preço de compra" size="25" />
 												</div>
 											</div>													
 											<div class="space-4"></div>
 											<div class="form-group">
 												<label for="precoVenda">Vlr. Venda (R$ / kg)</label>
 												<div>
-													<input type="number" class="text-right" id="precoVenda" name="precoVenda" placeholder="Margem do preÃ§o de venda" size="25" />
+													<input type="number" class="text-right" id="precoVenda" name="precoVenda" placeholder="Margem do preço de venda" size="25" />
 												</div>
 											</div>							
 										</div>
@@ -606,9 +606,9 @@
 									</div>									
 								</div>
 							</div>
-							<!-- FIM -- MODAL FORMULÃRIO PARA EXCLUIR -->
+							<!-- FIM -- MODAL FORMULÁRIO PARA EXCLUIR -->
 							
-							<!-- MODAL FORMULÃRIO PARA ATUALIZAR -->
+							<!-- MODAL FORMULÁRIO PARA ATUALIZAR -->
 							<div id="modal-form-precos" class="modal fade" tabindex="-1" rel="modalatualizar">
 								<div class="modal-dialog">
 									<div class="modal-content">
@@ -619,7 +619,7 @@
 
 										<div class="modal-body">
 											<div class="form-group hidden">
-												<label for="codigo">CÃ³d.</label>
+												<label for="codigo">Cód.</label>
 												<div>													
 													<input type="text" id="codigo" name="codigo" size="8" />
 												</div>
@@ -634,14 +634,14 @@
 											<div class="form-group">
 												<label for="precoCompra">Vlr. Compra (R$ / kg)</label>
 												<div>
-													<input type="number" class="text-right" id="precoCompra" name="precoCompra" placeholder="Margem do preÃ§o de compra" size="25" />
+													<input type="number" class="text-right" id="precoCompra" name="precoCompra" placeholder="Margem do preço de compra" size="25" />
 												</div>
 											</div>													
 											<div class="space-4"></div>
 											<div class="form-group">
 												<label for="precoVenda">Vlr. Venda (R$ / kg)</label>
 												<div>
-													<input type="number" class="text-right" id="precoVenda" name="precoVenda" placeholder="Margem do preÃ§o de venda" size="25" />
+													<input type="number" class="text-right" id="precoVenda" name="precoVenda" placeholder="Margem do preço de venda" size="25" />
 												</div>
 											</div>										
 										</div>
@@ -657,43 +657,43 @@
 									</div>									
 								</div>
 							</div>
-							<!-- FIM -- MODAL FORMULÃRIO PARA ATUALIZAR -->
+							<!-- FIM -- MODAL FORMULÁRIO PARA ATUALIZAR -->
 							
 			        	</div>
 	                </div>
-	                <!-- FIM -- TABELA DE PREÃ‡OS -->
+	                <!-- FIM -- TABELA DE PREÇOS -->
 				</div>
-				<!-- FIM -- CONTEÃšDO DA PÃGINA -->
+				<!-- FIM -- CONTEÚDO DA PÁGINA -->
 			</div>
 		</div>
-		<!-- FIM -- CONTEÃšDO PRINCIPAL DA PÃGINA -->
+		<!-- FIM -- CONTEÚDO PRINCIPAL DA PÁGINA -->
 		
 		
-		<!--======================= DIVISA DOS BLOCOS DO CONTEÃšDO PRINCIPAL E RODAPÃ‰ =======================-->
+		<!--======================= DIVISA DOS BLOCOS DO CONTEÚDO PRINCIPAL E RODAPÉ =======================-->
 		
 		
-		<!-- RODAPÃ‰ DA PÃGINA -->
+		<!-- RODAPÉ DA PÁGINA -->
 		<div class="footer">
 			<div class="footer-inner">
 			
-				<!-- CONTEÃšDO DO RODAPÃ‰ -->
+				<!-- CONTEÚDO DO RODAPÉ -->
 				<div class="footer-content">
 				
 					<!-- MARCA REGISTRADA - COPYRIGHT -->
 					<span class="bigger-120">
-						<span class="green bolder">Gerencia FÃ¡cil</span> &reg; 2014-2016
+						<span class="green bolder">Gerencia Fácil</span> &reg; 2014-2016
 					</span>
 				</div>
 			</div>
 		</div>
-		<!-- FIM -- RODAPÃ‰ DA PÃGINA -->		
+		<!-- FIM -- RODAPÉ DA PÁGINA -->		
 		
-		<!-- ÃCONE NO CANTO DIREITO INFERIOR DA TELA AO DESCER - ELE APARECE QUANDO DESCE - FAZ VOLTAR PARA O TOPO -->
+		<!-- ÍCONE NO CANTO DIREITO INFERIOR DA TELA AO DESCER - ELE APARECE QUANDO DESCE - FAZ VOLTAR PARA O TOPO -->
 		<a href="#" id="btn-scroll-up" class="btn btn-sm btn-scroll-up btn-inverse">
 			<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
 		</a>	
 	</div>
-	<!-- FIM -- CONTEÃšDO DA PÃGINA -- INCLUI MENU LATERAL E CONTEÃšDO PRINCIPAL-->
+	<!-- FIM -- CONTEÚDO DA PÁGINA -- INCLUI MENU LATERAL E CONTEÚDO PRINCIPAL-->
 	
 	
 	<!--=======================================   SCRIPTS   ================================================-->
@@ -720,7 +720,7 @@
 	</script>
 	<![endif]-->
 	
-	<!-- ONTOUCH MOBILE - NÃƒO TESTADO -->
+	<!-- ONTOUCH MOBILE - NÃO TESTADO -->
 	<script type="text/javascript">
 		if('ontouchstart' in document.documentElement) document.write("<script src='resources/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 	</script>
@@ -728,14 +728,14 @@
     <!-- BOOTSTRAP SCRIPTS -->
     <script src="resources/js/bootstrap.min.js"></script>
     
-    <!-- ACE CONFIGURAÃ‡Ã•ES DESTA PÃGINA -->
+    <!-- ACE CONFIGURAÇÕES DESTA PÁGINA -->
 	<script src="resources/js/ace-elements.min.js"></script>
 	<script src="resources/js/ace.min.js"></script>	
     
-    <!-- RELÃ“GIO -->
+    <!-- RELÓGIO -->
     <script src="resources/js/relogio.js"></script>
     
-    <!-- AJAX - SUBMIT FORMS - RECARREGA A PÃGINA QUANDO O MODAL CADASTRAR E EXCLUIR SÃƒO FECHADOS -->
+    <!-- AJAX - SUBMIT FORMS - RECARREGA A PÁGINA QUANDO O MODAL CADASTRAR E EXCLUIR SÃO FECHADOS -->
     <script src="resources/js/ajaxprecos.js"></script>
     
     <!-- EDITAR EXCLUIR -->

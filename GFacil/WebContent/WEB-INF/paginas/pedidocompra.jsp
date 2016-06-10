@@ -44,9 +44,15 @@
 		* html .ui-autocomplete {
 	    	height: 100px;
 	  	}
-	  	#itemNovo, #itensExcluir, #itensEditar {
+	  	#itemNovo, #itensExcluir {
 		  width:auto;
 		  height:152px;
+		  background-color:#FFFFFF;
+		  overflow:auto;
+		}
+		#itensEditar {
+		  width:auto;
+		  height:210px;
 		  background-color:#FFFFFF;
 		  overflow:auto;
 		}
@@ -647,25 +653,26 @@
 													</div>													
 												</div>
 											</div>
-											<div class="space-4"></div>									
+											<div class="space-4"></div>
 											<div class="form-group">
 												<label for="fornecedorEditar">Fornecedor</label>
 												<div>
 													<input type="text" class="form-control" id="fornecedorEditar" name="fornecedorEditar" />													
 												</div>
 											</div>
-											<div class="space-4"></div>
+											
 											<div class="tableTools-container">
 												<div class="btn-group btn-over-lap">
 														
-													<!-- BOTÃO ADD ITEM -->
+													<!-- BOTÃO ADD ITEM EDITAR -->
 													<a href="#" class="btn btn-primary btn-xs" role="additemEditar">
 														<i class="ace-icon fa fa-plus bigger-120"></i>&nbsp;<b>Item</b>
 													</a>
 												</div>
-											</div>
-											<div class="space-4"></div>
+											</div>											
+											
 											<div id="itensEditar"></div>
+											
 											<div class="form-inline">
 												<div class="form-group">
 													<label for="valorEditar">Vlr. Compra (R$)</label>
@@ -858,6 +865,9 @@
     
     <!-- AJAX - SUBMIT FORMS - RECARREGA A PÁGINA QUANDO O MODAL É FECHADO -->
     <script src="resources/js/ajaxpedidocompra.js"></script>
+    
+    <!-- MÁSCARA -->
+    <script src="resources/js/mask.js"></script>
     
     <!-- EDITAR EXCLUIR -->
     <script src="resources/js/manipulatabelapedidocompra.js"></script>

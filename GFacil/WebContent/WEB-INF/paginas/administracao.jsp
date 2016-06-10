@@ -1,12 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>	
 	<meta charset="utf-8" />
 	
-	<!-- OTIMIZA√á√ÉO PARA MOBILE -->
+	<!-- OTIMIZA«√O PARA MOBILE -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />    
 	
 	<!-- BOOTSTRAP STYLES-->
@@ -21,24 +22,25 @@
 	<!-- ACE STYLES -->
 	<link rel="stylesheet" href="resources/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
 	
-	<!-- PERSONALIZA√á√ÉO PR√ìPRIA -->
+	<!-- PERSONALIZA«√O PR”PRIA -->
     <link href="resources/css/estilos.css" rel="stylesheet">
+	
 	
 	<title>MDJ Papeis</title>
 </head>
 <body class="no-skin">
 
 	
-	<!--=================== BLOCO DA BARRA DE NAVEGA√á√ÉO SUPERIOR E CONTE√öDO DA P√ÅGINA ====================-->
+	<!--=================== BLOCO DA BARRA DE NAVEGA«√O SUPERIOR E CONTE⁄DO DA P¡GINA ====================-->
 	
 	
-	<!-- BARRA DE NAVEGA√á√ÉO -->
+	<!-- BARRA DE NAVEGA«√O -->
 	<div id="navbar" class="navbar navbar-default">
 	
-		<!-- CONTE√öDO DA BARRA DE NAVEGA√á√ÉO -- SUPERIOR -->
+		<!-- CONTE⁄DO DA BARRA DE NAVEGA«√O -- SUPERIOR -->
 		<div id="navbar-container" class="navbar-container">
 			
-			<!-- BOT√ÉO DE ACESSO AO MENU PARA TELAS PEQUENAS -- ESSE BOT√ÉO ALTERNA A EXIBI√á√ÉO DA BARRA DE NAVEGA√á√ÉO LATERAL -- MENU LATERAL -->
+			<!-- BOT√O DE ACESSO AO MENU PARA TELAS PEQUENAS -- ESSE BOT√O ALTERNA A EXIBI«√O DA BARRA DE NAVEGA«√O LATERAL -- MENU LATERAL -->
 			<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
 				<span class="sr-only">Toggle sidebar</span>
 				<span class="icon-bar"></span>
@@ -46,23 +48,23 @@
 				<span class="icon-bar"></span>
 			</button>
 			
-			<!-- √çCONE DA BARRA DE NAVEGA√á√ÉO -->
+			<!-- ÕCONE DA BARRA DE NAVEGA«√O -->
 			<div class="navbar-header pull-left">
 				<a href="#" class="navbar-brand">
 					<small>
-						<i class="fa fa-recycle"></i> MDJ Pap√©is
+						<i class="fa fa-recycle"></i> MDJ PapÈis
 					</small>
 				</a>
 			</div>
 			
-			<!-- BOT√ïES DA BARRA DE NAVEGA√á√ÉO -->
+			<!-- BOT’ES DA BARRA DE NAVEGA«√O -->
 			<div class="navbar-buttons navbar-header pull-right" role="navigation">
 				<ul class="nav ace-nav">				
 										
-					<!-- BOT√ÉO AZUL COM NOME DE USU√ÅRIO -->
+					<!-- BOT√O AZUL COM NOME DE USU¡RIO -->
 					<li class="azul-escuro-nosso">
 					
-						<!-- DESIGN DO BOT√ÉO -->
+						<!-- DESIGN DO BOT√O -->
 						<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 							<i class="ace-icon fa fa-user"></i>
 							<span class="user-info">
@@ -71,7 +73,7 @@
 							<i class="ace-icon fa fa-caret-down"></i>
 						</a>
 						
-						<!-- LISTA DE OP√á√ïES DO BOT√ÉO -->
+						<!-- LISTA DE OP«’ES DO BOT√O -->
 						<ul class="user-menu dropdown-menu dropdown-menu-right dropdown-yellow dropdown-caret dropdown-close">
 							<li>				
 								<a href="#" onclick="document.getElementById('form_logout').submit()">
@@ -84,27 +86,27 @@
 				</ul>
 			</div>
 		</div>
-		<!-- FIM -- CONTE√öDO DA BARRA DE NAVEGA√á√ÉO -- SUPERIOR -->		
+		<!-- FIM -- CONTE⁄DO DA BARRA DE NAVEGA«√O -- SUPERIOR -->		
 	</div>
-	<!-- FIM -- BARRA DE NAVEGA√á√ÉO -->
+	<!-- FIM -- BARRA DE NAVEGA«√O -->
 		
 		
-	<!--============= DIVISA DOS BLOCOS DE BARRA DE NAVEGA√á√ÉO SUPERIOR E CONTE√öDO DA P√ÅGINA ==============-->
+	<!--============= DIVISA DOS BLOCOS DE BARRA DE NAVEGA«√O SUPERIOR E CONTE⁄DO DA P¡GINA ==============-->
 		
 		
-	<!-- CONTE√öDO DA P√ÅGINA -- INCLUI MENU LATERAL E CONTE√öDO PRINCIPAL-->
+	<!-- CONTE⁄DO DA P¡GINA -- INCLUI MENU LATERAL E CONTE⁄DO PRINCIPAL-->
 	<div class="main-container" id="main-container">
 		
 		<!--===================================== BLOCO MENU LATERAL =====================================-->
 		
 		
-		<!-- BARRA DE NAVEGA√á√ÉO LATERAL -- MENU LATERAL -- NO MODO TELA PEQUENA, ESSE MENU √â ACESSADO PELO BOT√ÉO L√Å EMCIMA COM O id="menu-toggler"  -->
+		<!-- BARRA DE NAVEGA«√O LATERAL -- MENU LATERAL -- NO MODO TELA PEQUENA, ESSE MENU … ACESSADO PELO BOT√O L¡ EMCIMA COM O id="menu-toggler"  -->
 		<div id="sidebar" class="sidebar responsive">
 		
 			<!-- BARRA LATERAL DE ATALHOS -->
 			<div class="sidebar-shortcuts" id="sidebar-shortcuts">
 					
-				<!-- REL√ìGIO - QUANDO EXIBI√á√ÉO TOTAL DO MENU  -->
+				<!-- REL”GIO - QUANDO EXIBI«√O TOTAL DO MENU  -->
 				<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">																
 					<div class="widget-box-relogio transparent">
 	                	<div class="widget-header widget-header-flat">
@@ -118,7 +120,7 @@
 					</div>
 				</div>
 
-				<!-- REL√ìGIO - QUANDO EXIBI√á√ÉO RECOLHIDA DO MENU  -->
+				<!-- REL”GIO - QUANDO EXIBI«√O RECOLHIDA DO MENU  -->
 				<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
 					<span class="badge badge-primary">
 						<i class="ace-icon fa fa-clock-o"></i>
@@ -181,7 +183,7 @@
 						<li class="">
 							<a href="#" onclick="document.getElementById('form_usuarios').submit()">								
 								<form id="form_usuarios" action="controller?action=listarUsuarios" method="post"></form>
-								<i class="menu-icon fa fa-caret-right"></i>	Usu√°rios
+								<i class="menu-icon fa fa-caret-right"></i>	Usu·rios
 								<span class="badge badge-transparent">
 									<i class="ace-icon fa fa-users blue bigger-130"></i>
 								</span>
@@ -242,12 +244,12 @@
 				</li>
 				</c:if>
 				
-				<!-- ITEM 5 -- TABELA DE PRE√áOS -->
+				<!-- ITEM 5 -- TABELA DE PRE«OS -->
 				<li class="">
 					<a href="#" onclick="document.getElementById('form_precos').submit()">
 						<form id="form_precos" action="controller?action=listarProdutos" method="post"></form>
 						<i class="menu-icon fa fa-dollar"></i>
-						<span class="menu-text"> Tabela de Pre√ßos </span>
+						<span class="menu-text"> Tabela de PreÁos </span>
 					</a>
 					<b class="arrow"></b>
 				</li>
@@ -255,23 +257,23 @@
 			</ul>
 			<!-- FIM -- LISTA DE ITENS DO MENU -->
 			
-			<!-- √çCONE DE SETA QUE RECOLHE O MENU LATERAL PARA A ESQUERDA -->
+			<!-- ÕCONE DE SETA QUE RECOLHE O MENU LATERAL PARA A ESQUERDA -->
 			<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
 				<i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
 			</div>
 						
 		</div>
-		<!-- FIM -- BARRA DE NAVEGA√á√ÉO LATERAL -- MENU LATERAL -->
+		<!-- FIM -- BARRA DE NAVEGA«√O LATERAL -- MENU LATERAL -->
 		
 		
-		<!--=================== DIVISA DOS BLOCOS DO MENU LATERAL E CONTE√öDO PRINCIPAL ===================-->
+		<!--=================== DIVISA DOS BLOCOS DO MENU LATERAL E CONTE⁄DO PRINCIPAL ===================-->
 		
 		
-		<!-- CONTE√öDO PRINCIPAL DA P√ÅGINA -->
+		<!-- CONTE⁄DO PRINCIPAL DA P¡GINA -->
 		<div class="main-content">
 			<div class="main-content-inner">
 			
-				<!-- BARRA DE NAVEGA√á√ÉO DE CATEGORIAS LISTADAS -->
+				<!-- BARRA DE NAVEGA«√O DE CATEGORIAS LISTADAS -->
 				<div class="breadcrumbs" id="breadcrumbs">
 					
 					<!-- CATEGORIAS LISTADAS -->
@@ -284,51 +286,51 @@
 					</ul>				
 					
 				</div>
-				<!-- FIM -- BARRA DE NAVEGA√á√ÉO DE CATEGORIAS LISTADAS -->
+				<!-- FIM -- BARRA DE NAVEGA«√O DE CATEGORIAS LISTADAS -->
 				
-				<!-- CONTE√öDO DA P√ÅGINA -->
+				<!-- CONTE⁄DO DA P¡GINA -->
 				<div class="page-content">
 				
-					<!-- CABE√áALHO DO CONTE√öDO -->
+					<!-- CABE«ALHO DO CONTE⁄DO -->
 					<div class="page-header">
 						<h1><strong>Dashboard</strong>
 							<small>
-								<i class="ace-icon fa fa-angle-double-right"></i> <strong>vis√£o geral &amp; estat√≠sticas</strong>
+								<i class="ace-icon fa fa-angle-double-right"></i> <strong>vis„o geral &amp; estatÌsticas</strong>
 							</small>
 							
 						</h1>
 					</div>
-					<!-- FIM -- CABE√áALHO DO CONTE√öDO -->
+					<!-- FIM -- CABE«ALHO DO CONTE⁄DO -->
 					
-					<!-- MENSAGEM DE APRESENTA√á√ÉO DA VIS√ÉO GERAL - DASHBOARD -->
+					<!-- MENSAGEM DE APRESENTA«√O DA VIS√O GERAL - DASHBOARD -->
 					<div class="row">
 						<div class="col-xs-12">						
 							<div class="alert alert-block alert-success">
 								<button type="button" class="close" data-dismiss="alert">
 									<i class="ace-icon fa fa-times"></i>
 								</button>
-								<i class="ace-icon fa fa-check green"></i> Aqui √© onde tudo come√ßa! Nesta p√°gina, voc√™ possui uma vis√£o geral do que √© mais importante para gerenciar melhor o seu neg√≥cio, como o saldo em caixa e uma vis√£o gr√°fica de como anda o balan√ßo geral, al√©m de acesso ao menu com as principais funcionalidades que sempre o acompanha durante a navega√ß√£o do sistema.
-								<!-- MENSAGEM, SE HOUVER ALERTAS: Aqui √© onde tudo come√ßa! Nesta p√°gina, voc√™ possui uma vis√£o geral do que √© mais importante para gerenciar melhor o seu neg√≥cio, como notifica√ß√µes importantes, tarefas pendentes, o saldo em caixa e uma vis√£o gr√°fica de como anda o faturamento, al√©m de acesso ao menu com as principais funcionalidades que sempre o acompanha durante a navega√ß√£o do sistema. -->
+								<i class="ace-icon fa fa-check green"></i> Aqui È onde tudo comeÁa! Nesta p·gina, vocÍ possui uma vis„o geral do que È mais importante para gerenciar melhor o seu negÛcio, como o saldo em caixa e uma vis„o gr·fica de como anda o balanÁo geral, alÈm de acesso ao menu com as principais funcionalidades que sempre o acompanha durante a navegaÁ„o do sistema.
+								<!-- MENSAGEM, SE HOUVER ALERTAS: Aqui È onde tudo comeÁa! Nesta p·gina, vocÍ possui uma vis„o geral do que È mais importante para gerenciar melhor o seu negÛcio, como notificaÁıes importantes, tarefas pendentes, o saldo em caixa e uma vis„o gr·fica de como anda o faturamento, alÈm de acesso ao menu com as principais funcionalidades que sempre o acompanha durante a navegaÁ„o do sistema. -->
 							</div>
 						</div>
 					</div>					
-					<!-- FIM -- MENSAGEM DE APRESENTA√á√ÉO DA VIS√ÉO GERAL - DASHBOARD -->
+					<!-- FIM -- MENSAGEM DE APRESENTA«√O DA VIS√O GERAL - DASHBOARD -->
 					
-					<!-- NOTIFICA√á√ïES 
+					<!-- NOTIFICA«’ES 
 					<div class="row">
 						<div class="col-xs-12">						
 							<div class="widget-box transparent">
 							
-								<!-- T√çTULO DOS PAIN√âIS 
+								<!-- TÕTULO DOS PAIN…IS 
 		                		<div class="widget-header widget-header-flat">									
 				                    <h3 class="widget-title lighter"><strong>Avisos</strong></h3>
 				                </div>
 				                
-				                <!-- PAIN√âIS 
+				                <!-- PAIN…IS 
 				                <div class="widget-body">
 									<div class="widget-main no-padding">
 									
-										<!-- PAINEL DE NOTIFICA√á√ïES IMPORTANTES 		                    
+										<!-- PAINEL DE NOTIFICA«’ES IMPORTANTES 		                    
 					                    <div class="col-lg-3 col-md-6">
 					                        <div class="panel-nosso panel-red-nosso">
 					                            <div class="panel-heading-nosso">
@@ -428,18 +430,18 @@
 		                    </div>
 		            	</div>
 	                </div>
-	                <!-- FIM -- NOTIFICA√á√ïES -->
+	                <!-- FIM -- NOTIFICA«’ES -->
 	                
-	                <!-- SALDO -- √öLTIMOS LAN√áAMENTOS -- GR√ÅFICO FATURAMENTO MENSAL -->
+	                <!-- SALDO -- ⁄LTIMOS LAN«AMENTOS -- GR¡FICO FATURAMENTO MENSAL -->
 	                <div class="row">
 	                
-	                	<!-- SALDO -- √öLTIMOS LAN√áAMENTOS -->
+	                	<!-- SALDO -- ⁄LTIMOS LAN«AMENTOS -->
 	                	<div class="col-lg-4">
 	                		
 	                		<!-- CAIXA - SALDO -->
 	                		<div class="widget-box transparent">
 	                		
-	                			<!-- T√çTULO DO SALDO -->
+	                			<!-- TÕTULO DO SALDO -->
 		                		<div class="widget-header widget-header-flat">
 									<h3 class="widget-title lighter">
 										<i class="ace-icon fa fa-money"></i><strong> Caixa - Saldo</strong>
@@ -454,17 +456,17 @@
 								</div>
 	                		</div>
 	                		 
-	                		<!-- CAIXA - √öLTIMOS LAN√áAMENTOS 
+	                		<!-- CAIXA - ⁄LTIMOS LAN«AMENTOS 
 	                		<div class="widget-box transparent">
 			                    
-								<!-- T√çTULO DOS LAN√áAMENTOS 
+								<!-- TÕTULO DOS LAN«AMENTOS 
 		                		<div class="widget-header widget-header-flat">
 									<h3 class="widget-title lighter">
-										<i class="ace-icon fa fa-money"></i><strong> Caixa - √öltimos Lan√ßamentos</strong>
+										<i class="ace-icon fa fa-money"></i><strong> Caixa - ⁄ltimos LanÁamentos</strong>
 									</h3>
 								</div>
 								
-								<!-- LAN√áAMENTOS 
+								<!-- LAN«AMENTOS 
 		                        <div class="widget-body">
 									<div class="widget-main no-padding">
 										<table class="table table-bordered table-striped">
@@ -472,7 +474,7 @@
 			                                	<tr>
 			                                    	<th>Item</th>
 			                                        <th>Data</th>
-			                                        <th>Descri√ß√£o</th>
+			                                        <th>DescriÁ„o</th>
 			                                        <th>Valor (R$)</th>
 			                                	</tr>
 		                           			</thead>
@@ -486,7 +488,7 @@
 			                                    <tr>
 			                                    	<td class="text-right">2</td>
 			                                        <td>21/02/2016</td>
-			                                        <td>Conta de √Ågua</td>
+			                                        <td>Conta de ¡gua</td>
 			                                        <td class="text-right"><b class="red">-94.34</b></td>
 			                                    </tr>
 			                                    <tr>
@@ -516,7 +518,7 @@
 			                                    <tr>
 			                                    	<td class="text-right">7</td>
 			                                        <td>08/03/2016</td>
-			                                        <td>Manuten√ß√£o da Empilhadeira NF. 4456</td>
+			                                        <td>ManutenÁ„o da Empilhadeira NF. 4456</td>
 			                                        <td class="text-right"><b class="red">-2663.54</b></td>
 			                                    </tr>
 			                                    <tr>
@@ -534,64 +536,93 @@
 		                    	</div>
 		                    </div> -->
 	                    </div>
-	                    <!-- FIM -- SALDO -- CAIXA - √öLTIMOS LAN√áAMENTOS -->
+	                    <!-- FIM -- SALDO -- CAIXA - ⁄LTIMOS LAN«AMENTOS -->
 	                    
-	                    <!-- GR√ÅFICO FATURAMENTO MENSAL -->	                    
+	                    <!-- GR¡FICO FATURAMENTO MENSAL -->	                    
 	                    <div class="col-lg-8">
 							<div class="widget-box transparent">
 							
-								<!-- T√çTULO DO GR√ÅFICO -->
+								<!-- TÕTULO DO GR¡FICO -->
 								<div class="widget-header widget-header-flat">
 									<h3 class="widget-title lighter">
-										<i class="ace-icon fa fa-signal"></i><strong> Balan√ßo Geral</strong>
+										<i class="ace-icon fa fa-signal"></i><strong> BalanÁo Geral</strong>
 									</h3>
 								</div>
 								
-								<!-- GR√ÅFICO -->
+								<!-- GR¡FICO -->
 								<div class="widget-body">
 									<div class="widget-main padding-4">
-										<div id="sales-charts"></div>										
+										<div class="chart" id="grafico"></div>										
 									</div>
+									
 								</div>
+								
+																		
+								
 							</div>
 						</div>	                    
-	                    <!-- FIM GR√ÅFICO FATURAMENTO MENSAL -->
+	                    <!-- FIM GR¡FICO FATURAMENTO MENSAL -->
 	                                    
 	                </div>
-	                <!-- FIM -- SALDO -- CAIXA - √öLTIMOS LAN√áAMENTOS -- GR√ÅFICO FATURAMENTO MENSAL -->
+	                <!-- FIM -- SALDO -- CAIXA - ⁄LTIMOS LAN«AMENTOS -- GR¡FICO FATURAMENTO MENSAL -->
 	                
 				</div>
-				<!-- FIM -- CONTE√öDO DA P√ÅGINA -->
+				<!-- FIM -- CONTE⁄DO DA P¡GINA -->
 			</div>
 		</div>
-		<!-- FIM -- CONTE√öDO PRINCIPAL DA P√ÅGINA -->
+		<!-- FIM -- CONTE⁄DO PRINCIPAL DA P¡GINA -->
 		
 		
-		<!--======================= DIVISA DOS BLOCOS DO CONTE√öDO PRINCIPAL E RODAP√â =======================-->
+		<!--======================= DIVISA DOS BLOCOS DO CONTE⁄DO PRINCIPAL E RODAP… =======================-->
 		
 		
-		<!-- RODAP√â DA P√ÅGINA -->
+		<!-- RODAP… DA P¡GINA -->
 		<div class="footer">
 			<div class="footer-inner">
 			
-				<!-- CONTE√öDO DO RODAP√â -->
+				<!-- CONTE⁄DO DO RODAP… -->
 				<div class="footer-content">
 				
 					<!-- MARCA REGISTRADA - COPYRIGHT -->
 					<span class="bigger-120">
-						<span class="green bolder">Gerencia F√°cil</span> &reg; 2014-2016
+						<span class="green bolder">Gerencia F·cil</span> &reg; 2014-2016
 					</span>
 				</div>
 			</div>
 		</div>
-		<!-- FIM -- RODAP√â DA P√ÅGINA -->		
+		<table id="tabBalanco">
+										<thead>
+											<tr>												
+												<th></th>
+												<th>entrada</th>
+												<th>saida</th>
+												<th>percentual</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<th>Abril</th>
+												<td>800</td>
+												<td>200</td>
+												<td>10</td>
+											</tr>
+											<tr>
+												<th>Maio</th>
+												<td>1000</td>
+												<td>500</td>
+												<td>50</td>
+											</tr>
+										</tbody>
+									</table>
+		<!-- FIM -- RODAP… DA P¡GINA -->		
 		
-		<!-- √çCONE NO CANTO DIREITO INFERIOR DA TELA AO DESCER - ELE APARECE QUANDO DESCE - FAZ VOLTAR PARA O TOPO -->
+		<!-- ÕCONE NO CANTO DIREITO INFERIOR DA TELA AO DESCER - ELE APARECE QUANDO DESCE - FAZ VOLTAR PARA O TOPO -->
 		<a href="#" id="btn-scroll-up" class="btn btn-sm btn-scroll-up btn-inverse">
 			<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
 		</a>	
 	</div>
-	<!-- FIM -- CONTE√öDO DA P√ÅGINA -- INCLUI MENU LATERAL E CONTE√öDO PRINCIPAL-->
+	<!-- FIM -- CONTE⁄DO DA P¡GINA -- INCLUI MENU LATERAL E CONTE⁄DO PRINCIPAL-->
+	
 	
 	
 	<!--=======================================   SCRIPTS   ================================================-->
@@ -618,7 +649,7 @@
 	</script>
 	<![endif]-->
 	
-	<!-- ONTOUCH MOBILE - N√ÉO TESTADO -->
+	<!-- ONTOUCH MOBILE - N√O TESTADO -->
 	<script type="text/javascript">
 		if('ontouchstart' in document.documentElement) document.write("<script src='resources/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 	</script>
@@ -626,23 +657,132 @@
     <!-- BOOTSTRAP SCRIPTS -->
     <script src="resources/js/bootstrap.min.js"></script>
     
-    <!-- ACE CONFIGURA√á√ïES DESTA P√ÅGINA -->
+    <!-- ACE CONFIGURA«’ES DESTA P¡GINA -->
 	<script src="resources/js/ace-elements.min.js"></script>
 	<script src="resources/js/ace.min.js"></script>	
     
-    <!-- REL√ìGIO -->
+    <!-- REL”GIO -->
     <script src="resources/js/relogio.js"></script>
     
-    <!-- PLUGINS DO GR√ÅFICO -->
-    <script src="resources/js/jquery.flot.min.js"></script>
-	<script src="resources/js/jquery.flot.pie.min.js"></script>
-	<script src="resources/js/jquery.flot.resize.min.js"></script>
+    <!-- PLUGINS DO GR¡FICO -->
+    <script src="resources/js/highcharts.js"></script>
+	<script src="resources/js/exporting.js"></script>
+	<script src="resources/js/grafico.js"></script>
 	
-	<!-- GR√ÅFICO FATURAMENTO -->
+	<!-- GR¡FICO FATURAMENTO -->
 	<script src="resources/js/grafico.js"></script>
 	
 	<!-- CARREGA DADOS DO CAIXA -->
 	<script src="resources/js/ajaxcaixa.js"></script>
     
+    <script>
+	$(function () {
+		
+	    $('#grafico').highcharts({
+	    	data:{table:document.getElementById('tabBalanco')},
+	    	colors:['#999999','#FF0000','#000000'],
+	        chart: {
+	            zoomType: 'xy'
+	        },
+	        title: {
+	            text: 'Average Monthly Temperature and Rainfall in Tokyo'
+	        },
+	        subtitle: {
+	            text: 'Source: WorldClimate.com'
+	        },
+	        /*xAxis:[{
+	        	categories:['Jan', 'Fev'],
+	        }],*/
+	        yAxis: [{ // Primary yAxis
+	            labels: {
+	                format: '{value}',
+	                style: {
+	                    color: Highcharts.getOptions().colors[1]
+	                }
+	            },
+	            title: {
+	                text: 'Balanco',
+	                style: {
+	                    color: Highcharts.getOptions().colors[1]
+	                }
+	            }
+	        },{
+	        	min:0,
+	        	max:110,
+	        	tickInterval:25,
+	        	title:{
+	        		text:'% Balanco',
+	        		style:{
+	        			color: Highcharts.getOptions().colors[0]
+	        		}
+	        	},
+	        	labels:{
+	        		format:'{value}%',
+	        		style:{
+	        			color: Highcharts.getOptions().colors[0]
+	        		}
+	        	},
+	        	opposite:true
+	        }],
+	        tooltip: {
+	            shared: true
+	        },       
+	        series: [{
+	            name: 'Entrada',
+	            type: 'column',
+	            data: {table:document.getElementById('tabBalanco')},
+	            dataLabels:{
+	            	enable: true,
+	            	rotation:-90,
+	            	style:{
+	            		fontSize:'13px',
+	            		color:'#333333',
+	            		align:'center',
+	            	}
+	            },
+	        }, 
+	        {
+	            name: 'Saida',
+	            type: 'column',
+	            data: {table:document.getElementById('tabBalanco')}, 
+	            dataLabels:{
+	            	enable: true,
+	            	rotation:-90,
+	            	style:{
+	            		fontSize:'13px',
+	            		color:'#333333',
+	            		align:'center',
+	            	}
+	            },
+	        },
+	        {
+	            name: 'Balanco',
+	            type: 'spline',
+
+	            yAxis: 1,
+	            data: {table:document.getElementById('tabBalanco')},            
+	            dataLabels:{
+	            	enable:true,
+	            	style:{
+	            		fontSize: '12px',
+	            		color: '#FF0000',
+	            	},
+	            	formatter:function(){
+	            		return Highchart.numberFormat(this.y, 0) + '%';
+	            	},
+	            	rotation:0,
+	            	style:{
+	            		fontSize:'13px',
+	            		color:'#333333',
+	            		align:'left',
+	            	}
+	            },
+	            tooltip: {
+	                valueSuffix: '%'
+	            },
+	        }]
+	    });
+	});
+	</script>
 </body>
 </html>

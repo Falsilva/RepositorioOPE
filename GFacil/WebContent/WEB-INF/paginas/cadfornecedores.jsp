@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="br.com.mdjpapeis.entity.Fornecedor" %>
 
@@ -988,6 +988,12 @@
     
     <!-- RELÓGIO -->
     <script src="resources/js/relogio.js"></script>
+    
+    <!-- MÁSCARA -->
+    <script src="resources/js/mask.js"></script>
+    
+     <!-- MÁSCARA -->
+    <script src="resources/js/cpfcnpj.js"></script>
     
     <!-- AJAX - SUBMIT FORMS - RECARREGA A PÁGINA QUANDO O MODAL CADASTRAR E EXCLUIR SÃO FECHADOS -->
     <script src="resources/js/ajaxfornecedor.js"></script>

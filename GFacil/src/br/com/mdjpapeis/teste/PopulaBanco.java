@@ -90,7 +90,7 @@ public class PopulaBanco {
 		
 		pedido.setItensPedidoCompra(itens);		
 		
-		//------------------- CADASTRANDO PEDIDO DE VENDA --------------------------
+		//------------------- MONTANDO DADOS PARA PEDIDO DE VENDA --------------------------
 		Cliente cliente = new ClienteDAO().listar().get(4);		
 		
 		ItemPedido item1 = new ItemPedido(produto1, new BigDecimal(150), produto1.getPrecoVenda());
@@ -191,7 +191,7 @@ public class PopulaBanco {
 				"\nVALOR DO PEDIDO: R$ " + pedidoVenda.getValorTotal() +
 				"\nSTATUS.........: " + pedidoVenda.getStatusVenda().toString());		
 			
-		//--------------------------------------------- MOVIMENTAÇÕES ------------------------------------------
+		//-------------------------- MOVIMENTAÇÕES --- CADASTRANDO MOVIMENTAÇÕES DE ENTRADA E SAÍDA -------------------
 		Movimentacao movimentacaoCompra = new Movimentacao();
 		movimentacaoCompra.setPedidoCompra(pedido);
 		new MovimentacaoDAO().inserir(movimentacaoCompra);
@@ -243,6 +243,20 @@ public class PopulaBanco {
 		new CaixaDAO().atualizar(caixa);
 		
 		//System.out.println("SALDO: " + new CaixaDAO().buscaCaixaPorCodigo(1).getSaldo());		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		//Instant fim = Instant.now();
 		/*
@@ -307,16 +321,53 @@ public class PopulaBanco {
 		// SEGUNDO TESTE CAIXA ZUADO
 		Caixa caixa = new CaixaDAO().buscaCaixaPorCodigo(1);
 		
-		System.out.println("\nENTRADAS: " + caixa.getTotalEntrada() + "\nSAÍDAS: " + caixa.getTotalSaida() + "\nSALDO: " + caixa.getSaldo());
-				
-		caixa.setTotalSaida(caixa.getTotalSaida().add(new BigDecimal(2000)));
+		
+		System.out.println("\nINICIO\n\nCAIXA:\nENTRADAS: " + caixa.getTotalEntrada() + "\nSAÍDAS: " + caixa.getTotalSaida() + "\nSALDO: " + caixa.getSaldo());
+		/* ENTRADA: 1306,50
+		 * SAIDA  :  544,55
+		 * SALDO  :  761,95
+		 */
+		
+		System.out.println("\n\n1.ENTRADA de Venda: 500,00");
+		caixa.setTotalEntrada(caixa.getTotalEntrada().add(new BigDecimal(500.00)));
 		caixa.setSaldo(caixa.getTotalEntrada().subtract(caixa.getTotalSaida()));
+		/* ENTRADA: 1806,50
+		 * SAIDA  :  544,55
+		 * SALDO  : 1261,95
+		 */
+		System.out.println("\n1.CAIXA:\nENTRADAS: " + caixa.getTotalEntrada() + "\nSAÍDAS: " + caixa.getTotalSaida() + "\nSALDO: " + caixa.getSaldo());
 		
-		caixa.setTotalSaida(caixa.getTotalSaida().add(new BigDecimal(500)));
+		
+		System.out.println("\n\n2.SAIDA de Compra: 100,00");
+		caixa.setTotalSaida(caixa.getTotalSaida().add(new BigDecimal(100.00)));
 		caixa.setSaldo(caixa.getTotalEntrada().subtract(caixa.getTotalSaida()));
+		/* ENTRADA: 1806,50
+		 * SAIDA  :  644,55
+		 * SALDO  : 1161,95
+		 */
+		System.out.println("\n2.CAIXA:\nENTRADAS: " + caixa.getTotalEntrada() + "\nSAÍDAS: " + caixa.getTotalSaida() + "\nSALDO: " + caixa.getSaldo());
 		
-		System.out.println("\nENTRADAS: " + caixa.getTotalEntrada() + "\nSAÍDAS: " + caixa.getTotalSaida() + "\nSALDO: " + caixa.getSaldo());
 		
+		System.out.println("\n\n3.ENTRADA Excluida: 500,00");
+		caixa.setTotalEntrada(caixa.getTotalEntrada().subtract(new BigDecimal(500.00)));
+		caixa.setSaldo(caixa.getTotalEntrada().subtract(caixa.getTotalSaida()));
+		/* ENTRADA: 1306,50
+		 * SAIDA  :  644,55
+		 * SALDO  :  661,95
+		 */
+		System.out.println("\n3.CAIXA:\nENTRADAS: " + caixa.getTotalEntrada() + "\nSAÍDAS: " + caixa.getTotalSaida() + "\nSALDO: " + caixa.getSaldo());
+		
+		
+		System.out.println("\n\n4.SAIDA Excluida: 100,00");
+		caixa.setTotalSaida(caixa.getTotalSaida().subtract(new BigDecimal(100.00)));
+		caixa.setSaldo(caixa.getTotalEntrada().subtract(caixa.getTotalSaida()));
+		/* ENTRADA: 1306,50
+		 * SAIDA  :  544,55
+		 * SALDO  :  761,95
+		 */
+		System.out.println("\n4.CAIXA:\nENTRADAS: " + caixa.getTotalEntrada() + "\nSAÍDAS: " + caixa.getTotalSaida() + "\nSALDO: " + caixa.getSaldo());
+		
+		System.out.println("\n\nFIM");
 	}
 
 }

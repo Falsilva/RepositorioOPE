@@ -8,6 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 
+import br.com.mdjpapeis.entity.Balanco;
 import br.com.mdjpapeis.entity.Caixa;
 import br.com.mdjpapeis.entity.PedidoCompra;
 
@@ -100,6 +101,26 @@ public class CaixaDAO implements GenericoDAO<Caixa> {
 			conexao.close();			
 			return caixa;
 		}		
+	}
+	
+	public List<Balanco> listaBalanco() throws PersistenceException {
+		List<Balanco> balanco = new ArrayList();
+		EntityManagerFactory conexao = Persistence.createEntityManagerFactory("MDJPapeisPU");		
+		try{
+			// Query JPQL (Trabalha com Classes e Objetos Java)
+			String queryJPQL =	"SELECT C FROM VW_LISTA_BALANCO C";		
+			EntityManager entityManager = conexao.createEntityManager();		
+			balanco = entityManager.createQuery(queryJPQL).getResultList();			
+			if(balanco.size() == 0){
+				balanco = null;
+			}			
+			entityManager.close();			
+		}catch(PersistenceException ex){
+			ex.printStackTrace();
+		}finally{
+			conexao.close();
+		}
+		return balanco;
 	}
 	
 }

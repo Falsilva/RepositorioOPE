@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -6,7 +6,7 @@
 <head>	
 	<meta charset="utf-8" />
 	
-	<!-- OTIMIZA√á√ÉO PARA MOBILE -->
+	<!-- OTIMIZA«√O PARA MOBILE -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />    
 	
 	<!-- BOOTSTRAP STYLES-->
@@ -21,7 +21,7 @@
 	<!-- ACE STYLES -->
 	<link rel="stylesheet" href="resources/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
 	
-	<!-- PERSONALIZA√á√ÉO PR√ìPRIA -->
+	<!-- PERSONALIZA«√O PR”PRIA -->
     <link href="resources/css/estilos.css" rel="stylesheet">
 	
 	<title>MDJ Papeis</title>
@@ -29,16 +29,16 @@
 <body class="no-skin">
 
 	
-	<!--=================== BLOCO DA BARRA DE NAVEGA√á√ÉO SUPERIOR E CONTE√öDO DA P√ÅGINA ====================-->
+	<!--=================== BLOCO DA BARRA DE NAVEGA«√O SUPERIOR E CONTE⁄DO DA P¡GINA ====================-->
 	
 	
-	<!-- BARRA DE NAVEGA√á√ÉO -->
+	<!-- BARRA DE NAVEGA«√O -->
 	<div id="navbar" class="navbar navbar-default">
 	
-		<!-- CONTE√öDO DA BARRA DE NAVEGA√á√ÉO -- SUPERIOR -->
+		<!-- CONTE⁄DO DA BARRA DE NAVEGA«√O -- SUPERIOR -->
 		<div id="navbar-container" class="navbar-container">
 			
-			<!-- BOT√ÉO DE ACESSO AO MENU PARA TELAS PEQUENAS -- ESSE BOT√ÉO ALTERNA A EXIBI√á√ÉO DA BARRA DE NAVEGA√á√ÉO LATERAL -- MENU LATERAL -->
+			<!-- BOT√O DE ACESSO AO MENU PARA TELAS PEQUENAS -- ESSE BOT√O ALTERNA A EXIBI«√O DA BARRA DE NAVEGA«√O LATERAL -- MENU LATERAL -->
 			<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
 				<span class="sr-only">Toggle sidebar</span>
 				<span class="icon-bar"></span>
@@ -46,23 +46,23 @@
 				<span class="icon-bar"></span>
 			</button>
 			
-			<!-- √çCONE DA BARRA DE NAVEGA√á√ÉO -->
+			<!-- ÕCONE DA BARRA DE NAVEGA«√O -->
 			<div class="navbar-header pull-left">
 				<a href="#" class="navbar-brand">
 					<small>
-						<i class="fa fa-recycle"></i> MDJ Pap√©is
+						<i class="fa fa-recycle"></i> MDJ PapÈis
 					</small>
 				</a>
 			</div>
 			
-			<!-- BOT√ïES DA BARRA DE NAVEGA√á√ÉO -->
+			<!-- BOT’ES DA BARRA DE NAVEGA«√O -->
 			<div class="navbar-buttons navbar-header pull-right" role="navigation">
 				<ul class="nav ace-nav">					
 					
-					<!-- BOT√ÉO AZUL COM NOME DE USU√ÅRIO -->
+					<!-- BOT√O AZUL COM NOME DE USU¡RIO -->
 					<li class="azul-escuro-nosso">
 					
-						<!-- DESIGN DO BOT√ÉO -->
+						<!-- DESIGN DO BOT√O -->
 						<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 							<i class="ace-icon fa fa-user"></i>
 							<span class="user-info">
@@ -71,7 +71,7 @@
 							<i class="ace-icon fa fa-caret-down"></i>
 						</a>
 						
-						<!-- LISTA DE OP√á√ïES DO BOT√ÉO -->
+						<!-- LISTA DE OP«’ES DO BOT√O -->
 						<ul class="user-menu dropdown-menu dropdown-menu-right dropdown-yellow dropdown-caret dropdown-close">
 							<li>				
 								<a href="#" onclick="document.getElementById('form_logout').submit()">
@@ -85,27 +85,27 @@
 				</ul>
 			</div>
 		</div>
-		<!-- FIM -- CONTE√öDO DA BARRA DE NAVEGA√á√ÉO -- SUPERIOR -->		
+		<!-- FIM -- CONTE⁄DO DA BARRA DE NAVEGA«√O -- SUPERIOR -->		
 	</div>
-	<!-- FIM -- BARRA DE NAVEGA√á√ÉO -->
+	<!-- FIM -- BARRA DE NAVEGA«√O -->
 		
 		
-	<!--============= DIVISA DOS BLOCOS DE BARRA DE NAVEGA√á√ÉO SUPERIOR E CONTE√öDO DA P√ÅGINA ==============-->
+	<!--============= DIVISA DOS BLOCOS DE BARRA DE NAVEGA«√O SUPERIOR E CONTE⁄DO DA P¡GINA ==============-->
 		
 		
-	<!-- CONTE√öDO DA P√ÅGINA -- INCLUI MENU LATERAL E CONTE√öDO PRINCIPAL-->
+	<!-- CONTE⁄DO DA P¡GINA -- INCLUI MENU LATERAL E CONTE⁄DO PRINCIPAL-->
 	<div class="main-container" id="main-container">
 		
 		<!--===================================== BLOCO MENU LATERAL =====================================-->
 		
 		
-		<!-- BARRA DE NAVEGA√á√ÉO LATERAL -- MENU LATERAL -- NO MODO TELA PEQUENA, ESSE MENU √â ACESSADO PELO BOT√ÉO L√Å EMCIMA COM O id="menu-toggler"  -->
+		<!-- BARRA DE NAVEGA«√O LATERAL -- MENU LATERAL -- NO MODO TELA PEQUENA, ESSE MENU … ACESSADO PELO BOT√O L¡ EMCIMA COM O id="menu-toggler"  -->
 		<div id="sidebar" class="sidebar responsive">
 		
 			<!-- BARRA LATERAL DE ATALHOS -->
 			<div class="sidebar-shortcuts" id="sidebar-shortcuts">
 					
-				<!-- REL√ìGIO - QUANDO EXIBI√á√ÉO TOTAL DO MENU  -->
+				<!-- REL”GIO - QUANDO EXIBI«√O TOTAL DO MENU  -->
 				<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">																
 					<div class="widget-box-relogio transparent">
 	                	<div class="widget-header widget-header-flat">
@@ -119,7 +119,7 @@
 					</div>
 				</div>
 
-				<!-- REL√ìGIO - QUANDO EXIBI√á√ÉO RECOLHIDA DO MENU  -->
+				<!-- REL”GIO - QUANDO EXIBI«√O RECOLHIDA DO MENU  -->
 				<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
 					<span class="badge badge-primary">
 						<i class="ace-icon fa fa-clock-o"></i>
@@ -182,7 +182,7 @@
 						<li class="">
 							<a href="#" onclick="document.getElementById('form_usuarios').submit()">								
 								<form id="form_usuarios" action="controller?action=listarUsuarios" method="post"></form>
-								<i class="menu-icon fa fa-caret-right"></i>	Usu√°rios
+								<i class="menu-icon fa fa-caret-right"></i>	Usu·rios
 								<span class="badge badge-transparent">
 									<i class="ace-icon fa fa-users blue bigger-130"></i>
 								</span>
@@ -243,12 +243,12 @@
 				</li>
 				</c:if>
 				
-				<!-- ITEM 5 -- TABELA DE PRE√áOS -->
+				<!-- ITEM 5 -- TABELA DE PRE«OS -->
 				<li class="">
 					<a href="#" onclick="document.getElementById('form_precos').submit()">
 						<form id="form_precos" action="controller?action=listarProdutos" method="post"></form>
 						<i class="menu-icon fa fa-dollar"></i>
-						<span class="menu-text"> Tabela de Pre√ßos </span>
+						<span class="menu-text"> Tabela de PreÁos </span>
 					</a>
 					<b class="arrow"></b>
 				</li>
@@ -256,23 +256,23 @@
 			</ul>
 			<!-- FIM -- LISTA DE ITENS DO MENU -->
 			
-			<!-- √çCONE DE SETA QUE RECOLHE O MENU LATERAL PARA A ESQUERDA -->
+			<!-- ÕCONE DE SETA QUE RECOLHE O MENU LATERAL PARA A ESQUERDA -->
 			<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
 				<i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
 			</div>
 						
 		</div>
-		<!-- FIM -- BARRA DE NAVEGA√á√ÉO LATERAL -- MENU LATERAL -->
+		<!-- FIM -- BARRA DE NAVEGA«√O LATERAL -- MENU LATERAL -->
 		
 		
-		<!--=================== DIVISA DOS BLOCOS DO MENU LATERAL E CONTE√öDO PRINCIPAL ===================-->
+		<!--=================== DIVISA DOS BLOCOS DO MENU LATERAL E CONTE⁄DO PRINCIPAL ===================-->
 		
 		
-		<!-- CONTE√öDO PRINCIPAL DA P√ÅGINA -->
+		<!-- CONTE⁄DO PRINCIPAL DA P¡GINA -->
 		<div class="main-content">
 			<div class="main-content-inner">
 			
-				<!-- BARRA DE NAVEGA√á√ÉO DE CATEGORIAS LISTADAS -->
+				<!-- BARRA DE NAVEGA«√O DE CATEGORIAS LISTADAS -->
 				<div class="breadcrumbs" id="breadcrumbs">
 					
 					<!-- CATEGORIAS LISTADAS -->
@@ -286,34 +286,34 @@
 					</ul>				
 					
 				</div>
-				<!-- FIM -- BARRA DE NAVEGA√á√ÉO DE CATEGORIAS LISTADAS -->
+				<!-- FIM -- BARRA DE NAVEGA«√O DE CATEGORIAS LISTADAS -->
 				
-				<!-- CONTE√öDO DA P√ÅGINA -->
+				<!-- CONTE⁄DO DA P¡GINA -->
 				<div class="page-content">
 				
-					<!-- CABE√áALHO DO CONTE√öDO -->
+					<!-- CABE«ALHO DO CONTE⁄DO -->
 					<div class="page-header">
 						<h1><strong>Pedidos de Vendas</strong>
 							<small>
-								<i class="ace-icon fa fa-angle-double-right"></i> <strong>gera√ß√£o de pedidos &amp; hist√≥rico</strong>
+								<i class="ace-icon fa fa-angle-double-right"></i> <strong>geraÁ„o de pedidos &amp; histÛrico</strong>
 							</small>
 							
 						</h1>
 					</div>
-					<!-- FIM -- CABE√áALHO DO CONTE√öDO -->
+					<!-- FIM -- CABE«ALHO DO CONTE⁄DO -->
 					
-					<!-- MENSAGEM DE APRESENTA√á√ÉO DA P√ÅGINA -->
+					<!-- MENSAGEM DE APRESENTA«√O DA P¡GINA -->
 					<div class="row">
 						<div class="col-xs-12">						
 							<div class="alert alert-block alert-success">
 								<button type="button" class="close" data-dismiss="alert">
 									<i class="ace-icon fa fa-times"></i>
 								</button>
-								<i class="ace-icon fa fa-check green"></i> Oba, mais uma venda!! Gere aqui o pedido de vendas para controlar todas as receitas geradas pelas vendas, ficando de olho nos pedidos pendentes de recebimento e proporcionando uma vis√£o mais adequada com a realidade do seu neg√≥cio. 
+								<i class="ace-icon fa fa-check green"></i> Oba, mais uma venda!! Gere aqui o pedido de vendas para controlar todas as receitas geradas pelas vendas, ficando de olho nos pedidos pendentes de recebimento e proporcionando uma vis„o mais adequada com a realidade do seu negÛcio. 
 							</div>
 						</div>
 					</div>					
-					<!-- FIM -- MENSAGEM DE APRESENTA√á√ÉO DA P√ÅGINA -->					
+					<!-- FIM -- MENSAGEM DE APRESENTA«√O DA P¡GINA -->					
 					
 	                <!-- TABELA DE PEDIDOS -->
 	                <div class="row">
@@ -323,7 +323,7 @@
 							<div class="tableTools-container">
 								<div class="btn-group btn-over-lap">
 										
-									<!-- BOT√ÉO NOVO MATERIAL -->
+									<!-- BOT√O NOVO MATERIAL -->
 									<a href="#" class="btn btn-app btn-success btn-xs" role="cadastrar">
 										<i class="ace-icon fa fa-plus bigger-130">&nbsp;<i class="ace-icon fa fa-cart-plus bigger-130"></i></i>Novo
 									</a>
@@ -332,10 +332,10 @@
 	                	
 		                	<div class="widget-box transparent">
 				                    
-								<!-- T√çTULO DOS PEDIDOS -->
+								<!-- TÕTULO DOS PEDIDOS -->
 			                	<div class="widget-header widget-header-flat">
 									<h3 class="widget-title lighter">
-										<i class="ace-icon fa fa-dollar"></i><strong> Hist√≥rico de Pedidos</strong>
+										<i class="ace-icon fa fa-dollar"></i><strong> HistÛrico de Pedidos</strong>
 									</h3>
 								</div>
 									
@@ -343,7 +343,7 @@
 			                    <div class="widget-body">
 									<div class="widget-main no-padding">
 									
-										<!-- RESULTADO DOS N√öMEROS DE PEDIDOS -->
+										<!-- RESULTADO DOS N⁄MEROS DE PEDIDOS -->
 										<div class="table-header">
 											<strong>Resultado:</strong>
 										</div>
@@ -357,45 +357,45 @@
 				                                    <th>NF.</th>
 				                                    <th>Vlr. Compra (R$)</th>
 				                                    <th>Status</th>			                                    
-				                                    <th>A√ß√µes</th>
+				                                    <th>AÁıes</th>
 				                              	</tr>
 			                       			</thead>
 				                       		<tbody>
 				                       			<tr>
 				                                   	<td class="text-right"><b>12</b></td>
 				                                   	<td><b>10/05/2016</b></td>
-				                                    <td><b>Renova Pl√°stico</b></td>
+				                                    <td><b>Renova Pl·stico</b></td>
 				                                    <td><b>23654</b></td>
 				                                    <td class="text-right"><b>800,00</b></td>
 				                                    <td class="text-center"><span class="label label-success arrowed arrowed-right">Pago</span></td>
 				                                    
-				                                    <!-- COLUNA DE A√á√ïES -->
+				                                    <!-- COLUNA DE A«’ES -->
 													<td>														
-														<!-- EXIBI√á√ÉO EM TELAS GRANDES -->															
+														<!-- EXIBI«√O EM TELAS GRANDES -->															
 														<div class="hidden-sm hidden-xs action-buttons">
 																	
-															<!-- BOT√ÉO EDITAR -->													
+															<!-- BOT√O EDITAR -->													
 															<a href="#" role="editar">
 																<span class="green">
 																	<i class="ace-icon fa fa-pencil bigger-130"></i>
 																</span>
 															</a>
 																	
-															<!-- BOT√ÉO EXCLUIR -->
+															<!-- BOT√O EXCLUIR -->
 															<a href="#" role="excluir">
 																<span class="red">
 																	<i class="ace-icon fa fa-trash-o bigger-130"></i>
 																</span>
 															</a>
 															
-															<!-- BOT√ÉO SALVAR -->													
+															<!-- BOT√O SALVAR -->													
 															<a href="#" role="salvar" class="hidden">
 																<span class="blue">
 																	<i class="ace-icon fa fa-save bigger-130"></i>
 																</span>
 															</a>
 															
-															<!-- BOT√ÉO EXCLUIR -->
+															<!-- BOT√O EXCLUIR -->
 															<a href="#" role="cancelar" class="hidden">
 																<span class="red">
 																	<i class="ace-icon fa fa-close bigger-130"></i>
@@ -404,18 +404,18 @@
 																	
 															</div>
 	
-															<!-- EXIBI√á√ÉO EM TELAS PEQUENAS -->
+															<!-- EXIBI«√O EM TELAS PEQUENAS -->
 															<div class="hidden-md hidden-lg action-buttons">
 																<div class="inline pos-rel">
 																	
-																<!-- BOT√ÉO DROPDOWN-TOGGLE AMARELO -->
+																<!-- BOT√O DROPDOWN-TOGGLE AMARELO -->
 																<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto">
 																	<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
 																</button>																	
 																		
 																<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">																	
 																	
-																	<!-- BOT√ÉO EDITAR -->
+																	<!-- BOT√O EDITAR -->
 																	<li>
 																		<a href="#" class="tooltip-success" data-rel="tooltip" title="Editar" role="editar">
 																			<span class="green">
@@ -424,7 +424,7 @@
 																		</a>
 																	</li>
 																			
-																	<!-- BOT√ÉO EXCLUIR -->
+																	<!-- BOT√O EXCLUIR -->
 																	<li>
 																		<a href="#" class="tooltip-error" data-rel="tooltip" title="Excluir" role="excluir">
 																			<span class="red">
@@ -433,7 +433,7 @@
 																		</a>
 																	</li>
 																			
-																	<!-- BOT√ÉO SALVAR -->
+																	<!-- BOT√O SALVAR -->
 																	<li>																																
 																		<a href="#" class="tooltip-success hidden" data-rel="tooltip" title="Salvar" role="salvar">
 																			<span class="blue">
@@ -442,7 +442,7 @@
 																		</a>
 																	</li>
 																			
-																	<!-- BOT√ÉO CANCELAR -->
+																	<!-- BOT√O CANCELAR -->
 																	<li>
 																		<a href="#" class="tooltip-error hidden" data-rel="tooltip" title="Cancelar" role="cancelar">
 																			<span class="red">
@@ -454,7 +454,7 @@
 															</div>
 														</div>															
 													</td>
-													<!-- COLUNA DE A√á√ïES -->
+													<!-- COLUNA DE A«’ES -->
 				                                </tr>			                                
 				                            </tbody>
 				                       	</table>
@@ -462,7 +462,7 @@
 			                    </div>
 			                    <!-- FIM -- PEDIDOS -->
 			                    
-			                    <!-- MODAL FORMUL√ÅRIO PARA CADASTRAR -->
+			                    <!-- MODAL FORMUL¡RIO PARA CADASTRAR -->
 							<div id="modal-form-pedido" class="modal fade" tabindex="-1" rel="modalcadastrar">
 								<div class="modal-dialog">
 									<div class="modal-content">
@@ -488,7 +488,7 @@
 											<div class="tableTools-container">
 												<div class="btn-group btn-over-lap">
 														
-													<!-- BOT√ÉO ADD ITEM -->
+													<!-- BOT√O ADD ITEM -->
 													<a href="#" class="btn btn-primary btn-xs" role="additem">
 														<i class="ace-icon fa fa-plus bigger-120"></i>&nbsp;<b>Item</b>
 													</a>
@@ -501,7 +501,7 @@
 														<th>Material</th>
 														<th>Peso</th>
 														<th>Valor</th>
-														<th>A√ß√£o</th>
+														<th>AÁ„o</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -509,7 +509,7 @@
 														<td>
 															<div class="form-group">																
 																<div>
-																	<input type="text" id="material" name="material" value="Pl√°stico" />
+																	<input type="text" id="material" name="material" value="Pl·stico" />
 																</div>
 															</div>
 														</td>
@@ -531,10 +531,10 @@
 															<div class="form-group">																
 																<div class="text-center acao">
 																
-																	<!-- EXIBI√á√ÉO EM TELAS GRANDES -->															
+																	<!-- EXIBI«√O EM TELAS GRANDES -->															
 																	<div class="action-buttons">
 																			
-																		<!-- BOT√ÉO REMOVER ITEM -->
+																		<!-- BOT√O REMOVER ITEM -->
 																		<a href="#" role="remover">
 																			<span class="red">
 																				<i class="ace-icon fa fa-times bigger-160"></i>
@@ -550,7 +550,7 @@
 														<td>
 															<div class="form-group">																
 																<div>
-																	<input type="text" id="material" name="material" value="Pl√°stico" />
+																	<input type="text" id="material" name="material" value="Pl·stico" />
 																</div>
 															</div>
 														</td>
@@ -572,10 +572,10 @@
 															<div class="form-group">																
 																<div class="text-center acao">
 																
-																	<!-- EXIBI√á√ÉO EM TELAS GRANDES -->															
+																	<!-- EXIBI«√O EM TELAS GRANDES -->															
 																	<div class="action-buttons">
 																			
-																		<!-- BOT√ÉO REMOVER ITEM -->
+																		<!-- BOT√O REMOVER ITEM -->
 																		<a href="#" role="remover">
 																			<span class="red">
 																				<i class="ace-icon fa fa-times bigger-160"></i>
@@ -601,9 +601,9 @@
 									</div>									
 								</div>
 							</div>
-							<!-- FIM -- MODAL FORMUL√ÅRIO PARA CADASTRAR -->
+							<!-- FIM -- MODAL FORMUL¡RIO PARA CADASTRAR -->
 							
-							<!-- MODAL FORMUL√ÅRIO PARA EXCLUIR -->
+							<!-- MODAL FORMUL¡RIO PARA EXCLUIR -->
 							<div id="modal-form" class="modal fade" tabindex="-1" rel="modalexcluir">
 								<div class="modal-dialog">
 									<div class="modal-content">
@@ -628,9 +628,9 @@
 											</div>													
 											<div class="space-4"></div>
 											<div class="form-group">
-												<label for="nomeusuario">Usu√°rio</label>
+												<label for="nomeusuario">Usu·rio</label>
 												<div>
-													<input type="text" id="nomeusuarioExcluir" name="nomeusuario" placeholder="Informe o nome de usu√°rio..." size="35" />
+													<input type="text" id="nomeusuarioExcluir" name="nomeusuario" placeholder="Informe o nome de usu·rio..." size="35" />
 												</div>
 											</div>																							
 										</div>
@@ -646,44 +646,44 @@
 									</div>									
 								</div>
 							</div>
-							<!-- FIM -- MODAL FORMUL√ÅRIO PARA EXCLUIR -->
+							<!-- FIM -- MODAL FORMUL¡RIO PARA EXCLUIR -->
 			                    
 			                </div>
 			        	</div>
 	                </div>
-	                <!-- FIM -- TABELA DE PRE√áOS -->
+	                <!-- FIM -- TABELA DE PRE«OS -->
 				</div>
-				<!-- FIM -- CONTE√öDO DA P√ÅGINA -->
+				<!-- FIM -- CONTE⁄DO DA P¡GINA -->
 			</div>
 		</div>
-		<!-- FIM -- CONTE√öDO PRINCIPAL DA P√ÅGINA -->
+		<!-- FIM -- CONTE⁄DO PRINCIPAL DA P¡GINA -->
 		
 		
-		<!--======================= DIVISA DOS BLOCOS DO CONTE√öDO PRINCIPAL E RODAP√â =======================-->
+		<!--======================= DIVISA DOS BLOCOS DO CONTE⁄DO PRINCIPAL E RODAP… =======================-->
 		
 		
-		<!-- RODAP√â DA P√ÅGINA -->
+		<!-- RODAP… DA P¡GINA -->
 		<div class="footer">
 			<div class="footer-inner">
 			
-				<!-- CONTE√öDO DO RODAP√â -->
+				<!-- CONTE⁄DO DO RODAP… -->
 				<div class="footer-content">
 				
 					<!-- MARCA REGISTRADA - COPYRIGHT -->
 					<span class="bigger-120">
-						<span class="green bolder">Gerencia F√°cil</span> &reg; 2014-2016
+						<span class="green bolder">Gerencia F·cil</span> &reg; 2014-2016
 					</span>
 				</div>
 			</div>
 		</div>
-		<!-- FIM -- RODAP√â DA P√ÅGINA -->		
+		<!-- FIM -- RODAP… DA P¡GINA -->		
 		
-		<!-- √çCONE NO CANTO DIREITO INFERIOR DA TELA AO DESCER - ELE APARECE QUANDO DESCE - FAZ VOLTAR PARA O TOPO -->
+		<!-- ÕCONE NO CANTO DIREITO INFERIOR DA TELA AO DESCER - ELE APARECE QUANDO DESCE - FAZ VOLTAR PARA O TOPO -->
 		<a href="#" id="btn-scroll-up" class="btn btn-sm btn-scroll-up btn-inverse">
 			<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
 		</a>	
 	</div>
-	<!-- FIM -- CONTE√öDO DA P√ÅGINA -- INCLUI MENU LATERAL E CONTE√öDO PRINCIPAL-->
+	<!-- FIM -- CONTE⁄DO DA P¡GINA -- INCLUI MENU LATERAL E CONTE⁄DO PRINCIPAL-->
 	
 	
 	<!--=======================================   SCRIPTS   ================================================-->
@@ -710,7 +710,7 @@
 	</script>
 	<![endif]-->
 	
-	<!-- ONTOUCH MOBILE - N√ÉO TESTADO -->
+	<!-- ONTOUCH MOBILE - N√O TESTADO -->
 	<script type="text/javascript">
 		if('ontouchstart' in document.documentElement) document.write("<script src='resources/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 	</script>
@@ -718,14 +718,14 @@
     <!-- BOOTSTRAP SCRIPTS -->
     <script src="resources/js/bootstrap.min.js"></script>
     
-    <!-- ACE CONFIGURA√á√ïES DESTA P√ÅGINA -->
+    <!-- ACE CONFIGURA«’ES DESTA P¡GINA -->
 	<script src="resources/js/ace-elements.min.js"></script>
 	<script src="resources/js/ace.min.js"></script>	
     
-    <!-- REL√ìGIO -->
+    <!-- REL”GIO -->
     <script src="resources/js/relogio.js"></script>
     
-    <!-- AJAX - SUBMIT FORMS - RECARREGA A P√ÅGINA QUANDO O MODAL √â FECHADO -->
+    <!-- AJAX - SUBMIT FORMS - RECARREGA A P¡GINA QUANDO O MODAL … FECHADO -->
     <script src="resources/js/ajaxpedidovenda.js"></script>
     
     <!-- EDITAR EXCLUIR -->

@@ -83,5 +83,5 @@ public class ItemPedidoDAO implements GenericoDAO<ItemPedido> {
 			conexao.close();
 		}		
 		return itensPedidos;
-	}
+	}	
 }

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.mdjpapeis.dao.CaixaDAO;
 import br.com.mdjpapeis.entity.Caixa;
+import br.com.mdjpapeis.entity.Fornecedor.Tipo;
 import br.com.mdjpapeis.entity.Movimentacao;
 
 @WebServlet(urlPatterns = {"/listarCaixa", "/pesquisarCaixa", "/cadastrarCaixa", "/atualizarCaixa", "/excluirCaixa"})
@@ -156,12 +157,21 @@ public class RegraCaixa extends HttpServlet {
 						+ "\"valorLancamento\":\"" + m.getValorLancamento() + "\""											
 						+ "}";
 				}else{
-					jsonMovs += "{\"nLancamento\":\"" + m.getnLancamento() + "\","
-						+ "\"data\":\"" + new SimpleDateFormat("dd/MM/yyyy").format(m.getData().getTime()) + "\","
-						+ "\"tipoLancamento\":\"" + m.getTipoLancamento().toString() + "\","
-						+ "\"descricao\":\"" + "Pedido Compra No. " + m.getPedidoCompra().getnPedido() + " do Fornecedor " + m.getPedidoCompra().getFornecedor().getEmpresa() + "\","
-						+ "\"valorLancamento\":\"" + m.getValorLancamento() + "\""											
-						+ "}";
+					if(m.getPedidoCompra().getFornecedor().getTipo().equals(Tipo.CATADOR)){
+						jsonMovs += "{\"nLancamento\":\"" + m.getnLancamento() + "\","
+							+ "\"data\":\"" + new SimpleDateFormat("dd/MM/yyyy").format(m.getData().getTime()) + "\","
+							+ "\"tipoLancamento\":\"" + m.getTipoLancamento().toString() + "\","
+							+ "\"descricao\":\"" + "Pedido Compra No. " + m.getPedidoCompra().getnPedido() + " do Catador: " + m.getPedidoCompra().getFornecedor().getContato() + "\","
+							+ "\"valorLancamento\":\"" + m.getValorLancamento() + "\""											
+							+ "}";
+					}else{
+						jsonMovs += "{\"nLancamento\":\"" + m.getnLancamento() + "\","
+								+ "\"data\":\"" + new SimpleDateFormat("dd/MM/yyyy").format(m.getData().getTime()) + "\","
+								+ "\"tipoLancamento\":\"" + m.getTipoLancamento().toString() + "\","
+								+ "\"descricao\":\"" + "Pedido Compra No. " + m.getPedidoCompra().getnPedido() + " do Fornecedor " + m.getPedidoCompra().getFornecedor().getEmpresa() + "\","
+								+ "\"valorLancamento\":\"" + m.getValorLancamento() + "\""											
+								+ "}";
+					}
 				}				
 				controle = 2;
 				
@@ -178,12 +188,21 @@ public class RegraCaixa extends HttpServlet {
 						+ "\"valorLancamento\":\"" + m.getValorLancamento() + "\""											
 						+ "}";
 				}else{
-					jsonMovs += "," + "{\"nLancamento\":\"" + m.getnLancamento() + "\","
+					if(m.getPedidoCompra().getFornecedor().getTipo().equals(Tipo.CATADOR)){
+						jsonMovs += "," + "{\"nLancamento\":\"" + m.getnLancamento() + "\","
 						+ "\"data\":\"" + new SimpleDateFormat("dd/MM/yyyy").format(m.getData().getTime()) + "\","
 						+ "\"tipoLancamento\":\"" + m.getTipoLancamento().toString() + "\","
-						+ "\"descricao\":\"" + "Pedido Compra No. " + m.getPedidoCompra().getnPedido() + " do Fornecedor " + m.getPedidoCompra().getFornecedor().getEmpresa() + "\","
+						+ "\"descricao\":\"" + "Pedido Compra No. " + m.getPedidoCompra().getnPedido() + " do Catador: " + m.getPedidoCompra().getFornecedor().getContato() + "\","
 						+ "\"valorLancamento\":\"" + m.getValorLancamento() + "\""											
 						+ "}";
+					}else{
+						jsonMovs += "," + "{\"nLancamento\":\"" + m.getnLancamento() + "\","
+								+ "\"data\":\"" + new SimpleDateFormat("dd/MM/yyyy").format(m.getData().getTime()) + "\","
+								+ "\"tipoLancamento\":\"" + m.getTipoLancamento().toString() + "\","
+								+ "\"descricao\":\"" + "Pedido Compra No. " + m.getPedidoCompra().getnPedido() + " do Fornecedor " + m.getPedidoCompra().getFornecedor().getEmpresa() + "\","
+								+ "\"valorLancamento\":\"" + m.getValorLancamento() + "\""											
+								+ "}";
+					}
 				}
 			}
 		}

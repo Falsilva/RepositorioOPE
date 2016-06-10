@@ -145,4 +145,34 @@ public class MovimentacaoDAO implements GenericoDAO<Movimentacao> {
 		}
 		return movimentacoes;
 	}
+
+	public Movimentacao buscaPorPedidoCompra(PedidoCompra pedidoCompra) {
+		Movimentacao movimentacao = null;
+		List<Movimentacao> movimentacoes = new ArrayList();
+		EntityManagerFactory conexao = Persistence.createEntityManagerFactory("MDJPapeisPU");
+		try{
+			// Query JPQL (Trabalha com Classes e Objetos Java)
+			String queryJPQL =	"SELECT M FROM Movimentacao M WHERE M.pedidoCompra = :pedidoCompra";		
+			EntityManager entityManager = conexao.createEntityManager();
+			
+			System.out.println("MovimentacaoDAO - buscaPorPedidoCompra - CHEGOU ATE AQUI!");
+			
+			Query query = entityManager.createQuery(queryJPQL);
+			query.setParameter("pedidoCompra", pedidoCompra);
+			movimentacoes = (List<Movimentacao>)query.getResultList();		
+			
+			
+			if(movimentacoes.size() == 1){
+				System.out.println("ACHOU MOVIMENTACAO POR PEDIDO");
+				movimentacao = movimentacoes.get(0);
+			}
+			entityManager.close();			
+		}catch(PersistenceException ex){
+			movimentacao = null;
+			ex.printStackTrace();
+		}finally{
+			conexao.close();
+		}
+		return movimentacao;
+	}
 }

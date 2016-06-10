@@ -1,14 +1,7 @@
 $(document).ready(function(){
 	
-	// VARIÁVEIS GLOBAIS - necessárias para o armazenamento temporário dos dados originais da edição de registros da tabela de usuários
-	var nome_usuario_tmp;
-	var nome_tmp;
-	var email_tmp;
-	var perfil_tmp;
-	
 	// PARA CARREGAMENTO DA LISTA DE FORNECEDORES
-	var divInputFornecedor = "";
-	//var listaFornecedores = "";
+	var divInputFornecedor = "";	
 	
 	// MODAL PARA CADASTRAR - CLIQUE DO BOTÃO CADASTRAR EXIBE O MODAL
 	$("a[role=cadastrar]").click(function(event){
@@ -158,6 +151,7 @@ $(document).ready(function(){
 	$("#btnGerarPedido").prop("disabled", true);
 	
 	divInputFornecedor = $("#fornecedor").closest("div");
+	
 	var resultadoFornecedores = [];
 	var resultadoCodFornecedores = [];
 	$.ajax({
@@ -306,15 +300,11 @@ $(document).ready(function(){
 	$("a[role=additem").click(function(e){
 		e.preventDefault();
 		
-		i++;
+		i++;		
 		
-		console.log("ITEM " + i + " ADICIONADO");
-		
-		if(codFornecedor != "" && i == ids.length){	
-			console.log("\tFORNECEDOR PREENCHIDO E\n\ti...........: " + i + " É IGUAL A\n\tids.length..: " + ids.length + "\n\tVALOR do ids: " + ids[i]);
+		if(codFornecedor != "" && i == ids.length){
 			$("#btnGerarPedido").prop("disabled", false);
 		}else{
-			console.log("\tFORNECEDOR NAO PREENCHIDO OU\n\ti...........: " + i + " É DIFERENTE de\n\tids.length..: " + ids.length + "\n\tVALOR do ids: " + ids[i]);
 			$("#btnGerarPedido").prop("disabled", true);
 		}		
 		
@@ -325,27 +315,14 @@ $(document).ready(function(){
 		$("a[id='removerItem" + i + "']").click(function(e){
 			e.preventDefault();			
 			
-			var linhaRemovida = $(this).closest(".form-inline");
-			console.log("ITEM " + linhaRemovida.attr("id") + " A SER REMOVIDO\n\ti...........: " + i + "\n\tVALOR do ids: " + ids[i-1]);
+			var linhaRemovida = $(this).closest(".form-inline");			
 			var id = linhaRemovida.attr("id");
-									
-			console.log("\tREMOVENDO O COD. PROD e o ID:");			
-			$.each(ajaxCodProduto, function(index, value){				
-				//console.log("\tINDEX: " + index + " COD. PRODUTO: " + value + " ID: " + id);
-				if((id - 1) == index){				
-					console.log("\t\tVALOR do ids VALOR.....: " + ids[index] + " - REMOVIDO");
-					console.log("\t\tVALOR do ajaxCodProduto: " + value + " - REMOVIDO");
+					
+			$.each(ajaxCodProduto, function(index, value){
+				if((id - 1) == index){
 					ajaxCodProduto.splice(index, 1);
 					ids.splice(index, 1);					
 				}
-			});
-			
-			console.log("\tVERIFICANDO A REMOÇÃO, IDS E CODs. PRODs. ATUAIS:");			
-			$.each(ids, function(index, value){				
-				console.log("\t\tINDEX: " + index + " IDS: " + value);				
-			});
-			$.each(ajaxCodProduto, function(index, value){				
-				console.log("\t\tINDEX: " + index + " COD. PRODUTO: " + value);				
 			});			
 			
 			// REMOVE A DIV DE ESPAÇAMENTO ENTRE LINHAS
@@ -354,8 +331,7 @@ $(document).ready(function(){
 			// REMOVE A DIV LINHA DE FATO
 			linhaRemovida.remove();	
 			
-			// RENOMEANDO OS IDs
-			console.log("\tRENOMEANDO OS IDs:")
+			// RENOMEANDO OS IDs			
 			var lista = $("#itemNovo").find(".form-inline");
 			$.each(lista, function(index, value){
 				
@@ -421,11 +397,10 @@ $(document).ready(function(){
 			
 			// VERIFICANDO SE HÁ ALGUM CAMPO DE MATERIAL VAZIO			
 			var campoVazio = false;
-			var linhasItens = $("itemNovo").find(".form-inline");
+			var linhasItens = $("#itemNovo").find(".form-inline");
 			$.each(linhasItens, function(index, value){
 				if($("#material" + (index + 1)).val() == ""){
 					campoVazio = true;
-					console.log("\tCAMPO MATERIAL VAZIO - LINHA: " + (index + 1));
 				}
 			});
 			
@@ -433,26 +408,13 @@ $(document).ready(function(){
 			
 			if(i == 0){
 				$("#btnGerarPedido").prop("disabled", true);
-				console.log("\tNÃO HÁ LINHAS - BOTÃO DESABILITADO");
 			}else{
 				if(codFornecedor != "" && i == ids.length && campoVazio == false){
-					console.log("\tFORNECEDOR PREENCHIDO E\n\t\ti.........: " + i + " É IGUAL A\n\t\tids.length: " + ids.length + " E\n\t\ttodos os campos de materiais preenchidos");
 					$("#btnGerarPedido").prop("disabled", false);
 				}else{
-					console.log("\tFORNECEDOR NAO PREENCHIDO OU\n\t\ti.........: " + i + " É DIFERENTE de\n\t\tids.length: " + ids.length + "OU\n\t\t há algum campo de material vazio");
 					$("#btnGerarPedido").prop("disabled", true);
 				}
-			}
-			
-			console.log("\tÚLTIMA CONFERÊNCIA, IDS E CODs. PRODs. ATUAIS:");			
-			$.each(ids, function(index, value){				
-				console.log("\t\tINDEX: " + index + " IDS: " + value);				
-			});
-			$.each(ajaxCodProduto, function(index, value){				
-				console.log("\t\tINDEX: " + index + " COD. PRODUTO: " + value);				
-			});
-			
-			console.log("\tFIM DA REMOÇÃO:\n\t\ti......................: " + i + "\n\t\tids.length...........: " + ids.length + "\n\t\tVALOR do ids...........: " + ids[i-1] + "\n\t\tVALOR do ajaxCodProduto: " + ajaxCodProduto[i-1]);
+			}			
 		});		
 		
 		// COMPLETA O CAMPO DO PRODUTO NO MODAL CADASTRAR PEDIDO	
@@ -465,44 +427,14 @@ $(document).ready(function(){
 		$("#material" + i).focus(function(){
 			console.log("\tMATERIAL GANHOU FOCO:\n\t\ti......................: " + i + "\n\t\tids.length.............: " + ids.length + "\n\t\tVALOR do ids...........: " + ids[i-1] + "\n\t\tVALOR do ajaxCodProduto: " + ajaxCodProduto[i-1]);
 			
-			guardaMaterial = $(this).val();
-			console.log("guardaMaterial: " + guardaMaterial);
-			
-			console.log("\t\tFOCO INICIO:");			
-			$.each(ids, function(index, value){				
-				console.log("\t\t\tINDEX: " + index + " IDS: " + value);				
-			});
-			$.each(ajaxCodProduto, function(index, value){				
-				console.log("\t\t\tINDEX: " + index + " COD. PRODUTO: " + value + " - VALOR DO CAMPO: " + $("#material" + ids[index]).val());				
-			});
-			
+			guardaMaterial = $(this).val();			
 			ajaxCodProduto.splice((i - 1), 1);
-			ids.splice((i - 1), 1);
-			
-			console.log("\t\tFOCO FIM:");			
-			$.each(ids, function(index, value){				
-				console.log("\t\t\tINDEX: " + index + " IDS: " + value);				
-			});
-			$.each(ajaxCodProduto, function(index, value){				
-				console.log("\t\t\tINDEX: " + index + " COD. PRODUTO: " + value + " - VALOR DO CAMPO: " + $("#material" + ids[index]).val());				
-			});
-			
-			console.log("\t\tREMOVEU UM índice do ajaxCodProduto E UM ids:\n\t\t\ti......................: " + i + "\n\t\t\tids.length.............: " + ids.length + "\n\t\t\tVALOR do ids...........: " + ids[i-1] + "\n\t\t\tVALOR do ajaxCodProduto: " + ajaxCodProduto[i-1]);
+			ids.splice((i - 1), 1);			
 		});
 		
 		// QUANDO O CAMPO PRODUTO PERDE O FOCO, COMPLETA OS CAMPOS PESO E VALOR DO PRODUTO NO MODAL CADASTRAR PEDIDO
 		$("#material" + i).blur(function(){
-			console.log("\tMATERIAL PERDEU FOCO:");
-			if($(this) == ""){
-				console.log("Houve alteração")
-			}
-			console.log("\t\tVERIFICANDO IDS E CODs. PRODs. ATUAIS:");			
-			$.each(ids, function(index, value){				
-				console.log("\t\t\tINDEX: " + index + " IDS: " + value);				
-			});
-			$.each(ajaxCodProduto, function(index, value){				
-				console.log("\t\t\tINDEX: " + index + " COD. PRODUTO: " + value + " - VALOR DO CAMPO: " + $("#material" + ids[index]).val());				
-			});
+			console.log("\tMATERIAL PERDEU FOCO:");			
 			
 			var prod = $(this);
 			var encontrado = false;
@@ -530,9 +462,8 @@ $(document).ready(function(){
 							console.log("\t\tajaxCodProd >>> INDEX: " + ind + " VALUE: " + val);
 						});
 						
-						encontrado = true;
+						encontrado = true;						
 						
-						console.log("\t\tLINHA " + id + "\n\t\t\ti......................: " + i + "\n\t\t\tids.length.............: " + ids.length + "\n\t\t\tVALOR do ids...........: " + ids[i-1] + "\n\t\t\tVALOR do ajaxCodProduto: " + ajaxCodProduto[i-1] + " - " + value);
 						if(codFornecedor != "" && i == ids.length){							
 							$("#btnGerarPedido").prop("disabled", false);
 						}else{							
@@ -552,19 +483,10 @@ $(document).ready(function(){
 							
 							// MONTANDO O ARRAY DE DADOS PARA ENVIO DO AJAX - CÓD. PRODUTO						
 							ajaxCodProduto.push(resultadoCodProdutos[index]);
-							ids.push(id);
+							ids.push(id);						
 							
+							encontrado = true;							
 							
-							$.each(ids, function(ind, val){
-								console.log("\t\tids         >>> INDEX: " + ind + " VALUE: " + val);
-							});
-							$.each(ajaxCodProduto, function(ind, val){
-								console.log("\t\tajaxCodProd >>> INDEX: " + ind + " VALUE: " + val);
-							});
-							
-							encontrado = true;
-							
-							console.log("\t\tLINHA " + id + "\n\t\t\ti......................: " + i + "\n\t\t\tids.length.............: " + ids.length + "\n\t\t\tVALOR do ids...........: " + ids[i-1] + "\n\t\t\tVALOR do ajaxCodProduto: " + ajaxCodProduto[i-1] + " - " + value);
 							if(codFornecedor != "" && i == ids.length){								
 								$("#btnGerarPedido").prop("disabled", false);
 							}else{								
@@ -597,9 +519,8 @@ $(document).ready(function(){
 							console.log("\t\tajaxCodProd >>> INDEX: " + ind + " VALUE: " + val);
 						});
 							
-						encontrado = true;
-							
-						console.log("\t\tLINHA " + id + "\n\t\t\ti......................: " + i + "\n\t\t\tids.length.............: " + ids.length + "\n\t\t\tVALOR do ids...........: " + ids[i-1] + "\n\t\t\tVALOR do ajaxCodProduto: " + ajaxCodProduto[i-1] + " - " + value);
+						encontrado = true;							
+						
 						if(codFornecedor != "" && i == ids.length){							
 							$("#btnGerarPedido").prop("disabled", false);
 						}else{							
@@ -610,6 +531,9 @@ $(document).ready(function(){
 				guardaMaterial="";
 			}			
 		});
+		
+		$("#peso" + i).mask("000000,000", {reverse: true});
+		$("#valor" + i).mask("00000000,00", {reverse: true});
 		
 		$("#peso" + i).blur(function(){
 			console.log("Campo peso perdeu o foco");
@@ -648,8 +572,7 @@ $(document).ready(function(){
 	var ajaxFornecedor = "";
 	var ajaxCodProduto = [];
 	var ajaxPesos = [];
-	var ajaxPrecos = [];
-	var inputMaterial = [];	
+	var ajaxPrecos = [];		
 		
 	// CADASTRA O PEDIDO
 	$("#btnGerarPedido").click(function(){
@@ -707,16 +630,12 @@ $(document).ready(function(){
 				
 				// CONVERTENDO OS ARRAYS EM JSON PARA ENVIO POR AJAX 
 				$.each(ajaxCodProduto, function(index, value){
-					if(index == 0){
-						//jsonItens = "{\"produto\":\"" + value + "\",\"peso\":\"" + ajaxPesos[index] + "\",\"valorItem\":\"" + ajaxPrecos[index] + "\"}";
-						//jsonProduto = "[{\"codigo\":" + value + ",\"produto\":\"\",\"precoCompra\":0,\"precoVenda\":0}]";
+					if(index == 0){						
 						jsonItens = "{\"peso\":\"" + ajaxPesos[index] + "\"," +
 									"\"valorItem\":\"" + ajaxPrecos[index] + "\"," +
 									"\"produto\":" +
 										"{\"codigo\":\"" + value + "\"}}";											
-					}else{
-						//jsonItens += ", " + "{\"produto\":\"" + value + "\",\"peso\":\"" + ajaxPesos[index] + "\",\"valorItem\":\"" + ajaxPrecos[index] + "\"}";
-						//jsonProduto = "[{\"codigo\":" + value + ",\"produto\":\"\",\"precoCompra\":0,\"precoVenda\":0}]";
+					}else{						
 						jsonItens += "," + "{\"peso\":\"" + ajaxPesos[index] + "\"," +
 											"\"valorItem\":\"" + ajaxPrecos[index] + "\"," +
 											"\"produto\":" +
@@ -759,38 +678,566 @@ $(document).ready(function(){
 			}
 		}
 	});
+		
 	
 	
 	
-	/*
-	$("#dataPagamentoEditar").datepicker({
-		format: 'dd/mm/yyyy',                
-	    language: 'pt-BR',
-		autoclose: true,
-		todayHighlight: true
-	}).next().on(ace.click_event, function(){
-		$(this).prev().focus();
-	});
 	
+	//---------------------------------------- ATUALIZANDO ------------------------------------------------------------------------------------------	
+	var noPedidoEditar_tmp = "";
+	var dataPedidoAberturaEditar_tmp = "";
+	var dataPedidoPagtoEditar_tmp = "";
+	var fornecedorEditar_tmp = "";
+	var codFornecedorEditar_tmp = "";
+	var valorEditar_tmp = "";
+	var statusEditar_tmp = "";
+	var itensMaterialPC_tmp = [];
+	var itensPesoPC_tmp = [];
+	var itensValorItemPC_tmp = [];
+		
+	var j = 0;
 	
-	$("#dataTeste").datepicker({
-		dateFormat: 'dd/mm/yy',
-	    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
-	    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
-	    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
-	    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
-	    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
-	    nextText: 'Próximo',
-	    prevText: 'Anterior',
-		inline: true
-	});
-	*/
+	// FUNÇÃO PARA FORMATAR O PESO E OS VALORES PARA EXIBIÇÃO
+	function formataNumeroParaExibicao(number, decimals, dec_point, thousands_sep) {
+		var n = number, c = isNaN(decimals = Math.abs(decimals)) ? 2 : decimals;
+		var d = dec_point == undefined ? "," : dec_point;
+		var t = thousands_sep == undefined ? "." : thousands_sep, s = n < 0 ? "-" : "";
+		var i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", j = (j = i.length) > 3 ? j % 3 : 0;
+		return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+	}
 	
+	// FUNÇÃO PARA FORMATAR O PESO E OS VALORES PARA ENVIO DE DADOS OU CONVERSÃO PARA CÁLCULOS
+	function formataNumeroParaEnvio(number) {
+		var numberFormatado = number.replace(".", "");
+		return parseFloat(numberFormatado.replace(",", "."));			
+	}
 	
+	// FUNCAO PARA MONTAR UMA LINHA DE ITEM
+	var insereLinhaEditar = function(j){	
+		
+		var listaParaInserir = $("#itensEditar").find(".form-inline");		
+		j = listaParaInserir.length + 1;		
+		
+		$("#itensEditar")
+			.append("<div class='form-inline' id=" + j + ">" +	
+						"<div class='form-group'>" +
+							"<label for='itemEditar" + j + "'>Item</label>" +
+							"<div>" +
+								"<input type='text' id='itemEditar" + j + "' name='itemEditar" + j + "' value='" + j + "' size='1' class='text-center' readonly />" +
+							"</div>" +
+						"</div>&nbsp;" +
+						"<div class='form-group hidden'>" +
+							"<label for='codProdutoEditar" + j + "'>Cód. Produto</label>" +
+							"<div>" +
+								"<input type='text' id='codProdutoEditar" + j + "' name='codProdutoEditar" + j + "' size='3' class='text-center' />" +
+							"</div>" +
+						"</div>&nbsp;" +
+						"<div class='form-group'>" +
+							"<label for='materialEditar" + j + "'>Material</label>" +
+							"<div>" +
+								"<input type='text' id='materialEditar" + j + "' name='materialEditar" + j + "' size='36' />" +
+							"</div>" +
+						"</div>&nbsp;" +
+						"<div class='form-group'>" +
+							"<label for='pesoEditar" + j + "'>Peso (Kg)</label>" +
+							"<div>" +
+								"<input type='text' id='pesoEditar" + j + "' class='text-right' name='pesoEditar" + j + "' size='9' maxlength='9' />" +
+							"</div>" +
+						"</div>&nbsp;" +
+						"<div class='form-group'>" +
+							"<label for='valorItemEditar" + j + "'>Valor (R$)</label>" +
+							"<div>" +
+								"<input type='text' id='valorItemEditar" + j + "' class='text-right' name='valorItemEditar" + j + "' size='9' maxlength='10' />" +
+							"</div>" +
+						"</div>&nbsp;" +
+						"<div class='form-group'>" +
+							"<label></label>" +
+							"<div class='text-center acao'>" +
+								"<div class='action-buttons'>" +
+									"<a href='#' role='removerItemEditar' id='removerItemEditar" + j + "'>" +
+										"<span class='red'>" +
+											"<i class='ace-icon fa fa-times bigger-160'></i>" +
+										"</span>" +
+									"</a>" +
+								"</div>" +
+							"</div>" +
+						"</div>" +
+					"</div>" +
+					"<div class='space-4'></div>");
+		
+		var valorZeroOuVazio = false;
+		
+		$.each($("#itensEditar").find(".form-inline"), function(index, value){						
+			if($("#valorItemEditar" + (index + 1)).val() == "" || $("#valorItemEditar" + (index + 1)).val() == 0 
+					|| $("#pesoEditar" + (index + 1)).val() == "" || $("#pesoEditar" + (index + 1)).val() == 0
+					|| $("#materialEditar" + (index + 1)).val() == ""){							
+				valorZeroOuVazio = true;
+				$("#btnEditarPedido").prop("disabled", true);
+				console.log("PESO FOCADO - DESATIVADO - MATERIAL, PESO ou VALOR = VAZIO");
+			}
+		});
+		
+		if(valorZeroOuVazio == false){
+			console.log("PESO FOCADO - ATIVADO - PESOS e VALORES OK");
+			$("#btnEditarPedido").prop("disabled", false);
+		}
+		
+		// ADICIONA UM EVENTO DE REMOÇÃO DE ITEM
+		$("a[id='removerItemEditar" + j + "']").click(function(e){
+			e.preventDefault();
+			
+			var linhaRemovida = $(this).closest(".form-inline");			
+			var id = linhaRemovida.attr("id");
+			
+			// REMOVE OS CODS. PRODUTOS E ID PARA O AJAX
+			$.each(ajaxCodProdutoEditar, function(index, value){
+				if((id - 1) == index){
+					ajaxCodProdutoEditar.splice(index, 1);
+					ids.splice(index, 1);					
+				}
+			});
+			/*
+			var valorTotalEditar = parseFloat($("#valorEditar").val());
+			console.log("1.valorTotal(INICIO): " + valorTotalEditar);
+			valorTotalEditar = formataNumeroParaExibicao(valorTotalEditar);
+			
+			if($("#valorEditar").val() != "" && $("#valorEditar").val() != 0){
+				console.log("2.valorTotal(INICIO FORMATADO) DIFERENTE de 0: " + valorTotalEditar);
+				var valorConvertido = formataNumeroParaEnvio($("#valorItemEditar" + id).val());
+				console.log("3.valorConvertido (ITEM): " + valorConvertido);
+				valorTotalEditar = parseFloat(valorTotalEditar) - valorConvertido;
+				console.log("4.valorTotal (SEM FORMATO): " + valorTotalEditar);
+				$("#valorEditar").val(formataNumeroParaExibicao(valorTotalEditar, 2, ",", "."));
+				console.log("5.valorTotal (FORMATADO): " + valorTotalEditar);
+				
+			}*/
+			
+			// REMOVE A DIV DE ESPAÇAMENTO ENTRE LINHAS
+			linhaRemovida.next(".space-4").remove();
+			
+			// REMOVE A DIV LINHA DE FATO
+			linhaRemovida.remove();	
+			
+			// RENOMEANDO OS IDs			
+			var lista = $("#itensEditar").find(".form-inline");
+			$.each(lista, function(index, value){
+				
+				// RENOMEIA O ID DO FORM-INLINE
+				$(this).attr("id", (index+1));
+				var id = $(this).attr("id");				
+				
+				// RENOMEIA OS IDs DOS INPUTS
+				var inputs = $(this).find("input");
+				$.each(inputs, function(ind, val){
+					var codProdutoRenomeado = $(this);
+					var idNovo = "";
+					switch(ind){
+						case 0:
+							idNovo = "itemEditar" + id;
+							$(this).val(id);
+							break;
+						case 1:
+							idNovo = "codProdutoEditar" + id;												
+							break;
+						case 2:
+							idNovo = "materialEditar" + id;
+							break;
+						case 3:
+							idNovo = "pesoEditar" + id;
+							break;
+						case 4:
+							idNovo = "valorItemEditar" + id;
+							break;
+					}					
+					$(this).attr("id", idNovo);					
+				});
+				
+				// RENOMEIA OS IDs DOS LABELS
+				var labels = $(this).attr("label");
+				$.each(labels, function(ind, val){
+					var idNovo = "";
+					switch(ind){
+						case 0:
+							idNovo = "itemEditar" + id;
+							break;
+						case 1:
+							idNovo = "codProdutoEditar" + id;
+							break;
+						case 2:
+							idNovo = "materialEditar" + id;
+							break;
+						case 3:
+							idNovo = "pesoEditar" + id;
+							break;
+						case 4:
+							idNovo = "valorItemEditar" + id;
+							break;
+						default:
+							break;
+					}
+					$(this).attr("id", idNovo);
+				});	
+				
+				// RENOMEIA O ID DO BOTÃO
+				$(this).find("#removerItemEditar" + index).attr("id", id);
+			});
+			
+			// VERIFICANDO SE HÁ ALGUM CAMPO DE MATERIAL VAZIO		
+			var linhasItens = $("#itensEditar").find(".form-inline");
+			
+			j = linhasItens.length;			
+			
+			if(j == 0){
+				$("#valorEditar").val(formataNumeroParaExibicao(0, 2, ",", "."));
+				$("#btnEditarPedido").prop("disabled", true);				
+			}else{
+					$.each($("#itensEditar").find(".form-inline"), function(index, value){						
+						if($("#valorItemEditar" + (index + 1)).val() == "" || $("#valorItemEditar" + (index + 1)).val() == 0
+								|| $("#pesoEditar" + (index + 1)).val() == "" || $("#pesoEditar" + (index + 1)).val() == 0
+								|| $("#materialEditar" + (index + 1)).val() == ""){
+							valorZeroOuVazio = true;
+							$("#btnEditarPedido").prop("disabled", true);
+						}else{
+							$("#valorItemEditar" + (index + 1)).focus();
+							$("#valorItemEditar" + (index + 1)).blur();
+						}
+					});
+					if(valorZeroOuVazio == false){
+						$("#valorItemEditar" + 1).focus();
+						$("#valorItemEditar" + 1).blur();
+						$("#btnEditarPedido").prop("disabled", false);
+					}
+			}			
+		});
+		
+		
+		// COMPLETA O CAMPO DO PRODUTO NO MODAL CADASTRAR PEDIDO	
+		$("#materialEditar" + j).autocomplete({
+			source: resultadoProdutos
+		});
+			
+		// COLOCA O FOCO NO CAMPO MATERIAL
+		$("#materialEditar" + j).focus();
+		
+		// QUANDO O CAMPO PRODUTO GANHA O FOCO, GARANTE DE REMOVER O COD. CASO PREENCHIDO ANTERIORMENTE E A DESABILITAÇÃO DO BOTÃO
+		$("#materialEditar" + j).focus(function(){
+			guardaMaterial = $(this).val();
+			ajaxCodProdutoEditar.splice((j - 1), 1);
+			idsEditar.splice((j - 1), 1);			
+			$.each($("#itensEditar").find(".form-inline"), function(index, value){						
+				if($("#valorItemEditar" + (index + 1)).val() == "" || $("#valorItemEditar" + (index + 1)).val() == 0
+						|| $("#pesoEditar" + (index + 1)).val() == "" || $("#pesoEditar" + (index + 1)).val() == 0
+						|| $("#materialEditar" + (index + 1)).val() == ""){
+					valorZeroOuVazio = true;
+					$("#btnEditarPedido").prop("disabled", true);
+				}
+			});
+			if(valorZeroOuVazio == false){
+				$("#btnEditarPedido").prop("disabled", false);
+			}
+		});
+		
+		// QUANDO O CAMPO PRODUTO PERDE O FOCO, COMPLETA OS CAMPOS PESO E VALOR DO PRODUTO NO MODAL CADASTRAR PEDIDO
+		var guardaMaterial = "";
+		$("#materialEditar" + j).blur(function(){			
+			var prod = $(this);
+			var prodEncontrado = false;
+			var id = prod.closest(".form-inline").attr("id");			
+			if(prod.val() != null && prod.val() != ""){
+				console.log("MATERIAL blur - DIFERENTE DE NULO ou VAZIO");
+				$.each(resultadoProdutos, function(index, value){
+					
+					// ADICIONA OS DADOS NOS INPUTs - CÓD. PRODUTO, PESO, VALOR
+					if(prod.val() == value){
+						console.log("MATERIAL blur - NÃO MUDOU");
+						$("#codProdutoEditar" + id).val(resultadoCodProdutos[index]);
+						if($("#pesoEditar" + id).val() != "" || $("#pesoEditar" + id).val() != 0){															
+							var vlrItem = parseFloat($("#pesoEditar" + id).val()) * parseFloat(resultadoPrecoCompraProdutos[index]);
+							$("#valorItemEditar" + id).val(vlrItem);
+						}else{
+							$("#pesoEditar" + id).val(1);
+							$("#valorItemEditar" + id).val(resultadoPrecoCompraProdutos[index]);
+						}
+						$("#valorItemEditar" + id).val(formataNumeroParaExibicao($("#valorItemEditar" + id).val(), 2, ',', '.'));
+						
+						// MONTANDO O ARRAY DE DADOS PARA ENVIO DO AJAX - CÓD. PRODUTO						
+						ajaxCodProdutoEditar.push(resultadoCodProdutos[index]);
+						idsEditar.push(id);
+						
+						prodEncontrado = true;
+						var valorTotalEditar = parseFloat(0);
+						$.each($("#itensEditar").find(".form-inline"), function(index, value){						
+							if($("#valorItemEditar" + (index + 1)).val() == "" || $("#valorItemEditar" + (index + 1)).val() == 0
+									|| $("#pesoEditar" + (index + 1)).val() == "" || $("#pesoEditar" + (index + 1)).val() == 0
+									|| $("#materialEditar" + (index + 1)).val() == ""){
+								valorZeroOuVazio = true;
+								$("#btnEditarPedido").prop("disabled", true);
+							}else{
+								if($("#valorEditar").val() != "" && $("#valorEditar").val() != 0){
+									var valorConvertido = formataNumeroParaEnvio($("#valorItemEditar" + (index + 1)).val());
+									console.log("VLR. TOTAL ANTES  (valorTotalEditar): " + valorTotalEditar + " >>> vlrItemConvertido: " + valorConvertido);
+									valorTotalEditar = parseFloat(valorTotalEditar) + valorConvertido;
+									$("#valorEditar").val(formataNumeroParaExibicao(valorTotalEditar, 2, ",", "."));
+									console.log("VLR. TOTAL DEPOIS  (valorTotalEditar): " + valorTotalEditar);
+								}
+							}
+						});
+						if(valorZeroOuVazio == false){
+							$("#btnEditarPedido").prop("disabled", false);
+						}
+					}					
+				});
+				if(prodEncontrado == false){
+					console.log("MATERIAL blur - NAO ENCONTRADO");
+					prod.val(guardaMaterial);
+					$.each(resultadoProdutos, function(index, value){
+						if(prod.val() == value){
+							$("#codProdutoEditar" + id).val(resultadoCodProdutos[index]);
+							if($("#pesoEditar" + id).val() != "" || $("#pesoEditar" + id).val() != 0){															
+								var vlrItem = parseFloat($("#pesoEditar" + id).val()) * parseFloat(resultadoPrecoCompraProdutos[index]);
+								$("#valorItemEditar" + id).val(vlrItem);
+							}else{
+								$("#pesoEditar" + id).val(1);
+								$("#valorItemEditar" + id).val(resultadoPrecoCompraProdutos[index]);
+							}
+							$("#valorItemEditar" + id).val(formataNumeroParaExibicao($("#valorItemEditar" + id).val(), 2, ',', '.'));																		
+							
+							// MONTANDO O ARRAY DE DADOS PARA ENVIO DO AJAX - CÓD. PRODUTO						
+							ajaxCodProdutoEditar.push(resultadoCodProdutos[index]);
+							idsEditar.push(id);						
+							
+							prodEncontrado = true;							
+							
+							var valorTotalEditar = parseFloat(0);
+							$.each($("#itensEditar").find(".form-inline"), function(index, value){						
+								if($("#valorItemEditar" + (index + 1)).val() == "" || $("#valorItemEditar" + (index + 1)).val() == 0
+										|| $("#pesoEditar" + (index + 1)).val() == "" || $("#pesoEditar" + (index + 1)).val() == 0
+										|| $("#materialEditar" + (index + 1)).val() == ""){
+									valorZeroOuVazio = true;
+									$("#btnEditarPedido").prop("disabled", true);
+								}else{
+									if($("#valorEditar").val() != "" && $("#valorEditar").val() != 0){
+										console.log("VLR. TOTAL ANTES  (valorTotalEditar): " + valorTotalEditar);
+										var valorConvertido = formataNumeroParaEnvio($("#valorItemEditar" + (index + 1)).val());
+										valorTotalEditar = parseFloat(valorTotalEditar) + valorConvertido;
+										$("#valorEditar").val(formataNumeroParaExibicao(valorTotalEditar, 2, ",", "."));
+										console.log("VLR. TOTAL DEPOIS  (valorTotalEditar): " + valorTotalEditar);
+									}
+								}
+							});
+							if(valorZeroOuVazio == false){
+								$("#btnEditarPedido").prop("disabled", false);
+							}
+						}
+					});
+				}
+				guardaMaterial="";
+			}else{
+				
+				prod.val(guardaMaterial);
+				console.log("MATERIAL blur - NULO ou VAZIO");
+				$.each(resultadoProdutos, function(index, value){
+					if(prod.val() == value){
+						$("#codProdutoEditar" + id).val(resultadoCodProdutos[index]);
+						if($("#pesoEditar" + id).val() != "" || $("#pesoEditar" + id).val() != 0){															
+							var vlrItem = parseFloat($("#pesoEditar" + id).val()) * parseFloat(resultadoPrecoCompraProdutos[index]);
+							$("#valorItemEditar" + id).val(vlrItem);
+						}else{
+							$("#pesoEditar" + id).val(1);
+							$("#valorItemEditar" + id).val(resultadoPrecoCompraProdutos[index]);
+						}
+						$("#valorItemEditar" + id).val(formataNumeroParaExibicao($("#valorItemEditar" + id).val(), 2, ',', '.'));
+						
+						/*var soma = 0;
+						$.each($("#valorItemEditar").val(), function(index, value){
+							soma += value;
+						});						
+						$("#valorEditar").val(soma);
+						*/
+						
+						// MONTANDO O ARRAY DE DADOS PARA ENVIO DO AJAX - CÓD. PRODUTO						
+						ajaxCodProdutoEditar.push(resultadoCodProdutos[index]);
+						idsEditar.push(id);
+						
+						prodEncontrado = true;							
+						
+						var valorTotalEditar = parseFloat(0);
+						$.each($("#itensEditar").find(".form-inline"), function(index, value){						
+							if($("#valorItemEditar" + (index + 1)).val() == "" || $("#valorItemEditar" + (index + 1)).val() == 0
+									|| $("#pesoEditar" + (index + 1)).val() == "" || $("#pesoEditar" + (index + 1)).val() == 0
+									|| $("#materialEditar" + (index + 1)).val() == ""){
+								valorZeroOuVazio = true;
+								$("#btnEditarPedido").prop("disabled", true);
+							}else{
+								if($("#valorEditar").val() != "" && $("#valorEditar").val() != 0){
+									console.log("VLR. TOTAL ANTES  (valorTotalEditar): " + valorTotalEditar);
+									var valorConvertido = formataNumeroParaEnvio($("#valorItemEditar" + (index + 1)).val());
+									valorTotalEditar = parseFloat(valorTotalEditar) + valorConvertido;
+									$("#valorEditar").val(formataNumeroParaExibicao(valorTotalEditar, 2, ",", "."));
+									console.log("VLR. TOTAL DEPOIS  (valorTotalEditar): " + valorTotalEditar);
+								}
+							}
+						});
+						if(valorZeroOuVazio == false){
+							$("#btnEditarPedido").prop("disabled", false);
+						}
+					}
+				});
+				guardaMaterial="";
+			}			
+		});
+		
+		$("#pesoEditar" + j).mask("000000,000", {reverse: true});
+		
+		$("#pesoEditar" + j).focus(function(){
+			valorZeroOuVazio = false;
+			if($(this).val() != "" && $(this).val() != 0){
+					$.each($("#itensEditar").find(".form-inline"), function(index, value){						
+						if($("#valorItemEditar" + (index + 1)).val() == "" || $("#valorItemEditar" + (index + 1)).val() == 0 
+								|| $("#pesoEditar" + (index + 1)).val() == "" || $("#pesoEditar" + (index + 1)).val() == 0
+								|| $("#materialEditar" + (index + 1)).val() == ""){							
+							valorZeroOuVazio = true;
+							$("#btnEditarPedido").prop("disabled", true);
+							console.log("PESO FOCADO - DESATIVADO - MATERIAL, PESO ou VALOR = VAZIO");
+						}
+					});
+					if(valorZeroOuVazio == false){
+						console.log("PESO FOCADO - ATIVADO - PESOS e VALORES OK");
+						$("#btnEditarPedido").prop("disabled", false);
+					}
+			}else{
+				console.log("PESO FOCADO - DESATIVADO - PESO = VAZIO");
+				$("#btnEditarPedido").prop("disabled", true);
+			}
+		});
+		
+		
+		$("#pesoEditar" + j).blur(function(){
+			valorZeroOuVazio = false;
+			var id = $(this).closest(".form-inline").attr("id");
+			
+			var vlrPeso = $(this).val().replace('.','.').replace(',','.');
+			var vlrValor = "";			
+			if(vlrPeso != "" && vlrPeso != 0){
+				console.log("PESO blur");
+				$.each(resultadoCodProdutos, function(index, value){
+					if(value == $("#codProdutoEditar" + id).val()){
+						vlrValor = resultadoPrecoCompraProdutos[index];					
+					}
+				});			
+				var vlrTotal = parseFloat(vlrPeso) * parseFloat(vlrValor);				
+				$("#valorItemEditar" + id).val(formataNumeroParaExibicao(vlrTotal, 2, ',', '.'));
+				$(this).val(vlrPeso.replace('.',','));
+				
+				var valorTotalEditar = parseFloat(0);
+						$.each($("#itensEditar").find(".form-inline"), function(index, value){						
+							if($("#valorItemEditar" + (index + 1)).val() == "" || $("#valorItemEditar" + (index + 1)).val() == 0 
+									|| $("#pesoEditar" + (index + 1)).val() == "" || $("#pesoEditar" + (index + 1)).val() == 0
+									|| $("#materialEditar" + (index + 1)).val() == ""){
+								valorZeroOuVazio = true;
+								$("#btnEditarPedido").prop("disabled", true);
+								console.log("PESO DESFOCADO - DESATIVADO - MATERIAL, PESO ou VALOR = VAZIO");
+							}else{
+								if($("#valorItemEditar" + (index + 1)).val() != ""){
+									if($("#valorEditar").val() != "" && $("#valorEditar").val() != 0){
+										console.log("VLR. TOTAL ANTES  (valorTotalEditar): " + valorTotalEditar);
+										var valorConvertido = formataNumeroParaEnvio($("#valorItemEditar" + (index + 1)).val());
+										valorTotalEditar = parseFloat(valorTotalEditar) + valorConvertido;
+										$("#valorEditar").val(formataNumeroParaExibicao(valorTotalEditar, 2, ",", "."));
+										console.log("VLR. TOTAL DEPOIS  (valorTotalEditar): " + valorTotalEditar);
+									}
+								}
+								
+							}
+						});
+						if(valorZeroOuVazio == false){
+							console.log("PESO DESFOCADO - ATIVADO - PESOS e VALORES OK");
+							$("#btnEditarPedido").prop("disabled", false);
+						}
+			}else{
+				console.log("PESO DESFOCADO - DESATIVADO - PESO = VAZIO");
+				$("#valorItemEditar" + id).val("");
+				$("#btnEditarPedido").prop("disabled", true);
+			}
+		});
+		
+		$("#valorItemEditar" + j).mask("00000000,00", {reverse: true});
+		
+		$("#valorItemEditar" + j).focus(function(){
+			valorZeroOuVazio = false;
+			if($(this).val() != "" && $(this).val() != 0){
+					$.each($("#itensEditar").find(".form-inline"), function(index, value){						
+						if($("#valorItemEditar" + (index + 1)).val() == "" || $("#valorItemEditar" + (index + 1)).val() == 0
+								|| $("#pesoEditar" + (index + 1)).val() == "" || $("#pesoEditar" + (index + 1)).val() == 0
+								|| $("#materialEditar" + (index + 1)).val() == ""){
+							valorZeroOuVazio = true;
+							$("#btnEditarPedido").prop("disabled", true);
+						}
+					});
+					if(valorZeroOuVazio == false){
+						$("#btnEditarPedido").prop("disabled", false);
+					}
+			}else{
+				$("#btnEditarPedido").prop("disabled", true);
+			}
+		});		
+		
+		$("#valorItemEditar" + j).blur(function(){
+			console.log("VLR. ITEM blur");
+			valorZeroOuVazio = false;
+			if($(this).val() != "" && $(this).val() != 0){
+								
+				var valorTotalEditar = parseFloat(0);
+					console.log("VLR. ITEM blur");
+					$.each($("#itensEditar").find(".form-inline"), function(index, value){						
+						if($("#valorItemEditar" + (index + 1)).val() == "" || $("#valorItemEditar" + (index + 1)).val() == 0
+								|| $("#pesoEditar" + (index + 1)).val() == "" || $("#pesoEditar" + (index + 1)).val() == 0
+								|| $("#materialEditar" + (index + 1)).val() == ""){
+							valorZeroOuVazio = true;
+							$("#btnEditarPedido").prop("disabled", true);
+						}else{
+							if($("#valorItemEditar" + (index + 1)).val() != ""){
+								if($("#valorEditar").val() != "" && $("#valorEditar").val() != 0){
+									console.log("VLR. TOTAL ANTES  (valorTotalEditar): " + valorTotalEditar);
+									var valorConvertido = formataNumeroParaEnvio($("#valorItemEditar" + (index + 1)).val());
+									valorTotalEditar = parseFloat(valorTotalEditar) + valorConvertido;
+									$("#valorEditar").val(formataNumeroParaExibicao(valorTotalEditar, 2, ",", "."));
+									console.log("VLR. TOTAL DEPOIS (valorTotalEditar): " + valorTotalEditar);
+								}
+							}
+						}
+					});
+					
+					if(valorZeroOuVazio == false){
+						$("#btnEditarPedido").prop("disabled", false);
+					}
+			}else{
+				$("#btnEditarPedido").prop("disabled", true);
+			}
+		});		
+	}
 	
-	// MODAL ATUALIZAR - CLIQUE DO BOTÃO EXCLUIR DA LINHA DE UM REGISTRO TABELA EXIBE O MODAL
+	// GUARDA O CÓDIGO DO FORNECEDOR APÓS SELECIONADO
+	var codFornecedorEditar = "";	
+	var encontrouFornecedorEditar = false;
+	var idsEditar = [];
+	
+	// MODAL ATUALIZAR - CLIQUE DO BOTÃO EDITAR DA LINHA DE UM REGISTRO TABELA - EXIBE O MODAL
 	$("a[role=editar]").click(function(event){
 		event.preventDefault();		
+		
+		j = 0;
+		
+		noPedidoEditar_tmp = "";
+		dataPedidoAberturaEditar_tmp = "";
+		dataPedidoPagtoEditar_tmp = "";
+		fornecedorEditar_tmp = "";
+		codFornecedorEditar_tmp = "";
+		valorPedidoEditar_tmp = "";
+		statusEditar_tmp = "";
+		itensMaterialPC_tmp = [];
+		itensPesoPC_tmp = [];
+		itensValorItemPC_tmp = [];
 		
 		// Pega a TR
 		var tr = $(this).closest("tr");
@@ -802,8 +1249,6 @@ $(document).ready(function(){
 		var tdFornecedor = tdDataPagto.next("td");
 		var tdValor = tdFornecedor.next("td");
 		var tdStatus = tdValor.next("td");
-		var tdItensPC = tdStatus.next("td");
-		var divItensPC = tdItensPC.find(".grupoDeItens");
 		
 		// Pega os Dados das TDs
 		var noPedidoEditar = tdNoPedidoEditar.text();
@@ -813,13 +1258,40 @@ $(document).ready(function(){
 		var valorEditar = tdValor.text();
 		var statusEditar = tdStatus.text();
 		
+		// GUARDA OS DADOS DO PEDIDO - BACKUP
+		noPedidoEditar_tmp = noPedidoEditar;
+		dataPedidoAberturaEditar_tmp = dataPedidoAberturaEditar;
+		dataPedidoPagtoEditar_tmp = dataPedidoPagtoEditar;
+		fornecedorEditar_tmp = fornecedorEditar;
+		valorPedidoEditar_tmp = valorEditar;
+		statusEditar_tmp = statusEditar;
+		
+		// GUARDA O CÓDIGO DO FORNECEDOR - BACKUP
+		$.each(resultadoCodFornecedores, function(index, value){
+			if(resultadoFornecedores[index] == fornecedorEditar_tmp){
+				codFornecedorEditar_tmp = value;
+				codFornecedorEditar = value;
+			}
+		});
+				
 		// Pega o Modal
 		var modal = $("#modal-form-pedido[rel=modaleditar]");
 		
-		// Coloca os Dados no Modal e de Forma Somente Leitura
+		// COLOCA OS DADOS NO MODAL CAMPOS SOMENTE LEITURA 
 		modal.find("#noPedidoEditar").prop("readonly", true).val(noPedidoEditar);
 		modal.find("#dataAberturaEditar").prop("readonly", true).val(dataPedidoAberturaEditar);	
+		modal.find("#fornecedorEditar").prop("readonly", true).val(fornecedorEditar);
+		modal.find("#valorEditar").prop("readonly", true).val(valorEditar);
 		
+		// COLOCA O STATUS NO MODAL
+		var optionsEditar = modal.find("#statusEditar").find("option");		
+		$.each(optionsEditar, function(index, value){
+			if(statusEditar == $(this).val()){
+				$(this).prop("selected", true);
+			}
+		});
+		
+		// COLOCA A DATA DO PAGAMENTO, CASO STATUS SEJA PAGO
 		if(dataPedidoPagtoEditar != ""){			
 			modal.find("#dataPagamentoEditar").closest(".form-group");
 			modal.find("#dataPagamentoEditar").datepicker("setDate", dataPedidoPagtoEditar);
@@ -834,91 +1306,227 @@ $(document).ready(function(){
 		}else{
 			modal.find("#dataPagamentoEditar").closest(".form-group").addClass("hidden");
 		}
-				
+		
+		var tdItensPC = tdStatus.next("td");
+		var divItensPC = tdItensPC.find(".grupoDeItens");	// TD DE ITENS DA TABELA
+		var divUmMaterial = "";
+		var divDoisPeso = "";
+		var divTresValor = "";
+		
+		// CARREGA OS ITENS NO MODAL ATUALIZAR
 		$.each(divItensPC, function(index, value){
-			var divUmMaterial = $(this).find("div:first");
-			var divDoisPeso = divUmMaterial.next("div");
-			var divTresValor = divDoisPeso.next("div");
+			j++;			
 			
-			if(index == 0){
-				modal.find("#itensEditar").append("<div class='form-inline' id=" + (index + 1) + ">" +	
-						"<div class='form-group'>" +
-							"<label for='item" + (index + 1) + "'>Item</label>" +
-							"<div>" +
-								"<input type='text' id='item" + (index + 1) + "' name='item" + (index + 1) + "' value='" + (index + 1) + "' size='1' class='text-center' readonly />" +
-							"</div>" +
-						"</div>&nbsp;" +
-						"<div class='form-group hidden'>" +
-							"<label for='codProduto" + (index + 1) + "'>Cód. Produto</label>" +
-							"<div>" +
-								"<input type='text' id='codProduto" + (index + 1) + "' name='codProduto" + (index + 1) + "' size='3' class='text-center' />" +
-							"</div>" +
-						"</div>&nbsp;" +
-						"<div class='form-group'>" +
-							"<label for='material" + (index + 1) + "'>Material</label>" +
-							"<div>" +
-								"<input type='text' id='material" + (index + 1) + "' name='material" + (index + 1) + "' value='" + divUmMaterial.text() + "' size='37' />" +
-							"</div>" +
-						"</div>&nbsp;" +
-						"<div class='form-group'>" +
-							"<label for='peso" + (index + 1) + "'>Peso (Kg)</label>" +
-							"<div>" +
-								"<input type='text' id='peso" + (index + 1) + "' class='text-right' name='peso" + (index + 1) + "' value='" + divDoisPeso.text() + "' size='9' maxlength='9' />" +
-							"</div>" +
-						"</div>&nbsp;" +
-						"<div class='form-group'>" +
-							"<label for='valor" + (index + 1) + "'>Valor (R$)</label>" +
-							"<div>" +
-								"<input type='text' id='valor" + (index + 1) + "' class='text-right' name='valor" + (index + 1) + "' value='" + divTresValor.text() + "' size='9' maxlength='10' />" +
-							"</div>" +
-						"</div>" +				
-					"</div>" +
-					"<div class='space-4'></div>");
-			}else{
-				modal.find("#itensEditar").append("<div class='form-inline' id=" + (index + 1) + ">" +	
-						"<div class='form-group'>" +							
-							"<div>" +
-								"<input type='text' id='item" + (index + 1) + "' name='item" + (index + 1) + "' value='" + (index + 1) + "' size='1' class='text-center' readonly />" +
-							"</div>" +
-						"</div>&nbsp;" +
-						"<div class='form-group hidden'>" +							
-							"<div>" +
-								"<input type='text' id='codProduto" + (index + 1) + "' name='codProduto" + (index + 1) + "' size='3' class='text-center' />" +
-							"</div>" +
-						"</div>&nbsp;" +
-						"<div class='form-group'>" +							
-							"<div>" +
-								"<input type='text' id='material" + (index + 1) + "' name='material" + (index + 1) + "' value='" + divUmMaterial.text() + "' size='37' />" +
-							"</div>" +
-						"</div>&nbsp;" +
-						"<div class='form-group'>" +							
-							"<div>" +
-								"<input type='text' id='peso" + (index + 1) + "' class='text-right' name='peso" + (index + 1) + "' value='" + divDoisPeso.text() + "' size='9' maxlength='9' />" +
-							"</div>" +
-						"</div>&nbsp;" +
-						"<div class='form-group'>" +							
-							"<div>" +
-								"<input type='text' id='valor" + (index + 1) + "' class='text-right' name='valor" + (index + 1) + "' value='" + divTresValor.text() + "' size='9' maxlength='10' />" +
-							"</div>" +
-						"</div>" +				
-					"</div>" +
-					"<div class='space-4'></div>");
+			divUmMaterial = $(this).find("div:first");
+			divDoisPeso = divUmMaterial.next("div");
+			divTresValor = divDoisPeso.next("div");
+			
+			itensMaterialPC_tmp.push(divUmMaterial.text());
+			itensPesoPC_tmp.push(divDoisPeso.text());
+			itensValorItemPC_tmp.push(divTresValor.text());			
+						
+			// ADICIONA UMA NOVA LINHA
+			insereLinhaEditar(j);
+			
+			// RECUPERANDO O CÓDIGO DO PRODUTO E COLOCANDO NO CAMPO OCULTO DA LINHA
+			$.each(resultadoCodProdutos, function(index, value){
+				if(resultadoProdutos[index] == divUmMaterial.text()){
+					modal.find("#codProdutoEditar" + j).val(value);
+					ajaxCodProdutoEditar.push(value);
+					idsEditar.push(j);
+				}
+			});
+			
+			// FORMATA A EXIBIÇÃO DO PESO
+			var numeroDecimal = divDoisPeso.text().split(".");
+			var casasDecimais = 0;
+			if(numeroDecimal.length > 1){				
+				if(numeroDecimal[1] > 0){		
+					casasDecimais = 3;				
+				}
 			}
-		});
-				
-		modal.find("#fornecedorEditar").prop("readonly", true).val(fornecedorEditar);
-		modal.find("#valorEditar").prop("readonly", true).val(valorEditar);
-		
-		var optionsEditar = modal.find("#statusEditar").find("option");		
-		$.each(optionsEditar, function(index, value){
-			if(statusEditar == $(this).val()){
-				$(this).prop("selected", true);
-			}
+			
+			// CARREGA OS ITENS NAS LINHAS
+			modal.find("#materialEditar" + j).val(divUmMaterial.text());
+			modal.find("#pesoEditar" + j).val(formataNumeroParaExibicao(divDoisPeso.text(), casasDecimais, ",", "."));
+			modal.find("#valorItemEditar" + j).val(formataNumeroParaExibicao(divTresValor.text(), 2, ",", "."));			
 		});
 		
-		// Exibe o Modal Form Editar
+		// ATIVA O BOTÃO ATUALIZAR
+		modal.find("#btnEditarPedido").prop("disabled", false);
+		
+		// EXIBE O MODAL ATUALIZAR
 		modal.modal();		
 	});	
+	
+	// CLIQUE PARA ADICIONAR UM ITEM DE PRODUTO NO MODAL ATUALIZAR PEDIDO
+	j = 0;
+	$("a[role=additemEditar").click(function(e){
+		e.preventDefault();
+		
+		if(codFornecedorEditar != "" && j == idsEditar.length){
+			$("#btnEditarPedido").prop("disabled", false);
+		}else{			
+			$("#btnEditarPedido").prop("disabled", true);
+		}		
+		
+		// MONTA UM LINHA DE ITEM
+		insereLinhaEditar();
+		
+	});
+	
+	// ENVIA OS DADOS PARA O CADASTRAMENTO DO PEDIDO
+	var ajaxFornecedorEditar = "";
+	var ajaxCodProdutoEditar = [];
+	var ajaxPesosEditar = [];
+	var ajaxPrecosEditar = [];		
+		
+	
+	
+	
+	// ATUALIZA O PEDIDO
+	$("#btnEditarPedido").click(function(){
+				
+		function formataNumeroParaEnvio(number) {
+			var numberFormatado = number.replace(".", "");
+			return parseFloat(numberFormatado.replace(",", "."));			
+		}
+		
+		var lista = $("#itensEditar").find(".form-inline");
+		
+		// PEGA OS DADOS DOS ITENS - PELA VERICACAO DO CÓDIGO DO PRODUTO
+		if((ajaxCodProdutoEditar == null || ajaxCodProdutoEditar == "") && (codFornecedorEditar == null || codFornecedorEditar == "")){
+			console.log("nulo");
+		}else{
+			
+			var contador = 0;
+			
+			// PEGA OS PESOS E PREÇOS DOS INPUTS
+			$.each(lista, function(index, value){
+				if (typeof value == 'undefined') {
+					console.log("INDEFINIDO: index " + index);
+				}else{
+					var pesoFormatado = formataNumeroParaEnvio($("#pesoEditar" + (index + 1)).val());
+					var valorFormatado = formataNumeroParaEnvio($("#valorItemEditar" + (index + 1)).val());
+					console.log("ANTES.: " + $("#valorItemEditar" + (index + 1)).val());
+					console.log("DEPOIS: " + valorFormatado);
+					if($.isNumeric(pesoFormatado) && $.isNumeric(valorFormatado)){
+						console.log("São números, PESO: " + pesoFormatado + " VALOR: " + valorFormatado);						
+						ajaxPesosEditar.push(pesoFormatado);
+						ajaxPrecosEditar.push(valorFormatado);
+						contador++;
+					}else{
+						if(!$.isNumeric($("#pesoEditar" + (index + 1)).val()) && !$.isNumeric($("#valorItemEditar" + (index + 1)).val())){
+							$("#valorItemEditar" + (index + 1)).closest(".form-group").addClass("has-error");
+							$("#pesoEditar" + (index + 1)).closest(".form-group").addClass("has-error");
+							console.log("Não são números VALOR: " + $("#valorItemEditar" + (index + 1)).val() + " PESO: " + $("#pesoEditar" + (index + 1)).val());
+						}else{
+							if($.isNumeric($("#pesoEditar" + (index + 1)).val())){
+								$("#valorItemEditar" + (index + 1)).closest(".form-group").addClass("has-error");
+								console.log("Não é número VALOR: " + $("#valorItemEditar" + (index + 1)).val());
+							}else{
+								$("#pesoEditar" + (index + 1)).closest(".form-group").addClass("has-error");
+								console.log("Não é número PESO: " + $("#pesoEditar" + (index + 1)).val());
+							}
+						}
+					}		
+				}				
+			});
+							
+			// VERIFICA SE TODOS OS CAMPOS FORAM PREENCHIDOS COM O CONTADOR DE LINHAS
+			if(contador == lista.length){				
+				
+				var jsonItens = {};
+				
+				// CONVERTENDO OS ARRAYS EM JSON PARA ENVIO POR AJAX 
+				$.each(ajaxCodProdutoEditar, function(index, value){
+					if(index == 0){						
+						jsonItens = "{\"peso\":\"" + ajaxPesosEditar[index] + "\"," +
+									"\"valorItem\":\"" + ajaxPrecosEditar[index] + "\"," +
+									"\"produto\":" +
+										"{\"codigo\":\"" + value + "\"}}";											
+					}else{						
+						jsonItens += "," + "{\"peso\":\"" + ajaxPesosEditar[index] + "\"," +
+											"\"valorItem\":\"" + ajaxPrecosEditar[index] + "\"," +
+											"\"produto\":" +
+												"{\"codigo\":\"" + value + "\"}}";;
+					}					
+				});
+				
+				console.log("N. PEDIDO: " + $("#modal-form-pedido[rel=modaleditar]").find("#noPedidoEditar").val());
+				console.log("DATA ABERTURA: " + $("#modal-form-pedido[rel=modaleditar]").find("#dataAberturaEditar").val());
+				console.log("DATA PAGAMENTO: " + $("#modal-form-pedido[rel=modaleditar]").find("#dataPagamentoEditar").val());
+				console.log("COD FORNECEDOR: " + codFornecedorEditar);
+				console.log("FORNECEDOR: " + $("#modal-form-pedido[rel=modaleditar]").find("#fornecedorEditar").val());
+				
+				var nPed = $("#modal-form-pedido[rel=modaleditar]").find("#noPedidoEditar").val();
+				var dtAbertura = $("#modal-form-pedido[rel=modaleditar]").find("#dataAberturaEditar").val();
+				var dtPagto = $("#modal-form-pedido[rel=modaleditar]").find("#dataPagamentoEditar").val();
+				//var status = $("#modal-form-pedido[rel=modaleditar]").find("#statusEditar").find("option").prop("selected", true).val();
+				
+				console.log("ITENS: ");
+				$.each(ajaxCodProdutoEditar, function(index, value){
+					console.log((index + 1) + ". " + value + " peso: " + ajaxPesosEditar[index] + " R$ " + ajaxPrecosEditar[index]);
+				});
+				
+				console.log("VALOR DA COMPRA: " + $("#modal-form-pedido[rel=modaleditar]").find("#valorEditar").val());				
+				
+				//var status = $("#modal-form-pedido[rel=modaleditar]").find("#statusEditar").find("option").prop("selected", true).val();
+				var status = null;
+				$.each($("#statusEditar").find("option"), function(index, value){
+					console.log("option = " + $(this).val());
+					if($(this).prop("selected") == true){
+						status = $(this).val();
+					}
+				});
+				
+				console.log("status: " + status);
+				console.log("dtPagto: " + dtPagto);
+				
+// ----------------------------- FASE ATUAL -- AJAX - ENVIANDO OS DADOS PARA O CADASTRAMENTO DO PEDIDO-------------------------------------------
+				
+				$.ajax({
+					url:"controller",
+					type:"post",
+					data:{
+						nPed:nPed,
+						dtAbertura:dtAbertura,
+						dtPagto:dtPagto,
+						codFornecedor:codFornecedorEditar,
+						itens:jsonItens,
+						status:status,
+						action:"atualizarPedidoCompra"
+					},
+					//antes de enviar ele alerta para esperar
+			        beforeSend : function(){
+			            $('#carregando').show('100');
+			        },
+					success:function(resultado){
+						$('#carregando').hide('100');
+						console.log("Resultado recebido: " + resultado);
+						$("#modal-form-pedido[rel=modaleditar]").find(".modal-header").html("<h4 class='blue bigger'>Resultado...</h4>").prepend("<button type='button' class='close' data-dismiss='modal'>&times;</button>");
+						$("#modal-form-pedido[rel=modaleditar]").find(".modal-body").html("<h3>" + resultado + "</h3>");
+						var botao = $("#modal-form-pedido[rel=modaleditar]").find("#btnCancelar").html("<i class='ace-icon fa fa-times'></i> Fechar");				
+						botao.text("Fechar");
+						$("#modal-form-pedido[rel=modaleditar]").find("#btnEditarPedido").addClass("hidden");
+					},
+					error:function(resultado){
+						$('#carregando').hide('100');
+						console.log("Resultado recebido: " + resultado);
+						$("#modal-form-pedido[rel=modaleditar]").find(".modal-header").html("<h4 class='blue bigger'>Resultado...</h4>").prepend("<button type='button' class='close' data-dismiss='modal'>&times;</button>");
+						$("#modal-form-pedido[rel=modaleditar]").find(".modal-body").html("<h3>Desculpe, houve uma falha!</h3>");
+						var botao = $("#modal-form-pedido[rel=modaleditar]").find("#btnCancelar").html("<i class='ace-icon fa fa-times'></i> Fechar");				
+						botao.text("Fechar");
+						$("#modal-form-pedido[rel=modaleditar]").find("#btnEditarPedido").addClass("hidden");
+					}
+				});
+// ----------------------------- FIM --------------------------------------------------------------------------------------------------------- 
+			}
+		}
+	});
+	
+	
+	
 	
 	
 	$("#dataPagamentoEditar").datepicker({
@@ -940,6 +1548,7 @@ $(document).ready(function(){
 	
 	
 	
+	
 	// RECARREGA A PÁGINA AO FECHAR O MODAL CADASTRAR
 	$("#modal-form-pedido[rel=modalcadastrar]").on("hidden.bs.modal", function (){
 		console.log("Modal Cadastrar Encerrado");
@@ -949,6 +1558,12 @@ $(document).ready(function(){
 	// RECARREGA A PÁGINA AO FECHAR O MODAL EXCLUIR
 	$("#modal-form-pedido[rel=modalexcluir]").on("hidden.bs.modal", function (){
 		console.log("Modal Excluir Encerrado");
+		location.reload();
+	});
+	
+	// RECARREGA A PÁGINA AO FECHAR O MODAL ATUALIZAR
+	$("#modal-form-pedido[rel=modaleditar]").on("hidden.bs.modal", function (){
+		console.log("Modal Atualizar Encerrado");
 		location.reload();
 	});
 });

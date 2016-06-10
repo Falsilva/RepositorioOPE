@@ -3,7 +3,15 @@ $(document).ready(function(){
 	// Código do Caixa - Só existe um único caixa
 	var codigo = 1;
 	var mes = null;
-	var ano = null;
+	var ano = null;	
+	
+	function formataNumeroParaExibicao(number, decimals, dec_point, thousands_sep) {
+		var n = number, c = isNaN(decimals = Math.abs(decimals)) ? 2 : decimals;
+		var d = dec_point == undefined ? "," : dec_point;
+		var t = thousands_sep == undefined ? "." : thousands_sep, s = n < 0 ? "-" : "";
+		var i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", j = (j = i.length) > 3 ? j % 3 : 0;
+		return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+	}
 	
 	// DIV CAIXA SALDO TOTAL E TABELA CAIXA BALANCO GERAL - PÁGS. DASHBOARD E CAIXA
 	var divCaixaSaldoTotal = $("div[role=saldoTotal");
@@ -26,11 +34,11 @@ $(document).ready(function(){
 					var saldoNegativo = resultado.dataCaixa[0].saldo - (resultado.dataCaixa[0].saldo) - (resultado.dataCaixa[0].saldo);
 					divCaixaSaldoTotal.find("span").removeClass("green");
 					divCaixaSaldoTotal.find("span").addClass("red");
-					divCaixaSaldoTotal.find("span").text("- R$ " + saldoNegativo);
+					divCaixaSaldoTotal.find("span").text("- R$ " + formataNumeroParaExibicao(saldoNegativo, 2, ",", "."));
 				}else{					
 					divCaixaSaldoTotal.find("span").removeClass("red");
 					divCaixaSaldoTotal.find("span").addClass("green");
-					divCaixaSaldoTotal.find("span").text("R$ " + resultado.dataCaixa[0].saldo);
+					divCaixaSaldoTotal.find("span").text("R$ " + formataNumeroParaExibicao(resultado.dataCaixa[0].saldo, 2, ",", "."));
 				}
 				
 				// TABELA CAIXA BALANCO GERAL - PÁG. CAIXA
@@ -39,25 +47,25 @@ $(document).ready(function(){
 					var tdReceitas = tableCaixaBalancoGeral.find("td[role=receitas]");
 					tdReceitas.html("<h4><b></b></h4>");				
 					tdReceitas.find("b").addClass("green");
-					tdReceitas.find("b").text("R$ " + resultado.dataCaixa[0].totalEntrada);
+					tdReceitas.find("b").text("R$ " + formataNumeroParaExibicao(resultado.dataCaixa[0].totalEntrada, 2, ",", "."));
 					
 					var tdDespesas = tableCaixaBalancoGeral.find("td[role=despesas]")
 					tdDespesas.html("<h4><b></b></h4>");
 					tdDespesas.find("b").addClass("red");
-					tdDespesas.find("b").text("R$ " + resultado.dataCaixa[0].totalSaida);
+					tdDespesas.find("b").text("R$ " + formataNumeroParaExibicao(resultado.dataCaixa[0].totalSaida, 2, ",", "."));
 					if(resultado.dataCaixa[0].saldo < 0){					
 						var saldoNegativo = resultado.dataCaixa[0].saldo - (resultado.dataCaixa[0].saldo) - (resultado.dataCaixa[0].saldo);
 						var tdSaldo = tableCaixaBalancoGeral.find("td[role=saldo]");
 						tdSaldo.html("<h4><b></b></h4>");
 						tdSaldo.find("b").removeClass("blue");
 						tdSaldo.find("b").addClass("red");
-						tdSaldo.find("b").text("R$ " + saldoNegativo);
+						tdSaldo.find("b").text("R$ " + formataNumeroParaExibicao(saldoNegativo, 2, ",", "."));
 					}else{					
 						var tdSaldo = tableCaixaBalancoGeral.find("td[role=saldo]");
 						tdSaldo.html("<h4><b></b></h4>");
 						tdSaldo.find("b").removeClass("red");
 						tdSaldo.find("b").addClass("blue");
-						tdSaldo.find("b").text("R$ " + resultado.dataCaixa[0].saldo);
+						tdSaldo.find("b").text("R$ " + formataNumeroParaExibicao(resultado.dataCaixa[0].saldo, 2, ",", "."));
 					}
 				}
 			}
@@ -305,13 +313,13 @@ $(document).ready(function(){
 							divConteudoMeses.removeClass("center");
 							
 							// CAIXA MENSAL - CARREGA OS DADOS
-							tbodyCaixaBalancoMensal.find("td[role=receitas]").html("<h4><b class='green'>R$ " + resultado.dataCaixaMes[0].totalEntrada + "</b></h4>");
-							tbodyCaixaBalancoMensal.find("td[role=despesas]").html("<h4><b class='red'>R$ " + resultado.dataCaixaMes[0].totalSaida + "</b></h4>");
+							tbodyCaixaBalancoMensal.find("td[role=receitas]").html("<h4><b class='green'>R$ " + formataNumeroParaExibicao(resultado.dataCaixaMes[0].totalEntrada, 2, ",", ".") + "</b></h4>");
+							tbodyCaixaBalancoMensal.find("td[role=despesas]").html("<h4><b class='red'>R$ " + formataNumeroParaExibicao(resultado.dataCaixaMes[0].totalSaida, 2, ",", ".") + "</b></h4>");
 							if(resultado.dataCaixaMes[0].saldo < 0){					
 								var saldoNegativo = resultado.dataCaixaMes[0].saldo - (resultado.dataCaixaMes[0].saldo) - (resultado.dataCaixaMes[0].saldo);
-								tbodyCaixaBalancoMensal.find("td[role=saldo]").html("<h4><b class='red'>R$ " + saldoNegativo + "</b></h4>");
+								tbodyCaixaBalancoMensal.find("td[role=saldo]").html("<h4><b class='red'>R$ " + formataNumeroParaExibicao(saldoNegativo, 2, ",", ".") + "</b></h4>");
 							}else{
-								tbodyCaixaBalancoMensal.find("td[role=saldo]").html("<h4><b class='blue'>R$ " + resultado.dataCaixaMes[0].saldo + "</b></h4>");
+								tbodyCaixaBalancoMensal.find("td[role=saldo]").html("<h4><b class='blue'>R$ " + formataNumeroParaExibicao(resultado.dataCaixaMes[0].saldo, 2, ",", ".") + "</b></h4>");
 							}					
 							
 							$.each(resultado.dataCaixaMes[0].movimentacoes, function(index, value){					
@@ -320,21 +328,29 @@ $(document).ready(function(){
 									tbodyMovimentacaoMensal.append("<tr><td class='text-right' role='item'><b>" + (index+1) + "</b></td>"
 											+ "<td role='data'><b>" + resultado.dataCaixaMes[0].movimentacoes[index].data + "</b></td>"
 				                            + "<td role='lancamento'><b>" + resultado.dataCaixaMes[0].movimentacoes[index].descricao + "</b></td>"
-				                            + "<td class='text-right red' role='valor'><b>" + resultado.dataCaixaMes[0].movimentacoes[index].valorLancamento + "</b></td></tr>")                    
+				                            + "<td class='text-right red' role='valor'><b>" + formataNumeroParaExibicao(resultado.dataCaixaMes[0].movimentacoes[index].valorLancamento, 2, ",", ".") + "</b></td></tr>");                    
 				                }else{
 				                	tbodyMovimentacaoMensal.append("<tr><td class='text-right' role='item'><b>" + (index+1) + "</b></td>"
 											+ "<td role='data'><b>" + resultado.dataCaixaMes[0].movimentacoes[index].data + "</b></td>"
 				                            + "<td role='lancamento'><b>" + resultado.dataCaixaMes[0].movimentacoes[index].descricao + "</b></td>"
-				                            + "<td class='text-right green' role='valor'><b>" + resultado.dataCaixaMes[0].movimentacoes[index].valorLancamento + "</b></td></tr>")
+				                            + "<td class='text-right green' role='valor'><b>" + formataNumeroParaExibicao(resultado.dataCaixaMes[0].movimentacoes[index].valorLancamento, 2, ",", ".") + "</b></td></tr>");
 				                }						
 							});				
 						}
 					}
 				}
 			});
-		}	
+		}
 		
-		montaDivConteudoMeses(mes);
+		// REVER ESTE IF E A ULTIMA LINA a.Meses.click()
+		// PEGA O MES E ANO ATUAL QUANDO A PÁGINA É CARREGADA
+		if(mes == null){
+			var dataCompleta = new Date();
+			mes = parseInt(dataCompleta.getMonth() + 1);
+			ano = parseInt(dataCompleta.getFullYear());
+		}
+		
+		montaDivConteudoMeses(mes);		
 		
 		// CLIQUE DE UMA ABA MES
 		aMeses.on("click", function(e){			
@@ -343,5 +359,7 @@ $(document).ready(function(){
 			mes = $(this).attr("id");
 			montaDivConteudoMeses(mes);			
 		});
+		
+		
 	}	
 });

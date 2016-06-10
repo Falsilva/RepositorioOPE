@@ -942,6 +942,12 @@
     <!-- RELÓGIO -->
     <script src="resources/js/relogio.js"></script>
     
+    <!-- MÁSCARA -->
+    <script src="resources/js/mask.js"></script>
+    
+    <!-- MÁSCARA -->
+    <script src="resources/js/cpfcnpj.js"></script>
+    
     <!-- AJAX - SUBMIT FORMS - RECARREGA A PÁGINA QUANDO O MODAL CADASTRAR E EXCLUIR SÃO FECHADOS -->
     <script src="resources/js/ajaxcliente.js"></script>
     

@@ -17,6 +17,201 @@ $(document).ready(function(){
 	var cnpj_tmp;
 	var inscEstadual_tmp;
 
+	var options =  {onKeyPress: function(telefone, e, field, options){
+		var masks = ["(00)0.0000-0000", "(00)0000-0000"];
+		mask = (telefone.length > 13) ? masks[1] : masks[0];
+		$("#telefone").mask(mask, options);
+	}};
+	$("#telefone").mask("(00)0000-0000", options);
+	
+	$("#cep").mask("00000-000", {reverse: true});
+	
+	$("#cnpj").mask("00.000.000/0000-00", {reverse: true});
+	
+	$("#cnpj").blur(function(){
+		validate_cnpj($(this).val());
+	});
+	
+	$("#inscEstadual").focus(function(){
+		var estado = $("#estado").val();
+		switch(estado){
+			case "RS":
+				$("#inscEstadual").mask("000-0000000", {reverse: true});				
+				break;
+			case "SC":
+				$("#inscEstadual").mask("000.000.000", {reverse: true});				
+				break;
+			case "PR":
+				$("#inscEstadual").mask("00000000-00", {reverse: true});
+				break;
+			case "SP":
+				$("#inscEstadual").mask("000.000.000.000", {reverse: true});
+				break;
+			case "MG":
+				$("#inscEstadual").mask("000.000.000/0000", {reverse: true});
+				break;
+			case "RJ":
+				$("#inscEstadual").mask("00.000.00-0", {reverse: true});
+				break;
+			case "ES":
+				$("#inscEstadual").mask("000.000.00-0", {reverse: true});
+				break;
+			case "BA":
+				$("#inscEstadual").mask("000.000.00-0", {reverse: true});
+				break;
+			case "SE":
+				$("#inscEstadual").mask("000000000-0", {reverse: true});
+				break;
+			case "AL":
+				$("#inscEstadual").mask("000000000", {reverse: true});
+				break;
+			case "PE":
+				$("#inscEstadual").mask("00.0.000.0000000-0", {reverse: true});
+				break;
+			case "PB":
+				$("#inscEstadual").mask("00000000-0", {reverse: true}); 
+				break;
+			case "RN":
+				$("#inscEstadual").mask("00.000.000-0", {reverse: true});
+				break;
+			case "PI":
+				$("#inscEstadual").mask("000000000", {reverse: true});
+				break;
+			case "MA":
+				$("#inscEstadual").mask("000000000", {reverse: true});
+				break;
+			case "CE":
+				$("#inscEstadual").mask("00000000-0", {reverse: true});
+				break;
+			case "GO":
+				$("#inscEstadual").mask("00.000.000-0", {reverse: true});
+				break;
+			case "TO":
+				$("#inscEstadual").mask("00000000000", {reverse: true});
+				break;
+			case "MT":
+				$("#inscEstadual").mask("000000000", {reverse: true});
+				break;
+			case "MS":
+				$("#inscEstadual").mask("000000000", {reverse: true});
+				break;
+			case "DF":
+				$("#inscEstadual").mask("00000000000-00", {reverse: true});
+				break;
+			case "AM":
+				$("#inscEstadual").mask("00.000.000-0", {reverse: true});
+				break;
+			case "AC":
+				$("#inscEstadual").mask("00.000.000/000-00", {reverse: true});
+				break;
+			case "PA":
+				$("#inscEstadual").mask("00-000000-0", {reverse: true});
+				break;
+			case "RO":
+				$("#inscEstadual").mask("000.00000-0", {reverse: true});
+				break;
+			case "RR":
+				$("#inscEstadual").mask("00000000-0", {reverse: true});
+				break;
+			case "AP":
+				$("#inscEstadual").mask("000000000", {reverse: true});
+				break;
+			default:
+				$("#inscEstadual").mask("000.000.000.000", {reverse: true});	// MÁSCARA SP
+				break;
+		}		
+	});
+	
+	$("#estado").blur(function(){
+		var estado = $("#estado").val();
+		switch(estado){
+			case "RS":
+				$("#inscEstadual").mask("000-0000000", {reverse: true});				
+				break;
+			case "SC":
+				$("#inscEstadual").mask("000.000.000", {reverse: true});				
+				break;
+			case "PR":
+				$("#inscEstadual").mask("00000000-00", {reverse: true});
+				break;
+			case "SP":
+				$("#inscEstadual").mask("000.000.000.000", {reverse: true});
+				break;
+			case "MG":
+				$("#inscEstadual").mask("000.000.000/0000", {reverse: true});
+				break;
+			case "RJ":
+				$("#inscEstadual").mask("00.000.00-0", {reverse: true});
+				break;
+			case "ES":
+				$("#inscEstadual").mask("000.000.00-0", {reverse: true});
+				break;
+			case "BA":
+				$("#inscEstadual").mask("000.000.00-0", {reverse: true});
+				break;
+			case "SE":
+				$("#inscEstadual").mask("000000000-0", {reverse: true});
+				break;
+			case "AL":
+				$("#inscEstadual").mask("000000000", {reverse: true});
+				break;
+			case "PE":
+				$("#inscEstadual").mask("00.0.000.0000000-0", {reverse: true});
+				break;
+			case "PB":
+				$("#inscEstadual").mask("00000000-0", {reverse: true}); 
+				break;
+			case "RN":
+				$("#inscEstadual").mask("00.000.000-0", {reverse: true});
+				break;
+			case "PI":
+				$("#inscEstadual").mask("000000000", {reverse: true});
+				break;
+			case "MA":
+				$("#inscEstadual").mask("000000000", {reverse: true});
+				break;
+			case "CE":
+				$("#inscEstadual").mask("00000000-0", {reverse: true});
+				break;
+			case "GO":
+				$("#inscEstadual").mask("00.000.000-0", {reverse: true});
+				break;
+			case "TO":
+				$("#inscEstadual").mask("00000000000", {reverse: true});
+				break;
+			case "MT":
+				$("#inscEstadual").mask("000000000", {reverse: true});
+				break;
+			case "MS":
+				$("#inscEstadual").mask("000000000", {reverse: true});
+				break;
+			case "DF":
+				$("#inscEstadual").mask("00000000000-00", {reverse: true});
+				break;
+			case "AM":
+				$("#inscEstadual").mask("00.000.000-0", {reverse: true});
+				break;
+			case "AC":
+				$("#inscEstadual").mask("00.000.000/000-00", {reverse: true});
+				break;
+			case "PA":
+				$("#inscEstadual").mask("00-000000-0", {reverse: true});
+				break;
+			case "RO":
+				$("#inscEstadual").mask("000.00000-0", {reverse: true});
+				break;
+			case "RR":
+				$("#inscEstadual").mask("00000000-0", {reverse: true});
+				break;
+			case "AP":
+				$("#inscEstadual").mask("000000000", {reverse: true});
+				break;
+			default:
+				$("#inscEstadual").mask("000.000.000.000", {reverse: true});	// MÁSCARA SP
+				break;
+		}		
+	});
+	
 	// MODAL PARA CADASTRAR - CLIQUE DO BOTÃO CADASTRAR EXIBE O MODAL
 	$("a[role=cadastrar]").click(function(event){
 		event.preventDefault();

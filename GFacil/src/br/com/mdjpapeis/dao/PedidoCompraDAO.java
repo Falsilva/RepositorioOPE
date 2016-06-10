@@ -1,5 +1,6 @@
 package br.com.mdjpapeis.dao;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,10 +29,23 @@ public class PedidoCompraDAO implements GenericoDAO<PedidoCompra> {
 	// ATUALIZA UM PEDIDO DE COMPRA
 	@Override
 	public void atualizar(PedidoCompra pedidoCompra) throws PersistenceException {
+		
 		EntityManagerFactory conexao = Persistence.createEntityManagerFactory("MDJPapeisPU");
 		EntityManager entityManager =  conexao.createEntityManager();		
 		entityManager.getTransaction().begin();		
-		entityManager.merge(pedidoCompra);
+		
+		PedidoCompra ped = entityManager.find(PedidoCompra.class, pedidoCompra.getnPedido());
+		ped.setDataAbertura(pedidoCompra.getDataAbertura());		
+		if(pedidoCompra.getDataPagamento() != null && !pedidoCompra.getDataPagamento().equals("")){
+			System.out.println("DATA PGTO NO DAO: " + new SimpleDateFormat("dd/MM/yyyy").format(pedidoCompra.getDataPagamento().getTime()));
+			ped.setDataPagamento(pedidoCompra.getDataPagamento());
+		}
+		ped.setFornecedor(pedidoCompra.getFornecedor());
+		ped.setItensPedidoCompra(pedidoCompra.getItensPedidoCompra());
+		ped.setStatusCompra(pedidoCompra.getStatusCompra());
+		ped.setValorTotal(pedidoCompra.getValorTotal());
+		
+		entityManager.merge(ped);
 		entityManager.getTransaction().commit();		
 		entityManager.close();		
 		conexao.close();
