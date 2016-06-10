@@ -404,7 +404,7 @@
 									<li>
 										<a data-toggle="tab" href="#abril" role="mes" id="4">Abril</a>
 									</li>
-									<li class="active">
+									<li>
 										<a data-toggle="tab" href="#maio" role="mes" id="5">Maio</a>
 									</li>
 									<li>
