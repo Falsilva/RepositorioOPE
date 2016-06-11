@@ -127,8 +127,7 @@ $(document).ready(function(){
 		
 		// Exibe o Modal Form Excluir
 		modal.modal();		
-	});
-	
+	});	
 	
 	// BUSCA O NÚMERO DO PRÓXIMO PEDIDO PARA O MODAL CADASTRAR PEDIDO DE COMPRA
 	$.ajax({
@@ -509,8 +508,7 @@ $(document).ready(function(){
 							
 						// MONTANDO O ARRAY DE DADOS PARA ENVIO DO AJAX - CÓD. PRODUTO						
 						ajaxCodProduto.push(resultadoCodProdutos[index]);
-						ids.push(id);
-							
+						ids.push(id);							
 							
 						$.each(ids, function(ind, val){
 							console.log("\t\tids         >>> INDEX: " + ind + " VALUE: " + val);
@@ -564,9 +562,7 @@ $(document).ready(function(){
 			var i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", j = (j = i.length) > 3 ? j % 3 : 0;
 			return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
 		}
-	});
-	
-	
+	});	
 	
 	// ENVIA OS DADOS PARA O CADASTRAMENTO DO PEDIDO
 	var ajaxFornecedor = "";
@@ -679,11 +675,6 @@ $(document).ready(function(){
 		}
 	});
 		
-	
-	
-	
-	
-	//---------------------------------------- ATUALIZANDO ------------------------------------------------------------------------------------------	
 	var noPedidoEditar_tmp = "";
 	var dataPedidoAberturaEditar_tmp = "";
 	var dataPedidoPagtoEditar_tmp = "";
@@ -795,22 +786,7 @@ $(document).ready(function(){
 					ajaxCodProdutoEditar.splice(index, 1);
 					ids.splice(index, 1);					
 				}
-			});
-			/*
-			var valorTotalEditar = parseFloat($("#valorEditar").val());
-			console.log("1.valorTotal(INICIO): " + valorTotalEditar);
-			valorTotalEditar = formataNumeroParaExibicao(valorTotalEditar);
-			
-			if($("#valorEditar").val() != "" && $("#valorEditar").val() != 0){
-				console.log("2.valorTotal(INICIO FORMATADO) DIFERENTE de 0: " + valorTotalEditar);
-				var valorConvertido = formataNumeroParaEnvio($("#valorItemEditar" + id).val());
-				console.log("3.valorConvertido (ITEM): " + valorConvertido);
-				valorTotalEditar = parseFloat(valorTotalEditar) - valorConvertido;
-				console.log("4.valorTotal (SEM FORMATO): " + valorTotalEditar);
-				$("#valorEditar").val(formataNumeroParaExibicao(valorTotalEditar, 2, ",", "."));
-				console.log("5.valorTotal (FORMATADO): " + valorTotalEditar);
-				
-			}*/
+			});			
 			
 			// REMOVE A DIV DE ESPAÇAMENTO ENTRE LINHAS
 			linhaRemovida.next(".space-4").remove();
@@ -891,25 +867,24 @@ $(document).ready(function(){
 				$("#valorEditar").val(formataNumeroParaExibicao(0, 2, ",", "."));
 				$("#btnEditarPedido").prop("disabled", true);				
 			}else{
-					$.each($("#itensEditar").find(".form-inline"), function(index, value){						
-						if($("#valorItemEditar" + (index + 1)).val() == "" || $("#valorItemEditar" + (index + 1)).val() == 0
-								|| $("#pesoEditar" + (index + 1)).val() == "" || $("#pesoEditar" + (index + 1)).val() == 0
-								|| $("#materialEditar" + (index + 1)).val() == ""){
-							valorZeroOuVazio = true;
-							$("#btnEditarPedido").prop("disabled", true);
-						}else{
-							$("#valorItemEditar" + (index + 1)).focus();
-							$("#valorItemEditar" + (index + 1)).blur();
-						}
-					});
-					if(valorZeroOuVazio == false){
-						$("#valorItemEditar" + 1).focus();
-						$("#valorItemEditar" + 1).blur();
-						$("#btnEditarPedido").prop("disabled", false);
+				$.each($("#itensEditar").find(".form-inline"), function(index, value){						
+					if($("#valorItemEditar" + (index + 1)).val() == "" || $("#valorItemEditar" + (index + 1)).val() == 0
+							|| $("#pesoEditar" + (index + 1)).val() == "" || $("#pesoEditar" + (index + 1)).val() == 0
+							|| $("#materialEditar" + (index + 1)).val() == ""){
+						valorZeroOuVazio = true;
+						$("#btnEditarPedido").prop("disabled", true);
+					}else{
+						$("#valorItemEditar" + (index + 1)).focus();
+						$("#valorItemEditar" + (index + 1)).blur();
 					}
+				});
+				if(valorZeroOuVazio == false){
+					$("#valorItemEditar" + 1).focus();
+					$("#valorItemEditar" + 1).blur();
+					$("#btnEditarPedido").prop("disabled", false);
+				}
 			}			
-		});
-		
+		});		
 		
 		// COMPLETA O CAMPO DO PRODUTO NO MODAL CADASTRAR PEDIDO	
 		$("#materialEditar" + j).autocomplete({
@@ -1046,14 +1021,7 @@ $(document).ready(function(){
 							$("#pesoEditar" + id).val(1);
 							$("#valorItemEditar" + id).val(resultadoPrecoCompraProdutos[index]);
 						}
-						$("#valorItemEditar" + id).val(formataNumeroParaExibicao($("#valorItemEditar" + id).val(), 2, ',', '.'));
-						
-						/*var soma = 0;
-						$.each($("#valorItemEditar").val(), function(index, value){
-							soma += value;
-						});						
-						$("#valorEditar").val(soma);
-						*/
+						$("#valorItemEditar" + id).val(formataNumeroParaExibicao($("#valorItemEditar" + id).val(), 2, ',', '.'));						
 						
 						// MONTANDO O ARRAY DE DADOS PARA ENVIO DO AJAX - CÓD. PRODUTO						
 						ajaxCodProdutoEditar.push(resultadoCodProdutos[index]);
@@ -1092,25 +1060,24 @@ $(document).ready(function(){
 		$("#pesoEditar" + j).focus(function(){
 			valorZeroOuVazio = false;
 			if($(this).val() != "" && $(this).val() != 0){
-					$.each($("#itensEditar").find(".form-inline"), function(index, value){						
-						if($("#valorItemEditar" + (index + 1)).val() == "" || $("#valorItemEditar" + (index + 1)).val() == 0 
-								|| $("#pesoEditar" + (index + 1)).val() == "" || $("#pesoEditar" + (index + 1)).val() == 0
-								|| $("#materialEditar" + (index + 1)).val() == ""){							
-							valorZeroOuVazio = true;
-							$("#btnEditarPedido").prop("disabled", true);
-							console.log("PESO FOCADO - DESATIVADO - MATERIAL, PESO ou VALOR = VAZIO");
-						}
-					});
-					if(valorZeroOuVazio == false){
-						console.log("PESO FOCADO - ATIVADO - PESOS e VALORES OK");
-						$("#btnEditarPedido").prop("disabled", false);
+				$.each($("#itensEditar").find(".form-inline"), function(index, value){						
+					if($("#valorItemEditar" + (index + 1)).val() == "" || $("#valorItemEditar" + (index + 1)).val() == 0 
+							|| $("#pesoEditar" + (index + 1)).val() == "" || $("#pesoEditar" + (index + 1)).val() == 0
+							|| $("#materialEditar" + (index + 1)).val() == ""){							
+						valorZeroOuVazio = true;
+						$("#btnEditarPedido").prop("disabled", true);
+						console.log("PESO FOCADO - DESATIVADO - MATERIAL, PESO ou VALOR = VAZIO");
 					}
+				});
+				if(valorZeroOuVazio == false){
+					console.log("PESO FOCADO - ATIVADO - PESOS e VALORES OK");
+					$("#btnEditarPedido").prop("disabled", false);
+				}
 			}else{
 				console.log("PESO FOCADO - DESATIVADO - PESO = VAZIO");
 				$("#btnEditarPedido").prop("disabled", true);
 			}
-		});
-		
+		});		
 		
 		$("#pesoEditar" + j).blur(function(){
 			valorZeroOuVazio = false;
@@ -1130,30 +1097,29 @@ $(document).ready(function(){
 				$(this).val(vlrPeso.replace('.',','));
 				
 				var valorTotalEditar = parseFloat(0);
-						$.each($("#itensEditar").find(".form-inline"), function(index, value){						
-							if($("#valorItemEditar" + (index + 1)).val() == "" || $("#valorItemEditar" + (index + 1)).val() == 0 
-									|| $("#pesoEditar" + (index + 1)).val() == "" || $("#pesoEditar" + (index + 1)).val() == 0
-									|| $("#materialEditar" + (index + 1)).val() == ""){
-								valorZeroOuVazio = true;
-								$("#btnEditarPedido").prop("disabled", true);
-								console.log("PESO DESFOCADO - DESATIVADO - MATERIAL, PESO ou VALOR = VAZIO");
-							}else{
-								if($("#valorItemEditar" + (index + 1)).val() != ""){
-									if($("#valorEditar").val() != "" && $("#valorEditar").val() != 0){
-										console.log("VLR. TOTAL ANTES  (valorTotalEditar): " + valorTotalEditar);
-										var valorConvertido = formataNumeroParaEnvio($("#valorItemEditar" + (index + 1)).val());
-										valorTotalEditar = parseFloat(valorTotalEditar) + valorConvertido;
-										$("#valorEditar").val(formataNumeroParaExibicao(valorTotalEditar, 2, ",", "."));
-										console.log("VLR. TOTAL DEPOIS  (valorTotalEditar): " + valorTotalEditar);
-									}
-								}
-								
+				$.each($("#itensEditar").find(".form-inline"), function(index, value){						
+					if($("#valorItemEditar" + (index + 1)).val() == "" || $("#valorItemEditar" + (index + 1)).val() == 0 
+							|| $("#pesoEditar" + (index + 1)).val() == "" || $("#pesoEditar" + (index + 1)).val() == 0
+							|| $("#materialEditar" + (index + 1)).val() == ""){
+						valorZeroOuVazio = true;
+						$("#btnEditarPedido").prop("disabled", true);
+						console.log("PESO DESFOCADO - DESATIVADO - MATERIAL, PESO ou VALOR = VAZIO");
+					}else{
+						if($("#valorItemEditar" + (index + 1)).val() != ""){
+							if($("#valorEditar").val() != "" && $("#valorEditar").val() != 0){
+								console.log("VLR. TOTAL ANTES  (valorTotalEditar): " + valorTotalEditar);
+								var valorConvertido = formataNumeroParaEnvio($("#valorItemEditar" + (index + 1)).val());
+								valorTotalEditar = parseFloat(valorTotalEditar) + valorConvertido;
+								$("#valorEditar").val(formataNumeroParaExibicao(valorTotalEditar, 2, ",", "."));
+								console.log("VLR. TOTAL DEPOIS  (valorTotalEditar): " + valorTotalEditar);
 							}
-						});
-						if(valorZeroOuVazio == false){
-							console.log("PESO DESFOCADO - ATIVADO - PESOS e VALORES OK");
-							$("#btnEditarPedido").prop("disabled", false);
-						}
+						}								
+					}
+				});
+				if(valorZeroOuVazio == false){
+					console.log("PESO DESFOCADO - ATIVADO - PESOS e VALORES OK");
+					$("#btnEditarPedido").prop("disabled", false);
+				}
 			}else{
 				console.log("PESO DESFOCADO - DESATIVADO - PESO = VAZIO");
 				$("#valorItemEditar" + id).val("");
@@ -1166,17 +1132,17 @@ $(document).ready(function(){
 		$("#valorItemEditar" + j).focus(function(){
 			valorZeroOuVazio = false;
 			if($(this).val() != "" && $(this).val() != 0){
-					$.each($("#itensEditar").find(".form-inline"), function(index, value){						
-						if($("#valorItemEditar" + (index + 1)).val() == "" || $("#valorItemEditar" + (index + 1)).val() == 0
-								|| $("#pesoEditar" + (index + 1)).val() == "" || $("#pesoEditar" + (index + 1)).val() == 0
-								|| $("#materialEditar" + (index + 1)).val() == ""){
-							valorZeroOuVazio = true;
-							$("#btnEditarPedido").prop("disabled", true);
-						}
-					});
-					if(valorZeroOuVazio == false){
-						$("#btnEditarPedido").prop("disabled", false);
+				$.each($("#itensEditar").find(".form-inline"), function(index, value){						
+					if($("#valorItemEditar" + (index + 1)).val() == "" || $("#valorItemEditar" + (index + 1)).val() == 0
+							|| $("#pesoEditar" + (index + 1)).val() == "" || $("#pesoEditar" + (index + 1)).val() == 0
+							|| $("#materialEditar" + (index + 1)).val() == ""){
+						valorZeroOuVazio = true;
+						$("#btnEditarPedido").prop("disabled", true);
 					}
+				});
+				if(valorZeroOuVazio == false){
+					$("#btnEditarPedido").prop("disabled", false);
+				}
 			}else{
 				$("#btnEditarPedido").prop("disabled", true);
 			}
@@ -1206,8 +1172,7 @@ $(document).ready(function(){
 								}
 							}
 						}
-					});
-					
+					});					
 					if(valorZeroOuVazio == false){
 						$("#btnEditarPedido").prop("disabled", false);
 					}
@@ -1295,14 +1260,6 @@ $(document).ready(function(){
 		if(dataPedidoPagtoEditar != ""){			
 			modal.find("#dataPagamentoEditar").closest(".form-group");
 			modal.find("#dataPagamentoEditar").datepicker("setDate", dataPedidoPagtoEditar);
-			/*
-			var dataFormatada = new Date(dataPedidoPagtoEditar);			
-			var d = dataFormatada.getDate();
-			var m = dataFormatada.getMonth();
-			m += 1;  // JavaScript months are 0-11
-			var y = dataFormatada.getFullYear();
-
-			modal.find("#dataPagamentoEditar").val(d + "/" + m + "/" + y);*/
 		}else{
 			modal.find("#dataPagamentoEditar").closest(".form-group").addClass("hidden");
 		}
@@ -1379,10 +1336,7 @@ $(document).ready(function(){
 	var ajaxFornecedorEditar = "";
 	var ajaxCodProdutoEditar = [];
 	var ajaxPesosEditar = [];
-	var ajaxPrecosEditar = [];		
-		
-	
-	
+	var ajaxPrecosEditar = [];	
 	
 	// ATUALIZA O PEDIDO
 	$("#btnEditarPedido").click(function(){
@@ -1471,7 +1425,6 @@ $(document).ready(function(){
 				
 				console.log("VALOR DA COMPRA: " + $("#modal-form-pedido[rel=modaleditar]").find("#valorEditar").val());				
 				
-				//var status = $("#modal-form-pedido[rel=modaleditar]").find("#statusEditar").find("option").prop("selected", true).val();
 				var status = null;
 				$.each($("#statusEditar").find("option"), function(index, value){
 					console.log("option = " + $(this).val());
@@ -1482,8 +1435,6 @@ $(document).ready(function(){
 				
 				console.log("status: " + status);
 				console.log("dtPagto: " + dtPagto);
-				
-// ----------------------------- FASE ATUAL -- AJAX - ENVIANDO OS DADOS PARA O CADASTRAMENTO DO PEDIDO-------------------------------------------
 				
 				$.ajax({
 					url:"controller",
@@ -1519,15 +1470,10 @@ $(document).ready(function(){
 						botao.text("Fechar");
 						$("#modal-form-pedido[rel=modaleditar]").find("#btnEditarPedido").addClass("hidden");
 					}
-				});
-// ----------------------------- FIM --------------------------------------------------------------------------------------------------------- 
+				}); 
 			}
 		}
 	});
-	
-	
-	
-	
 	
 	$("#dataPagamentoEditar").datepicker({
 		dateFormat: 'dd/mm/yy',
@@ -1544,10 +1490,6 @@ $(document).ready(function(){
 	}).next().on(ace.click_event, function(){
 		$(this).prev().focus();
 	});
-	
-	
-	
-	
 	
 	// RECARREGA A PÁGINA AO FECHAR O MODAL CADASTRAR
 	$("#modal-form-pedido[rel=modalcadastrar]").on("hidden.bs.modal", function (){

@@ -1,20 +1,13 @@
 package br.com.mdjpapeis.model;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
-import javax.json.Json;
 import javax.persistence.PersistenceException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,19 +16,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import br.com.mdjpapeis.dao.CaixaDAO;
-import br.com.mdjpapeis.dao.ItemPedidoDAO;
 import br.com.mdjpapeis.dao.MovimentacaoDAO;
 import br.com.mdjpapeis.dao.PedidoCompraDAO;
-import br.com.mdjpapeis.dao.ProdutoDAO;
 import br.com.mdjpapeis.entity.Caixa;
 import br.com.mdjpapeis.entity.Fornecedor;
 import br.com.mdjpapeis.entity.ItemPedido;
 import br.com.mdjpapeis.entity.Movimentacao;
-import br.com.mdjpapeis.entity.Movimentacao.TipoLancamento;
 import br.com.mdjpapeis.entity.PedidoCompra;
 import br.com.mdjpapeis.entity.PedidoCompra.StatusCompra;
-import br.com.mdjpapeis.entity.Produto;
 
 @WebServlet(urlPatterns = {"/listarPedidoCompra", "/pesquisarPedidoCompra", "/cadastrarPedidoCompra", "/atualizarPedidoCompra", "/excluirPedidoCompra"})
 public class RegraPedidoCompra extends HttpServlet {
@@ -52,12 +43,8 @@ public class RegraPedidoCompra extends HttpServlet {
 		String status = null;		
 		String strItens = null;
 		String[] arrayItens = null;
-		int contador = 0;
+		int contador = 0;		
 		
-		double dblPrecoCompra = 0;
-		double dblPrecoVenda = 0;
-		BigDecimal precoCompra = null;
-		BigDecimal precoVenda = null;
 		BigDecimal valorTotalPedido = new BigDecimal(0);
 		BigDecimal valorParaAtualizarCaixa = new BigDecimal(0);		
 		long proximoNumero = 0;
@@ -65,16 +52,13 @@ public class RegraPedidoCompra extends HttpServlet {
 		PedidoCompra pedidoCompra = null;
 		PedidoCompra pedCompra = null;
 		List<PedidoCompra> pedidosCompra = null;	
-		PedidoCompra verificaPedido = null;
 		StatusCompra statusCadastrado = null;
 		
 		Caixa caixa = null;
 		Movimentacao movimentacao = null;
 		List<Movimentacao> movimentacoes = null;
 		
-		String[][] parametros = null;
 		String tarefa = req.getParameter("tarefa");
-		boolean codigoInvalido = false;
 		RequestDispatcher dispatcher = null;
 		
 		switch(req.getParameter("action")){

@@ -254,7 +254,7 @@
 						<c:if test="${usuarioLogado.perfil == 'ADMINISTRADOR' || usuarioLogado.perfil == 'VENDEDOR'}">
 						<li class="">
 							<a href="#" onclick="document.getElementById('form_venda').submit()">
-								<form id="form_venda" action="controller?action=venda" method="post"></form>
+								<form id="form_venda" action="controller?action=listarPedidoVenda" method="post"></form>
 								<i class="menu-icon fa fa-caret-right"></i>	Venda
 								<span class="badge badge-transparent">									
 									<i class="ace-icon fa fa-cart-plus green bigger-130"></i>
@@ -684,7 +684,7 @@
 												<div class="form-group">
 													<label for="statusEditar">Status</label>
 													<div>
-														<select class="chosen-select" data-placeholder="Escolha o perfil..." name="statusEditar" id="statusEditar">
+														<select class="chosen-select" data-placeholder="Escolha o status..." name="statusEditar" id="statusEditar">
 															<c:forEach var="status" items="<%= PedidoCompra.StatusCompra.values() %>">
 																<option value="${status}">${status}</option>
 															</c:forEach>
@@ -777,7 +777,8 @@
 							</div>
 							<!-- FIM -- MODAL FORMULÁRIO PARA EXCLUIR -->
 			        	</div>
-	                </div>	                
+	                </div>
+	                <!-- FIM -- TABELA -->                
 				</div>
 				<!-- FIM -- CONTEÚDO DA PÁGINA -->
 			</div>
@@ -817,8 +818,7 @@
 
     <!-- JQUERY SCRIPTS -->
     <!--[if !IE]> -->
-	<script src="resources/js/jquery.2.2.4.min.js"></script>
-	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script> -->
+	<script src="resources/js/jquery.2.2.4.min.js"></script>	
 	<!-- <![endif]-->
 	
 	<!--[if IE]> 
@@ -851,10 +851,7 @@
     <!-- JQUERY UI DATEPICKER - CALENDÁRIO -->
     <script src="resources/js/jquery-ui.custom.min.js"></script>	
     <script src="resources/js/chosen.jquery.min.js"></script>
-    <script src="resources/js/bootstrap-datepicker.min.js"></script>
-	<!-- <script src="resources/js/jquery.autosize.min.js"></script>
-	<script src="resources/js/jquery.inputlimiter.1.3.1.min.js"></script>
-	<script src="resources/js/jquery.maskedinput.min.js"></script> -->
+    <script src="resources/js/bootstrap-datepicker.min.js"></script>	
     
     <!-- ACE CONFIGURAÇÕES DESTA PÁGINA -->
 	<script src="resources/js/ace-elements.min.js"></script>

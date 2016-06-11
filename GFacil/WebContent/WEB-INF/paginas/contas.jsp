@@ -467,7 +467,7 @@
 						</li>
 						<li class="">
 							<a href="#" onclick="document.getElementById('form_venda').submit()">
-								<form id="form_venda" action="controller?action=venda" method="post"></form>
+								<form id="form_venda" action="controller?action=listarPedidoVenda" method="post"></form>
 								<i class="menu-icon fa fa-caret-right"></i>	Venda
 								<span class="badge badge-transparent">									
 									<i class="ace-icon fa fa-cart-plus green bigger-130"></i>

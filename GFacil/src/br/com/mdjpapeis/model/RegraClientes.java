@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.mdjpapeis.dao.ClienteDAO;
 import br.com.mdjpapeis.entity.Cliente;
+import br.com.mdjpapeis.entity.Fornecedor;
 
 @WebServlet(urlPatterns = {"/listarClientes", "/pesquisarCliente", "/cadastrarCliente", "/atualizarCliente", "/excluirCliente", "/separaEnderecoCliente"})
 public class RegraClientes extends HttpServlet {
@@ -59,18 +60,51 @@ public class RegraClientes extends HttpServlet {
 				System.out.println("RegraClientes, LISTANDO CLIENTES...");
 				clientes = new ClienteDAO().listar();
 				
-				if(clientes != null){
-					System.out.println("RegraClientes, CLIENTES LISTADOS, FORMATANDO O ENDERECO PARA EXIBICAO...");
-					formataEnderecoParaExibicao(clientes);
-					System.out.println("RegraClientes, CLIENTES LISTADOS,  ENDERECO FORMATADO.");
-					req.setAttribute("clientes", clientes);
+				if(tarefa != null && tarefa.equals("pedidoVenda")){						
+					
+					// Montando o JSON
+					String dataListaClientes = "";
+					String arrayClientes = "";
+					
+					if(clientes != null){
+						int count = 1;
+						for(Cliente c : clientes){
+							if(count == 1){
+								arrayClientes += "{"			
+										+ "\"codigo\":\"" + c.getCodigo() + "\","
+										+ "\"empresa\":\"" + c.getEmpresa() + "\","
+										+ "\"contato\":\"" + c.getContato() + "\""
+										+ "}";
+								count = 2;
+							}else{
+								arrayClientes += ", " + "{"			
+										+ "\"codigo\":\"" + c.getCodigo() + "\","
+										+ "\"empresa\":\"" + c.getEmpresa() + "\","
+										+ "\"contato\":\"" + c.getContato() + "\""
+										+ "}";
+							}
+						}					
+						dataListaClientes = "{\"dataListaClientes\":[" + arrayClientes + "]}";
+					}else{
+						dataListaClientes = "{\"dataListaClientes\":\"null\"}";
+					}
+					resp.setContentType("application/json");				
+					resp.setCharacterEncoding("UTF-8");
+					resp.getWriter().write(dataListaClientes);
 				}else{
-					System.out.println("RegraClientes, NAO HA CLIENTES CADASTRADOS.");
-					req.setAttribute("mensagem", "Não há clientes cadastrados");
+					if(clientes != null){
+						System.out.println("RegraClientes, CLIENTES LISTADOS, FORMATANDO O ENDERECO PARA EXIBICAO...");
+						formataEnderecoParaExibicao(clientes);
+						System.out.println("RegraClientes, CLIENTES LISTADOS,  ENDERECO FORMATADO.");
+						req.setAttribute("clientes", clientes);
+					}else{
+						System.out.println("RegraClientes, NAO HA CLIENTES CADASTRADOS.");
+						req.setAttribute("mensagem", "Não há clientes cadastrados");
+					}
+					
+					dispatcher = req.getRequestDispatcher("controller?action=clientes");
+					dispatcher.forward(req, resp);
 				}
-				
-				dispatcher = req.getRequestDispatcher("controller?action=clientes");
-				dispatcher.forward(req, resp);
 				break;
 			case("pesquisarCliente"):
 				System.out.println("RegraClientes, PESQUISANDO CLIENTE(S)...");

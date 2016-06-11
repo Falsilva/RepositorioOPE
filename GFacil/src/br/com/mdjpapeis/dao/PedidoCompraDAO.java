@@ -78,7 +78,7 @@ public class PedidoCompraDAO implements GenericoDAO<PedidoCompra> {
 		}
 	}
 
-	// LISTA OS UM PEDIDOS DE COMPRAS
+	// LISTA OS PEDIDOS DE COMPRAS
 	@Override
 	public List<PedidoCompra> listar() throws PersistenceException {
 		List<PedidoCompra> pedidosCompras = new ArrayList();

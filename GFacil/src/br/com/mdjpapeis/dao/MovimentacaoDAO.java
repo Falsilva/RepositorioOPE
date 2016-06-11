@@ -12,6 +12,7 @@ import javax.persistence.Query;
 
 import br.com.mdjpapeis.entity.Movimentacao;
 import br.com.mdjpapeis.entity.PedidoCompra;
+import br.com.mdjpapeis.entity.PedidoVenda;
 
 public class MovimentacaoDAO implements GenericoDAO<Movimentacao> {
 
@@ -102,6 +103,41 @@ public class MovimentacaoDAO implements GenericoDAO<Movimentacao> {
 		}
 	}
 	
+	public void excluirMovimentacaoVenda(PedidoVenda pedidoVenda) throws PersistenceException {
+		EntityManagerFactory conexao = Persistence.createEntityManagerFactory("MDJPapeisPU");
+		List<Movimentacao> movimentacoes = null;
+		try{
+			EntityManager entityManager = conexao.createEntityManager();		
+			entityManager.getTransaction().begin();
+			
+			String queryJPQL =	"SELECT M FROM Movimentacao M WHERE M.pedidoVenda = :pedidoVenda";
+			
+			Query query = entityManager.createQuery(queryJPQL);
+			query.setParameter("pedidoVenda", pedidoVenda);
+			movimentacoes = (List<Movimentacao>)query.getResultList();
+			System.out.println("MovimentacaoDAO - CHEGOU ATÉ AQUI!! Np. Pedido: " + pedidoVenda.getnPedido());
+			if(movimentacoes.size() != 0){
+				for(Movimentacao mov : movimentacoes){
+					if(mov.getPedidoVenda().getnPedido() == pedidoVenda.getnPedido())
+						entityManager.remove(mov);
+				}
+			}			
+					
+			entityManager.getTransaction().commit();
+			entityManager.close();		
+		}catch(IllegalArgumentException ex){
+			System.out.println("MovimentacaoDAO - CATCH IllegalArgumentException");
+			ex.printStackTrace();
+			throw new PersistenceException(ex);		
+		}catch(PersistenceException ex){
+			System.out.println("MovimentacaoDAO - CATCH PersistenceException");
+			ex.printStackTrace();
+			throw new PersistenceException(ex);			
+		}finally{					
+			conexao.close();
+		}
+	}
+	
 	@Override
 	public List<Movimentacao> listar() throws PersistenceException {
 		List<Movimentacao> movimentacoes = new ArrayList();
@@ -159,6 +195,36 @@ public class MovimentacaoDAO implements GenericoDAO<Movimentacao> {
 			
 			Query query = entityManager.createQuery(queryJPQL);
 			query.setParameter("pedidoCompra", pedidoCompra);
+			movimentacoes = (List<Movimentacao>)query.getResultList();		
+			
+			
+			if(movimentacoes.size() == 1){
+				System.out.println("ACHOU MOVIMENTACAO POR PEDIDO");
+				movimentacao = movimentacoes.get(0);
+			}
+			entityManager.close();			
+		}catch(PersistenceException ex){
+			movimentacao = null;
+			ex.printStackTrace();
+		}finally{
+			conexao.close();
+		}
+		return movimentacao;
+	}
+
+	public Movimentacao buscaPorPedidoVenda(PedidoVenda pedidoVenda) {
+		Movimentacao movimentacao = null;
+		List<Movimentacao> movimentacoes = new ArrayList();
+		EntityManagerFactory conexao = Persistence.createEntityManagerFactory("MDJPapeisPU");
+		try{
+			// Query JPQL (Trabalha com Classes e Objetos Java)
+			String queryJPQL =	"SELECT M FROM Movimentacao M WHERE M.pedidoVenda = :pedidoVenda";		
+			EntityManager entityManager = conexao.createEntityManager();
+			
+			System.out.println("MovimentacaoDAO - buscaPorPedidoVenda - CHEGOU ATE AQUI!");
+			
+			Query query = entityManager.createQuery(queryJPQL);
+			query.setParameter("pedidoVenda", pedidoVenda);
 			movimentacoes = (List<Movimentacao>)query.getResultList();		
 			
 			

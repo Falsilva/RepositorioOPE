@@ -1,5 +1,6 @@
 package br.com.mdjpapeis.dao;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,9 +29,22 @@ public class PedidoVendaDAO implements GenericoDAO<PedidoVenda> {
 	// ATUALIZA UM PEDIDO DE VENDA
 	@Override
 	public void atualizar(PedidoVenda pedidoVenda) throws PersistenceException {
+		
 		EntityManagerFactory conexao = Persistence.createEntityManagerFactory("MDJPapeisPU");
 		EntityManager entityManager =  conexao.createEntityManager();		
 		entityManager.getTransaction().begin();		
+		
+		PedidoVenda ped = entityManager.find(PedidoVenda.class, pedidoVenda.getnPedido());
+		ped.setDataAbertura(pedidoVenda.getDataAbertura());		
+		if(pedidoVenda.getDataPagamento() != null && !pedidoVenda.getDataPagamento().equals("")){
+			System.out.println("DATA PGTO NO DAO: " + new SimpleDateFormat("dd/MM/yyyy").format(pedidoVenda.getDataPagamento().getTime()));
+			ped.setDataPagamento(pedidoVenda.getDataPagamento());
+		}
+		ped.setCliente(pedidoVenda.getCliente());
+		ped.setItensPedidoVenda(pedidoVenda.getItensPedidoVenda());
+		ped.setStatusVenda(pedidoVenda.getStatusVenda());
+		ped.setValorTotal(pedidoVenda.getValorTotal());
+		
 		entityManager.merge(pedidoVenda);
 		entityManager.getTransaction().commit();		
 		entityManager.close();		
@@ -64,7 +78,7 @@ public class PedidoVendaDAO implements GenericoDAO<PedidoVenda> {
 		}
 	}
 
-	// LISTA OS UM PEDIDOS DE VENDAS
+	// LISTA OS PEDIDOS DE VENDAS
 	@Override
 	public List<PedidoVenda> listar() throws PersistenceException {
 		List<PedidoVenda> pedidosVendas = new ArrayList();
@@ -86,7 +100,7 @@ public class PedidoVendaDAO implements GenericoDAO<PedidoVenda> {
 		return pedidosVendas;
 	}
 	
-public PedidoVenda buscaPedidoVendaPorCodigo(long codigo){
+	public PedidoVenda buscaPedidoVendaPorNumeroPedido(long codigo){
 		
 		EntityManagerFactory conexao = Persistence.createEntityManagerFactory("MDJPapeisPU");
 				

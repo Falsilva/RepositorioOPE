@@ -1,44 +1,80 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="br.com.mdjpapeis.entity.PedidoVenda" %>
 
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>	
 	<meta charset="utf-8" />
 	
-	<!-- OTIMIZA«√O PARA MOBILE -->
+	<!-- OTIMIZA√á√ÉO PARA MOBILE -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />    
 	
 	<!-- BOOTSTRAP STYLES-->
     <link href="resources/css/bootstrap.css" rel="stylesheet" />
     
-     <!-- FONTAWESOME STYLES-->
+    <!-- ACE STYLES -->
+	<link rel="stylesheet" href="resources/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
+    
+    <!-- FONTAWESOME STYLES-->
     <link href="resources/font-awesome/4.6.1/css/font-awesome.css" rel="stylesheet" />
+    
+    <!-- ESTILIZA√á√ÉO DO CALEND√ÅRIO - DATEPICKER -->
+    <link rel="stylesheet" href="resources/css/datepicker.min.css" />
         
     <!-- GOOGLE FONTS -->
-	<link rel="stylesheet" href="resources/fonts/fonts.googleapis.com.css" />
+	<link rel="stylesheet" href="resources/fonts/fonts.googleapis.com.css" />	
 	
-	<!-- ACE STYLES -->
-	<link rel="stylesheet" href="resources/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
-	
-	<!-- PERSONALIZA«√O PR”PRIA -->
+	<!-- PERSONALIZA√á√ÉO PR√ìPRIA -->
     <link href="resources/css/estilos.css" rel="stylesheet">
 	
 	<title>MDJ Papeis</title>
+	<style>	
+		.ui-autocomplete {
+		    max-height: 100px;
+		    overflow-y: auto;
+		    /* previne o scrollbar horizontal */
+		    overflow-x: hidden;
+		    z-index: 1100;
+	  	}
+		  /* IE 6 doesn't support max-height
+		   * we use height instead, but this forces the menu to always be this tall
+		   */
+		* html .ui-autocomplete {
+	    	height: 100px;
+	  	}
+	  	#itemNovo, #itensExcluir {
+		  width:auto;
+		  height:152px;
+		  background-color:#FFFFFF;
+		  overflow:auto;
+		}
+		#itensEditar {
+		  width:auto;
+		  height:210px;
+		  background-color:#FFFFFF;
+		  overflow:auto;
+		}
+		.datepicker {
+			position:relative;
+			z-index:1100 !important;
+		}
+	</style>
 </head>
 <body class="no-skin">
 
 	
-	<!--=================== BLOCO DA BARRA DE NAVEGA«√O SUPERIOR E CONTE⁄DO DA P¡GINA ====================-->
+	<!--=================== BLOCO DA BARRA DE NAVEGA√á√ÉO SUPERIOR E CONTE√öDO DA P√ÅGINA ====================-->
 	
 	
-	<!-- BARRA DE NAVEGA«√O -->
+	<!-- BARRA DE NAVEGA√á√ÉO -->
 	<div id="navbar" class="navbar navbar-default">
 	
-		<!-- CONTE⁄DO DA BARRA DE NAVEGA«√O -- SUPERIOR -->
+		<!-- CONTE√öDO DA BARRA DE NAVEGA√á√ÉO -- SUPERIOR -->
 		<div id="navbar-container" class="navbar-container">
 			
-			<!-- BOT√O DE ACESSO AO MENU PARA TELAS PEQUENAS -- ESSE BOT√O ALTERNA A EXIBI«√O DA BARRA DE NAVEGA«√O LATERAL -- MENU LATERAL -->
+			<!-- BOT√ÉO DE ACESSO AO MENU PARA TELAS PEQUENAS -- ESSE BOT√ÉO ALTERNA A EXIBI√á√ÉO DA BARRA DE NAVEGA√á√ÉO LATERAL -- MENU LATERAL -->
 			<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
 				<span class="sr-only">Toggle sidebar</span>
 				<span class="icon-bar"></span>
@@ -46,23 +82,23 @@
 				<span class="icon-bar"></span>
 			</button>
 			
-			<!-- ÕCONE DA BARRA DE NAVEGA«√O -->
+			<!-- √çCONE DA BARRA DE NAVEGA√á√ÉO -->
 			<div class="navbar-header pull-left">
 				<a href="#" class="navbar-brand">
 					<small>
-						<i class="fa fa-recycle"></i> MDJ PapÈis
+						<i class="fa fa-recycle"></i> MDJ Pap√©is
 					</small>
 				</a>
 			</div>
 			
-			<!-- BOT’ES DA BARRA DE NAVEGA«√O -->
+			<!-- BOT√ïES DA BARRA DE NAVEGA√á√ÉO -->
 			<div class="navbar-buttons navbar-header pull-right" role="navigation">
 				<ul class="nav ace-nav">					
 					
-					<!-- BOT√O AZUL COM NOME DE USU¡RIO -->
+					<!-- BOT√ÉO AZUL COM NOME DE USU√ÅRIO -->
 					<li class="azul-escuro-nosso">
 					
-						<!-- DESIGN DO BOT√O -->
+						<!-- DESIGN DO BOT√ÉO -->
 						<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 							<i class="ace-icon fa fa-user"></i>
 							<span class="user-info">
@@ -71,7 +107,7 @@
 							<i class="ace-icon fa fa-caret-down"></i>
 						</a>
 						
-						<!-- LISTA DE OP«’ES DO BOT√O -->
+						<!-- LISTA DE OP√á√ïES DO BOT√ÉO -->
 						<ul class="user-menu dropdown-menu dropdown-menu-right dropdown-yellow dropdown-caret dropdown-close">
 							<li>				
 								<a href="#" onclick="document.getElementById('form_logout').submit()">
@@ -85,27 +121,27 @@
 				</ul>
 			</div>
 		</div>
-		<!-- FIM -- CONTE⁄DO DA BARRA DE NAVEGA«√O -- SUPERIOR -->		
+		<!-- FIM -- CONTE√öDO DA BARRA DE NAVEGA√á√ÉO -- SUPERIOR -->		
 	</div>
-	<!-- FIM -- BARRA DE NAVEGA«√O -->
+	<!-- FIM -- BARRA DE NAVEGA√á√ÉO -->
 		
 		
-	<!--============= DIVISA DOS BLOCOS DE BARRA DE NAVEGA«√O SUPERIOR E CONTE⁄DO DA P¡GINA ==============-->
+	<!--============= DIVISA DOS BLOCOS DE BARRA DE NAVEGA√á√ÉO SUPERIOR E CONTE√öDO DA P√ÅGINA ==============-->
 		
 		
-	<!-- CONTE⁄DO DA P¡GINA -- INCLUI MENU LATERAL E CONTE⁄DO PRINCIPAL-->
+	<!-- CONTE√öDO DA P√ÅGINA -- INCLUI MENU LATERAL E CONTE√öDO PRINCIPAL-->
 	<div class="main-container" id="main-container">
 		
 		<!--===================================== BLOCO MENU LATERAL =====================================-->
 		
 		
-		<!-- BARRA DE NAVEGA«√O LATERAL -- MENU LATERAL -- NO MODO TELA PEQUENA, ESSE MENU … ACESSADO PELO BOT√O L¡ EMCIMA COM O id="menu-toggler"  -->
+		<!-- BARRA DE NAVEGA√á√ÉO LATERAL -- MENU LATERAL -- NO MODO TELA PEQUENA, ESSE MENU √â ACESSADO PELO BOT√ÉO L√Å EMCIMA COM O id="menu-toggler"  -->
 		<div id="sidebar" class="sidebar responsive">
 		
 			<!-- BARRA LATERAL DE ATALHOS -->
 			<div class="sidebar-shortcuts" id="sidebar-shortcuts">
 					
-				<!-- REL”GIO - QUANDO EXIBI«√O TOTAL DO MENU  -->
+				<!-- REL√ìGIO - QUANDO EXIBI√á√ÉO TOTAL DO MENU  -->
 				<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">																
 					<div class="widget-box-relogio transparent">
 	                	<div class="widget-header widget-header-flat">
@@ -119,7 +155,7 @@
 					</div>
 				</div>
 
-				<!-- REL”GIO - QUANDO EXIBI«√O RECOLHIDA DO MENU  -->
+				<!-- REL√ìGIO - QUANDO EXIBI√á√ÉO RECOLHIDA DO MENU  -->
 				<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
 					<span class="badge badge-primary">
 						<i class="ace-icon fa fa-clock-o"></i>
@@ -182,7 +218,7 @@
 						<li class="">
 							<a href="#" onclick="document.getElementById('form_usuarios').submit()">								
 								<form id="form_usuarios" action="controller?action=listarUsuarios" method="post"></form>
-								<i class="menu-icon fa fa-caret-right"></i>	Usu·rios
+								<i class="menu-icon fa fa-caret-right"></i>	Usu√°rios
 								<span class="badge badge-transparent">
 									<i class="ace-icon fa fa-users blue bigger-130"></i>
 								</span>
@@ -219,7 +255,7 @@
 						<c:if test="${usuarioLogado.perfil == 'ADMINISTRADOR' || usuarioLogado.perfil == 'VENDEDOR'}">
 						<li class="active">
 							<a href="#" onclick="document.getElementById('form_venda').submit()">
-								<form id="form_venda" action="controller?action=venda" method="post"></form>
+								<form id="form_venda" action="controller?action=listarPedidoVenda" method="post"></form>
 								<i class="menu-icon fa fa-caret-right"></i>	Venda
 								<span class="badge badge-transparent">									
 									<i class="ace-icon fa fa-cart-plus green bigger-130"></i>
@@ -243,12 +279,12 @@
 				</li>
 				</c:if>
 				
-				<!-- ITEM 5 -- TABELA DE PRE«OS -->
+				<!-- ITEM 5 -- TABELA DE PRE√áOS -->
 				<li class="">
 					<a href="#" onclick="document.getElementById('form_precos').submit()">
 						<form id="form_precos" action="controller?action=listarProdutos" method="post"></form>
 						<i class="menu-icon fa fa-dollar"></i>
-						<span class="menu-text"> Tabela de PreÁos </span>
+						<span class="menu-text"> Tabela de Pre√ßos </span>
 					</a>
 					<b class="arrow"></b>
 				</li>
@@ -256,23 +292,23 @@
 			</ul>
 			<!-- FIM -- LISTA DE ITENS DO MENU -->
 			
-			<!-- ÕCONE DE SETA QUE RECOLHE O MENU LATERAL PARA A ESQUERDA -->
+			<!-- √çCONE DE SETA QUE RECOLHE O MENU LATERAL PARA A ESQUERDA -->
 			<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
 				<i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
 			</div>
 						
 		</div>
-		<!-- FIM -- BARRA DE NAVEGA«√O LATERAL -- MENU LATERAL -->
+		<!-- FIM -- BARRA DE NAVEGA√á√ÉO LATERAL -- MENU LATERAL -->
 		
 		
-		<!--=================== DIVISA DOS BLOCOS DO MENU LATERAL E CONTE⁄DO PRINCIPAL ===================-->
+		<!--=================== DIVISA DOS BLOCOS DO MENU LATERAL E CONTE√öDO PRINCIPAL ===================-->
 		
 		
-		<!-- CONTE⁄DO PRINCIPAL DA P¡GINA -->
+		<!-- CONTE√öDO PRINCIPAL DA P√ÅGINA -->
 		<div class="main-content">
 			<div class="main-content-inner">
 			
-				<!-- BARRA DE NAVEGA«√O DE CATEGORIAS LISTADAS -->
+				<!-- BARRA DE NAVEGA√á√ÉO DE CATEGORIAS LISTADAS -->
 				<div class="breadcrumbs" id="breadcrumbs">
 					
 					<!-- CATEGORIAS LISTADAS -->
@@ -286,34 +322,34 @@
 					</ul>				
 					
 				</div>
-				<!-- FIM -- BARRA DE NAVEGA«√O DE CATEGORIAS LISTADAS -->
+				<!-- FIM -- BARRA DE NAVEGA√á√ÉO DE CATEGORIAS LISTADAS -->
 				
-				<!-- CONTE⁄DO DA P¡GINA -->
+				<!-- CONTE√öDO DA P√ÅGINA -->
 				<div class="page-content">
 				
-					<!-- CABE«ALHO DO CONTE⁄DO -->
+					<!-- CABE√áALHO DO CONTE√öDO -->
 					<div class="page-header">
 						<h1><strong>Pedidos de Vendas</strong>
 							<small>
-								<i class="ace-icon fa fa-angle-double-right"></i> <strong>geraÁ„o de pedidos &amp; histÛrico</strong>
+								<i class="ace-icon fa fa-angle-double-right"></i> <strong>gera√ß√£o de pedidos &amp; hist√≥rico</strong>
 							</small>
 							
 						</h1>
 					</div>
-					<!-- FIM -- CABE«ALHO DO CONTE⁄DO -->
+					<!-- FIM -- CABE√áALHO DO CONTE√öDO -->
 					
-					<!-- MENSAGEM DE APRESENTA«√O DA P¡GINA -->
+					<!-- MENSAGEM DE APRESENTA√á√ÉO DA P√ÅGINA -->
 					<div class="row">
 						<div class="col-xs-12">						
 							<div class="alert alert-block alert-success">
 								<button type="button" class="close" data-dismiss="alert">
 									<i class="ace-icon fa fa-times"></i>
 								</button>
-								<i class="ace-icon fa fa-check green"></i> Oba, mais uma venda!! Gere aqui o pedido de vendas para controlar todas as receitas geradas pelas vendas, ficando de olho nos pedidos pendentes de recebimento e proporcionando uma vis„o mais adequada com a realidade do seu negÛcio. 
+								<i class="ace-icon fa fa-check green"></i> Oba, mais uma venda!! Gere aqui o pedido de vendas para controlar todas as receitas geradas pelas vendas, ficando de olho nos pedidos pendentes de recebimento e proporcionando uma vis√£o mais adequada com a realidade do seu neg√≥cio. 
 							</div>
 						</div>
 					</div>					
-					<!-- FIM -- MENSAGEM DE APRESENTA«√O DA P¡GINA -->					
+					<!-- FIM -- MENSAGEM DE APRESENTA√á√ÉO DA P√ÅGINA -->					
 					
 	                <!-- TABELA DE PEDIDOS -->
 	                <div class="row">
@@ -323,7 +359,7 @@
 							<div class="tableTools-container">
 								<div class="btn-group btn-over-lap">
 										
-									<!-- BOT√O NOVO MATERIAL -->
+									<!-- BOT√ÉO NOVO MATERIAL -->
 									<a href="#" class="btn btn-app btn-success btn-xs" role="cadastrar">
 										<i class="ace-icon fa fa-plus bigger-130">&nbsp;<i class="ace-icon fa fa-cart-plus bigger-130"></i></i>Novo
 									</a>
@@ -332,137 +368,200 @@
 	                	
 		                	<div class="widget-box transparent">
 				                    
-								<!-- TÕTULO DOS PEDIDOS -->
+								<!-- T√çTULO DOS PEDIDOS -->
 			                	<div class="widget-header widget-header-flat">
 									<h3 class="widget-title lighter">
-										<i class="ace-icon fa fa-dollar"></i><strong> HistÛrico de Pedidos</strong>
+										<i class="ace-icon fa fa-dollar"></i><strong> Hist√≥rico de Pedidos</strong>
 									</h3>
 								</div>
 									
 								<!-- PEDIDOS -->
 			                    <div class="widget-body">
 									<div class="widget-main no-padding">
-									
-										<!-- RESULTADO DOS N⁄MEROS DE PEDIDOS -->
-										<div class="table-header">
-											<strong>Resultado:</strong>
+										<div class="breadcrumbs">
+											<ul class="breadcrumb">
+												<li class="active">
+													<b>Pesquise pelo n√∫mero do pedido... <i class="ace-icon fa fa-angle-double-right"></i></b>
+												</li>
+											</ul>
+											<div class="nav-search" id="nav-search">
+												<form class="form-search" id="formPesquisarPedidoVenda" action="controller?action=pesquisarPedidoVenda" method="POST">
+													<span class="input-icon">													
+														<input class="nav-search-input" type="text" name="nPedido" id="nPedido" placeholder="No. Pedido..." />
+														<i class="ace-icon fa fa-search nav-search-icon"></i>
+													</span>												
+												</form>
+											</div>	
 										</div>
-									
-										<table class="table table-bordered table-striped">
-											<thead class="thin-border-bottom">
-				                               	<tr>
-				                                   	<th>No. Pedido</th>
-				                                   	<th>Data</th>
-				                                    <th>Cliente</th>				                                    
-				                                    <th>NF.</th>
-				                                    <th>Vlr. Compra (R$)</th>
-				                                    <th>Status</th>			                                    
-				                                    <th>AÁıes</th>
-				                              	</tr>
-			                       			</thead>
-				                       		<tbody>
-				                       			<tr>
-				                                   	<td class="text-right"><b>12</b></td>
-				                                   	<td><b>10/05/2016</b></td>
-				                                    <td><b>Renova Pl·stico</b></td>
-				                                    <td><b>23654</b></td>
-				                                    <td class="text-right"><b>800,00</b></td>
-				                                    <td class="text-center"><span class="label label-success arrowed arrowed-right">Pago</span></td>
-				                                    
-				                                    <!-- COLUNA DE A«’ES -->
-													<td>														
-														<!-- EXIBI«√O EM TELAS GRANDES -->															
-														<div class="hidden-sm hidden-xs action-buttons">
-																	
-															<!-- BOT√O EDITAR -->													
-															<a href="#" role="editar">
-																<span class="green">
-																	<i class="ace-icon fa fa-pencil bigger-130"></i>
-																</span>
-															</a>
-																	
-															<!-- BOT√O EXCLUIR -->
-															<a href="#" role="excluir">
-																<span class="red">
-																	<i class="ace-icon fa fa-trash-o bigger-130"></i>
-																</span>
-															</a>
-															
-															<!-- BOT√O SALVAR -->													
-															<a href="#" role="salvar" class="hidden">
-																<span class="blue">
-																	<i class="ace-icon fa fa-save bigger-130"></i>
-																</span>
-															</a>
-															
-															<!-- BOT√O EXCLUIR -->
-															<a href="#" role="cancelar" class="hidden">
-																<span class="red">
-																	<i class="ace-icon fa fa-close bigger-130"></i>
-																</span>
-															</a>																
-																	
-															</div>
-	
-															<!-- EXIBI«√O EM TELAS PEQUENAS -->
-															<div class="hidden-md hidden-lg action-buttons">
-																<div class="inline pos-rel">
-																	
-																<!-- BOT√O DROPDOWN-TOGGLE AMARELO -->
-																<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto">
-																	<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
-																</button>																	
-																		
-																<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">																	
-																	
-																	<!-- BOT√O EDITAR -->
-																	<li>
-																		<a href="#" class="tooltip-success" data-rel="tooltip" title="Editar" role="editar">
+										
+										<!-- JSTL -- CONDI√á√ÉO PARA EXIBIR A TABELA -->							
+										<c:choose>
+											<c:when test="${not empty pedidosVenda}">
+											<!-- CASO HAJA PEDIDO -->
+											
+												<!-- RESULTADO DOS N√öMEROS DE PEDIDOS -->
+												<div class="table-header">
+													<strong>Resultado: " ${pedidosVenda.size()} pedidos(s) gerado(s) "</strong>
+												</div>
+												
+												<!-- TABELA DE PEDIDOS -->
+												<table class="table table-bordered table-striped">
+													<thead class="thin-border-bottom">
+						                               	<tr>
+						                                   	<th class="text-center">No. Pedido</th>
+						                                   	<th class="text-center">Data</th>						                                   	
+						                                    <th class="text-center">Cliente</th>
+						                                    <th class="text-center">Vlr. Venda (R$)</th>
+						                                    <th class="text-center">Status</th>
+						                                    <th class="hidden">Itens</th>                            
+						                                    <th>A√ß√µes</th>						                                    
+						                              	</tr>
+					                       			</thead>
+						                       		<tbody>						                       		
+						                       			<!-- MONTA AS LINHAS CONFORME A EXIST√äNCIA DE PEDIDOS -->
+														<c:forEach var="pedidoVenda" items="${pedidosVenda}">
+															<tr>														
+																<!-- COLUNA ESCONDIDA DE C√ìDIGO DOS REGISTROS -->
+																<td class="text-right"><b>${pedidoVenda.nPedido}</b></td>
+																<c:choose>
+							                                    	<c:when test="${pedidoVenda.statusVenda eq 'PENDENTE'}">
+							                                   			<td class="text-center"><b><fmt:formatDate value="${pedidoVenda.dataAbertura.time}" pattern="dd/MM/yyyy" /></b></td>
+							                                   			<td class="text-center  hidden"></td>
+							                                   		</c:when>
+							                                   		<c:otherwise>
+							                                   			<td class="text-center hidden"><b><fmt:formatDate value="${pedidoVenda.dataAbertura.time}" pattern="dd/MM/yyyy" /></b></td>
+							                                   			<td class="text-center"><b><fmt:formatDate value="${pedidoVenda.dataPagamento.time}" pattern="dd/MM/yyyy" /></b></td>
+							                                   		</c:otherwise>
+							                                   	</c:choose>							                                   					                                   	
+							                                    <td><b>${pedidoVenda.cliente.empresa}</b></td>							                                    	
+							                                    <td class="text-right"><b>${pedidoVenda.valorTotal}</b></td>							                                    
+							                                    <c:choose>
+							                                    	<c:when test="${pedidoVenda.statusVenda eq 'PENDENTE'}">
+							                                   			<td class="text-center"><span class="label label-danger arrowed arrowed-right">${pedidoVenda.statusVenda}</span></td>
+							                                   		</c:when>
+							                                   		<c:when test="${pedidoVenda.statusVenda eq 'PAGO'}">
+							                                   			<td class="text-center"><span class="label label-success arrowed arrowed-right">${pedidoVenda.statusVenda}</span></td>
+							                                   		</c:when>
+							                                   		<c:otherwise>
+							                                   			<td class="text-center"><span class="label label-grey arrowed arrowed-right">${pedidoVenda.statusVenda}</span></td>
+							                                   		</c:otherwise>
+							                                   	</c:choose>							                                    
+							                                    <td class="hidden">
+							                                    	<c:forEach var="itemPV" items="${pedidoVenda.itensPedidoVenda}">
+							                                    		<div class="grupoDeItens">
+								                                    		<div>${itemPV.produto.produto}</div>
+								                                    		<div>${itemPV.peso}</div>
+								                                    		<div>${itemPV.valorItem}</div>
+							                                    		</div>
+							                                    	</c:forEach>
+							                                    </td>
+							                                    <!-- COLUNA DE A√á√ïES -->
+																<td>														
+																	<!-- EXIBI√á√ÉO EM TELAS GRANDES -->															
+																	<div class="hidden-sm hidden-xs action-buttons">
+																				
+																		<!-- BOT√ÉO EDITAR -->													
+																		<a href="#" role="editar">
 																			<span class="green">
-																				<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+																				<i class="ace-icon fa fa-pencil bigger-130"></i>
 																			</span>
 																		</a>
-																	</li>
-																			
-																	<!-- BOT√O EXCLUIR -->
-																	<li>
-																		<a href="#" class="tooltip-error" data-rel="tooltip" title="Excluir" role="excluir">
+																				
+																		<!-- BOT√ÉO EXCLUIR -->
+																		<a href="#" role="excluir">
 																			<span class="red">
-																				<i class="ace-icon fa fa-trash-o bigger-120"></i>
+																				<i class="ace-icon fa fa-trash-o bigger-130"></i>
 																			</span>
 																		</a>
-																	</li>
-																			
-																	<!-- BOT√O SALVAR -->
-																	<li>																																
-																		<a href="#" class="tooltip-success hidden" data-rel="tooltip" title="Salvar" role="salvar">
+																		
+																		<!-- BOT√ÉO SALVAR -->													
+																		<a href="#" role="salvar" class="hidden">
 																			<span class="blue">
-																				<i class="ace-icon fa fa-save bigger-120"></i>
+																				<i class="ace-icon fa fa-save bigger-130"></i>
 																			</span>
 																		</a>
-																	</li>
-																			
-																	<!-- BOT√O CANCELAR -->
-																	<li>
-																		<a href="#" class="tooltip-error hidden" data-rel="tooltip" title="Cancelar" role="cancelar">
+																		
+																		<!-- BOT√ÉO EXCLUIR -->
+																		<a href="#" role="cancelar" class="hidden">
 																			<span class="red">
-																				<i class="ace-icon fa fa-close bigger-120"></i>
+																				<i class="ace-icon fa fa-close bigger-130"></i>
 																			</span>
-																		</a>
-																	</li>																		
-																</ul>																	
-															</div>
-														</div>															
-													</td>
-													<!-- COLUNA DE A«’ES -->
-				                                </tr>			                                
-				                            </tbody>
-				                       	</table>
+																		</a>																
+																				
+																	</div>
+				
+																	<!-- EXIBI√á√ÉO EM TELAS PEQUENAS -->
+																	<div class="hidden-md hidden-lg action-buttons">
+																		<div class="inline pos-rel">
+																				
+																			<!-- BOT√ÉO DROPDOWN-TOGGLE AMARELO -->
+																			<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto">
+																				<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
+																			</button>																	
+																						
+																			<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">																	
+																					
+																				<!-- BOT√ÉO EDITAR -->
+																				<li>
+																					<a href="#" class="tooltip-success" data-rel="tooltip" title="Editar" role="editar">
+																						<span class="green">
+																							<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+																						</span>
+																					</a>
+																				</li>
+																							
+																				<!-- BOT√ÉO EXCLUIR -->
+																				<li>
+																					<a href="#" class="tooltip-error" data-rel="tooltip" title="Excluir" role="excluir">
+																						<span class="red">
+																							<i class="ace-icon fa fa-trash-o bigger-120"></i>
+																						</span>
+																					</a>
+																				</li>
+																							
+																				<!-- BOT√ÉO SALVAR -->
+																				<li>																																
+																					<a href="#" class="tooltip-success hidden" data-rel="tooltip" title="Salvar" role="salvar">
+																						<span class="blue">
+																							<i class="ace-icon fa fa-save bigger-120"></i>
+																						</span>
+																					</a>
+																				</li>
+																							
+																				<!-- BOT√ÉO CANCELAR -->
+																				<li>
+																					<a href="#" class="tooltip-error hidden" data-rel="tooltip" title="Cancelar" role="cancelar">
+																						<span class="red">
+																							<i class="ace-icon fa fa-close bigger-120"></i>
+																						</span>
+																					</a>
+																				</li>																		
+																			</ul>
+																		</div>																	
+																	</div>																												
+																</td>
+																<!-- FIM -- COLUNA DE A√á√ïES -->
+															</tr>													
+														</c:forEach>
+														<!-- FIM -- MONTA AS LINHAS CONFORME A EXIST√äNCIA DE PEDIDOS -->			                                
+						                            </tbody>
+						                       	</table>
+						                       	<!-- FIM -- TABELA DE PEDIDOS -->						            											
+											</c:when>								
+											<c:otherwise>
+											<!-- CASO N√ÉO HAJA PEDIDOS -->									
+												<div class="table-header">
+													<strong>Resultado: "${mensagem}"</strong>
+												</div>		
+											</c:otherwise>								
+										</c:choose>
+										<!-- JSTL -- CONDI√á√ÉO PARA EXIBIR A TABELA -->										
 				                    </div>
-			                    </div>
-			                    <!-- FIM -- PEDIDOS -->
-			                    
-			                    <!-- MODAL FORMUL¡RIO PARA CADASTRAR -->
+			                    </div>			                    
+			                </div>
+			                <!-- FIM -- PEDIDOS -->
+			                
+			                <!-- MODAL FORMUL√ÅRIO PARA CADASTRAR -->
 							<div id="modal-form-pedido" class="modal fade" tabindex="-1" rel="modalcadastrar">
 								<div class="modal-dialog">
 									<div class="modal-content">
@@ -474,120 +573,28 @@
 										<div class="modal-body">
 											
 											<div class="form-group">
-												<label for="nopedido">No. Pedido:</label>&nbsp;
-												<label id="nopedido" name="nopedido"><h3>56458</h3></label>
+												<label for="noPedido">No. Pedido:</label>&nbsp;
+												<label id="noPedido" name="nopedido"></label>
 											</div>
 											<div class="space-4"></div>											
 											<div class="form-group">
-												<label for="fornecedor">Fornecedor</label>
+												<label for="cliente">Cliente</label>
 												<div>
-													<input type="text" id="fornecedor" name="fornecedor" placeholder="Informe o fornecedor..." size="77" />
+													<input type="text" class="form-control" id="cliente" name="cliente" placeholder="Informe o cliente..." />													
 												</div>
 											</div>
 											<div class="space-4"></div>
 											<div class="tableTools-container">
 												<div class="btn-group btn-over-lap">
 														
-													<!-- BOT√O ADD ITEM -->
+													<!-- BOT√ÉO ADD ITEM -->
 													<a href="#" class="btn btn-primary btn-xs" role="additem">
 														<i class="ace-icon fa fa-plus bigger-120"></i>&nbsp;<b>Item</b>
 													</a>
 												</div>
 											</div>
 											<div class="space-4"></div>
-											<table class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
-												<thead>
-													<tr>
-														<th>Material</th>
-														<th>Peso</th>
-														<th>Valor</th>
-														<th>AÁ„o</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td>
-															<div class="form-group">																
-																<div>
-																	<input type="text" id="material" name="material" value="Pl·stico" />
-																</div>
-															</div>
-														</td>
-														<td>
-															<div class="form-group">																
-																<div>
-																	<input type="text" id="peso" class="text-right" name="peso" maxlength="9" value="100,00" />
-																</div>
-															</div>
-														</td>
-														<td>
-															<div class="form-group">
-																<div>
-																	<input type="text" id="valor" class="text-right" name="valor" maxlength="10" value="200,00" />
-																</div>
-															</div>
-														</td>
-														<td>
-															<div class="form-group">																
-																<div class="text-center acao">
-																
-																	<!-- EXIBI«√O EM TELAS GRANDES -->															
-																	<div class="action-buttons">
-																			
-																		<!-- BOT√O REMOVER ITEM -->
-																		<a href="#" role="remover">
-																			<span class="red">
-																				<i class="ace-icon fa fa-times bigger-160"></i>
-																			</span>
-																		</a>
-																	</div>
-																</div>
-															</div>
-														</td>
-													</tr>
-													
-													<tr>
-														<td>
-															<div class="form-group">																
-																<div>
-																	<input type="text" id="material" name="material" value="Pl·stico" />
-																</div>
-															</div>
-														</td>
-														<td>
-															<div class="form-group">																
-																<div>
-																	<input type="text" id="peso" class="text-right" name="peso" maxlength="9" value="100,00" />
-																</div>
-															</div>
-														</td>
-														<td>
-															<div class="form-group">
-																<div>
-																	<input type="text" id="valor" class="text-right" name="valor" maxlength="10" value="200,00" />
-																</div>
-															</div>
-														</td>
-														<td>
-															<div class="form-group">																
-																<div class="text-center acao">
-																
-																	<!-- EXIBI«√O EM TELAS GRANDES -->															
-																	<div class="action-buttons">
-																			
-																		<!-- BOT√O REMOVER ITEM -->
-																		<a href="#" role="remover">
-																			<span class="red">
-																				<i class="ace-icon fa fa-times bigger-160"></i>
-																			</span>
-																		</a>
-																	</div>
-																</div>
-															</div>
-														</td>
-													</tr>												
-												</tbody>
-											</table>																				
+											<div id="itemNovo"></div>																				
 										</div>
 
 										<div class="modal-footer">
@@ -601,10 +608,100 @@
 									</div>									
 								</div>
 							</div>
-							<!-- FIM -- MODAL FORMUL¡RIO PARA CADASTRAR -->
+							<!-- FIM -- MODAL FORMUL√ÅRIO PARA CADASTRAR -->
 							
-							<!-- MODAL FORMUL¡RIO PARA EXCLUIR -->
-							<div id="modal-form" class="modal fade" tabindex="-1" rel="modalexcluir">
+							<!-- MODAL FORMUL√ÅRIO PARA ATUALIZAR -->
+							<div id="modal-form-pedido" class="modal fade" tabindex="-1" rel="modaleditar">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="blue bigger">Edite os campos desejados...</h4>
+										</div>
+
+										<div class="modal-body">
+											<div class="form-inline">
+												<div class="form-group">
+													<label for="noPedidoEditar"><br />No. Pedido:</label>													
+													<div>
+														<input type="text" id="noPedidoEditar" class="text-right" name="noPedidoEditar" size="9" />
+													</div>
+												</div>
+												&nbsp;
+												<div class="form-group">
+													<label for="dataAberturaEditar">Data da<br />Abertura</label>
+													<div>
+														<input type="text" id="dataAberturaEditar" class="text-center" name="dataAberturaEditar" size="9" readonly />
+													</div>
+												</div>
+												&nbsp;												
+												<div class="form-group">
+													<label for="dataPagamentoEditar">Data do<br />Pagamento</label>
+													<br />											
+													<div class="input-group">
+														<input type="text" class="form-control date-picker" id="dataPagamentoEditar" name="dataPagamentoEditar" data-date-format="dd/mm/yyyy" size="9" />	
+														<span class="input-group-addon">
+															<i class="fa fa-calendar bigger-110"></i>
+														</span>													
+													</div>													
+												</div>
+											</div>
+											<div class="space-4"></div>
+											<div class="form-group">
+												<label for="clienteEditar">Cliente</label>
+												<div>
+													<input type="text" class="form-control" id="clienteEditar" name="clienteEditar" />													
+												</div>
+											</div>
+											
+											<div class="tableTools-container">
+												<div class="btn-group btn-over-lap">
+														
+													<!-- BOT√ÉO ADD ITEM EDITAR -->
+													<a href="#" class="btn btn-primary btn-xs" role="additemEditar">
+														<i class="ace-icon fa fa-plus bigger-120"></i>&nbsp;<b>Item</b>
+													</a>
+												</div>
+											</div>											
+											
+											<div id="itensEditar"></div>
+											
+											<div class="form-inline">
+												<div class="form-group">
+													<label for="valorEditar">Vlr. Venda (R$)</label>
+													<div class="text-right">
+														<input type="text" id="valorEditar" class="text-right" name="valorEditar" size="20" />
+													</div>
+												</div>
+												&nbsp;
+												<div class="form-group">
+													<label for="statusEditar">Status</label>
+													<div>
+														<select class="chosen-select" data-placeholder="Escolha o status..." name="statusEditar" id="statusEditar">
+															<c:forEach var="status" items="<%= PedidoVenda.StatusVenda.values() %>">
+																<option value="${status}">${status}</option>
+															</c:forEach>
+														</select>
+													</div>
+												</div>
+											</div>																				
+										</div>
+
+										<div class="modal-footer">
+											<button id="btnCancelar" class="btn btn-sm" data-dismiss="modal">
+												<i class="ace-icon fa fa-times"></i> Cancelar
+											</button>
+											<button id="btnEditarPedido" class="btn btn-sm btn-primary">
+												<i class="ace-icon fa fa-check"></i> Atualizar
+											</button>											
+										</div>										
+									</div>									
+								</div>
+							</div>
+							<!-- FIM -- MODAL FORMUL√ÅRIO PARA ATUALIZAR -->
+							
+							<!-- MODAL FORMUL√ÅRIO PARA EXCLUIR -->
+							<div id="modal-form-pedido" class="modal fade" tabindex="-1" rel="modalexcluir">
 								<div class="modal-dialog">
 									<div class="modal-content">
 										<div class="modal-header">
@@ -613,24 +710,49 @@
 										</div>
 
 										<div class="modal-body">
-											<div class="form-group">
-												<label for="nome">Nome</label>
-												<div>
-													<input type="text" id="nomeExcluir" name="nome" placeholder="Informe o nome completo..." size="40" />
+											<div class="form-inline">
+												<div class="form-group">
+													<label for="noPedidoExcluir"><br />No. Pedido</label>
+													<div>
+														<input type="text" id="noPedidoExcluir" class="text-right" name="noPedidoExcluir" size="9" />
+													</div>
 												</div>
-											</div>
-											<div class="space-4"></div>
-											<div class="form-group">
-												<label for="email">E-mail</label>
-												<div>
-													<input type="text" id="emailExcluir" name="email" placeholder="Informe o seu e-mail..." size="40" />
+												&nbsp;
+												<div class="form-group">
+													<label for="dataExcluir">Data da<br />Abertura</label>
+													<div>
+														<input type="text" id="dataExcluir" class="text-center" name="dataExcluir" size="9" />
+													</div>
+												</div>
+												&nbsp;
+												<div class="form-group hidden">
+													<label for="dataPagamentoExcluir">Data do<br />Pagamento</label>
+													<div>
+														<input type="text" id="dataPagamentoExcluir" class="text-center" name="dataPagamentoExcluir" size="9" />
+													</div>
 												</div>
 											</div>													
 											<div class="space-4"></div>
 											<div class="form-group">
-												<label for="nomeusuario">Usu·rio</label>
+												<label for="clienteExcluir">Cliente</label>
 												<div>
-													<input type="text" id="nomeusuarioExcluir" name="nomeusuario" placeholder="Informe o nome de usu·rio..." size="35" />
+													<input type="text" class="form-control" id="clienteExcluir" name="clienteExcluir" />
+												</div>
+											</div>
+											<div id="itensExcluir"></div>
+											<div class="form-inline">
+												<div class="form-group">
+													<label for="valorExcluir">Vlr. Venda (R$)</label>
+													<div class="text-right">
+														<input type="text" id="valorExcluir" class="text-right" name="valorExcluir" size="20" />
+													</div>
+												</div>
+												&nbsp;
+												<div class="form-group">
+													<label for="statusExcluir">Status</label>
+													<div class="text-right">
+														<input type="text" id="statusExcluir" class="text-center" name="statusExcluir" size="12" />
+													</div>
 												</div>
 											</div>																							
 										</div>
@@ -646,44 +768,42 @@
 									</div>									
 								</div>
 							</div>
-							<!-- FIM -- MODAL FORMUL¡RIO PARA EXCLUIR -->
-			                    
-			                </div>
+							<!-- FIM -- MODAL FORMUL√ÅRIO PARA EXCLUIR -->			                
 			        	</div>
 	                </div>
-	                <!-- FIM -- TABELA DE PRE«OS -->
+	                <!-- FIM -- TABELA -->
 				</div>
-				<!-- FIM -- CONTE⁄DO DA P¡GINA -->
+				<!-- FIM -- CONTE√öDO DA P√ÅGINA -->
 			</div>
 		</div>
-		<!-- FIM -- CONTE⁄DO PRINCIPAL DA P¡GINA -->
+		<!-- FIM -- CONTE√öDO PRINCIPAL DA P√ÅGINA -->
 		
 		
-		<!--======================= DIVISA DOS BLOCOS DO CONTE⁄DO PRINCIPAL E RODAP… =======================-->
+		<!--======================= DIVISA DOS BLOCOS DO CONTE√öDO PRINCIPAL E RODAP√â =======================-->
 		
 		
-		<!-- RODAP… DA P¡GINA -->
+		<!-- RODAP√â DA P√ÅGINA -->
 		<div class="footer">
 			<div class="footer-inner">
 			
-				<!-- CONTE⁄DO DO RODAP… -->
+				<!-- CONTE√öDO DO RODAP√â -->
 				<div class="footer-content">
 				
 					<!-- MARCA REGISTRADA - COPYRIGHT -->
 					<span class="bigger-120">
-						<span class="green bolder">Gerencia F·cil</span> &reg; 2014-2016
+						<span class="green bolder">Gerencia F√°cil</span> &reg; 2014-2016
 					</span>
 				</div>
 			</div>
 		</div>
-		<!-- FIM -- RODAP… DA P¡GINA -->		
+		<!-- FIM -- RODAP√â DA P√ÅGINA -->		
 		
-		<!-- ÕCONE NO CANTO DIREITO INFERIOR DA TELA AO DESCER - ELE APARECE QUANDO DESCE - FAZ VOLTAR PARA O TOPO -->
+		<!-- √çCONE NO CANTO DIREITO INFERIOR DA TELA AO DESCER - ELE APARECE QUANDO DESCE - FAZ VOLTAR PARA O TOPO -->
 		<a href="#" id="btn-scroll-up" class="btn btn-sm btn-scroll-up btn-inverse">
 			<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
 		</a>	
 	</div>
-	<!-- FIM -- CONTE⁄DO DA P¡GINA -- INCLUI MENU LATERAL E CONTE⁄DO PRINCIPAL-->
+	<!-- FIM -- CONTE√öDO DA P√ÅGINA -- INCLUI MENU LATERAL E CONTE√öDO PRINCIPAL-->
 	
 	
 	<!--=======================================   SCRIPTS   ================================================-->
@@ -691,7 +811,7 @@
 
     <!-- JQUERY SCRIPTS -->
     <!--[if !IE]> -->
-	<script src="resources/js/jquery.2.1.1.min.js"></script>
+	<script src="resources/js/jquery.2.2.4.min.js"></script>
 	<!-- <![endif]-->
 	
 	<!--[if IE]> 
@@ -710,7 +830,7 @@
 	</script>
 	<![endif]-->
 	
-	<!-- ONTOUCH MOBILE - N√O TESTADO -->
+	<!-- ONTOUCH MOBILE - N√ÉO TESTADO -->
 	<script type="text/javascript">
 		if('ontouchstart' in document.documentElement) document.write("<script src='resources/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 	</script>
@@ -718,15 +838,26 @@
     <!-- BOOTSTRAP SCRIPTS -->
     <script src="resources/js/bootstrap.min.js"></script>
     
-    <!-- ACE CONFIGURA«’ES DESTA P¡GINA -->
+    <!-- JQUERY UI UTILIZADO AUTOCOMPLETE DE CLIENTE NO MODAL CADASTRAR -->
+    <script src="resources/js/jquery-ui.min.js"></script>
+    
+    <!-- JQUERY UI DATEPICKER - CALEND√ÅRIO -->
+    <script src="resources/js/jquery-ui.custom.min.js"></script>	
+    <script src="resources/js/chosen.jquery.min.js"></script>
+    <script src="resources/js/bootstrap-datepicker.min.js"></script>
+    
+    <!-- ACE CONFIGURA√á√ïES DESTA P√ÅGINA -->
 	<script src="resources/js/ace-elements.min.js"></script>
 	<script src="resources/js/ace.min.js"></script>	
     
-    <!-- REL”GIO -->
+    <!-- REL√ìGIO -->
     <script src="resources/js/relogio.js"></script>
     
-    <!-- AJAX - SUBMIT FORMS - RECARREGA A P¡GINA QUANDO O MODAL … FECHADO -->
+    <!-- AJAX - SUBMIT FORMS - RECARREGA A P√ÅGINA QUANDO O MODAL √â FECHADO -->
     <script src="resources/js/ajaxpedidovenda.js"></script>
+    
+    <!-- M√ÅSCARA -->
+    <script src="resources/js/mask.js"></script>
     
     <!-- EDITAR EXCLUIR -->
     <script src="resources/js/manipulatabelapedidovenda.js"></script>
