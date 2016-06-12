@@ -16,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.persistence.PersistenceException;
@@ -319,7 +320,7 @@ public class PopulaBanco {
 		*/
 		
 		// SEGUNDO TESTE CAIXA ZUADO
-		Caixa caixa = new CaixaDAO().buscaCaixaPorCodigo(1);
+		/*Caixa caixa = new CaixaDAO().buscaCaixaPorCodigo(1);
 		
 		
 		System.out.println("\nINICIO\n\nCAIXA:\nENTRADAS: " + caixa.getTotalEntrada() + "\nSAÍDAS: " + caixa.getTotalSaida() + "\nSALDO: " + caixa.getSaldo());
@@ -327,7 +328,7 @@ public class PopulaBanco {
 		 * SAIDA  :  544,55
 		 * SALDO  :  761,95
 		 */
-		
+		/*
 		System.out.println("\n\n1.ENTRADA de Venda: 500,00");
 		caixa.setTotalEntrada(caixa.getTotalEntrada().add(new BigDecimal(500.00)));
 		caixa.setSaldo(caixa.getTotalEntrada().subtract(caixa.getTotalSaida()));
@@ -335,7 +336,7 @@ public class PopulaBanco {
 		 * SAIDA  :  544,55
 		 * SALDO  : 1261,95
 		 */
-		System.out.println("\n1.CAIXA:\nENTRADAS: " + caixa.getTotalEntrada() + "\nSAÍDAS: " + caixa.getTotalSaida() + "\nSALDO: " + caixa.getSaldo());
+		/*System.out.println("\n1.CAIXA:\nENTRADAS: " + caixa.getTotalEntrada() + "\nSAÍDAS: " + caixa.getTotalSaida() + "\nSALDO: " + caixa.getSaldo());
 		
 		
 		System.out.println("\n\n2.SAIDA de Compra: 100,00");
@@ -345,7 +346,7 @@ public class PopulaBanco {
 		 * SAIDA  :  644,55
 		 * SALDO  : 1161,95
 		 */
-		System.out.println("\n2.CAIXA:\nENTRADAS: " + caixa.getTotalEntrada() + "\nSAÍDAS: " + caixa.getTotalSaida() + "\nSALDO: " + caixa.getSaldo());
+		/*System.out.println("\n2.CAIXA:\nENTRADAS: " + caixa.getTotalEntrada() + "\nSAÍDAS: " + caixa.getTotalSaida() + "\nSALDO: " + caixa.getSaldo());
 		
 		
 		System.out.println("\n\n3.ENTRADA Excluida: 500,00");
@@ -355,7 +356,7 @@ public class PopulaBanco {
 		 * SAIDA  :  644,55
 		 * SALDO  :  661,95
 		 */
-		System.out.println("\n3.CAIXA:\nENTRADAS: " + caixa.getTotalEntrada() + "\nSAÍDAS: " + caixa.getTotalSaida() + "\nSALDO: " + caixa.getSaldo());
+		/*System.out.println("\n3.CAIXA:\nENTRADAS: " + caixa.getTotalEntrada() + "\nSAÍDAS: " + caixa.getTotalSaida() + "\nSALDO: " + caixa.getSaldo());
 		
 		
 		System.out.println("\n\n4.SAIDA Excluida: 100,00");
@@ -365,9 +366,40 @@ public class PopulaBanco {
 		 * SAIDA  :  544,55
 		 * SALDO  :  761,95
 		 */
-		System.out.println("\n4.CAIXA:\nENTRADAS: " + caixa.getTotalEntrada() + "\nSAÍDAS: " + caixa.getTotalSaida() + "\nSALDO: " + caixa.getSaldo());
+		/*System.out.println("\n4.CAIXA:\nENTRADAS: " + caixa.getTotalEntrada() + "\nSAÍDAS: " + caixa.getTotalSaida() + "\nSALDO: " + caixa.getSaldo());
 		
 		System.out.println("\n\nFIM");
+		*/
+	
+		// ORDENACAO POR DATA
+		Caixa caixa = new CaixaDAO().buscaCaixaPorCodigo(1);
+		List<Movimentacao> mov = caixa.getMovimentacoes();
+		
+		for(int i = 0; i < mov.size(); i++){
+			Movimentacao ms = mov.get(i);	
+			
+			// SE FOR DIFERENTE DO ÚLTIMO ÍNDICE
+			if(i != mov.size() - 1){				
+				// SE ESTA DATA FOR MAIOR QUE A DATA SEGUINTE
+				if(ms.getData().after(mov.get(i + 1).getData())){
+					mov.remove(i);				// REMOVE ESTA DATA
+					mov.add(i + 1, ms);			// ADICIONA ESTA DATA NA POSIÇÃO SEGUINTE
+					i = 0;
+				}				
+			}
+		}
+		for(int i = mov.size() - 1; i >= mov.size()-5; i--){
+			System.out.println("DATA: " + new SimpleDateFormat("dd/MM/yyyy").format(mov.get(i).getData().getTime()));
+		}
+		
+		// Comparator - para datas não funcionou
+		/*mov.sort(new Comparator(){
+			@Override
+			public int compare(Object o1, Object o2) {				
+				Movimentacao m1 = (Movimentacao) o1;
+				Movimentacao m2 = (Movimentacao) o2;
+				return m1.getData().MONTH < m2.getData().MONTH ? -1 : (m1.getData().MONTH > m2.getData().MONTH ? +1 : 0);
+            }			
+		});*/		
 	}
-
 }

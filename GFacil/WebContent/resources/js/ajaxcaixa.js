@@ -23,7 +23,16 @@ $(document).ready(function(){
 	var divCaixaSaldoTotal = $("div[role=saldoTotal");
 	if(divCaixaSaldoTotal.length){
 		var tableCaixaBalancoGeral = $("table[role=balancoGeral]");		
-
+		
+		var tabCxUltimo = $("#tabCxUltimo");
+		var tbodyCxUltimo = tabCxUltimo.find("tbody");				
+		
+		var tabPcUltimo = $("#tabPcUltimo");
+		var tbodyPcUltimo = tabPcUltimo.find("tbody");		
+		
+		var tabPvUltimo = $("#tabPvUltimo");
+		var tbodyPvUltimo = tabPvUltimo.find("tbody");
+		
 		$.ajax({
 			url:"controller",
 			type:"post",
@@ -46,6 +55,55 @@ $(document).ready(function(){
 					divCaixaSaldoTotal.find("span").addClass("green");
 					divCaixaSaldoTotal.find("span").text("R$ " + formataNumeroParaExibicao(resultado.dataCaixa[0].saldo, 2, ",", "."));
 				}
+				
+				// MONTA OS ÚLTIMOS LANÇAMENTOS DO CAIXA - PÁG. DASHBOARD
+				if(tabCxUltimo.length){
+					var cont = 0;
+					$.each(resultado.dataCaixa[0].ultMovimentacoes, function(index, valu){						
+						if(cont < 5){
+							if(resultado.dataCaixa[0].ultMovimentacoes[(resultado.dataCaixa[0].ultMovimentacoes.length-1) - index].tipoLancamento == "ENTRADA"){
+								tbodyCxUltimo
+									.append("<tr>" +
+											"<td class='text-right'>" + (index+1) + "</td>" +
+											"<td>" + resultado.dataCaixa[0].ultMovimentacoes[(resultado.dataCaixa[0].ultMovimentacoes.length-1) - index].data + "</td>" +
+											"<td>" + resultado.dataCaixa[0].ultMovimentacoes[(resultado.dataCaixa[0].ultMovimentacoes.length-1) - index].descricao + "</td>" +
+											"<td class='text-right'><b class='green'>" + formataNumeroParaExibicao(resultado.dataCaixa[0].ultMovimentacoes[(resultado.dataCaixa[0].ultMovimentacoes.length-1) - index].valorLancamento, 2, ",", ".") + "</b></td>" +
+											"</tr>");
+							}else{
+								tbodyCxUltimo
+									.append("<tr>" +
+											"<td class='text-right'>" + (index+1) + "</td>" +
+											"<td>" + resultado.dataCaixa[0].ultMovimentacoes[(resultado.dataCaixa[0].ultMovimentacoes.length-1) - index].data + "</td>" +
+											"<td>" + resultado.dataCaixa[0].ultMovimentacoes[(resultado.dataCaixa[0].ultMovimentacoes.length-1) - index].descricao + "</td>" +
+											"<td class='text-right'><b class='red'>" + formataNumeroParaExibicao(resultado.dataCaixa[0].ultMovimentacoes[(resultado.dataCaixa[0].ultMovimentacoes.length-1) - index].valorLancamento, 2, ",", ".") + "</b></td>" +
+											"</tr>");
+							}
+						}
+						cont++;
+					});
+					
+					// MONTA AS ÚLTIMAS COMPRAS PENDENTES - PÁG. DASHBOARD
+					$.each(resultado.dataCaixa[0].compras, function(index, value){
+						tbodyPcUltimo
+							.append("<tr>" +
+									"<td class='text-right'>" + (index+1) + "</td>" +
+									"<td>" + resultado.dataCaixa[0].compras[index].data + "</td>" +
+									"<td>" + resultado.dataCaixa[0].compras[index].descricao + "</td>" +
+									"<td class='text-right'><b class='red'>" + formataNumeroParaExibicao(resultado.dataCaixa[0].compras[index].valorPedido, 2, ",", ".") + "</b></td>" +
+									"</tr>");
+					});
+					
+					// MONTA AS ÚLTIMAS VENDAS PENDENTES - PÁG. DASHBOARD
+					$.each(resultado.dataCaixa[0].vendas, function(index, value){
+						tbodyPvUltimo
+						.append("<tr>" +
+								"<td class='text-right'>" + (index+1) + "</td>" +
+								"<td>" + resultado.dataCaixa[0].vendas[index].data + "</td>" +
+								"<td>" + resultado.dataCaixa[0].vendas[index].descricao + "</td>" +
+								"<td class='text-right'><b class='green'>" + formataNumeroParaExibicao(resultado.dataCaixa[0].vendas[index].valorPedido, 2, ",", ".") + "</b></td>" +
+								"</tr>");
+					});					
+				}				
 				
 				// TABELA CAIXA BALANCO GERAL - PÁG. CAIXA
 				// VERIFICA SE A TABELA EXISTE E CARREGA OS DADOS

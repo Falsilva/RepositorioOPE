@@ -8,9 +8,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 
 import br.com.mdjpapeis.entity.PedidoCompra;
 import br.com.mdjpapeis.entity.PedidoVenda;
+import br.com.mdjpapeis.entity.PedidoVenda.StatusVenda;
 
 public class PedidoVendaDAO implements GenericoDAO<PedidoVenda> {
 
@@ -121,5 +123,40 @@ public class PedidoVendaDAO implements GenericoDAO<PedidoVenda> {
 			conexao.close();			
 			return pedidoVenda;
 		}		
+	}
+
+	public List<PedidoVenda> listaUltimosPendentes(StatusVenda status) {
+		List<PedidoVenda> pedidosVendas = null;
+		List<PedidoVenda> pedVendas = null;
+		EntityManagerFactory conexao = Persistence.createEntityManagerFactory("MDJPapeisPU");		
+		try{
+			// Query JPQL (Trabalha com Classes e Objetos Java)
+			String queryJPQL =	"SELECT PV FROM PedidoVenda PV WHERE PV.status = :status ORDER BY PV.nPedido DESC";			
+			EntityManager entityManager = conexao.createEntityManager();
+
+			Query query = entityManager.createQuery(queryJPQL);
+			//query.setFirstResult(startPosition);
+			query.setMaxResults(5);
+			query.setParameter("status", status);
+			pedVendas = (List<PedidoVenda>)query.getResultList();			
+			
+			if(pedVendas.size() != 0){
+				pedidosVendas = new ArrayList<PedidoVenda>();
+				if(pedVendas.size() != 1){
+					for(int i = pedVendas.size() - 1; i >= 0; i--){
+						pedidosVendas.add(pedVendas.get(i));
+					}
+				}else{
+					pedidosVendas = pedVendas;
+				}
+			}					
+				
+			entityManager.close();			
+		}catch(PersistenceException ex){
+			ex.printStackTrace();
+		}finally{
+			conexao.close();
+		}
+		return pedidosVendas;
 	}
 }

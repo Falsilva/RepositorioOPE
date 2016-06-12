@@ -309,7 +309,7 @@
 								<button type="button" class="close" data-dismiss="alert">
 									<i class="ace-icon fa fa-times"></i>
 								</button>
-								<i class="ace-icon fa fa-check green"></i> Aqui é onde tudo começa! Nesta página, você possui uma visão geral do que é mais importante para gerenciar melhor o seu negócio, como o saldo em caixa e uma visão gráfica de como anda o balanço geral, além de acesso ao menu com as principais funcionalidades que sempre o acompanha durante a navegação do sistema.
+								<i class="ace-icon fa fa-check green"></i> Aqui é onde tudo começa! Nesta página, você possui uma visão geral do que é mais importante para gerenciar melhor o seu negócio, como o saldo em caixa, os últimos lançamentos e pendências,<!--  e uma visão gráfica de como anda o balanço geral,--> além de acesso ao menu com as principais funcionalidades que sempre o acompanha durante a navegação do sistema.
 								<!-- MENSAGEM, SE HOUVER ALERTAS: Aqui é onde tudo começa! Nesta página, você possui uma visão geral do que é mais importante para gerenciar melhor o seu negócio, como notificações importantes, tarefas pendentes, o saldo em caixa e uma visão gráfica de como anda o faturamento, além de acesso ao menu com as principais funcionalidades que sempre o acompanha durante a navegação do sistema. -->
 							</div>
 						</div>
@@ -455,21 +455,24 @@
 									</div>
 								</div>
 	                		</div>
-	                		 
-	                		<!-- CAIXA - ÚLTIMOS LANÇAMENTOS 
+	                	</div>
+	                </div>
+	                <div class="row">
+	                	<div class="col-lg-4"> 
+	                		<!-- CAIXA - ÚLTIMOS LANÇAMENTOS -->
 	                		<div class="widget-box transparent">
 			                    
-								<!-- TÍTULO DOS LANÇAMENTOS 
+								<!-- TÍTULO DOS LANÇAMENTOS -->
 		                		<div class="widget-header widget-header-flat">
 									<h3 class="widget-title lighter">
-										<i class="ace-icon fa fa-money"></i><strong> Caixa - Últimos Lançamentos</strong>
+										<i class="ace-icon fa fa-money"></i><strong> Últimos Lançamentos</strong>
 									</h3>
 								</div>
 								
-								<!-- LANÇAMENTOS 
+								<!-- LANÇAMENTOS -->
 		                        <div class="widget-body">
 									<div class="widget-main no-padding">
-										<table class="table table-bordered table-striped">
+										<table class="table table-bordered table-striped" id="tabCxUltimo">
 											<thead class="thin-border-bottom">
 			                                	<tr>
 			                                    	<th>Item</th>
@@ -478,92 +481,125 @@
 			                                        <th>Valor (R$)</th>
 			                                	</tr>
 		                           			</thead>
-			                           		<tbody>
-			                           			<tr>
-			                                    	<td class="text-right">1</td>
-			                                        <td>20/02/2016</td>
-			                                        <td>Pedido de Venda no. 13</td>
-			                                        <td class="text-right"><b class="green">+321.33</b></td>
-			                                    </tr>
-			                                    <tr>
-			                                    	<td class="text-right">2</td>
-			                                        <td>21/02/2016</td>
-			                                        <td>Conta de Água</td>
-			                                        <td class="text-right"><b class="red">-94.34</b></td>
-			                                    </tr>
-			                                    <tr>
-			                                    	<td class="text-right">3</td>
-			                                        <td>22/02/2016</td>
-			                                        <td>Pedido de Venda no. 14 NF. 2143</td>
-			                                        <td class="text-right"><b class="green">+724.17</b></td>
-			                                    </tr>
-			                                    <tr>
-			                                    	<td class="text-right">4</td>
-			                                        <td>22/02/2016</td>
-			                                        <td>Pedido de Compra no. 23 NF. 5432</td>
-			                                        <td class="text-right"><b class="red">-423.71</b></td>
-			                                    </tr>
-			                                    <tr>
-			                                        <td class="text-right">5</td>
-			                                        <td>03/03/2016</td>
-			                                        <td>Frete NF. 3456</td>
-			                                        <td class="text-right"><b class="red">-1200.00</b></td>
-			                                    </tr>
-			                                    <tr>
-			                                    	<td class="text-right">6</td>
-			                                        <td>04/03/2016</td>
-			                                        <td>Conta de Luz</td>
-			                                        <td class="text-right"><b class="red">-245.12</b></td>
-			                                    </tr>
-			                                    <tr>
-			                                    	<td class="text-right">7</td>
-			                                        <td>08/03/2016</td>
-			                                        <td>Manutenção da Empilhadeira NF. 4456</td>
-			                                        <td class="text-right"><b class="red">-2663.54</b></td>
-			                                    </tr>
-			                                    <tr>
-			                                        <td class="text-right">8</td>
-			                                        <td>10/03/2016</td>
-			                                        <td>Pedido de Venda no. 15</td>
-			                                        <td class="text-right"><b class="green">+943.45</b></td>
-			                                    </tr>
-			                                </tbody>
+			                           		<tbody></tbody>
 			                        	</table>
 			                        </div>
 		                        </div>
 		                    	<div class="text-right">
-		                        	<h5><a href="#">Ver o caixa <i class="fa fa-arrow-circle-right"></i></a></h5>
+		                        	<h5>
+		                        		<a href="#" onclick="document.getElementById('form_caixa').submit()">
+											<form id="form_caixa" action="controller?action=caixa" method="post"></form>
+											Ver o caixa <i class="fa fa-arrow-circle-right"></i>											
+										</a>
+									</h5>
 		                    	</div>
-		                    </div> -->
+		                    </div>
+		                </div>
+		                
+		                <div class="col-lg-4"> 
+		                		                    
+		                    <!-- PEDIDOS DE COMPRA - ÚLTIMOS PENDENTES -->
+	                		<div class="widget-box transparent">
+			                    
+								<!-- TÍTULO DOS LANÇAMENTOS -->
+		                		<div class="widget-header widget-header-flat">
+									<h3 class="widget-title lighter">
+										<i class="ace-icon fa fa-cart-arrow-down red bigger-130"></i><strong> Compras Pendentes</strong>
+									</h3>
+								</div>								
+								
+								<!-- LANÇAMENTOS -->
+		                        <div class="widget-body">
+									<div class="widget-main no-padding">
+										<table class="table table-bordered table-striped" id="tabPcUltimo">
+											<thead class="thin-border-bottom">
+			                                	<tr>
+			                                    	<th>No.</th>
+			                                        <th>Data</th>
+			                                        <th>Fornecedor</th>
+			                                        <th>Valor (R$)</th>
+			                                	</tr>
+		                           			</thead>
+			                           		<tbody></tbody>
+			                        	</table>
+			                        </div>
+		                        </div>
+		                    	<div class="text-right">
+		                        	<h5>
+		                        		<a href="#" onclick="document.getElementById('form_caixa').submit()">
+											<form id="form_caixa" action="controller?action=listarPedidoCompra" method="post"></form>
+											Ver todos os pedidos <i class="fa fa-arrow-circle-right"></i>											
+										</a>
+									</h5>
+		                    	</div>
+		                    </div>
+		                </div>
+		                
+		                <div class="col-lg-4"> 
+		                    
+		                    <!-- PEDIDOS DE VENDA - ÚLTIMOS PENDENTES -->
+	                		<div class="widget-box transparent">
+			                    
+								<!-- TÍTULO DOS LANÇAMENTOS -->
+		                		<div class="widget-header widget-header-flat">
+									<h3 class="widget-title lighter">
+										<i class="ace-icon fa fa-cart-plus green bigger-130"></i><strong> Vendas Pendentes</strong>
+									</h3>
+								</div>
+								
+								<!-- LANÇAMENTOS -->
+		                        <div class="widget-body">
+									<div class="widget-main no-padding">
+										<table class="table table-bordered table-striped" id="tabPvUltimo">
+											<thead class="thin-border-bottom">
+			                                	<tr>
+			                                    	<th>No.</th>
+			                                        <th>Data</th>
+			                                        <th>Cliente</th>
+			                                        <th>Valor (R$)</th>
+			                                	</tr>
+		                           			</thead>
+			                           		<tbody></tbody>
+			                        	</table>
+			                        </div>
+		                        </div>
+		                    	<div class="text-right">
+		                        	<h5>
+		                        		<a href="#" onclick="document.getElementById('form_caixa').submit()">
+											<form id="form_caixa" action="controller?action=listarPedidoVenda" method="post"></form>
+											Ver todos pedidos <i class="fa fa-arrow-circle-right"></i>											
+										</a>
+									</h5>
+		                    	</div>
+		                    </div>
 	                    </div>
 	                    <!-- FIM -- SALDO -- CAIXA - ÚLTIMOS LANÇAMENTOS -->
-	                    
-	                    <!-- GRÁFICO FATURAMENTO MENSAL -->	                    
+	                </div>
+	                    <!-- GRÁFICO FATURAMENTO MENSAL -->	
+	                    <!--                   
 	                    <div class="col-lg-8">
 							<div class="widget-box transparent">
 							
 								<!-- TÍTULO DO GRÁFICO -->
-								<div class="widget-header widget-header-flat">
+								<!--<div class="widget-header widget-header-flat">
 									<h3 class="widget-title lighter">
 										<i class="ace-icon fa fa-signal"></i><strong> Balanço Geral</strong>
 									</h3>
 								</div>
 								
 								<!-- GRÁFICO -->
-								<div class="widget-body">
+								<!--<div class="widget-body">
 									<div class="widget-main padding-4">
 										<div class="chart" id="grafico"></div>										
 									</div>
 									
 								</div>
-								
-																		
-								
 							</div>
-						</div>	                    
+						</div>	        
+						 -->            
 	                    <!-- FIM GRÁFICO FATURAMENTO MENSAL -->
 	                                    
-	                </div>
+	                
 	                <!-- FIM -- SALDO -- CAIXA - ÚLTIMOS LANÇAMENTOS -- GRÁFICO FATURAMENTO MENSAL -->
 	                
 				</div>
@@ -590,30 +626,33 @@
 				</div>
 			</div>
 		</div>
+		
+		<!-- 
 		<table id="tabBalanco">
-										<thead>
-											<tr>												
-												<th></th>
-												<th>entrada</th>
-												<th>saida</th>
-												<th>percentual</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<th>Abril</th>
-												<td>800</td>
-												<td>200</td>
-												<td>10</td>
-											</tr>
-											<tr>
-												<th>Maio</th>
-												<td>1000</td>
-												<td>500</td>
-												<td>50</td>
-											</tr>
-										</tbody>
-									</table>
+			<thead>
+				<tr>												
+					<th></th>
+					<th>entrada</th>
+					<th>saida</th>
+					<th>percentual</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th>Abril</th>
+					<td>800</td>
+					<td>200</td>
+					<td>10</td>
+				</tr>
+				<tr>
+					<th>Maio</th>
+					<td>1000</td>
+					<td>500</td>
+					<td>50</td>
+				</tr>
+			</tbody>
+		</table>
+		 -->
 		<!-- FIM -- RODAPÉ DA PÁGINA -->		
 		
 		<!-- ÍCONE NO CANTO DIREITO INFERIOR DA TELA AO DESCER - ELE APARECE QUANDO DESCE - FAZ VOLTAR PARA O TOPO -->
@@ -630,7 +669,8 @@
 
     <!-- JQUERY SCRIPTS -->
     <!--[if !IE]> -->
-	<script src="resources/js/jquery.2.1.1.min.js"></script>
+	<script src="resources/js/jquery.2.2.4.min.js"></script>
+	<!-- <script src="resources/js/jquery.2.1.1.min.js"></script> -->
 	<!-- <![endif]-->
 	
 	<!--[if IE]> 
@@ -664,18 +704,17 @@
     <!-- RELÓGIO -->
     <script src="resources/js/relogio.js"></script>
     
-    <!-- PLUGINS DO GRÁFICO -->
-    <script src="resources/js/highcharts.js"></script>
-	<script src="resources/js/exporting.js"></script>
-	<script src="resources/js/grafico.js"></script>
+    <!-- PLUGINS DO GRÁFICO - HIGHCHARTS -->
+    <!-- <script src="resources/js/highcharts.js"></script> -->
+	<!-- <script src="resources/js/exporting.js"></script> --> 
 	
 	<!-- GRÁFICO FATURAMENTO -->
-	<script src="resources/js/grafico.js"></script>
+	<!-- <script src="resources/js/grafico.js"></script> -->
 	
 	<!-- CARREGA DADOS DO CAIXA -->
 	<script src="resources/js/ajaxcaixa.js"></script>
     
-    <script>
+    <!-- <script>
 	$(function () {
 		
 	    $('#grafico').highcharts({
@@ -783,6 +822,6 @@
 	        }]
 	    });
 	});
-	</script>
+	</script> -->
 </body>
 </html>
