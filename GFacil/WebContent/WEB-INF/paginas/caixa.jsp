@@ -335,6 +335,28 @@
 									</div>
 								</div>
 	                		</div>
+	                		
+	                		<!-- SELECAO DE VISUALIZAÇÃO DO BALANÇO E MOVIMENTAÇÕES POR ANO -->
+	                		<div class="widget-box transparent">
+	                			<!-- TÍTULO DA VISUALIZAÇÃO -->
+		                		<div class="widget-header widget-header-flat">
+									<h3 class="widget-title lighter">
+										<i class="ace-icon fa fa-clock-o"></i><strong> ANO</strong>
+									</h3>
+								</div>
+								<div class="widget-body">
+									<div class="widget-main no-padding">
+										<div class="form-group">
+											<!-- <label for="anoBalanco">Ano</label> -->								
+											<div class="text-right">
+												<h4>
+												<select class="chosen-select" data-placeholder="Escolha o ano..." name="anoBalanco" id="anoBalanco"></select>
+				                				</h4>
+				                			</div>
+			                			</div>
+	                				</div>
+	                			</div>
+	                		</div>
 	                	</div>
 	                	
 	                	<!-- CAIXA - BALANÇO GERAL -->
@@ -344,7 +366,7 @@
 						        <!-- TÍTULO DO BALANÇO GERAL -->
 							    <div class="widget-header widget-header-flat">
 									<h3 class="widget-title lighter">
-										<i class="ace-icon fa fa-money"></i><strong> Balanço Geral - Ano 2016</strong>
+										<i class="ace-icon fa fa-money"></i><strong> Balanço Geral - Ano <span id="balancoGeralAnoVigente"></span></strong>
 									</h3>
 								</div>
 													

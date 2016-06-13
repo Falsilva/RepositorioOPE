@@ -50,6 +50,7 @@ public class RegraCaixa extends HttpServlet {
 		List<PedidoVenda> pedPVUltPendentes = null;
 		
 		int mes = 0;
+		int ano = 0;
 		String json = "";
 		
 		switch(req.getParameter("action")){			
@@ -70,10 +71,11 @@ public class RegraCaixa extends HttpServlet {
 							System.out.println("RegraCaixa, PESQUISANDO POR CODIGO, VERIFICANDO SE UM PERIODO FOI INFORMADO...");
 							
 							// CAIXA E MOVIMENTAÇÃO DO PERÍODO MENSAL INFORMADO
-							if(req.getParameter("mes") != null){
+							if(req.getParameter("mes") != null && req.getParameter("ano") != null){
 								System.out.println("RegraCaixa, PESQUISANDO POR CODIGO, PERIODO VERIFICADO, INFORMADO O MES: " + req.getParameter("mes"));
 								
 								mes = Integer.parseInt(req.getParameter("mes")) - 1;
+								ano = Integer.parseInt(req.getParameter("ano"));
 								movimentacoes = new ArrayList<Movimentacao>();
 								
 								if(req.getParameter("tarefa") != null && req.getParameter("tarefa").equals("grafico")){
@@ -118,25 +120,30 @@ public class RegraCaixa extends HttpServlet {
 								}else{
 									for(Movimentacao mov : caixa.getMovimentacoes()){
 										
-										// PEGA OS DADOS SOMENTE DO PERÍODO INFORMADO
-										if(mov.getData().get(Calendar.MONTH) == mes){
-											System.out.println("DATA: " + new SimpleDateFormat("dd/MM/yyyy").format(mov.getData().getTime()));
-											
-											// VERIFICA O TIPO DE MOVIMENTACAO - ENTRADA OU SAIDA
-											if(mov.getTipoLancamento().equals(Movimentacao.TipoLancamento.ENTRADA)){
-												System.out.println("MOVIMENTACAO TIPO ENTRADA");
+										// VERIFICA O ANO INFORMADO
+										if(mov.getData().get(Calendar.YEAR) == ano){											
+										
+											// VERIFICA O MÊS INFORMADO
+											if(mov.getData().get(Calendar.MONTH) == mes){
+												System.out.println("DATA: " + new SimpleDateFormat("dd/MM/yyyy").format(mov.getData().getTime()));
 												
-												// CAIXA - ADICIONANDO O VALOR TOTAL DE ENTRADA
-												caixaMes.setTotalEntrada(caixaMes.getTotalEntrada().add(mov.getValorLancamento()));										
-											}else{
-												System.out.println("MOVIMENTACAO TIPO SAIDA");
-												
-												// CAIXA - ADICIONANDO O VALOR TOTAL DE SAÍDA
-												caixaMes.setTotalSaida(caixaMes.getTotalSaida().add(mov.getValorLancamento()));
-											}									
-											movimentacoes.add(mov);
+												// VERIFICA O TIPO DE MOVIMENTACAO - ENTRADA OU SAIDA
+												if(mov.getTipoLancamento().equals(Movimentacao.TipoLancamento.ENTRADA)){
+													System.out.println("MOVIMENTACAO TIPO ENTRADA");
+													
+													// CAIXA - ADICIONANDO O VALOR TOTAL DE ENTRADA
+													caixaMes.setTotalEntrada(caixaMes.getTotalEntrada().add(mov.getValorLancamento()));										
+												}else{
+													System.out.println("MOVIMENTACAO TIPO SAIDA");
+													
+													// CAIXA - ADICIONANDO O VALOR TOTAL DE SAÍDA
+													caixaMes.setTotalSaida(caixaMes.getTotalSaida().add(mov.getValorLancamento()));
+												}									
+												movimentacoes.add(mov);
+											}
 										}
 									}
+									
 									// CAIXA - ADICIONANDO O SALDO DO PERÍODO INFORMADO
 									caixaMes.setSaldo(caixaMes.getTotalEntrada().subtract(caixaMes.getTotalSaida()));
 									
@@ -145,11 +152,11 @@ public class RegraCaixa extends HttpServlet {
 									
 									// VERIFICA SE HÁ MOVIMENTAÇÕES DO PERÍODO INFORMADO
 									if(!caixaMes.getMovimentacoes().isEmpty()){
-										
+										System.out.println("MOVIMENTACOES DO PERIODO INFORMADO OK (mes " + mes + ", ano" + ano + ") - preparando jsonCaixa");
 										// PEGA O JSON CAIXA MENSAL - IDENTIFICADOR: "dataCaixaMes"
 										json = montaJsonCaixa("dataCaixaMes", caixaMes);
 									}else{									
-										
+										System.out.println("NAO HA MOVIMENTACOES - preparando jsonVazio");
 										// PEGA O JSON CAIXA VAZIO - IDENTIFICADOR: "dataCaixaMes"
 										json = montaJsonVazio("dataCaixaMes");
 									}
@@ -175,13 +182,33 @@ public class RegraCaixa extends HttpServlet {
 											listaOrdenada.add(i + 1, ms);			// ADICIONA ESTA DATA NA POSIÇÃO SEGUINTE
 											i = 0;
 										}				
+									}									
+								}									
+								
+								// PEGA OS ANOS - listaOrdenada.get(i).getData().get(Calendar.YEAR)
+								List<Integer> anos = new ArrayList<Integer>();
+								System.out.println("anos INICIAL ....... " + anos.size());								
+								for(int i = 0; i < listaOrdenada.size(); i++){
+									if(anos.size() == 0){
+										anos.add(listaOrdenada.get(i).getData().get(Calendar.YEAR));
+									}else{
+										int j = 0;
+										for(Integer anoOrdenacao : anos){
+											if(anoOrdenacao != listaOrdenada.get(i).getData().get(Calendar.YEAR)){
+												if(j == 0){
+													anos.add(listaOrdenada.get(i).getData().get(Calendar.YEAR));
+												}else{
+													for(Integer a : anos){
+														if(a != anoOrdenacao){
+															anos.add(listaOrdenada.get(i).getData().get(Calendar.YEAR));
+														}
+													}
+												}
+											}
+											j++;
+										}
 									}
 								}
-								
-								// MOSTRA OS ULTIMOS LANÇAMENTOS
-								//for(int i = listaOrdenada.size() - 1; i >= listaOrdenada.size() - 5; i--){
-									//System.out.println("DATA: " + new SimpleDateFormat("dd/MM/yyyy").format(listaOrdenada.get(i).getData().getTime()));
-								//}		
 								
 								// SE A LISTA TIVER 5 MOVIMENTAÇOES OU MENOS
 								if(listaOrdenada.size() <= 5){
@@ -192,22 +219,11 @@ public class RegraCaixa extends HttpServlet {
 									for(int i = listaOrdenada.size() - 5; i < listaOrdenada.size(); i++){
 										movUltLanc.add(listaOrdenada.get(i));
 									}
-								}
-								/*
-								if(caixa.getMovimentacoes().size() <= 5){
-									for(int i = 0; i < caixa.getMovimentacoes().size(); i++){
-										movUltLanc.add(caixa.getMovimentacoes().get(i));
-									}
-								}else{
-									for(int i = caixa.getMovimentacoes().size() - 5; i < caixa.getMovimentacoes().size(); i++){
-										movUltLanc.add(caixa.getMovimentacoes().get(i));
-									}
 								}								
-								*/
 // ---------------------------------------- CHAMA O montaJsonCaixaUltimo-------------------------------------------------------------------------------------------------------
 								
 								// PEGA O JSON CAIXA - IDENTIFICADOR: "dataCaixa"
-								json = montaJsonCaixaUltimo("dataCaixa", caixa, movUltLanc, pedPCUltPendentes, pedPVUltPendentes);						
+								json = montaJsonCaixaUltimo("dataCaixa", caixa, movUltLanc, pedPCUltPendentes, pedPVUltPendentes, anos);						
 							}
 						}else{
 							System.out.println("RegraCaixa, PESQUISANDO POR CODIGO, MOVIMENTACOES VERIFICADAS, NAO HA MOVIMENTACOES...");
@@ -328,15 +344,16 @@ public class RegraCaixa extends HttpServlet {
 	}
 	
 	// MONTA O JSON DO CAIXA - PÁG. DASHBOARD
-	private String montaJsonCaixaUltimo(String identificador, Caixa caixa, List<Movimentacao> movUltLanc, List<PedidoCompra> pedPCUltPendentes, List<PedidoVenda> pedPVUltPendentes){
+	private String montaJsonCaixaUltimo(String identificador, Caixa caixa, List<Movimentacao> movUltLanc, List<PedidoCompra> pedPCUltPendentes, List<PedidoVenda> pedPVUltPendentes, List<Integer> anos){
 		System.out.println("RegraCaixa, PESQUISANDO POR CODIGO, MONTANDO O JSON DO CAIXA...");
-			
+			System.out.println("RegraCaixa, PESQUISANDO POR CODIGO, MONTANDO O JSON DO CAIXA, ANOS QTD.: " + anos);
 		String jsonCaixa = "";
 		String jsonMovs = montaJsonMovimentacao(caixa.getMovimentacoes());
 		String jsonUltMovs = montaJsonUltMovimentacao(movUltLanc);
 		String jsonCompras = montaJsonCompras(pedPCUltPendentes);
 		String jsonVendas = montaJsonVendas(pedPVUltPendentes);
-			
+		String jsonAnos = montaJsonAnos(anos);
+		
 		jsonCaixa = "{\"" + identificador + "\":[{"						
 				+ "\"totalEntrada\":\"" + caixa.getTotalEntrada() + "\","
 				+ "\"totalSaida\":\"" + caixa.getTotalSaida() + "\","
@@ -344,12 +361,13 @@ public class RegraCaixa extends HttpServlet {
 				+ "\"movimentacoes\":[" + jsonMovs + "],"
 				+ "\"ultMovimentacoes\":[" + jsonUltMovs + "],"
 				+ "\"compras\":[" + jsonCompras + "],"
-				+ "\"vendas\":[" + jsonVendas + "]"
+				+ "\"vendas\":[" + jsonVendas + "],"
+				+ "\"anos\":[" + jsonAnos + "]"
 				+ "}]}";
 		System.out.println("RegraCaixa, PESQUISANDO POR CODIGO, JSON DO CAIXA MONTADO...");
 		return jsonCaixa;
-	}
-	
+	}	
+
 	private String montaJsonUltMovimentacao(List<Movimentacao> movUltLanc) {
 		System.out.println("RegraCaixa, PESQUISANDO POR CODIGO, MONTANDO O JSON DAS ULTIMAS MOVIMENTACOES...");
 		
@@ -505,6 +523,32 @@ public class RegraCaixa extends HttpServlet {
 			}
 		}		
 		return jsonVendas;
+	}
+	
+	private String montaJsonAnos(List<Integer> anos) {
+		System.out.println("RegraCaixa, PESQUISANDO POR CODIGO, MONTANDO O JSON DE ANOS...");
+		
+		String jsonAnos = "";
+		int controle = 1;
+		
+		if(anos.size() == 0){
+			jsonAnos = "{}";
+		}else{
+			for(Integer ano : anos){
+				System.out.println("ANO montaJsonAnos: " + ano);
+				// CASO SEJA O PRIMEIRO INDICE CHAVES {} SEM VIRGULA		
+				if(controle == 1){				
+					jsonAnos = "{\"ano\":\"" + ano + "\"}";
+					
+					controle = 2;
+					
+				// CASO NAO SEJA O PRIMEIRO INDICE
+				}else{				
+					jsonAnos += "," + "{\"ano\":\"" + ano + "\"}";
+				}
+			}
+		}		
+		return jsonAnos;
 	}
 
 	// MONTA O JSON VAZIO - CASO NÃO HAJA MOVIMENTACOES

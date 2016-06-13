@@ -7,10 +7,11 @@ $(document).ready(function(){
 	
 	var dataCompleta = new Date();
 	mes = parseInt(dataCompleta.getMonth() + 1);
-	ano = parseInt(dataCompleta.getFullYear());
+	ano = parseInt(dataCompleta.getFullYear());	
 	
 	console.log("1.MES: " + mes + " ANO: " + ano);
 	
+	// FORMATA VALOR PARA EXIBIÇÃO
 	function formataNumeroParaExibicao(number, decimals, dec_point, thousands_sep) {
 		var n = number, c = isNaN(decimals = Math.abs(decimals)) ? 2 : decimals;
 		var d = dec_point == undefined ? "," : dec_point;
@@ -21,6 +22,8 @@ $(document).ready(function(){
 	
 	// DIV CAIXA SALDO TOTAL E TABELA CAIXA BALANCO GERAL - PÁGS. DASHBOARD E CAIXA
 	var divCaixaSaldoTotal = $("div[role=saldoTotal");
+	
+// ----------------- IDENTIFICA SE EXISTE A DIV DE SALDO -- IMPORTANTE!!! AQUI CONTÉM A LÓGICA DO CAIXA DAS DUAS PÁGINAS - DASHBOARD E CAIXA --------
 	if(divCaixaSaldoTotal.length){
 		var tableCaixaBalancoGeral = $("table[role=balancoGeral]");		
 		
@@ -33,6 +36,9 @@ $(document).ready(function(){
 		var tabPvUltimo = $("#tabPvUltimo");
 		var tbodyPvUltimo = tabPvUltimo.find("tbody");
 		
+		// CARREGA OS ANOS QUE POSSUEM DADOS NO BANCO NO SELECT
+		var anoBalanco = $("#anoBalanco");
+		
 		$.ajax({
 			url:"controller",
 			type:"post",
@@ -43,7 +49,11 @@ $(document).ready(function(){
 			},
 			success:function(resultado){
 				
-				// DIV CAIXA SALDO TOTAL - PÁGS. DASHBOARD E CAIXA
+				$.each(resultado.dataCaixa[0].anos, function(index, value){
+					anoBalanco.append("<option value='" + value.ano + "'>" + value.ano + "</option>");
+				});
+				
+// ----------------- IDENTIFICA SE ESTÁ NA PÁG DASHBOARD - DIV CAIXA SALDO TOTAL - PÁGS. DASHBOARD E CAIXA -------------------------------------------
 				divCaixaSaldoTotal.html("<h2><strong><span></span></strong></h2>");
 				if(resultado.dataCaixa[0].saldo < 0){				
 					var saldoNegativo = resultado.dataCaixa[0].saldo - (resultado.dataCaixa[0].saldo) - (resultado.dataCaixa[0].saldo);
@@ -56,7 +66,7 @@ $(document).ready(function(){
 					divCaixaSaldoTotal.find("span").text("R$ " + formataNumeroParaExibicao(resultado.dataCaixa[0].saldo, 2, ",", "."));
 				}
 				
-				// MONTA OS ÚLTIMOS LANÇAMENTOS DO CAIXA - PÁG. DASHBOARD
+// ----------------- IDENTIFICA SE ESTÁ NA PÁG DASHBOARD - MONTA OS ÚLTIMOS LANÇAMENTOS DO CAIXA, PEDIDOS PENDENTES - PÁG. DASHBOARD -----------------
 				if(tabCxUltimo.length){
 					var cont = 0;
 					$.each(resultado.dataCaixa[0].ultMovimentacoes, function(index, valu){						
@@ -105,9 +115,11 @@ $(document).ready(function(){
 					});					
 				}				
 				
-				// TABELA CAIXA BALANCO GERAL - PÁG. CAIXA
+// ------------------------- IDENTIFICA SE ESTÁ NA PÁG CAIXA - TABELA CAIXA BALANCO GERAL - PÁG. CAIXA -----------------------------------------------
 				// VERIFICA SE A TABELA EXISTE E CARREGA OS DADOS
 				if(tableCaixaBalancoGeral.length){
+					$("#balancoGeralAnoVigente").text(parseInt(dataCompleta.getFullYear()));
+					
 					var tdReceitas = tableCaixaBalancoGeral.find("td[role=receitas]");
 					tdReceitas.html("<h4><b></b></h4>");				
 					tdReceitas.find("b").addClass("green");
@@ -138,7 +150,15 @@ $(document).ready(function(){
 	
 	
 	
-	// CAIXA BALANCO MENSAL E MOVIMENTAÇÃO - PÁG. CAIXA
+	
+	
+	
+	
+	
+	
+	
+	
+// ------------------ IDENTIFICA SE ESTÁ NA PÁG CAIXA - CAIXA BALANCO MENSAL E MOVIMENTAÇÃO - PÁG. CAIXA --------------------------------------------
 	var divAbasMeses = $("div[role=abasMeses]");
 	
 	if(divAbasMeses.length){
@@ -166,14 +186,16 @@ $(document).ready(function(){
 		
 		// CONTEUDO DAS ABAS - FUNCAO PARA MONTAR A DIV COM CONTEUDO DO MES SEM OS DADOS
 		var divConteudoMeses = divAbasMeses.find("#conteudoMeses");		
-		var montaDivConteudoMeses = function(mes){
+		var montaDivConteudoMeses = function(mes, ano){
 			
 			console.log("4.MES entrou montaDivConteudoMeses: " + mes + " ANO: " + ano);
 			
 			// PEGA O MES E ANO ATUAL QUANDO A PÁGINA É CARREGADA
-			if(mes == null){
-				var dataCompleta = new Date();
-				mes = parseInt(dataCompleta.getMonth() + 1);
+			var dataCompleta = new Date();
+			if(mes == null){				
+				mes = parseInt(dataCompleta.getMonth() + 1);				
+			}
+			if(ano == null){
 				ano = parseInt(dataCompleta.getFullYear());
 			}
 			
@@ -205,8 +227,8 @@ $(document).ready(function(){
 							console.log("7.MES jan ativando: " + mes + " ANO: " + ano + " (INDEX + 1): " + (index+1) + " id:" + $(this).prop("id"));
 							
 							$(this).addClass("active");
-							montaTableCaixaBalancoMensal(mes);
-							montaMovimentacaoMensal(mes);
+							montaTableCaixaBalancoMensal(mes, ano);
+							montaMovimentacaoMensal(mes, ano);
 						}
 						break;
 					case 2:
@@ -215,8 +237,8 @@ $(document).ready(function(){
 							console.log("7.MES fev ativando: " + mes + " ANO: " + ano + " (INDEX + 1): " + (index+1) + " id:" + $(this).prop("id"));
 							
 							$(this).addClass("active");
-							montaTableCaixaBalancoMensal(mes);
-							montaMovimentacaoMensal(mes);
+							montaTableCaixaBalancoMensal(mes, ano);
+							montaMovimentacaoMensal(mes, ano);
 						}
 						break;
 					case 3:
@@ -225,8 +247,8 @@ $(document).ready(function(){
 							console.log("7.MES mar: ativando" + mes + " ANO: " + ano + " (INDEX + 1): " + (index+1) + " id:" + $(this).prop("id"));
 							
 							$(this).addClass("active");
-							montaTableCaixaBalancoMensal(mes);
-							montaMovimentacaoMensal(mes);
+							montaTableCaixaBalancoMensal(mes, ano);
+							montaMovimentacaoMensal(mes, ano);
 						}
 						break;
 					case 4:
@@ -235,8 +257,8 @@ $(document).ready(function(){
 							console.log("7.MES abr: ativando" + mes + " ANO: " + ano + " (INDEX + 1): " + (index+1) + " id:" + $(this).prop("id"));
 							
 							$(this).addClass("active");
-							montaTableCaixaBalancoMensal(mes);
-							montaMovimentacaoMensal(mes);
+							montaTableCaixaBalancoMensal(mes, ano);
+							montaMovimentacaoMensal(mes, ano);
 						}
 						break;
 					case 5:
@@ -245,8 +267,8 @@ $(document).ready(function(){
 							console.log("7.MES mai: ativando" + mes + " ANO: " + ano + " (INDEX + 1): " + (index+1) + " id:" + $(this).prop("id"));
 							
 							$(this).addClass("active");
-							montaTableCaixaBalancoMensal(mes);
-							montaMovimentacaoMensal(mes);
+							montaTableCaixaBalancoMensal(mes, ano);
+							montaMovimentacaoMensal(mes, ano);
 						}
 						break;
 					case 6:
@@ -255,8 +277,8 @@ $(document).ready(function(){
 							console.log("7.MES jun ativando: " + mes + " ANO: " + ano + " (INDEX + 1): " + (index+1) + " id:" + $(this).prop("id"));
 							
 							$(this).addClass("active");
-							montaTableCaixaBalancoMensal(mes);
-							montaMovimentacaoMensal(mes);
+							montaTableCaixaBalancoMensal(mes, ano);
+							montaMovimentacaoMensal(mes, ano);
 						}
 						break;
 					case 7:
@@ -265,8 +287,8 @@ $(document).ready(function(){
 							console.log("7.MES jul ativando: " + mes + " ANO: " + ano + " (INDEX + 1): " + (index+1) + " id:" + $(this).prop("id"));
 							
 							$(this).addClass("active");
-							montaTableCaixaBalancoMensal(mes);
-							montaMovimentacaoMensal(mes);
+							montaTableCaixaBalancoMensal(mes, ano);
+							montaMovimentacaoMensal(mes, ano);
 						}
 						break;
 					case 8:
@@ -275,8 +297,8 @@ $(document).ready(function(){
 							console.log("7.MES ago ativando: " + mes + " ANO: " + ano + " (INDEX + 1): " + (index+1) + " id:" + $(this).prop("id"));
 							
 							$(this).addClass("active");
-							montaTableCaixaBalancoMensal(mes);
-							montaMovimentacaoMensal(mes);
+							montaTableCaixaBalancoMensal(mes, ano);
+							montaMovimentacaoMensal(mes, ano);
 						}
 						break;
 					case 9:
@@ -285,8 +307,8 @@ $(document).ready(function(){
 							console.log("7.MES set ativando: " + mes + " ANO: " + ano + " (INDEX + 1): " + (index+1) + " id:" + $(this).prop("id"));
 							
 							$(this).addClass("active");							
-							montaTableCaixaBalancoMensal(mes);
-							montaMovimentacaoMensal(mes);
+							montaTableCaixaBalancoMensal(mes, ano);
+							montaMovimentacaoMensal(mes, ano);
 						}
 						break;
 					case 10:
@@ -295,8 +317,8 @@ $(document).ready(function(){
 							console.log("7.MES out ativando: " + mes + " ANO: " + ano + " (INDEX + 1): " + (index+1) + " id:" + $(this).prop("id"));
 							
 							$(this).addClass("active");
-							montaTableCaixaBalancoMensal(mes);
-							montaMovimentacaoMensal(mes);
+							montaTableCaixaBalancoMensal(mes, ano);
+							montaMovimentacaoMensal(mes, ano);
 						}
 						break;
 					case 11:
@@ -305,8 +327,8 @@ $(document).ready(function(){
 							console.log("7.MES nov ativando: " + mes + " ANO: " + ano + " (INDEX + 1): " + (index+1) + " id:" + $(this).prop("id"));
 							
 							$(this).addClass("active");
-							montaTableCaixaBalancoMensal(mes);
-							montaMovimentacaoMensal(mes);
+							montaTableCaixaBalancoMensal(mes, ano);
+							montaMovimentacaoMensal(mes, ano);
 						}
 						break;
 					case 12:
@@ -315,8 +337,8 @@ $(document).ready(function(){
 							console.log("7.MES dez ativando: " + mes + " ANO: " + ano + " (INDEX + 1): " + (index+1) + " id:" + $(this).prop("id"));
 							
 							$(this).addClass("active");
-							montaTableCaixaBalancoMensal(mes);
-							montaMovimentacaoMensal(mes);
+							montaTableCaixaBalancoMensal(mes, ano);
+							montaMovimentacaoMensal(mes, ano);
 						}
 						break;
 				}				
@@ -324,7 +346,7 @@ $(document).ready(function(){
 		}
 		
 		// MONTA A TABELA DO CAIXA BALANCO MENSAL DO MES ATIVO		
-		var montaTableCaixaBalancoMensal = function(mes){
+		var montaTableCaixaBalancoMensal = function(mes, ano){
 			console.log("8.MES entrou montaTableCaixaBalancoMensal: " + mes + " ANO: " + ano);
 			
 			divMes.append("<div class='row' role='caixaMensal'></div>");
@@ -366,7 +388,7 @@ $(document).ready(function(){
 		}
 		
 		// MONTA AS MOVIMENTACOES DO MES ATIVO
-		var montaMovimentacaoMensal = function(mes){
+		var montaMovimentacaoMensal = function(mes, ano){
 			console.log("9.MES entrou montaMovimentacaoMensal: " + mes + " ANO: " + ano);
 			
 			divMes.append("<div class='row' role='movimentacaoMensal'>");
@@ -468,12 +490,35 @@ $(document).ready(function(){
 			e.preventDefault();
 			mes = "";
 			mes = $(this).attr("id");
-			montaDivConteudoMeses(mes);
+			montaDivConteudoMeses(mes, ano);
 			console.log("aba clicada: " + mes + " ANO: " + ano);
+		});		
+		
+		// ESCUTA A SELEÇÃO DO ANO
+		anoBalanco.change(function(e){
+			e.preventDefault();		
+			console.log("MES: " + mes);
+			
+			// PEGA O ANO SELECIONADO
+			ano = $(this).val();
+			
+			// SE ANO SELECIONADO FOR IGUAL AO ANO ATUAL, PEGA O MÊS ATUAL
+			if(ano == parseInt(new Date().getFullYear())){
+				mes = parseInt(new Date().getMonth() + 1);
+			}else{
+				// SENÃO SETA O MÊS 1
+				mes = parseInt(1);
+			}
+			
+			// MONTA A DIV
+			montaDivConteudoMeses(mes, ano);
+			
+			console.log("MUDOU O ANO: " + ano + " MES: " + mes);
 		});
 		
+		
 		console.log("montaDivConteudoMeses");
-		montaDivConteudoMeses(mes);
+		montaDivConteudoMeses(mes, ano);
 		
 	}	
 });
