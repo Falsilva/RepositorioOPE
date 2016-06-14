@@ -1,5 +1,5 @@
-$(function () {	
-
+/*$(function () {	
+	
 	var codigo = 1;
 	var mes = null;
 	var ano = null;	
@@ -71,19 +71,14 @@ $(function () {
 	});	
 	
 	
-	// CARREGA OS DADOS NA TABELA PARA UTILIZAÇÃO DO GRÁFICO
-	
-	
-	
-	
-	
-	
+	// CARREGA OS DADOS NA TABELA PARA UTILIZAÇÃO DO GRÁFICO	
+	var tabBalanco = $("#tabBalanco");
+	var tbodyTabBalanco = tabBalanco.find("tbody");
+	var trs = tbodyTabBalanco.fins("tr");
 	
 	
 	
 	// GRÁFICO
-	var tabBalanco = $("tabBalanco");
-	
     $('#grafico').highcharts({
     	data: {
             table: tabBalanco
@@ -167,3 +162,4 @@ $(function () {
         }]
     });
 });
+	*/

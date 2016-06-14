@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -70,16 +71,17 @@ public class RegraCaixa extends HttpServlet {
 							System.out.println("RegraCaixa, PESQUISANDO POR CODIGO, MOVIMENTACOES VERIFICADAS, HA MOVIMENTACOES...");
 							System.out.println("RegraCaixa, PESQUISANDO POR CODIGO, VERIFICANDO SE UM PERIODO FOI INFORMADO...");
 							
+							// MES E ANO - NÃO SÃO NULOS - FORAM INFORMADOS - A REQUISIÇÃO VEIO DA PÁG. CAIXA
 							// CAIXA E MOVIMENTAÇÃO DO PERÍODO MENSAL INFORMADO
 							if(req.getParameter("mes") != null && req.getParameter("ano") != null){
-								System.out.println("RegraCaixa, PESQUISANDO POR CODIGO, PERIODO VERIFICADO, INFORMADO O MES: " + req.getParameter("mes"));
+								System.out.println("RegraCaixa, 1. PESQUISANDO POR CODIGO, PERIODO VERIFICADO, INFORMADO O MES: " + req.getParameter("mes"));
 								
 								mes = Integer.parseInt(req.getParameter("mes")) - 1;
 								ano = Integer.parseInt(req.getParameter("ano"));
 								movimentacoes = new ArrayList<Movimentacao>();
 								
-								if(req.getParameter("tarefa") != null && req.getParameter("tarefa").equals("grafico")){
-									/*for(Movimentacao mov : caixa.getMovimentacoes()){
+								/*if(req.getParameter("tarefa") != null && req.getParameter("tarefa").equals("grafico")){
+									for(Movimentacao mov : caixa.getMovimentacoes()){
 										
 										// PEGA OS DADOS SOMENTE DO PERÍODO INFORMADO
 										if(mov.getData().get(Calendar.MONTH) >= (mes-12) && mov.getData().get(Calendar.MONTH) <= mes){
@@ -116,34 +118,38 @@ public class RegraCaixa extends HttpServlet {
 											}
 										}
 									}
-									*/									
-								}else{
+																		
+								}else{*/
+									System.out.println("-------------------------------- INICIO - PEGANDO AS MOVIMENTACOES DO PERIODO ---------------------------------------");
 									for(Movimentacao mov : caixa.getMovimentacoes()){
-										
+										System.out.println("Linha 123 - ENTROU NA LISTA DE MOVIMENTACOES DO CAIXA");
 										// VERIFICA O ANO INFORMADO
 										if(mov.getData().get(Calendar.YEAR) == ano){											
-										
+											System.out.println("Linha 126 - ENTROU NA CONDICAO ANO(" + ano + ") = ANO INFORMADO (" + mov.getData().get(Calendar.YEAR) + ")");
 											// VERIFICA O MÊS INFORMADO
 											if(mov.getData().get(Calendar.MONTH) == mes){
-												System.out.println("DATA: " + new SimpleDateFormat("dd/MM/yyyy").format(mov.getData().getTime()));
+												System.out.println("Linha 129 - ENTROU NA CONDICAO MES(" + mes + ") = MES INFORMADO (" + mov.getData().get(Calendar.MONTH) + ")");
+												//System.out.println("Linha 130, DATA: " + new SimpleDateFormat("dd/MM/yyyy").format(mov.getData().getTime()));
 												
 												// VERIFICA O TIPO DE MOVIMENTACAO - ENTRADA OU SAIDA
 												if(mov.getTipoLancamento().equals(Movimentacao.TipoLancamento.ENTRADA)){
-													System.out.println("MOVIMENTACAO TIPO ENTRADA");
+													System.out.println("MOVIMENTACAO DE ENTRADA");
 													
 													// CAIXA - ADICIONANDO O VALOR TOTAL DE ENTRADA
 													caixaMes.setTotalEntrada(caixaMes.getTotalEntrada().add(mov.getValorLancamento()));										
 												}else{
-													System.out.println("MOVIMENTACAO TIPO SAIDA");
+													System.out.println("MOVIMENTACAO DE SAIDA");
 													
 													// CAIXA - ADICIONANDO O VALOR TOTAL DE SAÍDA
 													caixaMes.setTotalSaida(caixaMes.getTotalSaida().add(mov.getValorLancamento()));
 												}									
 												movimentacoes.add(mov);
+												System.out.println("Linha 145, ADD NAS MOVS(" + new SimpleDateFormat("dd/MM/yyyy").format(mov.getData().getTime()) + ")");
 											}
 										}
 									}
-									
+									System.out.println("----------- LINHA 150 ----------- FIM -  PEGOU AS MOVIMENTACOES DO PERIODO ---------------------------------------");
+									System.out.println("----------- LINHA 150 ----------- FIM -  SETANDO O CAIXA PARA O dataCaixaMes -------------------------------------");
 									// CAIXA - ADICIONANDO O SALDO DO PERÍODO INFORMADO
 									caixaMes.setSaldo(caixaMes.getTotalEntrada().subtract(caixaMes.getTotalSaida()));
 									
@@ -160,55 +166,210 @@ public class RegraCaixa extends HttpServlet {
 										// PEGA O JSON CAIXA VAZIO - IDENTIFICADOR: "dataCaixaMes"
 										json = montaJsonVazio("dataCaixaMes");
 									}
-								}
+								//}
 								
 							// CAIXA E MOVIMENTAÇÃO DE TODOS OS PERÍODOS
 							}else{
-								System.out.println("RegraCaixa, PESQUISANDO POR CODIGO, PERIODO VERIFICADO, NAO INFORMADO");
+								System.out.println("RegraCaixa, 2. PESQUISANDO POR CODIGO, PERIODO VERIFICADO, NAO INFORMADO: ANO: " + ano + " MES: " + mes);
 								
 								List<Movimentacao> listaOrdenada = caixa.getMovimentacoes();
 								movUltLanc = new ArrayList<Movimentacao>();
 								pedPCUltPendentes = new PedidoCompraDAO().listaUltimosPendentes(StatusCompra.PENDENTE);
 								pedPVUltPendentes = new PedidoVendaDAO().listaUltimosPendentes(StatusVenda.PENDENTE);
 								
+								System.out.println("------- LINHA 178 ---------- INICIO - ORDENANDO A LISTA --------------------------------------------");
 								// ORDENACAO DAS MOVIMENTAÇÕES POR DATA								
 								for(int i = 0; i < listaOrdenada.size(); i++){
 									Movimentacao ms = listaOrdenada.get(i);									
 									// SE FOR DIFERENTE DO ÚLTIMO ÍNDICE
-									if(i != listaOrdenada.size() - 1){				
+									if(i != (listaOrdenada.size() - 1)){				
 										// SE ESTA DATA FOR MAIOR QUE A DATA SEGUINTE
+										System.out.println("DATA: " + new SimpleDateFormat("dd/MM/yyyy").format(ms.getData().getTime()) + "DATA SEGUINTE: " + new SimpleDateFormat("dd/MM/yyyy").format(listaOrdenada.get(i + 1).getData().getTime()));
 										if(ms.getData().after(listaOrdenada.get(i + 1).getData())){
 											listaOrdenada.remove(i);				// REMOVE ESTA DATA
 											listaOrdenada.add(i + 1, ms);			// ADICIONA ESTA DATA NA POSIÇÃO SEGUINTE
 											i = 0;
+											System.out.println("CONTADOR i ZERADO");
 										}				
 									}									
 								}									
+								System.out.println("-------- LINHA 193 ---------- FIM - ORDENANDO A LISTA -----------------------------------------------");
+								
+								System.out.println("---------------------------- INICIO - LISTA ORDENADA --------------------------------------------");
+								// LISTA ORDENADA - PEGA OS 12 MESES ANTERIORES
+								Caixa cxGrafico = new Caixa();
+								cxGrafico.setTotalEntrada(new BigDecimal(0));
+								cxGrafico.setTotalSaida(new BigDecimal(0));
+								cxGrafico.setSaldo(new BigDecimal(0));								
+								
+								List<Caixa> listaCxsGrafico = new ArrayList<Caixa>();
+								for(Movimentacao mGrafico : listaOrdenada){
+									System.out.println("LISTA ORDENADA: " + listaOrdenada.indexOf(mGrafico) + " DATA: " + new SimpleDateFormat("MM/yyyy").format(mGrafico.getData().getTime()) + " " + mGrafico.getTipoLancamento().toString() + ": " + mGrafico.getValorLancamento());															
+									
+									// SE FOR A PRIMEIRA MOVIMENTACAO
+									if(listaOrdenada.indexOf(mGrafico) == 0){
+										
+										// VERIFICA O TAMANHO, SE FOR 1
+										// ADICIONA MOVIMENTACAO PARA GUARDAR A DATA
+										if(listaOrdenada.size() == 1){
+											if(mGrafico.getTipoLancamento() == TipoLancamento.ENTRADA){
+												cxGrafico.setTotalEntrada(cxGrafico.getTotalEntrada().add(mGrafico.getValorLancamento()));
+											}else{
+												cxGrafico.setTotalSaida(cxGrafico.getTotalSaida().add(mGrafico.getValorLancamento()));
+											}
+											cxGrafico.setSaldo(cxGrafico.getTotalEntrada().subtract(cxGrafico.getTotalSaida()));
+											
+											List<Movimentacao> listaMovGrafico = new ArrayList<Movimentacao>();
+											listaMovGrafico.add(mGrafico);
+											cxGrafico.setMovimentacoes(listaMovGrafico);
+											listaCxsGrafico.add(cxGrafico);
+											cxGrafico = null;
+										}else{
+											// SE O TAMANHO FOR MAIOR QUE 1 CONTINUA
+											if(mGrafico.getTipoLancamento() == TipoLancamento.ENTRADA){
+												cxGrafico.setTotalEntrada(cxGrafico.getTotalEntrada().add(mGrafico.getValorLancamento()));
+											}else{
+												cxGrafico.setTotalSaida(cxGrafico.getTotalSaida().add(mGrafico.getValorLancamento()));
+											}
+											cxGrafico.setSaldo(cxGrafico.getTotalEntrada().subtract(cxGrafico.getTotalSaida()));											
+											
+											// VERIFICA SE O MES ATUAL É DIFERENTE DO MES SEGUINTE
+											if(mGrafico.getData().get(Calendar.MONTH) != listaOrdenada.get(listaOrdenada.indexOf(mGrafico)+1).getData().get(Calendar.MONTH)){
+												List<Movimentacao> listaMovGrafico = new ArrayList<Movimentacao>();
+												listaMovGrafico.add(mGrafico);
+												cxGrafico.setMovimentacoes(listaMovGrafico);
+												
+												listaCxsGrafico.add(cxGrafico);
+												
+												cxGrafico = new Caixa();
+												cxGrafico.setTotalEntrada(new BigDecimal(0));
+												cxGrafico.setTotalSaida(new BigDecimal(0));
+												cxGrafico.setSaldo(new BigDecimal(0));
+											}
+										}										
+									}else{
+										// SE FOR A ULTIMA MOVIMENTACAO
+										if(listaOrdenada.indexOf(mGrafico) == listaOrdenada.size() - 1){
+											if(mGrafico.getTipoLancamento() == TipoLancamento.ENTRADA){
+												cxGrafico.setTotalEntrada(cxGrafico.getTotalEntrada().add(mGrafico.getValorLancamento()));
+											}else{
+												cxGrafico.setTotalSaida(cxGrafico.getTotalSaida().add(mGrafico.getValorLancamento()));
+											}
+											cxGrafico.setSaldo(cxGrafico.getTotalEntrada().subtract(cxGrafico.getTotalSaida()));										
+											
+											// ADICIONA MOVIMENTACAO PARA GUARDAR A DATA
+											List<Movimentacao> listaMovGrafico = new ArrayList<Movimentacao>();
+											listaMovGrafico.add(mGrafico);
+											cxGrafico.setMovimentacoes(listaMovGrafico);
+											listaCxsGrafico.add(cxGrafico);
+											cxGrafico = null;
+										}else{
+											// DEMAIS MOVIMENTAÇÕES
+											if(mGrafico.getTipoLancamento() == TipoLancamento.ENTRADA){
+												cxGrafico.setTotalEntrada(cxGrafico.getTotalEntrada().add(mGrafico.getValorLancamento()));
+											}else{
+												cxGrafico.setTotalSaida(cxGrafico.getTotalSaida().add(mGrafico.getValorLancamento()));
+											}
+											cxGrafico.setSaldo(cxGrafico.getTotalEntrada().subtract(cxGrafico.getTotalSaida()));
+
+											// VERIFICA SE O MES ATUAL É DIFERENTE DO MES SEGUINTE
+											if(mGrafico.getData().get(Calendar.MONTH) != listaOrdenada.get(listaOrdenada.indexOf(mGrafico)+1).getData().get(Calendar.MONTH)){												
+												List<Movimentacao> listaMovGrafico = new ArrayList<Movimentacao>();
+												listaMovGrafico.add(mGrafico);
+												cxGrafico.setMovimentacoes(listaMovGrafico);
+												
+												listaCxsGrafico.add(cxGrafico);
+												
+												cxGrafico = new Caixa();
+												cxGrafico.setTotalEntrada(new BigDecimal(0));
+												cxGrafico.setTotalSaida(new BigDecimal(0));
+												cxGrafico.setSaldo(new BigDecimal(0));
+											}
+										}										
+									}
+								}
+								System.out.println("---------------------------- FIM - LISTA ORDENADA ---------------------------------------------");
+								
+								List<Caixa> listaGrafico = new ArrayList<Caixa>();								
+								// SE A LISTA TIVER 13 MOVIMENTAÇOES OU MENOS
+								if(listaCxsGrafico.size() <= 13){
+									for(int i = 0; i < listaCxsGrafico.size(); i++){
+										listaGrafico.add(listaCxsGrafico.get(i));
+									}
+								}else{	// SE A LISTA TIVER MAIS QUE 13 MOVIMENTAÇÕES									
+									for(int i = listaOrdenada.size() - 13; i < listaOrdenada.size(); i++){
+										listaGrafico.add(listaCxsGrafico.get(i));
+									}
+								}
+								
+								System.out.println("---------------------------- INICIO - VERIFICACAO DA CAPTACAO DE DADOS -----------------------------");
+								// TESTE - VISUALIZANDO OS DADOS CAPTADOS PARA O GRAFICO
+								for(Caixa c : listaGrafico){
+									System.out.println("\n" + listaGrafico.indexOf(c) + ". "
+											+ " tamanho da lista de movimentacoes: " + c.getMovimentacoes().size() + "\n"
+											+ "\tMES/ANO: " + new SimpleDateFormat("MMM/yy").format(c.getMovimentacoes().get(0).getData().getTime()) + "\n"
+											+ "\tENTRADA: " + c.getTotalEntrada() + "\n"
+											+ "\tSAIDA: " + c.getTotalSaida() + "\n"
+											+ "\tSALDO: " + c.getSaldo());
+								}
+								System.out.println("---------------------------- FIM - VERIFICACAO DA CAPTACAO DE DADOS ---------------------------");
+								/*
+								System.out.println("---------------------------- INICIO - CAPTACAO DE ANOS ---------------------------");
+								List<Integer> anos = new ArrayList<Integer>();
+								System.out.println("QTD. ANOS INICIAL ....... " + anos.size());
+								for(Iterator<Movimentacao> movIt = listaOrdenada.iterator(); movIt.hasNext();){
+									Movimentacao movAno = movIt.next();
+									if(listaOrdenada.indexOf(movAno) == 0){
+										anos.add(movAno.getData().get(Calendar.YEAR));
+									}else{
+										// SE O ANO DESTA MOVIMENTAÇÃO FOR DIFERENTE DA ANTERIOR
+										if(movAno.getData().get(Calendar.YEAR) != listaOrdenada.get(listaOrdenada.indexOf(movAno) - 1).getData().get(Calendar.YEAR)){
+											anos.add(movAno.getData().get(Calendar.YEAR));
+										}
+									}
+								}
+								
+								System.out.println("QTD. ANOS FINAL ....... " + anos.size());
+								System.out.println("---------------------------- FIM - CAPTACAO DE ANOS ---------------------------");
+								*/
 								
 								// PEGA OS ANOS - listaOrdenada.get(i).getData().get(Calendar.YEAR)
 								List<Integer> anos = new ArrayList<Integer>();
 								System.out.println("anos INICIAL ....... " + anos.size());								
 								for(int i = 0; i < listaOrdenada.size(); i++){
+									System.out.println("ANO da Lista Ordenada >> Linha 316: " + listaOrdenada.get(i).getData().get(Calendar.YEAR));
 									if(anos.size() == 0){
 										anos.add(listaOrdenada.get(i).getData().get(Calendar.YEAR));
 									}else{
-										int j = 0;
-										for(Integer anoOrdenacao : anos){
+										System.out.println("PROBLEMA DE ITERACAO INICIA AQUI, tamanho inicial da Lista ANOS: " + anos.size());
+										//int j = 0;
+										//for(Integer anoOrdenacao : anos){
+										for(Iterator<Integer> j = anos.iterator(); j.hasNext();){
+											Integer anoOrdenacao = j.next();	// PEGA O ANO DA LISTA
+											System.out.println("Linha 332 - anoOrdenado ANO: " + anoOrdenacao + ", listaOrdenada ANO: " + listaOrdenada.get(i).getData().get(Calendar.YEAR));											
 											if(anoOrdenacao != listaOrdenada.get(i).getData().get(Calendar.YEAR)){
-												if(j == 0){
-													anos.add(listaOrdenada.get(i).getData().get(Calendar.YEAR));
-												}else{
-													for(Integer a : anos){
+												System.out.println("Linha 334, ANOS DIFERENTES");
+												
+												//if(j == 0){
+												//if(j.equals(0)){	// SE TIVER UM ANO ADICIONADO, ADICIONA ESSE DIFERENTE
+													//System.out.println("ACHEI!!!! VAI APAGAR");
+													//anos.add(listaOrdenada.get(i).getData().get(Calendar.YEAR));
+												//}else{	// SENAO, SE T
+													//for(Integer a : anos){
+													for(Iterator<Integer> k = anos.iterator(); k.hasNext();){
+														Integer a = k.next();
 														if(a != anoOrdenacao){
 															anos.add(listaOrdenada.get(i).getData().get(Calendar.YEAR));
+															System.out.println("TAMANHO MODIFICADO AQUI DA Lista ANOS: " + anos.size());
 														}
 													}
-												}
+												//}
 											}
-											j++;
+											//j++;
 										}
 									}
 								}
+								
 								
 								// SE A LISTA TIVER 5 MOVIMENTAÇOES OU MENOS
 								if(listaOrdenada.size() <= 5){
@@ -223,7 +384,7 @@ public class RegraCaixa extends HttpServlet {
 // ---------------------------------------- CHAMA O montaJsonCaixaUltimo-------------------------------------------------------------------------------------------------------
 								
 								// PEGA O JSON CAIXA - IDENTIFICADOR: "dataCaixa"
-								json = montaJsonCaixaUltimo("dataCaixa", caixa, movUltLanc, pedPCUltPendentes, pedPVUltPendentes, anos);						
+								json = montaJsonCaixaUltimo("dataCaixa", caixa, movUltLanc, pedPCUltPendentes, pedPVUltPendentes, anos, listaGrafico);						
 							}
 						}else{
 							System.out.println("RegraCaixa, PESQUISANDO POR CODIGO, MOVIMENTACOES VERIFICADAS, NAO HA MOVIMENTACOES...");
@@ -344,15 +505,16 @@ public class RegraCaixa extends HttpServlet {
 	}
 	
 	// MONTA O JSON DO CAIXA - PÁG. DASHBOARD
-	private String montaJsonCaixaUltimo(String identificador, Caixa caixa, List<Movimentacao> movUltLanc, List<PedidoCompra> pedPCUltPendentes, List<PedidoVenda> pedPVUltPendentes, List<Integer> anos){
+	private String montaJsonCaixaUltimo(String identificador, Caixa caixa, List<Movimentacao> movUltLanc, List<PedidoCompra> pedPCUltPendentes, List<PedidoVenda> pedPVUltPendentes, List<Integer> anosLista, List<Caixa> listaCxsGrafico){
 		System.out.println("RegraCaixa, PESQUISANDO POR CODIGO, MONTANDO O JSON DO CAIXA...");
-			System.out.println("RegraCaixa, PESQUISANDO POR CODIGO, MONTANDO O JSON DO CAIXA, ANOS QTD.: " + anos);
+			System.out.println("RegraCaixa, PESQUISANDO POR CODIGO, MONTANDO O JSON DO CAIXA, ANOS QTD.: " + anosLista.size());
 		String jsonCaixa = "";
 		String jsonMovs = montaJsonMovimentacao(caixa.getMovimentacoes());
 		String jsonUltMovs = montaJsonUltMovimentacao(movUltLanc);
 		String jsonCompras = montaJsonCompras(pedPCUltPendentes);
 		String jsonVendas = montaJsonVendas(pedPVUltPendentes);
-		String jsonAnos = montaJsonAnos(anos);
+		String jsonAnos = montaJsonAnos(anosLista);
+		String jsonGrafico = montaJsonGrafico(listaCxsGrafico);
 		
 		jsonCaixa = "{\"" + identificador + "\":[{"						
 				+ "\"totalEntrada\":\"" + caixa.getTotalEntrada() + "\","
@@ -362,7 +524,8 @@ public class RegraCaixa extends HttpServlet {
 				+ "\"ultMovimentacoes\":[" + jsonUltMovs + "],"
 				+ "\"compras\":[" + jsonCompras + "],"
 				+ "\"vendas\":[" + jsonVendas + "],"
-				+ "\"anos\":[" + jsonAnos + "]"
+				+ "\"anos\":[" + jsonAnos + "],"
+				+ "\"grafico\":[" + jsonGrafico + "]"
 				+ "}]}";
 		System.out.println("RegraCaixa, PESQUISANDO POR CODIGO, JSON DO CAIXA MONTADO...");
 		return jsonCaixa;
@@ -525,349 +688,73 @@ public class RegraCaixa extends HttpServlet {
 		return jsonVendas;
 	}
 	
-	private String montaJsonAnos(List<Integer> anos) {
-		System.out.println("RegraCaixa, PESQUISANDO POR CODIGO, MONTANDO O JSON DE ANOS...");
+	private String montaJsonAnos(List<Integer> anosListaJson) {
+		System.out.println("RegraCaixa, PESQUISANDO POR CODIGO, Linha 692 - MONTANDO O JSON DE ANOS, tamanho da lista: " + anosListaJson.size());
 		
-		String jsonAnos = "";
+		String jsonAnosMontando = "";
 		int controle = 1;
 		
-		if(anos.size() == 0){
-			jsonAnos = "{}";
+		if(anosListaJson.size() == 0){
+			jsonAnosMontando = "{}";
 		}else{
-			for(Integer ano : anos){
-				System.out.println("ANO montaJsonAnos: " + ano);
+			for(Integer anoIteracao : anosListaJson){
+				System.out.println("Linha 701 - montaJsonAnos ANO: " + anoIteracao);
 				// CASO SEJA O PRIMEIRO INDICE CHAVES {} SEM VIRGULA		
 				if(controle == 1){				
-					jsonAnos = "{\"ano\":\"" + ano + "\"}";
+					jsonAnosMontando = "{\"ano\":\"" + anoIteracao + "\"}";
 					
 					controle = 2;
 					
 				// CASO NAO SEJA O PRIMEIRO INDICE
 				}else{				
-					jsonAnos += "," + "{\"ano\":\"" + ano + "\"}";
+					jsonAnosMontando += "," + "{\"ano\":\"" + anoIteracao + "\"}";
+				}
+			}
+		}
+		System.out.println("RegraCaixa, PESQUISANDO POR CODIGO, JSON DE ANOS MONTADO...");
+		return jsonAnosMontando;
+	}
+
+	private String montaJsonGrafico(List<Caixa> listaCxsGrafico) {
+		System.out.println("RegraCaixa, PESQUISANDO POR CODIGO, MONTANDO O JSON DE VENDAS...");
+		
+		String jsonGrafico = "";
+		int controle = 1;
+		
+		if(listaCxsGrafico.size() == 0 || listaCxsGrafico == null){
+			jsonGrafico = "{}";
+		}else{
+			for(Caixa cx : listaCxsGrafico){
+				
+				// CASO SEJA A PRIMEIRA MOVIMENTACAO CHAVES {} SEM VIRGULA		
+				if(controle == 1){				
+					jsonGrafico = "{\"mesAno\":\"" + new SimpleDateFormat("MM/yy").format(cx.getMovimentacoes().get(0).getData().getTime()) + "\","
+							+ "\"entrada\":\"" + cx.getTotalEntrada() + "\","
+							+ "\"saida\":\"" + cx.getTotalSaida() + "\","
+							+ "\"total\":\"" + cx.getSaldo() + "\""											
+							+ "}";
+					
+					controle = 2;
+					
+				// CASO NAO SEJA A PRIMEIRA COMPRA
+				}else{				
+					jsonGrafico += "," + "{\"mesAno\":\"" + new SimpleDateFormat("MM/yy").format(cx.getMovimentacoes().get(0).getData().getTime()) + "\","
+							+ "\"entrada\":\"" + cx.getTotalEntrada() + "\","
+							+ "\"saida\":\"" + cx.getTotalSaida() + "\","
+							+ "\"total\":\"" + cx.getSaldo() + "\""											
+							+ "}";
+					
 				}
 			}
 		}		
-		return jsonAnos;
+		return jsonGrafico;
 	}
-
+	
 	// MONTA O JSON VAZIO - CASO NÃO HAJA MOVIMENTACOES
 	private String montaJsonVazio(String identificador) {
 		System.out.println("RegraCaixa, PESQUISANDO POR CODIGO, MONTANDO O JSON VAZIO...");		
 		String jsonVazio = "{\"" + identificador + "\":\"null\"}";
 		System.out.println("RegraCaixa, PESQUISANDO POR CODIGO, JSON VAZIO MONTADO...");
 		return jsonVazio;
-	}
-	
-	
-	
-	
-	/*
-	// MONTA O JSON DAS MOVIMENTACOES
-	private String montaJsonMovimentacaoGrafico(List<Movimentacao> movs, int mes){
-		System.out.println("RegraCaixa, PESQUISANDO POR CODIGO, MONTANDO O JSON DE MOVIMENTACOES...");
-			
-		String jsonMovs = "";						
-		
-		BigDecimal tEntrada1 = new BigDecimal(0);
-		BigDecimal tSaida1 = new BigDecimal(0);	
-		String mes1 = "{\"mes\":\"\","
-				+ "\"totalEntrada\":\"" + tEntrada1 + "\","
-				+ "\"totalSaida\":\"" + tSaida1 + "\""																		
-				+ "}";		
-		
-		BigDecimal tEntrada2 = new BigDecimal(0);
-		BigDecimal tSaida2 = new BigDecimal(0);
-		String mes2 = "{\"mes\":\"\","
-				+ "\"totalEntrada\":\"" + tEntrada2 + "\","
-				+ "\"totalSaida\":\"" + tSaida2 + "\""																		
-				+ "}";
-		
-		BigDecimal tEntrada3 = new BigDecimal(0);
-		BigDecimal tSaida3 = new BigDecimal(0);
-		String mes3 = "{\"mes\":\"\","
-				+ "\"totalEntrada\":\"" + tEntrada3 + "\","
-				+ "\"totalSaida\":\"" + tSaida3 + "\""																		
-				+ "}";
-		
-		BigDecimal tEntrada4 = new BigDecimal(0);
-		BigDecimal tSaida4 = new BigDecimal(0);
-		String mes4 = "{\"mes\":\"\","
-				+ "\"totalEntrada\":\"" + tEntrada4 + "\","
-				+ "\"totalSaida\":\"" + tSaida4 + "\""																		
-				+ "}";
-		
-		BigDecimal tEntrada5 = new BigDecimal(0);
-		BigDecimal tSaida5 = new BigDecimal(0);
-		String mes5 = "{\"mes\":\"\","
-				+ "\"totalEntrada\":\"" + tEntrada5 + "\","
-				+ "\"totalSaida\":\"" + tSaida5 + "\""																		
-				+ "}";
-		
-		BigDecimal tEntrada6 = new BigDecimal(0);
-		BigDecimal tSaida6 = new BigDecimal(0);
-		String mes6 = "{\"mes\":\"\","
-				+ "\"totalEntrada\":\"" + tEntrada6 + "\","
-				+ "\"totalSaida\":\"" + tSaida6 + "\""																		
-				+ "}";
-		
-		BigDecimal tEntrada7 = new BigDecimal(0);
-		BigDecimal tSaida7 = new BigDecimal(0);
-		String mes7 = "{\"mes\":\"\","
-				+ "\"totalEntrada\":\"" + tEntrada7 + "\","
-				+ "\"totalSaida\":\"" + tSaida7 + "\""																		
-				+ "}";
-		
-		BigDecimal tEntrada8 = new BigDecimal(0);
-		BigDecimal tSaida8 = new BigDecimal(0);
-		String mes8 = "{\"mes\":\"\","
-				+ "\"totalEntrada\":\"" + tEntrada8 + "\","
-				+ "\"totalSaida\":\"" + tSaida8 + "\""																		
-				+ "}";
-		
-		BigDecimal tEntrada9 = new BigDecimal(0);
-		BigDecimal tSaida9 = new BigDecimal(0);
-		String mes9 = "{\"mes\":\"\","
-				+ "\"totalEntrada\":\"" + tEntrada9 + "\","
-				+ "\"totalSaida\":\"" + tSaida9 + "\""																		
-				+ "}";
-		
-		BigDecimal tEntrada10 = new BigDecimal(0);
-		BigDecimal tSaida10 = new BigDecimal(0);
-		String mes10 = "{\"mes\":\"\","
-				+ "\"totalEntrada\":\"" + tEntrada10 + "\","
-				+ "\"totalSaida\":\"" + tSaida10 + "\""																		
-				+ "}";
-		
-		BigDecimal tEntrada11 = new BigDecimal(0);
-		BigDecimal tSaida11 = new BigDecimal(0);
-		String mes11 = "{\"mes\":\"\","
-				+ "\"totalEntrada\":\"" + tEntrada11 + "\","
-				+ "\"totalSaida\":\"" + tSaida11 + "\""																		
-				+ "}";
-		
-		BigDecimal tEntrada12 = new BigDecimal(0);
-		BigDecimal tSaida12 = new BigDecimal(0);
-		String mes12 = "{\"mes\":\"\","
-				+ "\"totalEntrada\":\"" + tEntrada12 + "\","
-				+ "\"totalSaida\":\"" + tSaida12 + "\""																		
-				+ "}";
-		
-		BigDecimal tEntrada13 = new BigDecimal(0);
-		BigDecimal tSaida13 = new BigDecimal(0);
-		String mes13 = "{\"mes\":\"\","
-				+ "\"totalEntrada\":\"" + tEntrada13 + "\","
-				+ "\"totalSaida\":\"" + tSaida13 + "\""																		
-				+ "}";
-		
-		int cont = 0;		
-				
-		for(Movimentacao m : movs){
-			
-			switch(m.getData().MONTH){
-				case (mes-12):					
-					if(m.getTipoLancamento() == TipoLancamento.ENTRADA)
-						tEntrada1 = tEntrada1.add(m.getValorLancamento()); 
-					else
-						tSaida1 = tSaida1.add(m.getValorLancamento());					
-					mes1 = "{\"mes\":\"" + m.getData().MONTH + "\","
-							+ "\"totalEntrada\":\"" + tEntrada1 + "\","
-							+ "\"totalSaida\":\"" + tSaida1 + "\""																		
-							+ "}";
-					if(cont == 0){
-						cont++;
-					}
-					break;
-				case (mes-11):					
-					if(m.getTipoLancamento() == TipoLancamento.ENTRADA)
-						tEntrada2 = tEntrada2.add(m.getValorLancamento()); 
-					else
-						tSaida2 = tSaida2.add(m.getValorLancamento());
-					mes2 = "{\"mes\":\"" + m.getData().MONTH + "\","
-							+ "\"totalEntrada\":\"" + tEntrada2 + "\","
-							+ "\"totalSaida\":\"" + tSaida2 + "\""																		
-							+ "}";
-					if(cont == 0){
-						cont++;
-					}
-					break;
-				case (mes-10):
-					if(m.getTipoLancamento() == TipoLancamento.ENTRADA)
-						tEntrada3 = tEntrada3.add(m.getValorLancamento()); 
-					else
-						tSaida3 = tSaida3.add(m.getValorLancamento());
-					mes3 = "{\"mes\":\"" + m.getData().MONTH + "\","
-							+ "\"totalEntrada\":\"" + tEntrada3 + "\","
-							+ "\"totalSaida\":\"" + tSaida3 + "\""																		
-							+ "}";
-					if(cont == 0){
-						cont++;
-					}
-					break;
-				case (mes-9):
-					if(m.getTipoLancamento() == TipoLancamento.ENTRADA)
-						tEntrada4 = tEntrada4.add(m.getValorLancamento()); 
-					else
-						tSaida4 = tSaida4.add(m.getValorLancamento());
-					mes4 = "{\"mes\":\"" + m.getData().MONTH + "\","
-							+ "\"totalEntrada\":\"" + tEntrada4 + "\","
-							+ "\"totalSaida\":\"" + tSaida4 + "\""																		
-							+ "}";
-					if(cont == 0){
-						cont++;
-					}
-					break;
-				case (mes-8):
-					if(m.getTipoLancamento() == TipoLancamento.ENTRADA)
-						tEntrada5 = tEntrada5.add(m.getValorLancamento()); 
-					else
-						tSaida5 = tSaida5.add(m.getValorLancamento());
-					mes5 = "{\"mes\":\"" + m.getData().MONTH + "\","
-							+ "\"totalEntrada\":\"" + tEntrada5 + "\","
-							+ "\"totalSaida\":\"" + tSaida5 + "\""																		
-							+ "}";
-					if(cont == 0){
-						cont++;
-					}
-					break;
-				case (mes-7):
-					if(m.getTipoLancamento() == TipoLancamento.ENTRADA)
-						tEntrada6 = tEntrada6.add(m.getValorLancamento()); 
-					else
-						tSaida6 = tSaida6.add(m.getValorLancamento());
-					mes6 = "{\"mes\":\"" + m.getData().MONTH + "\","
-							+ "\"totalEntrada\":\"" + tEntrada6 + "\","
-							+ "\"totalSaida\":\"" + tSaida6 + "\""																		
-							+ "}";
-					if(cont == 0){
-						cont++;
-					}
-					break;
-				case (mes-6):
-					if(m.getTipoLancamento() == TipoLancamento.ENTRADA)
-						tEntrada7 = tEntrada7.add(m.getValorLancamento()); 
-					else
-						tSaida7 = tSaida7.add(m.getValorLancamento());
-					mes7 = "{\"mes\":\"" + m.getData().MONTH + "\","
-							+ "\"totalEntrada\":\"" + tEntrada7 + "\","
-							+ "\"totalSaida\":\"" + tSaida7 + "\""																		
-							+ "}";
-					if(cont == 0){
-						cont++;
-					}
-					break;
-				case (mes-5):
-					if(m.getTipoLancamento() == TipoLancamento.ENTRADA)
-						tEntrada8 = tEntrada8.add(m.getValorLancamento()); 
-					else
-						tSaida8 = tSaida8.add(m.getValorLancamento());
-					mes8 = "{\"mes\":\"" + m.getData().MONTH + "\","
-							+ "\"totalEntrada\":\"" + tEntrada8 + "\","
-							+ "\"totalSaida\":\"" + tSaida8 + "\""																		
-							+ "}";
-					if(cont == 0){
-						cont++;
-					}
-					break;
-				case (mes-4):
-					if(m.getTipoLancamento() == TipoLancamento.ENTRADA)
-						tEntrada9 = tEntrada9.add(m.getValorLancamento()); 
-					else
-						tSaida9 = tSaida9.add(m.getValorLancamento());
-					mes9 = "{\"mes\":\"" + m.getData().MONTH + "\","
-							+ "\"totalEntrada\":\"" + tEntrada9 + "\","
-							+ "\"totalSaida\":\"" + tSaida9 + "\""																		
-							+ "}";
-					if(cont == 0){
-						cont++;
-					}
-					break;
-				case (mes-3):
-					if(m.getTipoLancamento() == TipoLancamento.ENTRADA)
-						tEntrada10 = tEntrada10.add(m.getValorLancamento()); 
-					else
-						tSaida10 = tSaida10.add(m.getValorLancamento());
-					mes10 = "{\"mes\":\"" + m.getData().MONTH + "\","
-							+ "\"totalEntrada\":\"" + tEntrada10 + "\","
-							+ "\"totalSaida\":\"" + tSaida10 + "\""																		
-							+ "}";
-					if(cont == 0){
-						cont++;
-					}
-					break;
-				case (mes-2):
-					if(m.getTipoLancamento() == TipoLancamento.ENTRADA)
-						tEntrada11 = tEntrada11.add(m.getValorLancamento()); 
-					else
-						tSaida11 = tSaida11.add(m.getValorLancamento());
-					mes11 = "{\"mes\":\"" + m.getData().MONTH + "\","
-							+ "\"totalEntrada\":\"" + tEntrada11 + "\","
-							+ "\"totalSaida\":\"" + tSaida11 + "\""																		
-							+ "}";
-					if(cont == 0){
-						cont++;
-					}
-					break;
-				case (mes-1):
-					if(m.getTipoLancamento() == TipoLancamento.ENTRADA)
-						tEntrada12 = tEntrada12.add(m.getValorLancamento()); 
-					else
-						tSaida12 = tSaida12.add(m.getValorLancamento());
-					mes12 = "{\"mes\":\"" + m.getData().MONTH + "\","
-							+ "\"totalEntrada\":\"" + tEntrada12 + "\","
-							+ "\"totalSaida\":\"" + tSaida12 + "\""																		
-							+ "}";
-					if(cont == 0){
-						cont++;
-					}
-					break;
-				case (mes):
-					if(m.getTipoLancamento() == TipoLancamento.ENTRADA)
-						tEntrada13 = tEntrada13.add(m.getValorLancamento()); 
-					else
-						tSaida13 = tSaida13.add(m.getValorLancamento());
-					mes13 = "{\"mes\":\"" + m.getData().MONTH + "\","
-							+ "\"totalEntrada\":\"" + tEntrada13 + "\","
-							+ "\"totalSaida\":\"" + tSaida13 + "\""																		
-							+ "}";
-					if(cont == 0){
-						cont++;
-					}
-					break;
-				default:
-					break;
-			}
-		}
-		
-		jsonMovs = mes1 + ","
-				+ mes2 + ","
-				+ mes3 + ","
-				+ mes4 + ","
-				+ mes5 + ","
-				+ mes6 + ","
-				+ mes7 + ","
-				+ mes8 + ","
-				+ mes9 + ","
-				+ mes10 + ","
-				+ mes11 + ","
-				+ mes12 + ","
-				+ mes13;
-			
-		System.out.println("RegraCaixa, PESQUISANDO POR CODIGO, JSON DE MOVIMENTACOES MONTADO...");
-		return jsonMovs;
-	}
-		
-	// MONTA O JSON GRAFICO
-	private String montaJsonGrafico(String identificador, Caixa caixa, int mes){
-		System.out.println("RegraCaixa, PESQUISANDO POR CODIGO, MONTANDO O JSON DO GRAFICO...");
-			
-		String jsonGrafico = "";
-		String jsonMovs = montaJsonMovimentacaoGrafico(caixa.getMovimentacoes(), mes);
-		jsonGrafico = "{\"" + identificador + "\":[" + jsonMovs + "]}";
-		System.out.println("RegraCaixa, PESQUISANDO POR CODIGO, JSON DO CAIXA MONTADO...");
-		return jsonGrafico;
-	}
-	*/
-	
-	
+	}	
 }

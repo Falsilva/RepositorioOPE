@@ -575,33 +575,28 @@
 	                    </div>
 	                    <!-- FIM -- SALDO -- CAIXA - ÚLTIMOS LANÇAMENTOS -->
 	                </div>
-	                    <!-- GRÁFICO FATURAMENTO MENSAL -->	
-	                    <!--                   
-	                    <div class="col-lg-8">
+	                <div class="row">
+	                    <!-- GRÁFICO FATURAMENTO MENSAL -->
+	                    <div class="col-lg-12">
 							<div class="widget-box transparent">
 							
 								<!-- TÍTULO DO GRÁFICO -->
-								<!--<div class="widget-header widget-header-flat">
+								<div class="widget-header widget-header-flat">
 									<h3 class="widget-title lighter">
-										<i class="ace-icon fa fa-signal"></i><strong> Balanço Geral</strong>
+										<i class="ace-icon fa fa-signal"></i><strong> Balanço</strong>
 									</h3>
 								</div>
 								
 								<!-- GRÁFICO -->
-								<!--<div class="widget-body">
+								<div class="widget-body">
 									<div class="widget-main padding-4">
 										<div class="chart" id="grafico"></div>										
-									</div>
-									
+									</div>									
 								</div>
 							</div>
-						</div>	        
-						 -->            
-	                    <!-- FIM GRÁFICO FATURAMENTO MENSAL -->
-	                                    
-	                
-	                <!-- FIM -- SALDO -- CAIXA - ÚLTIMOS LANÇAMENTOS -- GRÁFICO FATURAMENTO MENSAL -->
-	                
+						</div>	    
+	                    <!-- FIM GRÁFICO FATURAMENTO MENSAL -->	                                    
+	                </div>
 				</div>
 				<!-- FIM -- CONTEÚDO DA PÁGINA -->
 			</div>
@@ -627,32 +622,19 @@
 			</div>
 		</div>
 		
-		<!-- 
-		<table id="tabBalanco">
+		
+		<table id="tabBalanco" class="hidden">
 			<thead>
 				<tr>												
 					<th></th>
-					<th>entrada</th>
-					<th>saida</th>
-					<th>percentual</th>
+					<th>Vendas</th>
+					<th>Compras</th>
+					<th>Balanco</th>
 				</tr>
 			</thead>
-			<tbody>
-				<tr>
-					<th>Abril</th>
-					<td>800</td>
-					<td>200</td>
-					<td>10</td>
-				</tr>
-				<tr>
-					<th>Maio</th>
-					<td>1000</td>
-					<td>500</td>
-					<td>50</td>
-				</tr>
-			</tbody>
+			<tbody></tbody>
 		</table>
-		 -->
+		 
 		<!-- FIM -- RODAPÉ DA PÁGINA -->		
 		
 		<!-- ÍCONE NO CANTO DIREITO INFERIOR DA TELA AO DESCER - ELE APARECE QUANDO DESCE - FAZ VOLTAR PARA O TOPO -->
@@ -704,15 +686,16 @@
     <!-- RELÓGIO -->
     <script src="resources/js/relogio.js"></script>
     
-    <!-- PLUGINS DO GRÁFICO - HIGHCHARTS -->
-    <!-- <script src="resources/js/highcharts.js"></script> -->
-	<!-- <script src="resources/js/exporting.js"></script> --> 
-	
-	<!-- GRÁFICO FATURAMENTO -->
-	<!-- <script src="resources/js/grafico.js"></script> -->
-	
-	<!-- CARREGA DADOS DO CAIXA -->
+    <!-- CARREGA DADOS DO CAIXA -->
 	<script src="resources/js/ajaxcaixa.js"></script>
+	
+    <!-- PLUGINS DO GRÁFICO - HIGHCHARTS -->
+    <script src="resources/js/highcharts.js"></script>
+    <script src="resources/js/data.js"></script>
+	<script src="resources/js/exporting.js"></script> 
+	
+	<!-- GRÁFICO FATURAMENTO  
+	<script src="resources/js/grafico.js"></script>-->	
     
     <!-- <script>
 	$(function () {

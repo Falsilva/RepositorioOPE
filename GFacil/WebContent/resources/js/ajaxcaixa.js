@@ -39,6 +39,13 @@ $(document).ready(function(){
 		// CARREGA OS ANOS QUE POSSUEM DADOS NO BANCO NO SELECT
 		var anoBalanco = $("#anoBalanco");
 		
+		// TABELA PARA O GRÁFICO
+		var tabBalanco = $("#tabBalanco");
+		var tbodyTabBalanco = tabBalanco.find("tbody");
+		var trs = [];
+		
+		console.log("AJAX - DASHBOARD E CAIXA - ANO: " + ano  + " MES: " + mes);
+		
 		$.ajax({
 			url:"controller",
 			type:"post",
@@ -49,9 +56,159 @@ $(document).ready(function(){
 			},
 			success:function(resultado){
 				
-				$.each(resultado.dataCaixa[0].anos, function(index, value){
-					anoBalanco.append("<option value='" + value.ano + "'>" + value.ano + "</option>");
-				});
+				// SE TIVER A TABELA DOS DADOS PARA O GRAFICO
+				if($('#tabBalanco').length){
+					console.log("DASHBOARD - GRAFICO");
+					// TRANSFORMA O MES NUMÉRICO EM TEXTUAL
+					function formataMes(m) {
+					    var d = new Date();
+					    d.setMonth(m);
+					    var month = new Array(12);
+					    month[0] = "Jan";
+					    month[1] = "Fev";
+					    month[2] = "Mar";
+					    month[3] = "Abr";
+					    month[4] = "Mai";
+					    month[5] = "Jun";
+					    month[6] = "Jul";
+					    month[7] = "Ago";
+					    month[8] = "Set";
+					    month[9] = "Out";
+					    month[10] = "Nov";
+					    month[11] = "Dez";
+	
+					    var n = month[d.getUTCMonth()];
+					    return n;
+					}
+					
+					var tamanho = resultado.dataCaixa[0].grafico;	// lista de dados, máx. 13 resultados - mes, entrada, saida, toal - 
+					var completaTR = 0;
+					var ultMesAno = "";
+					var arrPriMesAno = ""; 
+					var priMes = "";
+					var ultMes = "";
+					var anoAnterior = 0;
+					var anoVigente = 0;
+					
+					// SE NAO TIVER OS 13 RESULTADOS, SERAO IDENTIFICADOS OS MESES SEM RESULTADO E COMPLETADOS COM ZERO
+					if(tamanho.length != 13){
+						completaTR = 13 - tamanho.length;	// PEGA A QUANTIDADE DE DADOS VAZIO
+						console.log("TAMANHO DO RESULTADO: " + tamanho.length + " ULTIMO MES/ANO: " + resultado.dataCaixa[0].grafico[tamanho.length-1].mesAno);
+						
+						ultMesAno = resultado.dataCaixa[0].grafico[tamanho.length-1].mesAno;	// PEGA O ÚLTIMO MÊS DOS RESULTADOS PARA IDENTIFICÁ-LO 
+						arrUltMesAno = ultMesAno.split("/");	// SEPARA O ULTIMO MES DO ULTIMO ANO
+						ultMes = (arrUltMesAno[0]-1);			// JUNHO: (5) para formatacao textual (6 - 1)
+						priMes = ultMes;						
+						anoAnterior = arrUltMesAno[1] - 1;
+						anoVigente = arrUltMesAno[1];
+						
+						var qtdMesesAnoVigente = ultMes + 1;
+						var qtdMesesAnoAnterior = 13 - qtdMesesAnoVigente;
+						
+						console.log("qtd. MESES ANO(" + (arrPriMesAno[1] - 1) + ") ANTERIOR: " + qtdMesesAnoAnterior + " qtd. MESES ANO(" + (arrPriMesAno[1]) + ") VIGENTE: " + qtdMesesAnoVigente);						
+												
+						var priIndiceResultado = 0;
+						var ultIndiceResultado = tamanho - 1;
+						var cont = priMes;	// contador vai percorrer os meses
+						
+						// PREENCHE OS DADOS DO ANO ANTERIOR
+						while(cont < 12){	
+							console.log("cont: " + cont + " resultado[" + priIndiceResultado + "]mesAno - 1: " + (resultado.dataCaixa[0].grafico[priIndiceResultado].mesAno - 1));
+							var mA = resultado.dataCaixa[0].grafico[priIndiceResultado].mesAno;
+							var arrMA = mA.split("/");
+							
+							// MESES IGUAIS
+							if(cont == arrMA[0] - 1){
+								
+								// CARREGA OS DADOS NA TABELA
+								tbodyTabBalanco.append("<tr>"
+													+ "<th>" + formataMes(cont) + "/" + anoAnterior + "</th>"
+													+ "<td>" + resultado.dataCaixa[0].grafico[priIndiceResultado].entrada + "</td>"
+													+ "<td>" + resultado.dataCaixa[0].grafico[priIndiceResultado].saida + "</td>"
+													+ "<td>" + resultado.dataCaixa[0].grafico[priIndiceResultado].total + "</td>"
+													+ "</tr>");
+									
+								if(priIndiceResultado != ultIndiceResultado){
+									priIndiceResultado++;	// VAI PARA O PRÓXIMO ÍNDICE									
+								}
+							}else{
+								tbodyTabBalanco.append("<tr>"
+										+ "<th>" + formataMes(cont) + "/" + anoAnterior + "</th>"
+										+ "<td>0</td>"
+										+ "<td>0</td>"
+										+ "<td>0</td>"
+										+ "</tr>");
+							}
+							cont++;
+						}						
+						
+						// PREENCHE OS DADOS DO ANO ANTERIOR
+						cont = 0;
+						while(cont < ultMes + 1){	
+							console.log("cont: " + cont + " resultado[" + priIndiceResultado + "]mesAno - 1: " + (resultado.dataCaixa[0].grafico[priIndiceResultado].mesAno - 1));
+							var mA = resultado.dataCaixa[0].grafico[priIndiceResultado].mesAno;
+							var arrMA = mA.split("/");
+							
+							// MESES IGUAIS
+							if(cont == arrMA[0] - 1){
+								
+								// CARREGA OS DADOS NA TABELA
+								tbodyTabBalanco.append("<tr>"
+													+ "<th>" + formataMes(cont) + "/" + anoVigente + "</th>"
+													+ "<td>" + resultado.dataCaixa[0].grafico[priIndiceResultado].entrada + "</td>"
+													+ "<td>" + resultado.dataCaixa[0].grafico[priIndiceResultado].saida + "</td>"
+													+ "<td>" + resultado.dataCaixa[0].grafico[priIndiceResultado].total + "</td>"
+													+ "</tr>");
+									
+								if(priIndiceResultado != ultIndiceResultado){
+									priIndiceResultado++;	// VAI PARA O PRÓXIMO ÍNDICE									
+								}
+							}else{
+								tbodyTabBalanco.append("<tr>"
+										+ "<th>" + formataMes(cont) + "/" + anoVigente + "</th>"
+										+ "<td>0</td>"
+										+ "<td>0</td>"
+										+ "<td>0</td>"
+										+ "</tr>");
+							}
+							cont++;
+						}							
+					}
+				
+					// API HIGHCHARTS - MONTA O GRAFICO NA DIV COM O ID "grafico" PELOS VALORES DA TABELA COM O ID "tabBalanco"
+					$('#grafico').highcharts({
+				        data: {
+				            table: 'tabBalanco'
+				        },
+				        chart: {
+				            type: 'column'
+				        },
+				        title: {
+				            text: 'Balanço em 12 meses'
+				        },
+				        yAxis: {
+				            allowDecimals: false,
+				            title: {
+				                text: 'Valor (R$)'
+				            }
+				        },
+				        tooltip: {
+				            formatter: function () {
+				                return '<b>' + this.series.name + '</b><br/>' +
+				                    this.point.y + ' ' + this.point.name.toLowerCase();
+				            }
+				        }
+				    });
+				}
+				
+				// SELECAO DE ANO - PÁG. CAIXA
+				if($("#anoBalanco").length){
+					console.log("PAG. CAIXA - SELECAO DO ANO");
+					$.each(resultado.dataCaixa[0].anos, function(index, value){
+						console.log("ano: " + value);
+						anoBalanco.append("<option value='" + value.ano + "'>" + value.ano + "</option>");
+					});
+				}
 				
 // ----------------- IDENTIFICA SE ESTÁ NA PÁG DASHBOARD - DIV CAIXA SALDO TOTAL - PÁGS. DASHBOARD E CAIXA -------------------------------------------
 				divCaixaSaldoTotal.html("<h2><strong><span></span></strong></h2>");
