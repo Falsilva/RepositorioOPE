@@ -113,8 +113,8 @@ $(document).ready(function(){
 						
 						// PREENCHE OS DADOS DO ANO ANTERIOR
 						while(cont < 12){	
-							console.log("cont: " + cont + " resultado[" + priIndiceResultado + "]mesAno - 1: " + (resultado.dataCaixa[0].grafico[priIndiceResultado].mesAno - 1));
-							var mA = resultado.dataCaixa[0].grafico[priIndiceResultado].mesAno;
+							console.log("cont: " + cont + " resultado[" + priIndiceResultado + "]mesAno - 1: " + resultado.dataCaixa[0].grafico[parseInt(priIndiceResultado)].mesAno);
+							var mA = resultado.dataCaixa[0].grafico[parseInt(priIndiceResultado)].mesAno;
 							var arrMA = mA.split("/");
 							
 							// MESES IGUAIS
@@ -123,9 +123,9 @@ $(document).ready(function(){
 								// CARREGA OS DADOS NA TABELA
 								tbodyTabBalanco.append("<tr>"
 													+ "<th>" + formataMes(cont) + "/" + anoAnterior + "</th>"
-													+ "<td>" + resultado.dataCaixa[0].grafico[priIndiceResultado].entrada + "</td>"
-													+ "<td>" + resultado.dataCaixa[0].grafico[priIndiceResultado].saida + "</td>"
-													+ "<td>" + resultado.dataCaixa[0].grafico[priIndiceResultado].total + "</td>"
+													+ "<td>" + resultado.dataCaixa[0].grafico[parseInt(priIndiceResultado)].entrada + "</td>"
+													+ "<td>" + resultado.dataCaixa[0].grafico[parseInt(priIndiceResultado)].saida + "</td>"
+													+ "<td>" + resultado.dataCaixa[0].grafico[parseInt(priIndiceResultado)].total + "</td>"
 													+ "</tr>");
 									
 								if(priIndiceResultado != ultIndiceResultado){
@@ -145,8 +145,8 @@ $(document).ready(function(){
 						// PREENCHE OS DADOS DO ANO ANTERIOR
 						cont = 0;
 						while(cont < ultMes + 1){	
-							console.log("cont: " + cont + " resultado[" + priIndiceResultado + "]mesAno - 1: " + (resultado.dataCaixa[0].grafico[priIndiceResultado].mesAno - 1));
-							var mA = resultado.dataCaixa[0].grafico[priIndiceResultado].mesAno;
+							console.log("cont: " + cont + " resultado[" + priIndiceResultado + "]mesAno - 1: " + (resultado.dataCaixa[0].grafico[parseInt(priIndiceResultado)].mesAno));
+							var mA = resultado.dataCaixa[0].grafico[parseInt(priIndiceResultado)].mesAno;
 							var arrMA = mA.split("/");
 							
 							// MESES IGUAIS
@@ -155,9 +155,9 @@ $(document).ready(function(){
 								// CARREGA OS DADOS NA TABELA
 								tbodyTabBalanco.append("<tr>"
 													+ "<th>" + formataMes(cont) + "/" + anoVigente + "</th>"
-													+ "<td>" + resultado.dataCaixa[0].grafico[priIndiceResultado].entrada + "</td>"
-													+ "<td>" + resultado.dataCaixa[0].grafico[priIndiceResultado].saida + "</td>"
-													+ "<td>" + resultado.dataCaixa[0].grafico[priIndiceResultado].total + "</td>"
+													+ "<td>" + resultado.dataCaixa[0].grafico[parseInt(priIndiceResultado)].entrada + "</td>"
+													+ "<td>" + resultado.dataCaixa[0].grafico[parseInt(priIndiceResultado)].saida + "</td>"
+													+ "<td>" + resultado.dataCaixa[0].grafico[parseInt(priIndiceResultado)].total + "</td>"
 													+ "</tr>");
 									
 								if(priIndiceResultado != ultIndiceResultado){
@@ -204,9 +204,39 @@ $(document).ready(function(){
 				// SELECAO DE ANO - PÁG. CAIXA
 				if($("#anoBalanco").length){
 					console.log("PAG. CAIXA - SELECAO DO ANO");
-					$.each(resultado.dataCaixa[0].anos, function(index, value){
-						console.log("ano: " + value);
-						anoBalanco.append("<option value='" + value.ano + "'>" + value.ano + "</option>");
+					var anoAux = 0;
+					var arrayAnoOption = [];
+					$.each(resultado.dataCaixa[0].anos, function(index, value){												
+						arrayAnoOption.push(value.ano);
+						//anoBalanco.append("<option value='" + value.ano + "'>" + value.ano + "</option>");
+					});
+					
+					// ORDENANDO OS ANOS PARA A EXIBIÇÃO
+					for(var i = 0; i < arrayAnoOption.length; i++){
+						if(i != arrayAnoOption.length - 1){
+							if(arrayAnoOption[i - 1] < arrayAnoOption[i]){
+								anoAux = arrayAnoOption[i];
+								arrayAnoOption[i] = arrayAnoOption[i - 1];
+								arrayAnoOption[i - 1] = anoAux;
+							}
+						}						
+					}
+					// COLOCANDO OS ANOS NO OPTIONS - SELECT
+					
+					$.each(arrayAnoOption, function(index, value){
+						console.log("ANO SELECIONADO: " + ano + " ANO[" + index + "]: " + value);
+						if(ano == null){
+							var d = new Date();
+							ano = d.getFullYear();
+							console.log("ANO NULO PREENCHIDO: " + ano);
+						}
+						if(ano == value){							
+							anoBalanco.append("<option value='" + value + "' selected>" + value + "</option>");
+							console.log("IF ano(" + ano + ") = value(" + value + ") OPTION(selected): " + anoBalanco.find("option").prop("selected"));
+						}else{							
+							anoBalanco.append("<option value='" + value + "'>" + value + "</option>");
+							console.log("ELSE ano(" + ano + ") != value(" + value + ") OPTION(selected): " + anoBalanco.find("option").prop("selected"));
+						}						
 					});
 				}
 				
