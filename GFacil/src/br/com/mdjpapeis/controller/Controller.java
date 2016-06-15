@@ -167,6 +167,9 @@ public class Controller extends HttpServlet{
 			case "pesquisarCaixa":
 				dispatcher = req.getRequestDispatcher("pesquisarCaixa");
 				break;
+			case "pesquisarCaixaAno":
+				dispatcher = req.getRequestDispatcher("pesquisarCaixaAno");
+				break;
 			case "cadastrarCaixa":
 				dispatcher = req.getRequestDispatcher("cadastrarCaixa");
 				break;

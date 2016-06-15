@@ -240,9 +240,6 @@ public class RegraPedidoCompra extends HttpServlet {
 						
 						System.out.println("COD FORNECEDOR: " + pedidoCompra.getFornecedor().getCodigo());
 						
-						
-						
-						
 						// PEGA OS ITENS EM STRING, MAS NA ESTRUTURA JSON, E COLOCA EM UM ARRAY
 						strItens = req.getParameter("itens").replace("},{", "};{");
 						arrayItens = strItens.split(";");
@@ -280,11 +277,7 @@ public class RegraPedidoCompra extends HttpServlet {
 									listaItens.get(pedidoCompra.getItensPedidoCompra().indexOf(it)).setCodigo(it.getCodigo());
 								}
 							}
-						}
-						
-						
-						
-						
+						}						
 						
 						// ADICIONA A LISTA DE ITENS NO PEDIDO
 						pedidoCompra.setItensPedidoCompra(listaItens);

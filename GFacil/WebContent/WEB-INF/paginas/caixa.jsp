@@ -331,7 +331,7 @@
 								<!-- SALDO -->
 								<div class="widget-body">
 									<div class="widget-main no-padding">
-										<div class="text-right" role="saldoTotal"></div>
+										<div class="text-right" role="saldoTotal" id="saldoCaixa"></div>
 									</div>
 								</div>
 	                		</div>

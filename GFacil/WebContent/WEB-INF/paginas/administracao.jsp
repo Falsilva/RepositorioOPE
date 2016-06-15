@@ -309,7 +309,7 @@
 								<button type="button" class="close" data-dismiss="alert">
 									<i class="ace-icon fa fa-times"></i>
 								</button>
-								<i class="ace-icon fa fa-check green"></i> Aqui é onde tudo começa! Nesta página, você possui uma visão geral do que é mais importante para gerenciar melhor o seu negócio, como o saldo em caixa, os últimos lançamentos e pendências,<!--  e uma visão gráfica de como anda o balanço geral,--> além de acesso ao menu com as principais funcionalidades que sempre o acompanha durante a navegação do sistema.
+								<i class="ace-icon fa fa-check green"></i> Aqui é onde tudo começa! Nesta página, você possui uma visão geral do que é mais importante para gerenciar melhor o seu negócio, como o saldo em caixa, os últimos lançamentos e pendências, uma visão gráfica de como anda o balanço, além de acesso ao menu com as principais funcionalidades que sempre o acompanha durante a navegação do sistema.
 								<!-- MENSAGEM, SE HOUVER ALERTAS: Aqui é onde tudo começa! Nesta página, você possui uma visão geral do que é mais importante para gerenciar melhor o seu negócio, como notificações importantes, tarefas pendentes, o saldo em caixa e uma visão gráfica de como anda o faturamento, além de acesso ao menu com as principais funcionalidades que sempre o acompanha durante a navegação do sistema. -->
 							</div>
 						</div>
@@ -451,7 +451,7 @@
 								<!-- SALDO -->
 								<div class="widget-body">
 									<div class="widget-main no-padding">
-										<div class="text-right" role="saldoTotal"></div>
+										<div class="text-right" role="saldoTotal" id="saldoDashboard"></div>
 									</div>
 								</div>
 	                		</div>
@@ -526,7 +526,7 @@
 		                        </div>
 		                    	<div class="text-right">
 		                        	<h5>
-		                        		<a href="#" onclick="document.getElementById('form_caixa').submit()">
+		                        		<a href="#" onclick="document.getElementById('form_compra').submit()">
 											<form id="form_caixa" action="controller?action=listarPedidoCompra" method="post"></form>
 											Ver todos os pedidos <i class="fa fa-arrow-circle-right"></i>											
 										</a>
@@ -565,7 +565,7 @@
 		                        </div>
 		                    	<div class="text-right">
 		                        	<h5>
-		                        		<a href="#" onclick="document.getElementById('form_caixa').submit()">
+		                        		<a href="#" onclick="document.getElementById('form_venda').submit()">
 											<form id="form_caixa" action="controller?action=listarPedidoVenda" method="post"></form>
 											Ver todos pedidos <i class="fa fa-arrow-circle-right"></i>											
 										</a>

@@ -21,11 +21,10 @@ $(document).ready(function(){
 	}
 	
 	// DIV CAIXA SALDO TOTAL E TABELA CAIXA BALANCO GERAL - PÁGS. DASHBOARD E CAIXA
-	var divCaixaSaldoTotal = $("div[role=saldoTotal");
-	
+	//var divCaixaSaldoTotal = $("div[role=saldoTotal");
+	var divCaixaSaldoTotal = $("#saldoDashboard");
 // ----------------- IDENTIFICA SE EXISTE A DIV DE SALDO -- IMPORTANTE!!! AQUI CONTÉM A LÓGICA DO CAIXA DAS DUAS PÁGINAS - DASHBOARD E CAIXA --------
 	if(divCaixaSaldoTotal.length){
-		var tableCaixaBalancoGeral = $("table[role=balancoGeral]");		
 		
 		var tabCxUltimo = $("#tabCxUltimo");
 		var tbodyCxUltimo = tabCxUltimo.find("tbody");				
@@ -35,9 +34,6 @@ $(document).ready(function(){
 		
 		var tabPvUltimo = $("#tabPvUltimo");
 		var tbodyPvUltimo = tabPvUltimo.find("tbody");
-		
-		// CARREGA OS ANOS QUE POSSUEM DADOS NO BANCO NO SELECT
-		var anoBalanco = $("#anoBalanco");
 		
 		// TABELA PARA O GRÁFICO
 		var tabBalanco = $("#tabBalanco");
@@ -52,7 +48,7 @@ $(document).ready(function(){
 			dataType:"json",
 			data:{
 				codigo:codigo,
-				action:"pesquisarCaixa"
+				action:"pesquisarCaixa",
 			},
 			success:function(resultado){
 				
@@ -202,7 +198,7 @@ $(document).ready(function(){
 				}
 				
 				// SELECAO DE ANO - PÁG. CAIXA
-				if($("#anoBalanco").length){
+				/*if($("#anoBalanco").length){
 					console.log("PAG. CAIXA - SELECAO DO ANO");
 					var anoAux = 0;
 					var arrayAnoOption = [];
@@ -238,7 +234,7 @@ $(document).ready(function(){
 							console.log("ELSE ano(" + ano + ") != value(" + value + ") OPTION(selected): " + anoBalanco.find("option").prop("selected"));
 						}						
 					});
-				}
+				}*/
 				
 // ----------------- IDENTIFICA SE ESTÁ NA PÁG DASHBOARD - DIV CAIXA SALDO TOTAL - PÁGS. DASHBOARD E CAIXA -------------------------------------------
 				divCaixaSaldoTotal.html("<h2><strong><span></span></strong></h2>");
@@ -302,10 +298,12 @@ $(document).ready(function(){
 					});					
 				}				
 				
-// ------------------------- IDENTIFICA SE ESTÁ NA PÁG CAIXA - TABELA CAIXA BALANCO GERAL - PÁG. CAIXA -----------------------------------------------
+
 				// VERIFICA SE A TABELA EXISTE E CARREGA OS DADOS
-				if(tableCaixaBalancoGeral.length){
+				/*if(tableCaixaBalancoGeral.length){
 					$("#balancoGeralAnoVigente").text(parseInt(dataCompleta.getFullYear()));
+					
+					console.log("CAIXA ANO(" + ano + "): ENTRADA: " + resultado.dataCaixa[0].totalEntrada + " SAIDA: " + resultado.dataCaixa[0].totalSaida + " SALDO: " + resultado.dataCaixa[0].saldo);
 					
 					var tdReceitas = tableCaixaBalancoGeral.find("td[role=receitas]");
 					tdReceitas.html("<h4><b></b></h4>");				
@@ -330,7 +328,8 @@ $(document).ready(function(){
 						tdSaldo.find("b").addClass("blue");
 						tdSaldo.find("b").text("R$ " + formataNumeroParaExibicao(resultado.dataCaixa[0].saldo, 2, ",", "."));
 					}
-				}
+				}*/
+				
 			}
 		});
 	}	
@@ -338,6 +337,178 @@ $(document).ready(function(){
 	
 	
 	
+	
+	var divPagCaixa = $("#saldoCaixa");
+	if(divPagCaixa.length){
+		
+		var tableCaixaBalancoGeral = $("table[role=balancoGeral]");
+		
+		// CARREGA OS ANOS QUE POSSUEM DADOS NO BANCO NO SELECT
+		var anoBalanco = $("#anoBalanco");
+		console.log("ANOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO: " + ano);
+		$.ajax({
+			url:"controller",
+			type:"post",
+			dataType:"json",
+			data:{
+				codigo:codigo,
+				ano:ano,
+				action:"pesquisarCaixaAno",
+			},
+			success:function(resultado){
+				
+				// MOSTRA O SALDO DO CAIXA
+				divPagCaixa.html("<h2><strong><span></span></strong></h2>");
+				if(resultado.dataCaixaAno[0].saldo < 0){				
+					var saldoNegativo = resultado.dataCaixaAno[0].saldo - (resultado.dataCaixaAno[0].saldo) - (resultado.dataCaixaAno[0].saldo);
+					divPagCaixa.find("span").removeClass("green");
+					divPagCaixal.find("span").addClass("red");
+					divPagCaixa.find("span").text("- R$ " + formataNumeroParaExibicao(saldoNegativo, 2, ",", "."));
+				}else{					
+					divPagCaixa.find("span").removeClass("red");
+					divPagCaixa.find("span").addClass("green");
+					divPagCaixa.find("span").text("R$ " + formataNumeroParaExibicao(resultado.dataCaixaAno[0].saldo, 2, ",", "."));
+				}
+				
+				// SELECAO DE ANO - PÁG. CAIXA
+				if($("#anoBalanco").length){
+					console.log("PAG. CAIXA - SELECAO DO ANO");
+					var anoAux = 0;
+					var arrayAnoOption = [];
+					$.each(resultado.dataCaixaAno[0].anos, function(index, value){												
+						arrayAnoOption.push(value.ano);						
+					});
+					
+					// ORDENANDO OS ANOS PARA A EXIBIÇÃO
+					for(var i = 0; i < arrayAnoOption.length; i++){
+						if(i != arrayAnoOption.length - 1){
+							if(arrayAnoOption[i - 1] < arrayAnoOption[i]){
+								anoAux = arrayAnoOption[i];
+								arrayAnoOption[i] = arrayAnoOption[i - 1];
+								arrayAnoOption[i - 1] = anoAux;
+							}
+						}						
+					}
+					// COLOCANDO OS ANOS NO OPTIONS - SELECT
+					
+					$.each(arrayAnoOption, function(index, value){
+						console.log("ANO SELECIONADO: " + ano + " ANO[" + index + "]: " + value);
+						if(ano == null){
+							var d = new Date();
+							ano = d.getFullYear();
+							console.log("ANO NULO PREENCHIDO: " + ano);
+						}
+						if(ano == value){							
+							anoBalanco.append("<option value='" + value + "' selected>" + value + "</option>");
+							console.log("IF ano(" + ano + ") = value(" + value + ") OPTION(selected): " + anoBalanco.find("option").prop("selected"));
+						}else{							
+							anoBalanco.append("<option value='" + value + "'>" + value + "</option>");
+							console.log("ELSE ano(" + ano + ") != value(" + value + ") OPTION(selected): " + anoBalanco.find("option").prop("selected"));
+						}						
+					});
+				}
+				
+				
+				// VERIFICA SE A TABELA EXISTE E CARREGA OS DADOS
+				if(tableCaixaBalancoGeral.length){
+					$("#balancoGeralAnoVigente").text(parseInt(ano));
+					
+					console.log("CAIXA ANO(" + ano + "): ENTRADA: " + resultado.dataCaixaAno[0].totalEntradaAno + " SAIDA: " + resultado.dataCaixaAno[0].totalSaidaAno + " SALDO: " + resultado.dataCaixaAno[0].saldoAno);
+					
+					var tdReceitas = tableCaixaBalancoGeral.find("td[role=receitas]");
+					tdReceitas.html("<h4><b></b></h4>");				
+					tdReceitas.find("b").addClass("green");
+					tdReceitas.find("b").text("R$ " + formataNumeroParaExibicao(resultado.dataCaixaAno[0].totalEntradaAno, 2, ",", "."));
+					
+					var tdDespesas = tableCaixaBalancoGeral.find("td[role=despesas]")
+					tdDespesas.html("<h4><b></b></h4>");
+					tdDespesas.find("b").addClass("red");
+					tdDespesas.find("b").text("R$ " + formataNumeroParaExibicao(resultado.dataCaixaAno[0].totalSaidaAno, 2, ",", "."));
+					
+					if(resultado.dataCaixaAno[0].saldoAno < 0){					
+						var saldoNegativo = resultado.dataCaixaAno[0].saldoAno - (resultado.dataCaixaAno[0].saldoAno) - (resultado.dataCaixaAno[0].saldoAno);
+						var tdSaldo = tableCaixaBalancoGeral.find("td[role=saldo]");
+						tdSaldo.html("<h4><b></b></h4>");
+						tdSaldo.find("b").removeClass("blue");
+						tdSaldo.find("b").addClass("red");
+						tdSaldo.find("b").text("R$ " + formataNumeroParaExibicao(saldoNegativo, 2, ",", "."));
+					}else{					
+						var tdSaldo = tableCaixaBalancoGeral.find("td[role=saldo]");
+						tdSaldo.html("<h4><b></b></h4>");
+						tdSaldo.find("b").removeClass("red");
+						tdSaldo.find("b").addClass("blue");
+						tdSaldo.find("b").text("R$ " + formataNumeroParaExibicao(resultado.dataCaixaAno[0].saldoAno, 2, ",", "."));
+					}
+				}
+			
+			}
+		});
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// VERIFICA SE HÁ TABELA BALANÇO ANUAL - PÁG. CAIXA
+	if(tableCaixaBalancoGeral.length){
+		
+		// CARREGA OS ANOS QUE POSSUEM DADOS NO BANCO NO SELECT
+		var anoBalanco = $("#anoBalanco");
+		
+		console.log("TABELA BALANCO ANO, ano: " + ano);
+		// CARREGA O BALANÇO ANUAL - PÁG. CAIXA
+		var exibeBalancoAnoSelecionado = function(ano){
+			console.log("AJAX BALANCO ANO, ano: " + ano);
+			
+			$.ajax({
+				url:"controller",
+				type:"post",
+				dataType:"json",
+				data:{
+					codigo:codigo,
+					ano:ano,
+					action:"pesquisarCaixaAno"
+				},
+				success:function(resultado){
+					console.log("CAIXA ANO(" + ano + "): ENTRADA: " + resultado.dataCaixaAno[0].totalEntradaAno + " SAIDA: " + resultado.dataCaixaAno[0].totalSaidaAno + " SALDO: " + resultado.dataCaixaAno[0].saldoAno);
+					
+					$("#balancoGeralAnoVigente").text(parseInt(ano));
+					
+					var tdReceitas = tableCaixaBalancoGeral.find("td[role=receitas]");
+					tdReceitas.html("<h4><b></b></h4>");				
+					tdReceitas.find("b").addClass("green");
+					tdReceitas.find("b").text("R$ " + formataNumeroParaExibicao(resultado.dataCaixaAno[0].totalEntradaAno, 2, ",", "."));
+					
+					var tdDespesas = tableCaixaBalancoGeral.find("td[role=despesas]")
+					tdDespesas.html("<h4><b></b></h4>");
+					tdDespesas.find("b").addClass("red");
+					tdDespesas.find("b").text("R$ " + formataNumeroParaExibicao(resultado.dataCaixaAno[0].totalSaidaAno, 2, ",", "."));
+					
+					if(resultado.dataCaixaAno[0].saldoAno < 0){					
+						var saldoNegativo = resultado.dataCaixaAno[0].saldoAno - (resultado.dataCaixaAno[0].saldoAno) - (resultado.dataCaixaAno[0].saldoAno);
+						var tdSaldo = tableCaixaBalancoGeral.find("td[role=saldo]");
+						tdSaldo.html("<h4><b></b></h4>");
+						tdSaldo.find("b").removeClass("blue");
+						tdSaldo.find("b").addClass("red");
+						tdSaldo.find("b").text("R$ " + formataNumeroParaExibicao(saldoNegativo, 2, ",", "."));
+					}else{					
+						var tdSaldo = tableCaixaBalancoGeral.find("td[role=saldo]");
+						tdSaldo.html("<h4><b></b></h4>");
+						tdSaldo.find("b").removeClass("red");
+						tdSaldo.find("b").addClass("blue");
+						tdSaldo.find("b").text("R$ " + formataNumeroParaExibicao(resultado.dataCaixaAno[0].saldoAno, 2, ",", "."));
+					}
+				}
+			});
+		}
+		
+		// EXECUTA QUANDO A PÁG. CAIXA É CARREGADA
+		//exibeBalancoAnoSelecionado(ano);
+	}
 	
 	
 	
@@ -625,14 +796,68 @@ $(document).ready(function(){
 				success:function(resultado){
 					console.log("11.MES ajax result: " + mes + " ANO: " + ano);
 					
+					
+					
+					
+					
+					
+					
+					
+					// VERIFICA SE A TABELA EXISTE E CARREGA OS DADOS
+					/*if(tableCaixaBalancoGeral.length){
+						//$("#balancoGeralAnoVigente").text(parseInt(dataCompleta.getFullYear()));
+						$("#balancoGeralAnoVigente").text(parseInt(ano));
+						console.log("CAIXA ANO(" + ano + "): ENTRADA: " + resultado.dataCaixaMes[0].totalEntradaAno + " SAIDA: " + resultado.dataCaixaMes[0].totalSaidaAno + " SALDO: " + resultado.dataCaixaMes[0].saldoAno);
+						
+						var tdReceitas = tableCaixaBalancoGeral.find("td[role=receitas]");
+						tdReceitas.html("<h4><b></b></h4>");				
+						tdReceitas.find("b").addClass("green");
+						tdReceitas.find("b").text("R$ " + formataNumeroParaExibicao(resultado.dataCaixaMes[0].totalEntradaAno, 2, ",", "."));
+						
+						var tdDespesas = tableCaixaBalancoGeral.find("td[role=despesas]")
+						tdDespesas.html("<h4><b></b></h4>");
+						tdDespesas.find("b").addClass("red");
+						tdDespesas.find("b").text("R$ " + formataNumeroParaExibicao(resultado.dataCaixaMes[0].totalSaidaAno, 2, ",", "."));
+						if(resultado.dataCaixaMes[0].saldoAno < 0){					
+							var saldoNegativo = resultado.dataCaixaMes[0].saldoAno - (resultado.dataCaixaMes[0].saldoAno) - (resultado.dataCaixaMes[0].saldoAno);
+							var tdSaldo = tableCaixaBalancoGeral.find("td[role=saldo]");
+							tdSaldo.html("<h4><b></b></h4>");
+							tdSaldo.find("b").removeClass("blue");
+							tdSaldo.find("b").addClass("red");
+							tdSaldo.find("b").text("R$ " + formataNumeroParaExibicao(saldoNegativo, 2, ",", "."));
+						}else{					
+							var tdSaldo = tableCaixaBalancoGeral.find("td[role=saldo]");
+							tdSaldo.html("<h4><b></b></h4>");
+							tdSaldo.find("b").removeClass("red");
+							tdSaldo.find("b").addClass("blue");
+							tdSaldo.find("b").text("R$ " + formataNumeroParaExibicao(resultado.dataCaixaMes[0].saldoAno, 2, ",", "."));
+						}
+					}
+					*/
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					// CASO NÃO HAJA MOVIMENTAÇÃO DO MÊS E ANO INFORMADOS
 					if(resultado.dataCaixaMes == "null"){
 						console.log("12.MES ajax result NULO: " + mes + " ANO: " + ano);
 						divConteudoMeses.html("<h3><b class='blue'></b></h3>");
 						divConteudoMeses.addClass("center");
 						divConteudoMeses.find("b").text("Não há lançamentos.");						
-					}else{
+					}else{	// SENÃO - EXISTE MOVIMENTAÇÃO
 						console.log("12.MES ajax result OK: " + mes + " ANO: " + ano);
 						
+						// VERIFICA SE EXISTE A DIV COM ABAS DOS MESES
 						if(divAbasMeses.length){
 							divConteudoMeses.removeClass("center");
 							
@@ -650,8 +875,8 @@ $(document).ready(function(){
 							
 							console.log("14.MES ajax result movimentacoes: " + mes + " ANO: " + ano);
 							
-							$.each(resultado.dataCaixaMes[0].movimentacoes, function(index, value){					
-								
+							// MOVIMENTAÇÕES MENSAIS - CARREGA AS MOVIMENTAÇÕES DO MÊS NA ABA SELECIONADA
+							$.each(resultado.dataCaixaMes[0].movimentacoes, function(index, value){									
 								if(resultado.dataCaixaMes[0].movimentacoes[index].tipoLancamento == "SAIDA"){
 									tbodyMovimentacaoMensal.append("<tr><td class='text-right' role='item'><b>" + (index+1) + "</b></td>"
 											+ "<td role='data'><b>" + resultado.dataCaixaMes[0].movimentacoes[index].data + "</b></td>"
@@ -684,7 +909,7 @@ $(document).ready(function(){
 		// ESCUTA A SELEÇÃO DO ANO
 		anoBalanco.change(function(e){
 			e.preventDefault();		
-			console.log("MES: " + mes);
+			console.log("ANO: " + ano + " MES: " + mes);
 			
 			// PEGA O ANO SELECIONADO
 			ano = $(this).val();
@@ -693,9 +918,12 @@ $(document).ready(function(){
 			if(ano == parseInt(new Date().getFullYear())){
 				mes = parseInt(new Date().getMonth() + 1);
 			}else{
-				// SENÃO SETA O MÊS 1
+				// SENÃO SETA O MÊS 1 - JANEIRO
 				mes = parseInt(1);
 			}
+			
+			// CARREGA OS DADOS DO BALANÇO ANUAL
+			exibeBalancoAnoSelecionado(ano);
 			
 			// MONTA A DIV
 			montaDivConteudoMeses(mes, ano);

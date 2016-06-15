@@ -55,6 +55,7 @@ import br.com.mdjpapeis.entity.Usuario;
 		"/excluirPedidoVenda",
 		"/listarCaixa",
 		"/pesquisarCaixa",
+		"/pesquisarCaixaAno",
 		"/cadastrarCaixa",
 		"/atualizarCaixa",
 		"/excluirCaixa"
