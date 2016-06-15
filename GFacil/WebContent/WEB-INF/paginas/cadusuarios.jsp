@@ -536,7 +536,7 @@
 										</div>
 
 										<div class="modal-footer">
-											<div class="pull-left text-left">
+											<div id="cmpObrigatorio" class="pull-left text-left">
 												<b class="blue">* campos obrigatórios</b>												
 											</div>
 											<div class="pull-right">

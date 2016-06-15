@@ -52,7 +52,8 @@ $(document).ready(function(){
 				$("#modal-form-cliente[rel=modalcadastrar]").find(".modal-body").html("<h3>" + resultado + "</h3>");
 				var botao = $("#modal-form-cliente[rel=modalcadastrar]").find("#btnCancelar").attr("id", "btnFechar");				
 				botao.text("Fechar");				
-				$("#modal-form-cliente[rel=modalcadastrar]").find("#btnCadastrar").addClass("hidden");				
+				$("#modal-form-cliente[rel=modalcadastrar]").find("#btnCadastrar").addClass("hidden");	
+				$("#modal-form-cliente[rel=modalcadastrar]").find("#cmpObrigatorio").addClass("hidden");
 			}
 		});
 	});
@@ -131,7 +132,8 @@ $(document).ready(function(){
 				$("#modal-form-cliente[rel=modalatualizar]").find(".modal-body").html("<h3>" + resultado + "</h3>");
 				var botao = $("#modal-form-cliente[rel=modalatualizar]").find("#btnCancelar").attr("id", "btnFechar");				
 				botao.text("Fechar");				
-				$("#modal-form-cliente[rel=modalatualizar]").find("#btnSalvar").addClass("hidden");				
+				$("#modal-form-cliente[rel=modalatualizar]").find("#btnSalvar").addClass("hidden");	
+				$("#modal-form-cliente[rel=modalatualizar]").find("#cmpObrigatorio2").addClass("hidden");
 			}
 		});
 	});	

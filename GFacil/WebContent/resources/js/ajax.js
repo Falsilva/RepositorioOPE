@@ -30,7 +30,8 @@ $(document).ready(function(){
 				$("#modal-form[rel=modalcadastrar]").find(".modal-body").html("<h3>" + resultado + "</h3>");
 				var botao = $("#modal-form[rel=modalcadastrar]").find("#btnCancelar").attr("id", "btnFechar");				
 				botao.text("Fechar");				
-				$("#modal-form[rel=modalcadastrar]").find("#btnCadastrar").addClass("hidden");				
+				$("#modal-form[rel=modalcadastrar]").find("#btnCadastrar").addClass("hidden");		
+				$("#modal-form[rel=modalcadastrar]").find("#cmpObrigatorio").addClass("hidden");
 			}
 		});
 	});

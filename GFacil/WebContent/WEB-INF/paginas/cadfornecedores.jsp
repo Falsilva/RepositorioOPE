@@ -624,7 +624,7 @@
 										</div>
 
 										<div class="modal-footer">
-											<div class="pull-left text-left">
+											<div id="cmpObrigatorio" class="pull-left text-left">
 												<b class="blue">* campo obrigatório
 												<br />
 												** preenchimento obrigatório de um dos campos</b>
@@ -872,7 +872,7 @@
 										</div>
 
 										<div class="modal-footer">
-											<div class="pull-left text-left">
+											<div id="cmpObrigatorio2" class="pull-left text-left">
 												<b class="blue">* campo obrigatório
 												<br />
 												** preenchimento obrigatório de um dos campos</b>

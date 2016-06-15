@@ -16,10 +16,17 @@ $(document).ready(function(){
 	var cnpj_tmp;
 	var inscEstadual_tmp;
 
-	
+	/*
 	var options =  {onKeyPress: function(telefone, e, field, options){
 		var masks = ["(00)0.0000-0000", "(00)0000-0000"];
 		mask = (telefone.length > 13) ? masks[1] : masks[0];
+		$("#telefone").mask(mask, options);
+	}};
+	$("#telefone").mask("(00)0000-0000", options);
+	*/
+	var options =  {onKeyPress: function(telefone, e, field, options){
+		var masks = ["(00) 0.0000-0000", "(00) 0000-00009"];
+		mask = (telefone.length > 14) ? masks[0] : masks[1];
 		$("#telefone").mask(mask, options);
 	}};
 	$("#telefone").mask("(00)0000-0000", options);
@@ -361,6 +368,11 @@ $(document).ready(function(){
 	$("#modal-form-cliente[rel=modalexcluir]").on("hidden.bs.modal", function (){
 		console.log("Modal Excluir Encerrado");
 		location.reload();
+	});
+	
+	// RECARREGA A PÁGINA AO FECHAR O MODAL ATUALIZAR
+	$("#modal-form-cliente[rel=modalatualizar]").on("shown.bs.modal", function (){
+		console.log("Modal Atualizar Carregado");
 	});
 	
 	// RECARREGA A PÁGINA AO FECHAR O MODAL ATUALIZAR
